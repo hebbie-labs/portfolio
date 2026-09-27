@@ -10,7 +10,7 @@ jobs:
     steps:
       - name: Pull and rebuild
         run: |
-          cd ~/portfolio
+          cd /srv/portfolio
           git pull
-          cd ~/homelab
+          cd /srv/homelab
           docker compose up -d --build portfolio
