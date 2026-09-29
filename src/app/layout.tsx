@@ -4,8 +4,7 @@ import {
   Instrument_Sans,
   JetBrains_Mono,
 } from "next/font/google";
-import Footer from "@/components/footer";
-import Nav from "@/components/nav";
+import { MainTemplate } from "@/components/templates/main-template";
 import "./globals.css";
 
 const bricolage = Bricolage_Grotesque({
@@ -98,9 +97,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
           }}
         />
-        <Nav />
-        <main className="flex-1">{children}</main>
-        <Footer />
+        <MainTemplate>{children}</MainTemplate>
       </body>
     </html>
   );
