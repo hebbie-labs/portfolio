@@ -29,6 +29,8 @@ interface AnimatedThemeTogglerProps extends React.ComponentPropsWithoutRef<"butt
   onThemeChange?: (theme: "light" | "dark") => void
 }
 
+const THEME_COLORS = { dark: "#0a0d0b", light: "#eef2ee" } as const
+
 function polygonCollapsed(point: string, vertexCount: number): string {
   const pairs = Array.from({ length: vertexCount }, () => point).join(", ")
   return `polygon(${pairs})`
@@ -181,6 +183,7 @@ export const AnimatedThemeToggler = ({
       delete root.dataset.magicuiThemeVt
       root.style.removeProperty("--magicui-theme-toggle-vt-duration")
       root.style.removeProperty("--magicui-theme-vt-clip-from")
+      root.style.removeProperty("background-color")
     }
   }, [cancelAnim])
 
@@ -237,12 +240,6 @@ export const AnimatedThemeToggler = ({
       // Always toggle the class synchronously so the View Transitions API
       // snapshots the new theme inside the startViewTransition callback.
       document.documentElement.dataset.theme = newTheme ? "dark" : "light"
-      document
-        .querySelector('meta[name="theme-color"]')
-        ?.setAttribute(
-          "content",
-          getComputedStyle(document.documentElement).getPropertyValue("--bg")
-        )
       if (isControlled) {
         onThemeChange?.(newTheme ? "dark" : "light")
       } else {
@@ -253,8 +250,16 @@ export const AnimatedThemeToggler = ({
       }
     }
 
+    const oldColor = THEME_COLORS[isDark ? "dark" : "light"]
+    const newColor = THEME_COLORS[isDark ? "light" : "dark"]
+    const setBarColor = (color: string) =>
+      document
+        .querySelector('meta[name="theme-color"]')
+        ?.setAttribute("content", color)
+
     if (typeof document.startViewTransition !== "function") {
       applyTheme()
+      setBarColor(newColor)
       return
     }
 
@@ -276,8 +281,13 @@ export const AnimatedThemeToggler = ({
     // Pin the collapsed clip-path via CSS so Firefox does not paint the new
     // theme unclipped between snapshot and the ready.then() JS animation.
     root.style.setProperty("--magicui-theme-vt-clip-from", clipPath[0])
+    // Keep the canvas (visible under Safari's bars, outside the snapshot) on
+    // the old color until the reveal finishes.
+    root.style.backgroundColor = oldColor
     const cleanup = () => {
       isTransitioningRef.current = false
+      root.style.removeProperty("background-color")
+      setBarColor(newColor)
       delete root.dataset.magicuiThemeVt
       root.style.removeProperty("--magicui-theme-toggle-vt-duration")
       root.style.removeProperty("--magicui-theme-vt-clip-from")
