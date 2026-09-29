@@ -1,6 +1,6 @@
 export default function Home() {
   return (
-    <main className="flex min-h-dvh flex-col items-center justify-center gap-6 bg-neutral-950 px-6 text-center text-neutral-100">
+    <main className="flex min-h-screen flex-col items-center justify-center gap-6 bg-neutral-950 px-6 text-center text-neutral-100">
       <p className="text-sm uppercase tracking-[0.3em] text-neutral-500">
         Coming soon
       </p>
