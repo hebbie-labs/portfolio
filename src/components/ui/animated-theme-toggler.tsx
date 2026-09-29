@@ -183,6 +183,7 @@ export const AnimatedThemeToggler = ({
       delete root.dataset.magicuiThemeVt
       root.style.removeProperty("--magicui-theme-toggle-vt-duration")
       root.style.removeProperty("--magicui-theme-vt-clip-from")
+      root.style.removeProperty("background-color")
     }
   }, [cancelAnim])
 
@@ -249,13 +250,16 @@ export const AnimatedThemeToggler = ({
       }
     }
 
-    // Update browser bars before the transition so they switch instantly.
-    document
-      .querySelector('meta[name="theme-color"]')
-      ?.setAttribute("content", THEME_COLORS[isDark ? "light" : "dark"])
+    const oldColor = THEME_COLORS[isDark ? "dark" : "light"]
+    const newColor = THEME_COLORS[isDark ? "light" : "dark"]
+    const setBarColor = (color: string) =>
+      document
+        .querySelector('meta[name="theme-color"]')
+        ?.setAttribute("content", color)
 
     if (typeof document.startViewTransition !== "function") {
       applyTheme()
+      setBarColor(newColor)
       return
     }
 
@@ -277,8 +281,13 @@ export const AnimatedThemeToggler = ({
     // Pin the collapsed clip-path via CSS so Firefox does not paint the new
     // theme unclipped between snapshot and the ready.then() JS animation.
     root.style.setProperty("--magicui-theme-vt-clip-from", clipPath[0])
+    // Keep the canvas (visible under Safari's bars, outside the snapshot) on
+    // the old color until the reveal finishes.
+    root.style.backgroundColor = oldColor
     const cleanup = () => {
       isTransitioningRef.current = false
+      root.style.removeProperty("background-color")
+      setBarColor(newColor)
       delete root.dataset.magicuiThemeVt
       root.style.removeProperty("--magicui-theme-toggle-vt-duration")
       root.style.removeProperty("--magicui-theme-vt-clip-from")
