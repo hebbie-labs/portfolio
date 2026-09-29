@@ -1,26 +1,77 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg: #0a0d0b;
+  --bg-2: #111612;
+  --ph: #141b16;
+  --line: #1e2721;
+  --muted: #8d9a92;
+  --fg: #e6ede8;
+  --accent: #4fd88a;
+  --accent-ink: #06120b;
+  --glass: rgba(17, 22, 18, 0.78);
+  color-scheme: dark;
+}
+
+[data-theme="light"] {
+  --bg: #eef2ee;
+  --bg-2: #e2e8e3;
+  --ph: #dce4de;
+  --line: #c9d3cc;
+  --muted: #56635b;
+  --fg: #0b110d;
+  --accent: #0e7a4b;
+  --accent-ink: #f2f7f3;
+  --glass: rgba(226, 232, 227, 0.82);
+  color-scheme: light;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-*: initial;
+  --color-bg: var(--bg);
+  --color-bg-2: var(--bg-2);
+  --color-ph: var(--ph);
+  --color-line: var(--line);
+  --color-muted: var(--muted);
+  --color-fg: var(--fg);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-glass: var(--glass);
+  --color-transparent: transparent;
+  --color-current: currentColor;
+
+  --font-display: var(--font-bricolage), sans-serif;
+  --font-sans: var(--font-instrument), system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), monospace;
+
+  --text-display: clamp(4.875rem, 16vw, 17.5rem);
+  --text-display--line-height: 0.82;
+  --text-display--letter-spacing: -0.03em;
+  --text-headline: clamp(1.875rem, 4vw, 3.75rem);
+  --text-headline--line-height: 1.05;
+  --text-headline--letter-spacing: -0.025em;
+
+  --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --default-transition-duration: 240ms;
+  --default-transition-timing-function: cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@utility font-condensed {
+  font-stretch: 75%;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
 }
