@@ -60,6 +60,16 @@
   font-stretch: 75%;
 }
 
+@utility lnk {
+  border-bottom: 1px solid var(--line);
+  padding: 8px 0 2px;
+  transition: color, border-color;
+  &:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+}
+
 :focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
