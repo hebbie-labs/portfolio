@@ -237,6 +237,12 @@ export const AnimatedThemeToggler = ({
       // Always toggle the class synchronously so the View Transitions API
       // snapshots the new theme inside the startViewTransition callback.
       document.documentElement.dataset.theme = newTheme ? "dark" : "light"
+      document
+        .querySelector('meta[name="theme-color"]')
+        ?.setAttribute(
+          "content",
+          getComputedStyle(document.documentElement).getPropertyValue("--bg")
+        )
       if (isControlled) {
         onThemeChange?.(newTheme ? "dark" : "light")
       } else {

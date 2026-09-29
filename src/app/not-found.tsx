@@ -8,7 +8,7 @@ function NotFound() {
   const pathname = usePathname();
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center gap-4 px-4 text-center">
+    <main className="flex min-h-dvh flex-col items-center justify-center gap-4 px-4 text-center">
       <p className="text-9xl font-bold text-muted/30">404</p>
       <h1 className="text-3xl font-bold">Seite nicht gefunden</h1>
       <p className="text-muted">
@@ -30,7 +30,7 @@ function NotFound() {
   const pathname = usePathname();
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen">
+    <div className="flex flex-col items-center justify-center min-h-dvh">
       <h1 className="text-4xl font-bold color-muted">Oppaa, die Seite</h1>
       <h1 className="text-8xl font-bold lnk hover: cursor-pointer">
         {pathname}
