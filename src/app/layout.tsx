@@ -58,6 +58,9 @@ const jsonLd = {
     "https://github.com/lelelon225",
     "https://www.linkedin.com/in/leonhebeisen",
     "https://noseryoung.ch/team-members/leon-hebeisen/",
+    "https://www.instagram.com/lelelon225/",
+    "https://x.com/lee0_0oon",
+    "https://bsky.app/profile/lelelon225.bsky.social",
   ],
 };
 
