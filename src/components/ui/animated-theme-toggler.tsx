@@ -29,6 +29,8 @@ interface AnimatedThemeTogglerProps extends React.ComponentPropsWithoutRef<"butt
   onThemeChange?: (theme: "light" | "dark") => void
 }
 
+const THEME_COLORS = { dark: "#0a0d0b", light: "#eef2ee" } as const
+
 function polygonCollapsed(point: string, vertexCount: number): string {
   const pairs = Array.from({ length: vertexCount }, () => point).join(", ")
   return `polygon(${pairs})`
@@ -237,12 +239,6 @@ export const AnimatedThemeToggler = ({
       // Always toggle the class synchronously so the View Transitions API
       // snapshots the new theme inside the startViewTransition callback.
       document.documentElement.dataset.theme = newTheme ? "dark" : "light"
-      document
-        .querySelector('meta[name="theme-color"]')
-        ?.setAttribute(
-          "content",
-          getComputedStyle(document.documentElement).getPropertyValue("--bg")
-        )
       if (isControlled) {
         onThemeChange?.(newTheme ? "dark" : "light")
       } else {
@@ -252,6 +248,11 @@ export const AnimatedThemeToggler = ({
         } catch {}
       }
     }
+
+    // Update browser bars before the transition so they switch instantly.
+    document
+      .querySelector('meta[name="theme-color"]')
+      ?.setAttribute("content", THEME_COLORS[isDark ? "light" : "dark"])
 
     if (typeof document.startViewTransition !== "function") {
       applyTheme()
