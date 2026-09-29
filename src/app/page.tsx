@@ -1,6 +1,6 @@
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center gap-6 bg-bg px-6 text-center text-fg">
+    <section className="flex min-h-screen flex-col items-center justify-center gap-6 bg-bg px-6 text-center text-fg">
       <p className="text-sm uppercase tracking-[0.3em] text-muted">
         Coming soon
       </p>
@@ -31,6 +31,6 @@ export default function Home() {
           Contact
         </a>
       </div>
-    </main>
+    </section>
   );
 }

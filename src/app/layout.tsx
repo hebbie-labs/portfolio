@@ -4,6 +4,8 @@ import {
   Instrument_Sans,
   JetBrains_Mono,
 } from "next/font/google";
+import Footer from "@/components/footer";
+import Nav from "@/components/nav";
 import "./globals.css";
 
 const bricolage = Bricolage_Grotesque({
@@ -81,15 +83,24 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html
       lang="de"
       className={`${bricolage.variable} ${instrument.variable} ${jetbrains.variable} h-full antialiased`}
+      suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col bg-bg font-sans text-fg">
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "try{if(localStorage.theme==='light')document.documentElement.dataset.theme='light'}catch{}",
+          }}
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
           }}
         />
-        {children}
+        <Nav />
+        <main className="flex-1">{children}</main>
+        <Footer />
       </body>
     </html>
   );
