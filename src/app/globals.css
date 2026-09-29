@@ -56,6 +56,10 @@
   --default-transition-timing-function: cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 
+html {
+  background-color: var(--bg);
+}
+
 @utility font-condensed {
   font-stretch: 75%;
 }

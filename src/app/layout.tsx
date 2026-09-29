@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import {
   Bricolage_Grotesque,
   Instrument_Sans,
@@ -60,6 +60,10 @@ export const metadata: Metadata = {
   },
 };
 
+export const viewport: Viewport = {
+  themeColor: "#0a0d0b",
+};
+
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "Person",
@@ -88,7 +92,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <script
           dangerouslySetInnerHTML={{
             __html:
-              "try{if(localStorage.theme==='light')document.documentElement.dataset.theme='light'}catch{}",
+              "try{if(localStorage.theme==='light'){const r=document.documentElement;r.dataset.theme='light';document.querySelector('meta[name=theme-color]')?.setAttribute('content',getComputedStyle(r).getPropertyValue('--bg'))}}catch{}",
           }}
         />
         <script

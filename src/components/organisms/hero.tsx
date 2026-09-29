@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 
 export function Hero() {
   return (
-    <section className="flex min-h-screen flex-col items-center justify-center gap-6 bg-bg px-6 text-center text-fg">
+    <section className="flex min-h-dvh flex-col items-center justify-center gap-6 bg-bg px-6 text-center text-fg">
       <p className="text-sm uppercase tracking-[0.3em] text-muted">
         Coming soon
       </p>
