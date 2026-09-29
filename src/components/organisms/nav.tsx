@@ -12,10 +12,10 @@ import { cn } from "@/lib/utils";
 
 const LINKS = [
   { href: "/", label: "Start" },
-  { href: "/#arbeiten", label: "Projekte" },
-  { href: "/#skills", label: "Skills" },
-  { href: "/#ueber-mich", label: "Über mich" },
-  { href: "/#kontakt", label: "Kontakt" },
+  { href: "/arbeiten", label: "Projekte" },
+  { href: "/skills", label: "Skills" },
+  { href: "/ueber-mich", label: "Über mich" },
+  { href: "/kontakt", label: "Kontakt" },
 ];
 
 export default function Nav() {
@@ -59,7 +59,7 @@ export default function Nav() {
               buttonVariants({ size: "icon" }),
               `absolute right-0 transition-opacity duration-150 ${
                 open ? "opacity-0" : "opacity-100"
-              }`
+              }`,
             )}
           />
         </div>
