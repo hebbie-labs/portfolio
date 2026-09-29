@@ -2,7 +2,10 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { ArrowUpRight, Menu, Moon, Sun, X } from "lucide-react";
 import { useEffect, useState } from "react";
+import { Button, buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 const LINKS = [
   { href: "/", label: "Start" },
@@ -11,17 +14,6 @@ const LINKS = [
   { href: "/#ueber-mich", label: "Über mich" },
   { href: "/#kontakt", label: "Kontakt" },
 ];
-
-const svg = {
-  width: 18,
-  height: 18,
-  viewBox: "0 0 24 24",
-  fill: "none",
-  stroke: "currentColor",
-  strokeWidth: 1.75,
-  strokeLinecap: "round" as const,
-  "aria-hidden": true,
-};
 
 function toggleTheme() {
   const next =
@@ -35,13 +27,8 @@ function toggleTheme() {
 function ThemeIcon() {
   return (
     <>
-      <svg {...svg} className="in-data-[theme=light]:hidden">
-        <circle cx="12" cy="12" r="4" />
-        <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" />
-      </svg>
-      <svg {...svg} className="hidden in-data-[theme=light]:block">
-        <path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z" />
-      </svg>
+      <Sun className="in-data-[theme=light]:hidden" aria-hidden />
+      <Moon className="hidden in-data-[theme=light]:block" aria-hidden />
     </>
   );
 }
@@ -57,9 +44,6 @@ function Logo() {
     </Link>
   );
 }
-
-const btn =
-  "flex h-11 items-center gap-2 rounded-full px-4 hover:bg-line cursor-pointer";
 
 export default function Nav() {
   const [open, setOpen] = useState(false);
@@ -94,12 +78,11 @@ export default function Nav() {
             <span className="size-1.5 shrink-0 rounded-full bg-accent" />
             {current}
           </span>
-          <button
-            type="button"
+          <Button
             aria-expanded={open}
             aria-controls="menu-panel"
             onClick={() => setOpen(!open)}
-            className={`${btn} ml-auto whitespace-nowrap font-medium transition-[margin] duration-[450ms] ease-[cubic-bezier(0.32,0.72,0,1)] ${
+            className={`ml-auto font-medium transition-[margin] duration-[450ms] ease-[cubic-bezier(0.32,0.72,0,1)] ${
               open ? "mr-0" : "mr-11"
             }`}
           >
@@ -110,9 +93,7 @@ export default function Nav() {
                 }`}
               >
                 Menü
-                <svg {...svg}>
-                  <path d="M4 9h16M4 15h16" />
-                </svg>
+                <Menu aria-hidden />
               </span>
               <span
                 className={`col-start-1 row-start-1 flex items-center gap-2 transition-opacity duration-200 ${
@@ -120,23 +101,21 @@ export default function Nav() {
                 }`}
               >
                 Schliessen
-                <svg {...svg}>
-                  <path d="M6 6l12 12M18 6L6 18" />
-                </svg>
+                <X aria-hidden />
               </span>
             </span>
-          </button>
-          <button
-            type="button"
+          </Button>
+          <Button
+            size="icon"
             aria-label="Farbschema wechseln"
             onClick={toggleTheme}
             inert={open}
-            className={`absolute right-0 flex size-11 cursor-pointer items-center justify-center rounded-full transition-opacity duration-150 hover:bg-line ${
+            className={`absolute right-0 transition-opacity duration-150 ${
               open ? "opacity-0" : "opacity-100"
             }`}
           >
             <ThemeIcon />
-          </button>
+          </Button>
         </div>
         <div
           id="menu-panel"
@@ -167,25 +146,19 @@ export default function Nav() {
               ))}
             </nav>
             <div className="flex items-center justify-between border-t border-line px-1 pt-1.5 pb-0.5 font-mono text-xs">
-              <button
-                type="button"
-                onClick={toggleTheme}
-                className={`${btn} gap-2.5 px-3.5`}
-              >
+              <Button onClick={toggleTheme} className="gap-2.5 px-3.5">
                 <ThemeIcon />
                 <span className="in-data-[theme=light]:hidden">Hell</span>
                 <span className="hidden in-data-[theme=light]:inline">
                   Dunkel
                 </span>
-              </button>
+              </Button>
               <a
                 href="https://github.com/lelelon225"
-                className={`${btn} px-3.5`}
+                className={cn(buttonVariants(), "px-3.5")}
               >
                 GitHub
-                <svg {...svg} width={14} height={14} strokeLinejoin="round">
-                  <path d="M7 17L17 7M8 7h9v9" />
-                </svg>
+                <ArrowUpRight className="size-3.5" aria-hidden />
               </a>
             </div>
           </div>
