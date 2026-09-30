@@ -1,6 +1,5 @@
-"use client";
-import LegalInformationPage from "@/components/pages/legal-information";
+import { LegalInformationPage } from "@/components/pages/legal-information";
 
-export default function LegalInformation() {
+export default function Page() {
   return <LegalInformationPage />;
 }

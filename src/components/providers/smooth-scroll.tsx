@@ -1,23 +1,11 @@
 "use client";
 
 import { ReactLenis } from "lenis/react";
-import { useSyncExternalStore } from "react";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 import "lenis/dist/lenis.css";
 
-const QUERY = "(prefers-reduced-motion: reduce)";
-
-function subscribe(onChange: () => void) {
-  const mql = window.matchMedia(QUERY);
-  mql.addEventListener("change", onChange);
-  return () => mql.removeEventListener("change", onChange);
-}
-
 export function SmoothScroll() {
-  const reduced = useSyncExternalStore(
-    subscribe,
-    () => window.matchMedia(QUERY).matches,
-    () => false,
-  );
+  const reduced = useMediaQuery("(prefers-reduced-motion: reduce)");
 
   if (reduced) return null;
   return (

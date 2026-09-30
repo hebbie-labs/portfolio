@@ -2,16 +2,11 @@ import { cn } from "@/lib/utils";
 import { AnimatedThemeToggler } from "@/components/ui/animated-theme-toggler";
 import { buttonVariants } from "@/components/ui/button";
 import { Logo } from "@/components/atoms/logo";
+import { StatusDot } from "@/components/atoms/status-dot";
 import { MenuButton } from "@/components/molecules/menu-button";
-import { NAV_LINKS } from "@/lib/constants";
+import type { NavPanelProps } from "@/types/nav";
 
-type MinimizedNavProps = {
-  open: boolean;
-  setOpen: (open: boolean) => void;
-  current: (typeof NAV_LINKS)[number]["label"];
-};
-
-function MinimizedNav({ open, setOpen, current }: MinimizedNavProps) {
+export function NavBar({ open, setOpen, current }: NavPanelProps) {
   return (
     <div className="relative flex items-center">
       <Logo />
@@ -20,7 +15,7 @@ function MinimizedNav({ open, setOpen, current }: MinimizedNavProps) {
           open ? "opacity-0" : "opacity-100"
         }`}
       >
-        <span className="size-1.5 shrink-0 rounded-full bg-accent" />
+        <StatusDot className="size-1.5" />
         {current}
       </span>
       <MenuButton open={open} onToggle={() => setOpen(!open)} />
@@ -37,4 +32,3 @@ function MinimizedNav({ open, setOpen, current }: MinimizedNavProps) {
     </div>
   );
 }
-export default MinimizedNav;

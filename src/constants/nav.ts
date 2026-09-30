@@ -5,3 +5,5 @@ export const NAV_LINKS = [
   { href: "/ueber-mich", label: "Über mich" },
   { href: "/kontakt", label: "Kontakt" },
 ] as const;
+
+export type NavLabel = (typeof NAV_LINKS)[number]["label"];

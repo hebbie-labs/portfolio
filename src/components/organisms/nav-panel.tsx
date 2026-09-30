@@ -1,22 +1,18 @@
 import { cn } from "@/lib/utils";
 import { ArrowUpRight } from "lucide-react";
-import { NavLink } from "./nav-link";
+import { NavLink } from "@/components/molecules/nav-link";
 import { AnimatedThemeToggler } from "@/components/ui/animated-theme-toggler";
 import { Button, buttonVariants } from "@/components/ui/button";
-import { NAV_LINKS } from "@/lib/constants";
+import { NAV_LINKS } from "@/constants/nav";
+import { GITHUB_URL } from "@/constants/site";
+import type { NavPanelProps } from "@/types/nav";
 
-type MaximizedNavProps = {
-  open: boolean;
-  setOpen: (open: boolean) => void;
-  current: (typeof NAV_LINKS)[number]["label"];
-};
-
-function MaximizedNav({ open, setOpen, current }: MaximizedNavProps) {
+export function NavPanel({ open, setOpen, current }: NavPanelProps) {
   return (
     <div
       id="menu-panel"
       inert={!open}
-      className={`grid transition-[grid-template-rows,opacity] duration-[450ms] ease-[cubic-bezier(0.32,0.72,0,1)] ${
+      className={`grid transition-[grid-template-rows,opacity] duration-[450ms] ease-spring ${
         open ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
       }`}
     >
@@ -42,7 +38,7 @@ function MaximizedNav({ open, setOpen, current }: MaximizedNavProps) {
           </AnimatedThemeToggler>
           <Button
             className={cn(buttonVariants(), "px-3.5 group")}
-            onClick={() => window.open("https://github.com/lelelon225")}
+            onClick={() => window.open(GITHUB_URL)}
           >
             GitHub
             <ArrowUpRight
@@ -55,5 +51,3 @@ function MaximizedNav({ open, setOpen, current }: MaximizedNavProps) {
     </div>
   );
 }
-
-export default MaximizedNav;

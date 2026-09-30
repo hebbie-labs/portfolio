@@ -51,6 +51,7 @@
   --text-headline--line-height: 1.05;
   --text-headline--letter-spacing: -0.025em;
 
+  --ease-spring: cubic-bezier(0.32, 0.72, 0, 1);
   --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
   --default-transition-duration: 240ms;
   --default-transition-timing-function: cubic-bezier(0.2, 0.7, 0.2, 1);

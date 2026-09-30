@@ -1,6 +1,5 @@
-"use client";
-import SkillsPage from "@/components/pages/skills";
+import { SkillsPage } from "@/components/pages/skills";
 
-export default function Skills() {
+export default function Page() {
   return <SkillsPage />;
 }
