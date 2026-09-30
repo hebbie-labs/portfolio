@@ -1,5 +1,5 @@
 import { usePathname } from "next/navigation";
-import { NAV_LINKS } from "@/lib/constants";
+import { NAV_LINKS } from "@/constants/nav";
 
 function useNav() {
   const pathname = usePathname();

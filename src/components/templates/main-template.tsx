@@ -1,5 +1,5 @@
-import Footer from "@/components/organisms/footer";
-import Nav from "@/components/organisms/nav";
+import { Footer } from "@/components/organisms/footer";
+import { Nav } from "@/components/organisms/nav";
 import { SmoothScroll } from "@/components/providers/smooth-scroll";
 
 export function MainTemplate({ children }: { children: React.ReactNode }) {

@@ -1,6 +1,5 @@
-"use client";
-import AboutPage from "@/components/pages/about";
+import { AboutPage } from "@/components/pages/about";
 
-export default function About() {
+export default function Page() {
   return <AboutPage />;
 }

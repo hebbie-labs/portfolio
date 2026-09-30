@@ -1,10 +1,6 @@
 import type { MetadataRoute } from "next";
+import { SITE_URL } from "@/constants/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  return [
-    {
-      url: "https://leonhebeisen.com",
-      lastModified: new Date(),
-    },
-  ];
+  return [{ url: SITE_URL, lastModified: new Date() }];
 }

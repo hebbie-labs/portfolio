@@ -1,5 +1,5 @@
-import { Hero } from "@/components/organisms/hero";
+import { StartPage } from "@/components/pages/start";
 
 export default function Home() {
-  return <Hero />;
+  return <StartPage />;
 }

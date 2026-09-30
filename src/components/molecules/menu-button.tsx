@@ -13,7 +13,7 @@ export function MenuButton({ open, onToggle }: Props) {
       aria-expanded={open}
       aria-controls="menu-panel"
       onClick={onToggle}
-      className={`ml-auto font-medium transition-[margin] duration-[450ms] ease-[cubic-bezier(0.32,0.72,0,1)] ${
+      className={`ml-auto font-medium transition-[margin] duration-[450ms] ease-spring ${
         open ? "mr-0" : "mr-11"
       }`}
     >

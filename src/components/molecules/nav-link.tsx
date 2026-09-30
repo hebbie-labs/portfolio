@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { StatusDot } from "@/components/atoms/status-dot";
 
 type Props = {
   href: string;
@@ -21,7 +22,7 @@ export function NavLink({ href, label, index, active, onClick }: Props) {
       <span className="grow font-display text-4xl leading-[1.05] font-semibold  transition-all duration-200 ease-in-out group-hover:text-accent group-hover:translate-x-2">
         {label}
       </span>
-      {active && <span className="size-2 self-center rounded-full bg-accent" />}
+      {active && <StatusDot className="size-2 self-center" />}
     </Link>
   );
 }
