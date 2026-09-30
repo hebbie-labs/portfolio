@@ -23,6 +23,7 @@ jobs:
       - uses: docker/build-push-action@v6
         with:
           context: .
+          target: ${{ github.ref == 'refs/heads/main' && 'run' || 'dev' }}
           push: true
           tags: ghcr.io/hebbie-labs/portfolio:${{ github.ref == 'refs/heads/main' && 'latest' || 'dev' }}
           cache-from: type=gha
