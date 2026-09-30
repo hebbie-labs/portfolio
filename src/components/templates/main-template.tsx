@@ -1,14 +1,21 @@
 import { Footer } from "@/components/organisms/footer";
 import { Nav } from "@/components/organisms/nav";
 import { SmoothScroll } from "@/components/providers/smooth-scroll";
+import { TransitionProvider } from "@/components/providers/transition-provider";
 
-export function MainTemplate({ children }: { children: React.ReactNode }) {
+type Props = {
+  children: React.ReactNode;
+};
+
+export function MainTemplate({ children }: Readonly<Props>) {
   return (
     <>
       <SmoothScroll />
       <Nav />
-      <main className="flex-1">{children}</main>
-      <Footer />
+      <TransitionProvider>
+        <main className="flex-1">{children}</main>
+        <Footer />
+      </TransitionProvider>
     </>
   );
 }

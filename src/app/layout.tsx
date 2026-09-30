@@ -1,3 +1,4 @@
+import Script from "next/script";
 import { MainTemplate } from "@/components/templates/main-template";
 import { FONT_VARIABLES } from "@/lib/fonts";
 import { JSON_LD, THEME_INIT_SCRIPT } from "@/lib/seo";
@@ -13,7 +14,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col bg-bg font-sans text-fg antialiased">
-        <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
+        <Script id="theme-init" strategy="beforeInteractive">
+          {THEME_INIT_SCRIPT}
+        </Script>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON_LD }}

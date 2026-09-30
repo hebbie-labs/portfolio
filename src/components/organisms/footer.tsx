@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { EMAIL } from "@/constants/site";
 
 export function Footer() {
@@ -10,9 +11,9 @@ export function Footer() {
       >
         {EMAIL}
       </a>
-      <a href="/impressum" className="lnk w-fit md:justify-self-end">
+      <Link href="/impressum" className="lnk w-fit md:justify-self-end">
         Impressum
-      </a>
+      </Link>
     </footer>
   );
 }

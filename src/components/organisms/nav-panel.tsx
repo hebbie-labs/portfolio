@@ -1,3 +1,4 @@
+import { Transition } from "@headlessui/react";
 import { cn } from "@/lib/utils";
 import { ArrowUpRight } from "lucide-react";
 import { NavLink } from "@/components/molecules/nav-link";
@@ -9,12 +10,11 @@ import type { NavPanelProps } from "@/types/nav";
 
 export function NavPanel({ open, setOpen, current }: NavPanelProps) {
   return (
-    <div
+    <Transition
+      as="div"
+      show={open}
       id="menu-panel"
-      inert={!open}
-      className={`grid transition-[grid-template-rows,opacity] duration-[450ms] ease-spring ${
-        open ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
-      }`}
+      className="grid grid-rows-[1fr] transition-[grid-template-rows,opacity] duration-450 ease-in-out data-closed:grid-rows-[0fr] data-closed:opacity-0"
     >
       <div className="min-h-0 overflow-hidden">
         <nav aria-label="Hauptnavigation" className="flex flex-col pt-1 pb-2">
@@ -48,6 +48,6 @@ export function NavPanel({ open, setOpen, current }: NavPanelProps) {
           </Button>
         </div>
       </div>
-    </div>
+    </Transition>
   );
 }

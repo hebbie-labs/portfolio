@@ -1,3 +1,4 @@
+import { Transition } from "@headlessui/react";
 import { cn } from "@/lib/utils";
 import { AnimatedThemeToggler } from "@/components/ui/animated-theme-toggler";
 import { buttonVariants } from "@/components/ui/button";
@@ -10,25 +11,29 @@ export function NavBar({ open, setOpen, current }: NavPanelProps) {
   return (
     <div className="relative flex items-center">
       <Logo />
-      <span
-        className={`flex items-center gap-2 whitespace-nowrap pr-3 pl-3.5 font-mono text-xs text-muted transition-opacity duration-150 ${
-          open ? "opacity-0" : "opacity-100"
-        }`}
+      <Transition
+        as="span"
+        show={!open}
+        className="self-center flex items-center gap-2 whitespace-nowrap pr-3 pl-3.5 font-mono text-xs text-muted transition-opacity duration-400 data-closed:opacity-0"
       >
         <StatusDot className="size-1.5" />
         {current}
-      </span>
-      <MenuButton open={open} onToggle={() => setOpen(!open)} />
-      <AnimatedThemeToggler
-        aria-label="Farbschema wechseln"
-        inert={open}
-        className={cn(
-          buttonVariants({ size: "icon" }),
-          `absolute right-0 transition-opacity duration-150 ${
-            open ? "opacity-0" : "opacity-100"
-          }`,
-        )}
+      </Transition>
+      <MenuButton
+        open={open}
+        onToggle={() => setOpen(!open)}
+        className={`ml-auto transition-transform duration-450 ease-in-out ${open ? "translate-x-0" : "-translate-x-12"}`}
       />
+      <Transition
+        as="div"
+        show={!open}
+        className="absolute right-0 transition-opacity duration-150 data-closed:opacity-0"
+      >
+        <AnimatedThemeToggler
+          aria-label="Farbschema wechseln"
+          className={cn(buttonVariants({ size: "icon" }))}
+        />
+      </Transition>
     </div>
   );
 }
