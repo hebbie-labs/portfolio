@@ -20,5 +20,5 @@ export function SmoothScroll() {
   );
 
   if (reduced) return null;
-  return <ReactLenis root options={{ lerp: 0.1, anchors: true }} />;
+  return <ReactLenis root options={{ lerp: 0.1, anchors: true, syncTouch: true }} />;
 }
