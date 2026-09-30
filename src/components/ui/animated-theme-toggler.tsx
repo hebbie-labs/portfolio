@@ -184,6 +184,7 @@ export const AnimatedThemeToggler = ({
       root.style.removeProperty("--magicui-theme-toggle-vt-duration")
       root.style.removeProperty("--magicui-theme-vt-clip-from")
       root.style.removeProperty("background-color")
+      document.body.style.removeProperty("background-color")
     }
   }, [cancelAnim])
 
@@ -283,10 +284,14 @@ export const AnimatedThemeToggler = ({
     root.style.setProperty("--magicui-theme-vt-clip-from", clipPath[0])
     // Keep the canvas (visible under Safari's bars, outside the snapshot) on
     // the old color until the reveal finishes.
+    // Body paints the live (already switched) theme under the snapshot, which
+    // Safari also samples for its bars, so pin it to the old color as well.
     root.style.backgroundColor = oldColor
+    document.body.style.backgroundColor = oldColor
     const cleanup = () => {
       isTransitioningRef.current = false
       root.style.removeProperty("background-color")
+      document.body.style.removeProperty("background-color")
       setBarColor(newColor)
       delete root.dataset.magicuiThemeVt
       root.style.removeProperty("--magicui-theme-toggle-vt-duration")
