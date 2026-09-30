@@ -9,8 +9,8 @@ export function NotFoundPage() {
 
   return (
     <main className="flex min-h-dvh flex-col items-center justify-center gap-4 px-4 text-center">
-      <p className="text-9xl font-bold text-muted/30">404</p>
-      <h1 className="text-3xl font-bold">Seite nicht gefunden</h1>
+      <p className="font-display font-condensed text-9xl font-extrabold text-muted/30">404</p>
+      <h1 className="font-display text-3xl font-bold">Seite nicht gefunden</h1>
       <p className="text-muted">
         <code className="rounded bg-bg-2 px-2 py-1 text-sm break-all">
           {pathname}
