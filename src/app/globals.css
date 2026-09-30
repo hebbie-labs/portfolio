@@ -64,6 +64,10 @@ html {
   font-stretch: 75%;
 }
 
+@utility page-x {
+  @apply px-4 md:px-20;
+}
+
 @utility lnk {
   border-bottom: 1px solid var(--line);
   padding: 8px 0 2px;
