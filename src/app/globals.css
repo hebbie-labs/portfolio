@@ -91,9 +91,14 @@ html {
 }
 ::view-transition-old(root),
 ::view-transition-new(root) {
-    animation: none;
-    mix-blend-mode: normal;
+  animation: none;
+  mix-blend-mode: normal;
 }
 [data-magicui-theme-vt="active"]::view-transition-new(root) {
   clip-path: var(--magicui-theme-vt-clip-from);
+}
+
+::selection {
+  background-color: var(--accent);
+  color: var(--accent-ink);
 }

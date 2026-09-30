@@ -1,11 +1,14 @@
 export default function Footer() {
   return (
-    <footer className="flex flex-col gap-2.5 border-t border-line px-4 pt-5 pb-8 font-mono text-xs text-muted md:flex-row md:items-center md:justify-between md:px-20 md:py-7 md:text-[13px]">
+    <footer className="flex w-full flex-col gap-2.5 border-t border-line p-4 font-mono text-xs text-muted md:grid md:grid-cols-3 md:items-center md:px-20 md:py-10 md:text-[13px]">
       <span>© 2026 Leon Hebeisen</span>
-      <a href="mailto:contact@leonhebeisen.com" className="lnk w-fit">
+      <a
+        href="mailto:contact@leonhebeisen.com"
+        className="lnk w-fit md:justify-self-center"
+      >
         contact@leonhebeisen.com
       </a>
-      <a href="/impressum" className="lnk w-fit">
+      <a href="/impressum" className="lnk w-fit md:justify-self-end">
         Impressum
       </a>
     </footer>

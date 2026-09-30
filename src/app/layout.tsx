@@ -88,7 +88,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${bricolage.variable} ${instrument.variable} ${jetbrains.variable} h-full antialiased`}
       suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col bg-bg font-sans text-fg">
+      <body className="min-h-full flex flex-col bg-bg font-sans text-fg antialiased">
         <script
           dangerouslySetInnerHTML={{
             __html:
