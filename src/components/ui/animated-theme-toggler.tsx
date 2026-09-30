@@ -288,11 +288,22 @@ export const AnimatedThemeToggler = ({
     // Safari also samples for its bars, so pin it to the old color as well.
     root.style.backgroundColor = oldColor
     document.body.style.backgroundColor = oldColor
+    // Release the pins slightly before the reveal ends and fade them, so the
+    // area outside the snapshot (bars, footer safe-area) blends instead of snapping.
+    const FADE_MS = 250
+    const release = () => {
+      for (const el of [root, document.body]) {
+        el.style.transition = `background-color ${FADE_MS}ms ease-out`
+        el.style.removeProperty("background-color")
+        setTimeout(() => el.style.removeProperty("transition"), FADE_MS)
+      }
+      setBarColor(newColor)
+    }
+    const releaseTimer = setTimeout(release, duration * 0.65)
     const cleanup = () => {
       isTransitioningRef.current = false
-      root.style.removeProperty("background-color")
-      document.body.style.removeProperty("background-color")
-      setBarColor(newColor)
+      clearTimeout(releaseTimer)
+      release()
       delete root.dataset.magicuiThemeVt
       root.style.removeProperty("--magicui-theme-toggle-vt-duration")
       root.style.removeProperty("--magicui-theme-vt-clip-from")
