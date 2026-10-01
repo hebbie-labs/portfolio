@@ -81,6 +81,22 @@ html {
   @apply px-4 md:px-20;
 }
 
+/* Fixed nav pill: distance from the viewport top and its height (p-1 + 44px bar + border). */
+:root {
+  --nav-top: 1rem;
+  --nav-h: 54px;
+}
+@media (min-width: 48rem) {
+  :root {
+    --nav-top: 1.25rem;
+  }
+}
+
+/* Top padding that always leaves the same gap below the nav pill. */
+@utility pt-nav {
+  padding-top: calc(var(--nav-top) + var(--nav-h) + 3rem);
+}
+
 @utility lnk {
   border-bottom: 1px solid var(--line);
   padding: 8px 0 2px;
@@ -97,6 +113,10 @@ html {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  [data-reveal] {
+    animation: none;
+  }
+
   *,
   *::before,
   *::after {
@@ -126,14 +146,28 @@ html[data-intro="logo"] {
   overflow: hidden;
 }
 
+/* Plays on every page load; paused behind the startup screen until `data-intro` leaves "logo". */
 [data-reveal] {
-  transition:
-    opacity 700ms cubic-bezier(0.32, 0.72, 0, 1),
-    transform 700ms cubic-bezier(0.32, 0.72, 0, 1);
-  transition-delay: calc(var(--i, 0) * 120ms + 300ms);
+  animation: reveal 700ms cubic-bezier(0.32, 0.72, 0, 1) backwards;
+  animation-delay: calc(var(--i, 0) * 120ms + 300ms);
 }
 
 html[data-intro="logo"] [data-reveal] {
-  opacity: 0;
-  transform: translateY(32px);
+  animation-play-state: paused;
 }
+
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: var(--from, translateY(32px));
+    filter: blur(var(--blur, 0));
+  }
+}
+
+/* Reveal variants: only the hidden start state differs (see Reveal `variant`). */
+[data-reveal="down"] { --from: translateY(-32px); }
+[data-reveal="left"] { --from: translateX(-32px); }
+[data-reveal="right"] { --from: translateX(32px); }
+[data-reveal="fade"] { --from: none; }
+[data-reveal="scale"] { --from: scale(0.92); }
+[data-reveal="blur"] { --from: translateY(16px); --blur: 12px; }

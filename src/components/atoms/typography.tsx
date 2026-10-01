@@ -39,8 +39,18 @@ function Text({
   );
 }
 
+const PUNCT = /((?:(?!@)\p{P})+)/u; // Unicode punctuation (. , ! ? : ; - – — ' " ( ) … & /) except @
+
+/** Colors punctuation and symbols in accent; skipped for non-strings and `animate` (TextAnimate needs a plain string). */
+function accentPunct({ children, animate }: Pick<Props, "children" | "animate">) {
+  if (typeof children !== "string" || animate) return children;
+  return children
+    .split(PUNCT)
+    .map((part, i) => (i % 2 ? <span key={i} className="text-accent">{part}</span> : part));
+}
+
 const displayVariants = cva(
-  "font-display font-condensed font-extrabold uppercase leading-[0.82] tracking-[-0.03em]",
+  "overflow-clip font-display font-condensed font-extrabold uppercase leading-[0.82] tracking-[-0.03em]",
   {
     variants: {
       size: { xl: "text-display", lg: "text-display-lg", md: "text-display-md" },
@@ -62,10 +72,13 @@ export function Display({
   as: Tag = "h1",
   size,
   className,
+  children,
   ...props
 }: Props<VariantProps<typeof displayVariants>>) {
   return (
-    <Text as={Tag} className={cn(displayVariants({ size }), className)} {...props} />
+    <Text as={Tag} className={cn(displayVariants({ size }), className)} {...props}>
+      {accentPunct({ children, animate: props.animate })}
+    </Text>
   );
 }
 
@@ -74,10 +87,13 @@ export function Headline({
   as: Tag = "h2",
   size,
   className,
+  children,
   ...props
 }: Props<VariantProps<typeof headlineVariants>>) {
   return (
-    <Text as={Tag} className={cn(headlineVariants({ size }), className)} {...props} />
+    <Text as={Tag} className={cn(headlineVariants({ size }), className)} {...props}>
+      {accentPunct({ children, animate: props.animate })}
+    </Text>
   );
 }
 
