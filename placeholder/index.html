@@ -32,7 +32,7 @@
   html[data-intro="logo"], html[data-intro="logo"] body { background: var(--bg-2); }
 
   /* Not fixed: Safari tints its bars from fixed elements at the edges; body color drives them instead. */
-  #intro { position: absolute; inset: 0; z-index: 100; display: none; align-items: center; justify-content: center; }
+  #intro { position: absolute; inset: 0 0 auto; height: 100lvh; z-index: 100; display: none; align-items: center; justify-content: center; }
   html[data-intro="logo"] #intro { display: flex; }
   .screen { position: absolute; inset: 0; background: var(--bg-2); }
   .stage { position: relative; }

@@ -92,11 +92,12 @@ export function Intro() {
 
   // Not `fixed`: Safari tints its bars from fixed elements at the viewport edges, so the
   // full-screen overlay would keep them --bg-2 until the end. The page can't scroll meanwhile.
+  // h-lvh: Safari 26 renders the page under its floating toolbar, below the small viewport.
   return (
     <div
       ref={scope}
       aria-hidden
-      className="absolute inset-0 z-100 hidden items-center justify-center in-data-[intro=logo]:flex"
+      className="absolute inset-x-0 top-0 z-100 hidden h-lvh items-center justify-center in-data-[intro=logo]:flex"
     >
       <div data-screen className="absolute inset-0 bg-bg-2" />
       <div className="relative">
