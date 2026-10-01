@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Leon Hebeisen – Website im Aufbau</title>
+<meta name="description" content="Leon Hebeisen, Lernender Applikationsentwickler EFZ. Die Website ist im Aufbau.">
+<meta name="theme-color" content="#0a0d0b">
+<link rel="icon" href="/logo.svg" type="image/svg+xml">
+<style>
+  :root { --bg:#0a0d0b; --fg:#e6ede8; --muted:#8d9a92; --accent:#4fd88a; --line:#1e2721; }
+  * { box-sizing: border-box; margin: 0; }
+  body {
+    min-height: 100svh; display: grid; place-content: center; gap: 1.5rem;
+    padding: 1rem; text-align: center;
+    background: var(--bg); color: var(--fg);
+    font: 1rem/1.6 system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  h1 { font-size: clamp(2.5rem, 9vw, 5rem); line-height: 1.05; letter-spacing: -0.03em; }
+  .role { color: var(--muted); }
+  .status {
+    justify-self: center; padding: .35rem .9rem; border: 1px solid var(--line);
+    border-radius: 999px; color: var(--accent); font-size: .875rem;
+  }
+  nav { display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; }
+  a { color: var(--fg); text-underline-offset: .25em; }
+  a:hover, a:focus-visible { color: var(--accent); }
+</style>
+</head>
+<body>
+<main>
+  <h1>Leon Hebeisen</h1>
+  <p class="role">Lernender Applikationsentwickler EFZ</p>
+</main>
+<p class="status">Website im Aufbau – bald hier.</p>
+<nav>
+  <a href="mailto:contact@leonhebeisen.com">E-Mail</a>
+  <a href="https://github.com/lelelon225">GitHub</a>
+  <a href="https://www.linkedin.com/in/leonhebeisen">LinkedIn</a>
+</nav>
+</body>
+</html>
