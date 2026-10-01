@@ -10,8 +10,9 @@ import type { NavPanelProps } from "@/types/nav";
 
 export function NavBar({ open, setOpen, current }: Readonly<NavPanelProps>) {
   return (
-    <div className="relative flex items-center">
-      <Logo />
+    // min-w = open pill content width, so the 54px intro pill clips toggler/menu instead of squeezing them onto the logo.
+    <div className="relative flex min-w-[min(310px,calc(100vw-2rem-10px))] items-center">
+      <Logo className="in-data-[intro=logo]:invisible" />
       <Transition
         as="span"
         show={!open}
