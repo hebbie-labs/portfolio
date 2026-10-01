@@ -24,6 +24,7 @@ export function MainTemplate({ children }: Readonly<Props>) {
         appear
         show
         as="div"
+        className="flex min-h-screen flex-col"
         enter="transition duration-300 ease-out"
         leave="transition duration-300 ease-in"
         leaveFrom="opacity-100 translate-y-0"
@@ -32,7 +33,7 @@ export function MainTemplate({ children }: Readonly<Props>) {
         enterTo="opacity-100 translate-y-0"
       >
         <main className="flex-1">{children}</main>
-        <Reveal index={2}>
+        <Reveal variant="fade" index={3}>
           <Footer />
         </Reveal>
       </Transition>

@@ -10,7 +10,7 @@ export function Nav() {
   const { current } = useNav();
 
   return (
-    <div className="pointer-events-none fixed inset-x-4 top-4 z-50 flex justify-center md:top-5">
+    <div className="pointer-events-none fixed inset-x-4 top-(--nav-top) z-50 flex justify-center">
       <div
         id="menu"
         data-open={open}
