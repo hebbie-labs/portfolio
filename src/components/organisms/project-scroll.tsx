@@ -1,37 +1,36 @@
 "use client";
 
-import { motion } from "motion/react";
+import { motion, type MotionStyle } from "motion/react";
 
 import { ProjectCard } from "@/components/molecules/project-card";
 import { ProjectEndCard } from "@/components/molecules/project-end-card";
 import { ProjectTitleCard } from "@/components/molecules/project-title-card";
 import { PROJECTS, PROJECTS_SECTION } from "@/constants/projects";
 import { useHorizontalScroll } from "@/hooks/useHorizontalScroll";
-import { cn } from "@/lib/utils";
 
-/** Sticky section: on desktop the vertical scroll moves the track sideways; on mobile / reduced motion the panels just stack. */
+/** Sticky section: from `md` (motion allowed) the vertical scroll moves the track sideways; otherwise the panels just stack. */
 export function ProjectScroll() {
-  const { horizontal, section, track, x, distance } = useHorizontalScroll();
+  const { section, track, p } = useHorizontalScroll();
 
   return (
-    <section
+    <motion.section
       ref={section}
       aria-label={PROJECTS_SECTION.label}
-      style={horizontal ? { height: `calc(100vh + ${distance}px)` } : undefined}
+      style={{ "--p": p } as MotionStyle}
+      className="md:motion-safe:h-[calc(100vh+var(--distance,0px))]"
     >
-      <div className={cn(horizontal && "sticky top-0 h-screen overflow-hidden")}>
-        <motion.div
+      <div className="md:motion-safe:sticky md:motion-safe:top-0 md:motion-safe:h-screen md:motion-safe:overflow-hidden">
+        <div
           ref={track}
-          style={horizontal ? { x } : undefined}
-          className={cn("flex", horizontal ? "h-full w-max items-center px-20 will-change-transform" : "flex-col gap-12 page-x py-16")}
+          className="flex flex-col gap-12 page-x py-16 md:motion-safe:h-full md:motion-safe:w-max md:motion-safe:flex-row md:motion-safe:items-center md:motion-safe:gap-0 md:motion-safe:py-0 md:motion-safe:translate-x-[calc(var(--distance,0px)*var(--p,0)*-1)] md:motion-safe:will-change-[translate] md:motion-safe:[&>*]:shrink-0 md:motion-safe:[&>*:not(:last-child)]:pr-20 md:motion-safe:[&>*:first-child]:w-[40vw] md:motion-safe:[&>article]:w-[70vw]"
         >
-          <ProjectTitleCard className={cn(horizontal && "w-[40vw] shrink-0 pr-20")} />
-          {PROJECTS.map((p) => (
-            <ProjectCard key={p.nr} {...p} className={cn(horizontal && "w-[70vw] shrink-0 pr-20")} />
+          <ProjectTitleCard />
+          {PROJECTS.map((project) => (
+            <ProjectCard key={project.nr} {...project} />
           ))}
-          <ProjectEndCard className={cn(horizontal && "shrink-0")} />
-        </motion.div>
+          <ProjectEndCard />
+        </div>
       </div>
-    </section>
+    </motion.section>
   );
 }

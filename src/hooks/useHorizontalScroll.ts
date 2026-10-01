@@ -1,25 +1,25 @@
-import { useEffect, useRef, useState } from "react";
-import { useScroll, useSpring, useTransform } from "motion/react";
-
-import { useMediaQuery } from "@/hooks/useMediaQuery";
+import { useEffect, useRef } from "react";
+import { useScroll, useTransform } from "motion/react";
 
 /** Share of the scroll distance during which the track stays put, so the title can be read first. */
 const START_DELAY = 0.15;
 
-/** Maps the vertical scroll through a tall section onto a sideways-moving track (desktop, motion allowed). */
+/**
+ * Feeds the sticky scroll section two CSS variables: `--distance` (px the track overflows the viewport)
+ * and `--p` (0–1 scroll progress). Whether they are used (desktop, motion allowed) is decided in CSS.
+ */
 export function useHorizontalScroll() {
-  const wide = useMediaQuery("(min-width: 48rem)");
-  const reduced = useMediaQuery("(prefers-reduced-motion: reduce)");
-  const horizontal = wide && !reduced;
-
   const section = useRef<HTMLElement>(null);
   const track = useRef<HTMLDivElement>(null);
-  const [distance, setDistance] = useState(0);
 
   useEffect(() => {
     const el = track.current;
-    if (!el || !horizontal) return;
-    const measure = () => setDistance(Math.max(0, el.scrollWidth - window.innerWidth));
+    if (!el) return;
+    const measure = () =>
+      section.current?.style.setProperty(
+        "--distance",
+        `${Math.max(0, el.scrollWidth - window.innerWidth)}px`,
+      );
     measure();
     const ro = new ResizeObserver(measure);
     ro.observe(el);
@@ -28,11 +28,10 @@ export function useHorizontalScroll() {
       ro.disconnect();
       window.removeEventListener("resize", measure);
     };
-  }, [horizontal]);
+  }, []);
 
   const { scrollYProgress } = useScroll({ target: section, offset: ["start start", "end end"] });
-  const target = useTransform(scrollYProgress, [START_DELAY, 1], [0, -distance]);
-  const x = useSpring(target, { stiffness: 120, damping: 28, mass: 0.6 });
+  const p = useTransform(scrollYProgress, [START_DELAY, 1], [0, 1]);
 
-  return { horizontal, section, track, x, distance };
+  return { section, track, p };
 }

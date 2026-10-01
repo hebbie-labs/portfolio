@@ -9,7 +9,7 @@ export function NotFoundPage() {
   const pathname = usePathname();
 
   return (
-    <main className="flex min-h-dvh flex-col items-center justify-center gap-4 px-4 text-center">
+    <div className="flex min-h-dvh flex-col items-center justify-center gap-4 px-4 text-center">
       <Display size="xl" className="text-muted/30">
         404
       </Display>
@@ -26,6 +26,6 @@ export function NotFoundPage() {
         <ArrowLeft className="size-0 -translate-x-2 opacity-0 transition-all duration-400 group-hover:mr-1 group-hover:size-4.5 group-hover:translate-x-0 group-hover:opacity-100" />
         Zurück zur Startseite
       </Link>
-    </main>
+    </div>
   );
 }

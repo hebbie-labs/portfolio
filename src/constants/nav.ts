@@ -6,11 +6,13 @@ export const NAV_LINKS = [
   { href: "/kontakt", label: "Kontakt" },
 ] as const;
 
-export const OUTSIDE_NAV_LINKS = [
-  { href: "/impressum", label: "Impressum" },
-  { href: "/*", label: "Not Found" },
-] as const;
+export const OUTSIDE_NAV_LINKS = [{ href: "/impressum", label: "Impressum" }] as const;
 
-export type OutsideNavLabel = (typeof OUTSIDE_NAV_LINKS)[number]["label"];
-
-export type NavLabel = (typeof NAV_LINKS)[number]["label"];
+/** Label of the nav entry matching `pathname`; unknown routes are "Not Found". */
+export function getNavLabel(pathname: string) {
+  return (
+    [...NAV_LINKS, ...OUTSIDE_NAV_LINKS].find(({ href }) =>
+      href === "/" ? pathname === "/" : pathname.startsWith(href),
+    )?.label ?? "Not Found"
+  );
+}

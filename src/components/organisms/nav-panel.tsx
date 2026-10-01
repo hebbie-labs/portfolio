@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 import { ArrowUpRight } from "lucide-react";
 import { NavLink } from "@/components/molecules/nav-link";
 import { AnimatedThemeToggler } from "@/components/ui/animated-theme-toggler";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import { NAV_LINKS } from "@/constants/nav";
 import { GITHUB_URL } from "@/constants/site";
 import type { NavPanelProps } from "@/types/nav";
@@ -36,16 +36,18 @@ export function NavPanel({ open, setOpen, current }: NavPanelProps) {
             <span className="in-data-[theme=light]:hidden">Hell</span>
             <span className="hidden in-data-[theme=light]:inline">Dunkel</span>
           </AnimatedThemeToggler>
-          <Button
+          <a
+            href={GITHUB_URL}
+            target="_blank"
+            rel="noopener noreferrer"
             className={cn(buttonVariants(), "px-3.5 group")}
-            onClick={() => window.open(GITHUB_URL)}
           >
             GitHub
             <ArrowUpRight
               className="size-0 opacity-0 -translate-x-3 transition-all duration-250 group-hover:size-3.5 group-hover:opacity-75 group-hover:translate-x-0"
               aria-hidden
             />
-          </Button>
+          </a>
         </div>
       </div>
     </Transition>
