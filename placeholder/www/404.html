@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Seite nicht gefunden – Leon Hebeisen</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0a0d0b">
+<link rel="icon" href="/logo.svg" type="image/svg+xml">
+<style>
+  :root { --bg:#0a0d0b; --bg-2:#111612; --fg:#e6ede8; --muted:#8d9a92; --accent:#4fd88a; --line:#1e2721; }
+  * { box-sizing: border-box; margin: 0; }
+  html { background: var(--bg); }
+  body {
+    min-height: 100svh; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 1rem; padding: 1rem; text-align: center;
+    background: var(--bg); color: var(--fg);
+    font: 1rem/1.6 system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  .code { font-size: clamp(4.875rem, 16vw, 17.5rem); line-height: .82; letter-spacing: -0.03em; font-weight: 700; color: rgb(141 154 146 / .3); }
+  h1 { font-size: clamp(1.5rem, 4vw, 1.75rem); line-height: 1.05; letter-spacing: -0.025em; }
+  p { color: var(--muted); }
+  code {
+    padding: .25rem .5rem; border-radius: .25rem; background: var(--bg-2);
+    font: .875rem ui-monospace, "SF Mono", Menlo, monospace; word-break: break-all;
+  }
+  a { color: var(--fg); text-decoration: none; border-bottom: 1px solid var(--line); padding: 8px 0 2px; transition: color .24s, border-color .24s; }
+  a:hover, a:focus-visible { color: var(--accent); border-color: var(--accent); }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+  [data-reveal] { animation: reveal 700ms cubic-bezier(.32,.72,0,1) backwards; animation-delay: calc(var(--i, 0) * 120ms + 100ms); }
+  @keyframes reveal { from { opacity: 0; transform: translateY(32px); } }
+  @media (prefers-reduced-motion: reduce) {
+    [data-reveal] { animation: none; }
+  }
+</style>
+</head>
+<body>
+<main style="display:contents">
+  <p class="code" aria-hidden="true" data-reveal style="--i:0">404</p>
+  <h1 data-reveal style="--i:1">Seite nicht gefunden</h1>
+  <p data-reveal style="--i:2"><code id="path">Diese Seite</code> existiert nicht.</p>
+  <a href="/" data-reveal style="--i:3">Zurück zur Startseite</a>
+</main>
+<script>document.getElementById("path").textContent = location.pathname;</script>
+</body>
+</html>

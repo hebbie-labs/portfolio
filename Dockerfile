@@ -33,8 +33,9 @@ EXPOSE 3000
 CMD ["node", "server.js"]
 
 FROM busybox:stable AS placeholder
-COPY placeholder/ /www/
+COPY placeholder/www/ /www/
+COPY placeholder/httpd.conf /etc/httpd.conf
 COPY public/logo.svg /www/
 USER 65534
 EXPOSE 3000
-CMD ["httpd", "-f", "-p", "3000", "-h", "/www"]
+CMD ["httpd", "-f", "-p", "3000", "-h", "/www", "-c", "/etc/httpd.conf"]
