@@ -1,7 +1,8 @@
 import Script from "next/script";
 import { MainTemplate } from "@/components/templates/main-template";
 import { FONT_VARIABLES } from "@/lib/fonts";
-import { INTRO_INIT_SCRIPT, JSON_LD, THEME_INIT_SCRIPT } from "@/lib/seo";
+import { INTRO_INIT_SCRIPT, THEME_INIT_SCRIPT } from "@/lib/init-scripts";
+import { JSON_LD } from "@/lib/seo";
 import "./globals.css";
 
 export { metadata, viewport } from "@/lib/seo";

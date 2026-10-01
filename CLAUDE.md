@@ -23,8 +23,9 @@ German-language personal portfolio (Next.js 16, React 19, Tailwind v4, TypeScrip
 **Shell**: `app/layout.tsx` → `MainTemplate` (`SmoothScroll` (Lenis), `Nav`, `Footer`). Page transitions live in `app/template.tsx` (remounts per route, CSS `animate-page-in` fade + slide-up; off under `motion-reduce`).
 
 **Single sources of truth**
-- `src/constants/nav.ts` — `NAV_LINKS`; `useNav` derives the current label from it.
+- `src/constants/nav.ts` — `NAV_LINKS` and `getNavLabel(pathname)` for the current label.
 - `src/constants/site.ts` + `src/lib/seo.ts` — site name, URLs, social links, metadata, JSON-LD, theme-color. `sitemap.ts`/`robots.ts` build on these.
+- `src/lib/init-scripts.ts` — pre-hydration theme/intro scripts and the shared `INTRO_KEY` (`sessionStorage`).
 - `src/components/atoms/typography.tsx` — `Display`/`Headline`/… (cva variants); use these instead of raw heading classes.
 
 **Theming**: Colors are CSS variables in `src/app/globals.css` (`:root` = dark, `[data-theme="light"]` = light), exposed as Tailwind tokens (`bg-bg`, `text-fg`, `bg-accent`, `border-line`, …). The `@theme inline` block resets `--color-*`, so **default Tailwind palette colors don't exist** — use only the tokens. Display sizes (`text-display`, `text-headline`, …) and `ease-spring` are also defined there. The theme is applied before hydration by `THEME_INIT_SCRIPT` (reads `localStorage.theme`) in `layout.tsx`; `<html>` uses `suppressHydrationWarning`.

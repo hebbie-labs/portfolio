@@ -3,11 +3,11 @@ export const PROJECTS_SECTION = {
   eyebrow: "(02) Projekte im Detail",
   title: "Ausgewählte Arbeiten",
   intro: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-  allLabel: ["Alle", "Projekte"],
+  allLabel: "Alle Projekte",
   allHref: "/projekte",
 } as const;
 
-export const PREVIEW =
+const PREVIEW =
   "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.";
 
 export const PROJECTS = [

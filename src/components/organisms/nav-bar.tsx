@@ -1,5 +1,4 @@
 import { Transition } from "@headlessui/react";
-import { cn } from "@/lib/utils";
 import { AnimatedThemeToggler } from "@/components/ui/animated-theme-toggler";
 import { buttonVariants } from "@/components/ui/button";
 import { HyperText } from "@/components/ui/hyper-text";
@@ -8,7 +7,7 @@ import { StatusDot } from "@/components/atoms/status-dot";
 import { MenuButton } from "@/components/molecules/menu-button";
 import type { NavPanelProps } from "@/types/nav";
 
-export function NavBar({ open, setOpen, current }: Readonly<NavPanelProps>) {
+export function NavBar({ open, setOpen, current }: NavPanelProps) {
   return (
     // min-w = open pill content width, so the 54px intro pill clips toggler/menu instead of squeezing them onto the logo.
     <div className="relative flex min-w-[min(310px,calc(100vw-2rem-10px))] items-center">
@@ -31,7 +30,7 @@ export function NavBar({ open, setOpen, current }: Readonly<NavPanelProps>) {
       <MenuButton
         open={open}
         onToggle={() => setOpen(!open)}
-        className={`ml-auto transition-transform duration-450 ease-in-out ${open ? "translate-x-0" : "-translate-x-12"}`}
+        className="ml-auto -translate-x-12 transition-transform duration-450 ease-in-out aria-expanded:translate-x-0"
       />
       <Transition
         as="div"
@@ -40,7 +39,7 @@ export function NavBar({ open, setOpen, current }: Readonly<NavPanelProps>) {
       >
         <AnimatedThemeToggler
           aria-label="Farbschema wechseln"
-          className={cn(buttonVariants({ size: "icon" }))}
+          className={buttonVariants({ size: "icon" })}
         />
       </Transition>
     </div>

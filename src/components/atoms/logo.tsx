@@ -6,22 +6,20 @@ type Props = {
   className?: string;
 };
 
-export function Logo({ className }: Readonly<Props>) {
+export function Logo({ className }: Props) {
   return (
-    <div className={className}>
-      <Link
-        href="/"
-        aria-label="Zur Startseite"
-        className="flex shrink-0 size-11 items-center justify-center"
-      >
-        <LogoIcon className="h-8" />
-      </Link>
-    </div>
+    <Link
+      href="/"
+      aria-label="Zur Startseite"
+      className={cn("flex shrink-0 size-11 items-center justify-center", className)}
+    >
+      <LogoIcon className="h-8" />
+    </Link>
   );
 }
 
 /** LH mark without background; `text-fg` flips black/white with the theme. */
-export function LogoIcon({ className }: Readonly<Props>) {
+export function LogoIcon({ className }: Props) {
   return (
     <svg
       viewBox="382 318 490 619"

@@ -5,7 +5,9 @@ import { useEffect } from "react";
 import { LogoIcon } from "@/components/atoms/logo";
 import { HyperText } from "@/components/ui/hyper-text";
 import { SITE_NAME } from "@/constants/site";
+import { INTRO_KEY } from "@/lib/init-scripts";
 
+/** Coupled to Nav: the startup ring lands on the logo inside `#menu` (see nav.tsx, logo.tsx). */
 const NAV_LOGO = '#menu a[href="/"] svg';
 const EASE_IN_OUT = [0.65, 0, 0.35, 1] as const;
 
@@ -61,7 +63,7 @@ export function Intro() {
 
     timeline.then(() => {
       try {
-        sessionStorage.intro = "1";
+        sessionStorage.setItem(INTRO_KEY, "1");
       } catch {}
       root.dataset.intro = "done";
     });
