@@ -30,17 +30,14 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
+  # No docker/login-action in the deploy jobs: it overwrites the runner's persistent
+  # ghcr.io login (PAT) and logs out afterwards. Log in once on the server instead.
   deploy-www:
     needs: build
     if: github.ref == 'refs/heads/main'
     runs-on: self-hosted
     concurrency: deploy-www
     steps:
-      - uses: docker/login-action@v3
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
       - run: docker compose -f /srv/homelab/compose.yml pull portfolio
       - run: docker compose -f /srv/homelab/compose.yml up -d portfolio
 
@@ -50,10 +47,5 @@ jobs:
     runs-on: self-hosted
     concurrency: deploy-dev
     steps:
-      - uses: docker/login-action@v3
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
       - run: docker compose -f /srv/homelab/compose.yml pull portfolio-dev
       - run: docker compose -f /srv/homelab/compose.yml up -d portfolio-dev
