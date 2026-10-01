@@ -31,6 +31,12 @@ export function Intro() {
     };
     const ringRadius = box.offsetWidth / 2;
     const screenRadius = Math.hypot(innerWidth, innerHeight);
+    const styles = getComputedStyle(root);
+    const bg = styles.getPropertyValue("--bg").trim();
+    const bg2 = styles.getPropertyValue("--bg-2").trim();
+    const meta = document.querySelector('meta[name="theme-color"]');
+    const pages = [root, document.body];
+    meta?.setAttribute("content", bg2);
 
     const timeline = animate([
       ["[data-logo]", { opacity: [0, 1], scale: [0.9, 1] }, { duration: 0.8 }],
@@ -46,6 +52,15 @@ export function Intro() {
         },
         { at: 1, duration: 0.8, ease: EASE_IN_OUT },
       ],
+      // html/body start as --bg-2 (globals.css) and open up together with the screen.
+      ...pages.map(
+        (el) =>
+          [
+            el,
+            { backgroundColor: [bg2, bg] },
+            { at: 1, duration: 0.8, ease: EASE_IN_OUT },
+          ] as const,
+      ),
       // Once the screen has closed to the ring's size, the ring fades in on top, then the screen fades out under it.
       ["[data-ring]", { opacity: 1 }, { at: 1.8, duration: 0.1 }],
       ["[data-screen]", { opacity: 0 }, { at: 1.9, duration: 0.1 }],
@@ -61,13 +76,24 @@ export function Intro() {
       ],
     ]);
 
+    const themeColor = setTimeout(() => meta?.setAttribute("content", bg), 1000);
+    const cleanup = () => {
+      clearTimeout(themeColor);
+      meta?.setAttribute("content", bg);
+      pages.forEach((el) => el.style.removeProperty("background-color"));
+    };
+
     timeline.then(() => {
       try {
         sessionStorage.setItem(INTRO_KEY, "1");
       } catch {}
       root.dataset.intro = "done";
+      cleanup();
     });
-    return () => timeline.cancel();
+    return () => {
+      timeline.cancel();
+      cleanup();
+    };
   }, [animate, scope]);
 
   return (
