@@ -10,7 +10,7 @@ export function NotFoundPage() {
 
   return (
     <main className="flex min-h-dvh flex-col items-center justify-center gap-4 px-4 text-center">
-      <Display as="p" size="lg" className="text-muted/30">
+      <Display size="xl" className="text-muted/30">
         404
       </Display>
       <Headline as="h1" size="sm">
