@@ -1,7 +1,7 @@
-import type { NavLabel } from "@/constants/nav";
+import type { NavLabel, OutsideNavLabel } from "@/constants/nav";
 
 export type NavPanelProps = {
   open: boolean;
   setOpen: (open: boolean) => void;
-  current: NavLabel;
+  current: NavLabel | OutsideNavLabel;
 };
