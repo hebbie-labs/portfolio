@@ -53,14 +53,8 @@ export function Intro() {
         { at: 1, duration: 0.8, ease: EASE_IN_OUT },
       ],
       // html/body start as --bg-2 (globals.css) and open up together with the screen.
-      ...pages.map(
-        (el) =>
-          [
-            el,
-            { backgroundColor: [bg2, bg] },
-            { at: 1, duration: 0.8, ease: EASE_IN_OUT },
-          ] as const,
-      ),
+      [root, { backgroundColor: [bg2, bg] }, { at: 1, duration: 0.8, ease: EASE_IN_OUT }],
+      [document.body, { backgroundColor: [bg2, bg] }, { at: 1, duration: 0.8, ease: EASE_IN_OUT }],
       // Once the screen has closed to the ring's size, the ring fades in on top, then the screen fades out under it.
       ["[data-ring]", { opacity: 1 }, { at: 1.8, duration: 0.1 }],
       ["[data-screen]", { opacity: 0 }, { at: 1.9, duration: 0.1 }],
@@ -96,11 +90,13 @@ export function Intro() {
     };
   }, [animate, scope]);
 
+  // Not `fixed`: Safari tints its bars from fixed elements at the viewport edges, so the
+  // full-screen overlay would keep them --bg-2 until the end. The page can't scroll meanwhile.
   return (
     <div
       ref={scope}
       aria-hidden
-      className="fixed inset-0 z-100 hidden items-center justify-center in-data-[intro=logo]:flex"
+      className="absolute inset-0 z-100 hidden items-center justify-center in-data-[intro=logo]:flex"
     >
       <div data-screen className="absolute inset-0 bg-bg-2" />
       <div className="relative">
@@ -129,7 +125,7 @@ export function Intro() {
             animateOnHover={false}
             delay={300}
             duration={1000}
-            className="py-0 text-sm font-normal tracking-[0.3em]"
+            className="py-0 text-sm font-normal tracking-[0.3em] whitespace-nowrap"
           >
             {SITE_NAME}
           </HyperText>
