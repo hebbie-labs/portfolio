@@ -1,26 +1,178 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg: #0a0d0b;
+  --bg-2: #111612;
+  --ph: #141b16;
+  --line: #1e2721;
+  --muted: #8d9a92;
+  --fg: #e6ede8;
+  --accent: #4fd88a;
+  --accent-ink: #06120b;
+  --glass: rgba(17, 22, 18, 0.78);
+  color-scheme: dark;
+}
+
+[data-theme="light"] {
+  --bg: #eef2ee;
+  --bg-2: #e2e8e3;
+  --ph: #dce4de;
+  --line: #c9d3cc;
+  --muted: #56635b;
+  --fg: #0b110d;
+  --accent: #0e7a4b;
+  --accent-ink: #f2f7f3;
+  --glass: rgba(226, 232, 227, 0.82);
+  color-scheme: light;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --color-*: initial;
+  --color-bg: var(--bg);
+  --color-bg-2: var(--bg-2);
+  --color-ph: var(--ph);
+  --color-line: var(--line);
+  --color-muted: var(--muted);
+  --color-fg: var(--fg);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-glass: var(--glass);
+  --color-transparent: transparent;
+  --color-current: currentColor;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  --font-display: var(--font-bricolage), sans-serif;
+  --font-sans: var(--font-instrument), system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), monospace;
+
+  --text-display: clamp(4.875rem, 16vw, 17.5rem);
+  --text-display--line-height: 0.82;
+  --text-display--letter-spacing: -0.03em;
+  --text-display-lg: clamp(4rem, 12vw, 12.5rem);
+  --text-display-lg--line-height: 0.82;
+  --text-display-lg--letter-spacing: -0.03em;
+  --text-display-md: clamp(3rem, 7.5vw, 6.5rem);
+  --text-display-md--line-height: 0.86;
+  --text-display-md--letter-spacing: -0.03em;
+  --text-headline: clamp(1.875rem, 4vw, 3.75rem);
+  --text-headline--line-height: 1.05;
+  --text-headline--letter-spacing: -0.025em;
+  --text-headline-sm: 1.75rem;
+  --text-headline-sm--line-height: 1.05;
+  --text-headline-sm--letter-spacing: -0.025em;
+
+  --ease-spring: cubic-bezier(0.32, 0.72, 0, 1);
+  --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --default-transition-duration: 240ms;
+  --default-transition-timing-function: cubic-bezier(0.2, 0.7, 0.2, 1);
+
+  @keyframes page-in {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+html {
+  background-color: var(--bg);
+  scrollbar-gutter: stable;
 }
+
+@utility font-condensed {
+  font-stretch: 75%;
+}
+
+@utility page-x {
+  @apply px-4 md:px-20;
+}
+
+/* Fixed nav pill: distance from the viewport top and its height (p-1 + 44px bar + border). */
+:root {
+  --nav-top: 1rem;
+  --nav-h: 54px;
+}
+@media (min-width: 48rem) {
+  :root {
+    --nav-top: 1.25rem;
+  }
+}
+
+/* Top padding that always leaves the same gap below the nav pill. */
+@utility pt-nav {
+  padding-top: calc(var(--nav-top) + var(--nav-h) + 3rem);
+}
+
+@utility lnk {
+  border-bottom: 1px solid var(--line);
+  padding: 8px 0 2px;
+  transition: color, border-color;
+  &:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] {
+    animation: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+[data-magicui-theme-vt="active"]::view-transition-new(root) {
+  clip-path: var(--magicui-theme-vt-clip-from);
+}
+
+::selection {
+  background-color: var(--accent);
+  color: var(--accent-ink);
+}
+
+/* Startup screen: `data-intro` on <html> is "logo" → "done" (see Intro, INTRO_INIT_SCRIPT). */
+html[data-intro="logo"] {
+  overflow: hidden;
+}
+
+/* Plays on every page load; paused behind the startup screen until `data-intro` leaves "logo". */
+[data-reveal] {
+  animation: reveal 700ms cubic-bezier(0.32, 0.72, 0, 1) backwards;
+  animation-delay: calc(var(--i, 0) * 120ms + 300ms);
+}
+
+html[data-intro="logo"] [data-reveal] {
+  animation-play-state: paused;
+}
+
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: var(--from, translateY(32px));
+    filter: blur(var(--blur, 0));
+  }
+}
+
+/* Reveal variants: only the hidden start state differs (see Reveal `variant`). */
+[data-reveal="down"] { --from: translateY(-32px); }
+[data-reveal="left"] { --from: translateX(-32px); }
+[data-reveal="right"] { --from: translateX(32px); }
+[data-reveal="fade"] { --from: none; }
+[data-reveal="scale"] { --from: scale(0.92); }
+[data-reveal="blur"] { --from: translateY(16px); --blur: 12px; }
