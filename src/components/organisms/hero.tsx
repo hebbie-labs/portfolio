@@ -8,17 +8,17 @@ export function Hero() {
     minute: "2-digit",
   });
   return (
-    <div className="flex flex-col gap-7 page-x pt-nav pb-12 min-h-[calc(100vh-4rem)] md:justify-between md:gap-3.5 md:pb-14 md:min-h-[calc(100vh-6rem)]">
+    <div className="flex flex-col gap-7 page-x pt-nav pb-12 min-h-[calc(100dvh-4rem)] justify-between md:gap-3.5 md:pb-14 md:min-h-[calc(100vh-6rem)]">
       <section>
         <Reveal
           variant="fade"
-          className="flex flex-row justify-between items-center gap-2.5 md:gap-3.5"
+          className="flex flex-col gap-1.5 md:flex-row md:items-center md:justify-between md:gap-3.5"
         >
           <span className="flex items-center gap-2">
             <StatusDot className="size-1.5 animate-pulse shadow-[0_0_8px] shadow-accent" />
             <Label>Bern, CH - {localTime}</Label>
           </span>
-          <Label className="text-right">
+          <Label className="md:text-right">
             Applikationsentwickler in Ausbildung
           </Label>
         </Reveal>
@@ -28,7 +28,7 @@ export function Hero() {
           <Display
             as="h1"
             size="xl"
-            className="text-shadow-[0_2px_4px_rgba(0,0,0,0.5)] text-shadow"
+            className="max-md:w-min max-md:text-[26vw] text-shadow-[0_2px_4px_rgba(0,0,0,0.5)] text-shadow"
           >
             Leon Hebeisen.
           </Display>
