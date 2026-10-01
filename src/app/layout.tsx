@@ -1,7 +1,7 @@
 import Script from "next/script";
 import { MainTemplate } from "@/components/templates/main-template";
 import { FONT_VARIABLES } from "@/lib/fonts";
-import { JSON_LD, THEME_INIT_SCRIPT } from "@/lib/seo";
+import { INTRO_INIT_SCRIPT, JSON_LD, THEME_INIT_SCRIPT } from "@/lib/seo";
 import "./globals.css";
 
 export { metadata, viewport } from "@/lib/seo";
@@ -16,6 +16,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="min-h-full flex flex-col bg-bg font-sans text-fg antialiased">
         <Script id="theme-init" strategy="beforeInteractive">
           {THEME_INIT_SCRIPT}
+        </Script>
+        <Script id="intro-init" strategy="beforeInteractive">
+          {INTRO_INIT_SCRIPT}
         </Script>
         <script
           type="application/ld+json"

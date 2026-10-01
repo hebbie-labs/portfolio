@@ -20,7 +20,7 @@ German-language personal portfolio (Next.js 16, React 19, Tailwind v4, TypeScrip
 
 **Atomic layout under `src/components/`**: `atoms` → `molecules` → `organisms` → `templates` (+ `pages`, `providers`). `ui/` holds shadcn-style primitives (`components.json`: style `base-nova`, `@base-ui/react`, lucide icons, `@magicui` registry). Add shadcn components with the `shadcn` CLI so aliases (`@/components`, `@/lib/utils`, `@/hooks`) resolve.
 
-**Shell**: `app/layout.tsx` → `MainTemplate` (`SmoothScroll` (Lenis), `Nav`, `TransitionProvider`, `Footer`). `TransitionProvider` plays a Headless UI accent-colored wipe whenever `usePathname()` changes; hidden under `motion-reduce`.
+**Shell**: `app/layout.tsx` → `MainTemplate` (`SmoothScroll` (Lenis), `Nav`, `Footer`). Page transitions live in `app/template.tsx` (remounts per route, CSS `animate-page-in` fade + slide-up; off under `motion-reduce`).
 
 **Single sources of truth**
 - `src/constants/nav.ts` — `NAV_LINKS`; `useNav` derives the current label from it.
