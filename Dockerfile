@@ -31,3 +31,10 @@ COPY --from=build --chown=nextjs:nodejs /app/.next/static ./.next/static
 USER nextjs
 EXPOSE 3000
 CMD ["node", "server.js"]
+
+FROM busybox:stable AS placeholder
+COPY placeholder/ /www/
+COPY public/logo.svg /www/
+USER 65534
+EXPOSE 3000
+CMD ["httpd", "-f", "-p", "3000", "-h", "/www"]
