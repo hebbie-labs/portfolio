@@ -1,27 +1,20 @@
-export const FEATURED_PROJECTS = [
-  {
-    nr: "01",
-    title: "Recur",
-    meta: "Web-App · In Entwicklung",
-    description:
-      "Habit- und Task-Tracker mit Google-Login. Läuft im Browser und bald als iOS- und Android-App.",
-    tags: ["React 19", "TypeScript", "Tailwind", "shadcn/ui", "Spring Boot", "PostgreSQL", "OAuth2 / JWT", "Capacitor"],
-    href: "/projekte",
-  },
-  {
-    nr: "02",
-    title: "Homeserver",
-    meta: "Self-Hosting · Läuft",
-    description:
-      "Ein ThinkPad als Server: Pi-hole blockt Werbung im ganzen Netz, eigene Apps laufen in Containern, Zugriff von unterwegs nur über Tailscale.",
-    tags: ["Debian", "Umbrel OS", "Docker", "Pi-hole", "Tailscale", "Cloudflare Tunnel"],
-  },
-] as const;
+export const PROJECTS_SECTION = {
+  label: "Projekte",
+  eyebrow: "(02) Projekte im Detail",
+  title: "Ausgewählte Arbeiten",
+  intro: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+  allLabel: ["Alle", "Projekte"],
+  allHref: "/projekte",
+} as const;
 
-export const ARCHIVE_PROJECTS = [
-  { name: "OSV Sportsapp", stack: "Spring Boot · Keycloak" },
-  { name: "Roulette", stack: "TypeScript · WebSockets" },
-  { name: "PyPass", stack: "Python · SQLite" },
-  { name: "Movie DB", stack: "React · TMDB API" },
-  { name: "Little Bambus", stack: "Spring Boot · PostgreSQL" },
-] as const;
+export const PREVIEW =
+  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.";
+
+export const PROJECTS = [
+  { nr: "01", title: "Recur", description: PREVIEW },
+  { nr: "02", title: "Projekt Zwei", description: PREVIEW },
+  { nr: "03", title: "Projekt Drei", description: PREVIEW },
+  { nr: "04", title: "Projekt Vier", description: PREVIEW },
+];
+
+export type Project = (typeof PROJECTS)[number];
