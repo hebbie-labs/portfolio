@@ -1,9 +1,43 @@
 import type { ComponentProps, ElementType } from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 
+import { TextAnimate } from "@/components/ui/text-animate";
 import { cn } from "@/lib/utils";
 
-type Props<V = object> = V & ComponentProps<"p"> & { as?: ElementType };
+type AnimateOptions = Omit<
+  ComponentProps<typeof TextAnimate>,
+  "children" | "as" | "className"
+>;
+
+/** `animate` runs the text through TextAnimate (children must be a string). */
+type Props<V = object> = V &
+  ComponentProps<"p"> & { as?: ElementType; animate?: boolean | AnimateOptions };
+
+// ponytail: other props (id, onClick, …) are dropped when animating, forward them if needed
+function Text({
+  as: Tag,
+  animate,
+  className,
+  children,
+  ...props
+}: Props & { as: ElementType }) {
+  if (!animate) {
+    return (
+      <Tag className={className} {...props}>
+        {children}
+      </Tag>
+    );
+  }
+  return (
+    <TextAnimate
+      as={Tag as ComponentProps<typeof TextAnimate>["as"]}
+      className={className}
+      {...(animate === true ? {} : animate)}
+    >
+      {children as string}
+    </TextAnimate>
+  );
+}
 
 const displayVariants = cva(
   "font-display font-condensed font-extrabold uppercase leading-[0.82] tracking-[-0.03em]",
@@ -30,7 +64,9 @@ export function Display({
   className,
   ...props
 }: Props<VariantProps<typeof displayVariants>>) {
-  return <Tag className={cn(displayVariants({ size }), className)} {...props} />;
+  return (
+    <Text as={Tag} className={cn(displayVariants({ size }), className)} {...props} />
+  );
 }
 
 /** Page and card headings. */
@@ -41,14 +77,15 @@ export function Headline({
   ...props
 }: Props<VariantProps<typeof headlineVariants>>) {
   return (
-    <Tag className={cn(headlineVariants({ size }), className)} {...props} />
+    <Text as={Tag} className={cn(headlineVariants({ size }), className)} {...props} />
   );
 }
 
 /** Intro paragraphs. */
 export function Lead({ as: Tag = "p", className, ...props }: Props) {
   return (
-    <Tag
+    <Text
+      as={Tag}
       className={cn(
         "text-xl leading-[1.3] tracking-[-0.01em] md:text-[28px]",
         className,
@@ -66,7 +103,8 @@ export function Body({
   ...props
 }: Props<{ muted?: boolean }>) {
   return (
-    <Tag
+    <Text
+      as={Tag}
       className={cn(
         "text-base leading-normal md:text-lg",
         muted && "text-muted",
@@ -80,7 +118,8 @@ export function Body({
 /** Meta lines, eyebrows, footer. */
 export function Label({ as: Tag = "span", className, ...props }: Props) {
   return (
-    <Tag
+    <Text
+      as={Tag}
       className={cn("font-mono text-xs text-muted md:text-[13px]", className)}
       {...props}
     />
