@@ -151,6 +151,18 @@ html[data-intro="logo"] {
   overflow: hidden;
 }
 
+/* Matches the startup screen so browser chrome/overscroll blend in; Intro fades it back to --bg. */
+html[data-intro="logo"],
+html[data-intro="logo"] body {
+  background-color: var(--bg-2);
+}
+
+/* Safari draws the page under its floating toolbar, past any overlay; keep that area plain body color. */
+html[data-intro="logo"] main,
+html[data-intro="logo"] footer {
+  visibility: hidden;
+}
+
 /* Plays on every page load; paused behind the startup screen until `data-intro` leaves "logo". */
 [data-reveal] {
   animation: reveal 700ms cubic-bezier(0.32, 0.72, 0, 1) backwards;
