@@ -5,7 +5,6 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { Reveal } from "@/components/atoms/reveal";
 import { Body } from "@/components/atoms/typography";
 import { ProjectActions } from "@/components/molecules/project-actions";
-import { TagList } from "@/components/molecules/tag-list";
 import { ProjectGallery } from "@/components/organisms/project-gallery";
 import type { Project } from "@/constants/projects";
 import { cn } from "@/lib/utils";
@@ -15,7 +14,6 @@ type Props = Pick<
   | "title"
   | "description"
   | "features"
-  | "tags"
   | "url"
   | "repo"
   | "views"
@@ -30,7 +28,6 @@ export function ProjectShowcase({
   title,
   description,
   features,
-  tags,
   url,
   repo,
   views,
@@ -118,7 +115,6 @@ export function ProjectShowcase({
           </Reveal>
         )}
         <Reveal scroll className="flex flex-col gap-6">
-          <TagList tags={tags} />
           <ProjectActions url={url} repo={repo} />
         </Reveal>
       </div>

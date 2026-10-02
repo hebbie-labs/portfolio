@@ -1,6 +1,5 @@
 export const PROJECTS_SECTION = {
   label: "Projekte",
-  eyebrow: "(02) Ausgewählte Arbeiten",
   title: "Ausgewählte Arbeiten",
   intro: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
   allLabel: "Alle Projekte",
@@ -35,7 +34,6 @@ export type Project = {
   description: readonly string[];
   /** Ruled rows below the description; scrolling one into the middle switches the browser frame to its `view`. */
   features?: readonly ProjectFeature[];
-  tags: readonly string[];
   /** Shown as preview on the start page. */
   featured?: boolean;
   /** Live demo; also the address shown in the browser frame. */
@@ -77,16 +75,6 @@ export const PROJECTS: Project[] = [
       },
       { text: "Anmeldung per E-Mail oder mit Google" },
       { text: "Als PWA installierbar, mit Offline-Seite" },
-    ],
-    tags: [
-      "Java 25",
-      "Spring Boot 4",
-      "PostgreSQL",
-      "Next.js",
-      "React",
-      "TypeScript",
-      "Tailwind",
-      "Docker",
     ],
     featured: true,
     url: "https://dev.recur.dpdns.org",

@@ -13,7 +13,6 @@ export function ProjectCard({
   title,
   description,
   features,
-  tags,
   url,
   repo,
   video,
@@ -50,7 +49,6 @@ export function ProjectCard({
         title={title}
         description={description}
         features={features}
-        tags={tags}
         url={url}
         repo={repo}
         views={views}
