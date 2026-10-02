@@ -11,7 +11,7 @@ import { cn } from "@/lib/utils";
 
 type Props = Pick<
   Project,
-  "title" | "description" | "features" | "url" | "repo" | "video" | "views" | "phone"
+  "title" | "description" | "features" | "url" | "repo" | "video" | "views"
 >;
 
 /**
@@ -26,7 +26,6 @@ export function ProjectShowcase({
   repo,
   video,
   views,
-  phone,
 }: Props) {
   const [view, setView] = useState(0);
   const [feature, setFeature] = useState(0);
@@ -76,7 +75,6 @@ export function ProjectShowcase({
           title={title}
           video={video}
           views={views}
-          phone={phone}
           active={view}
           onSelect={setView}
         />

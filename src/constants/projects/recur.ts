@@ -23,7 +23,7 @@ export const RECUR: Project = {
       view: "Gruppen",
     },
     { text: "Anmeldung per E-Mail oder mit Google" },
-    { text: "Als PWA installierbar, mit Offline-Seite" },
+    { text: "Als PWA installierbar, mit Offline-Seite", view: "Mobil" },
   ],
   featured: true,
   url: "https://dev.recur.dpdns.org",
@@ -35,6 +35,6 @@ export const RECUR: Project = {
     { label: "Kalender", image: "/placeholder/recur-kalender.svg" },
     { label: "Liste", image: "/placeholder/recur-liste.svg" },
     { label: "Gruppen", image: "/placeholder/recur-gruppen.svg" },
+    { label: "Mobil", image: "/recur-home-mobile.png", portrait: true },
   ],
-  phone: { image: "/recur-home-mobile.png" },
 };

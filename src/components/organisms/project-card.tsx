@@ -15,7 +15,6 @@ export function ProjectCard({
   repo,
   video,
   views,
-  phone,
 }: Project) {
   return (
     <article id={slug} className="flex scroll-mt-24 flex-col gap-8 md:gap-12">
@@ -32,7 +31,6 @@ export function ProjectCard({
         repo={repo}
         video={video}
         views={views}
-        phone={phone}
       />
     </article>
   );
