@@ -48,7 +48,7 @@ export function ProjectGallery({
               aria-pressed={i === active}
               onClick={() => onSelect(i)}
               className={cn(
-                "font-mono text-sm transition-colors duration-300",
+                "py-2 font-mono text-sm transition-colors duration-300",
                 i === active ? "text-fg" : "text-muted hover:text-fg",
               )}
             >

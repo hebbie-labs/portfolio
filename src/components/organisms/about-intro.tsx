@@ -1,13 +1,13 @@
 import { Reveal } from "@/components/atoms/reveal";
-import { Headline, Lead } from "@/components/atoms/typography";
+import { Display, Lead } from "@/components/atoms/typography";
 import { ABOUT_PAGE } from "@/constants/about";
 
 /** Headline, then the intro sentence fading in word by word (CSS `reveal`, see globals.css). */
 export function AboutIntro() {
   return (
     <header className="space-y-6">
-      <Reveal variant="blur">
-        <Headline as="h1">{ABOUT_PAGE.title}</Headline>
+      <Reveal>
+        <Display size="md">{ABOUT_PAGE.title}</Display>
       </Reveal>
       <Lead className="max-w-2xl text-3xl md:text-4xl">
         {ABOUT_PAGE.intro.split(" ").map((word, i) => (

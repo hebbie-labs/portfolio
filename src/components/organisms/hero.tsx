@@ -16,12 +16,12 @@ export function Hero() {
           </span>
         </Label>
       </Reveal>
-      <Reveal variant="blur" index={1}>
+      <Reveal index={1}>
         <Display
           as="h1"
           size="xl"
           translate="no"
-          className="max-md:w-min max-md:text-[26vw] text-shadow-[0_2px_4px_rgba(0,0,0,0.5)]"
+          className="max-md:w-min max-md:text-[26vw]"
         >
           {`${HOME_HERO.title}.`}
         </Display>

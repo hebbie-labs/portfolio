@@ -4,7 +4,7 @@ import type { Project } from "@/constants/projects";
 export function ProjectActions({ url, repo }: Pick<Project, "url" | "repo">) {
   if (!url && !repo) return null;
   return (
-    <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
+    <div className="flex flex-wrap items-center gap-3">
       <ProjectLinks url={url} repo={repo} />
     </div>
   );

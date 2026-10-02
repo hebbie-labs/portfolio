@@ -62,7 +62,7 @@ export function Headline({
 export function Lead({ as: Tag = "p", className, ...props }: Props) {
   return (
     <Tag
-      className={cn("text-xl leading-[1.3] tracking-[-0.01em] md:text-headline-sm", className)}
+      className={cn("text-xl leading-[1.3] tracking-[-0.01em] text-pretty md:text-headline-sm", className)}
       {...props}
     />
   );
@@ -72,7 +72,7 @@ export function Lead({ as: Tag = "p", className, ...props }: Props) {
 export function Body({ as: Tag = "p", muted, className, ...props }: Props<{ muted?: boolean }>) {
   return (
     <Tag
-      className={cn("text-base leading-normal md:text-lg", muted && "text-muted", className)}
+      className={cn("text-base leading-normal text-pretty md:text-lg", muted && "text-muted", className)}
       {...props}
     />
   );

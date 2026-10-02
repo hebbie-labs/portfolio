@@ -3,6 +3,7 @@
 import { ArrowLeft } from "lucide-react";
 import { Reveal } from "@/components/atoms/reveal";
 import { Body, Display, Headline } from "@/components/atoms/typography";
+import { buttonVariants } from "@/components/ui/button";
 import { NOT_FOUND_PAGE } from "@/constants/not-found";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -11,7 +12,7 @@ export function NotFoundPage() {
   const pathname = usePathname();
 
   return (
-    <Reveal className="flex min-h-dvh flex-col items-center justify-center gap-4 px-4 text-center">
+    <Reveal className="flex min-h-[calc(100dvh-7rem)] flex-col items-center justify-center gap-4 px-4 text-center">
       <Display as="p" size="xl" className="text-muted/30" aria-hidden>
         404
       </Display>
@@ -24,8 +25,8 @@ export function NotFoundPage() {
         </code>{" "}
         {NOT_FOUND_PAGE.missing}
       </Body>
-      <Link href="/" className="group flex flex-row items-center lnk">
-        <ArrowLeft className="size-0 -translate-x-2 opacity-0 transition-[width,height,margin,opacity,translate] duration-400 group-hover:mr-1 group-hover:size-4.5 group-hover:translate-x-0 group-hover:opacity-100" />
+      <Link href="/" className={buttonVariants({ variant: "default", className: "mt-4 h-13 px-6 text-base font-semibold" })}>
+        <ArrowLeft aria-hidden />
         {NOT_FOUND_PAGE.backLabel}
       </Link>
     </Reveal>
