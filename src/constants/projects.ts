@@ -43,7 +43,7 @@ export type ProjectView = {
   label: string;
   /** Screenshot in `public/`. */
   image?: string;
-  /** Portrait (mobile) screenshot: shown whole and centered instead of cropped to the frame. */
+  /** Portrait (mobile) screenshot: shown in a phone frame instead of the screen. */
   portrait?: boolean;
 };
 

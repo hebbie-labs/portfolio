@@ -3,6 +3,7 @@
 import { useReducedMotion } from "motion/react";
 
 import { Screen } from "@/components/molecules/screen";
+import { Iphone } from "@/components/ui/iphone";
 import { PROJECT_TEXT, type Project } from "@/constants/projects";
 import { cn } from "@/lib/utils";
 
@@ -14,7 +15,7 @@ type Props = Pick<Project, "title" | "video" | "views"> & {
 
 /**
  * Screen showing the active view (the first one plays the project's video, the poster only with
- * reduced motion). Empty until the images are set. The tabs only show below `lg`,
+ * reduced motion); a portrait view sits in a phone frame without a surrounding frame. Empty until the images are set. The tabs only show below `lg`,
  * where the frame does not stay in sight while the features scroll by.
  */
 export function ProjectGallery({
@@ -29,12 +30,19 @@ export function ProjectGallery({
 
   return (
     <div className="flex flex-col gap-4">
-      <Screen
-        image={view?.image}
-        portrait={view?.portrait}
-        video={active === 0 && !reducedMotion ? video : undefined}
-        alt={PROJECT_TEXT.viewAlt(title, view?.label)}
-      />
+      {view?.portrait ? (
+        <div className="flex aspect-[12/7] justify-center">
+          <div className="aspect-[433/882] h-full">
+            <Iphone src={view.image} alt={PROJECT_TEXT.viewAlt(title, view.label)} />
+          </div>
+        </div>
+      ) : (
+        <Screen
+          image={view?.image}
+          video={active === 0 && !reducedMotion ? video : undefined}
+          alt={PROJECT_TEXT.viewAlt(title, view?.label)}
+        />
+      )}
       {views.length > 1 && (
         <div className="flex flex-wrap gap-x-6 gap-y-2 lg:hidden">
           {views.map(({ label }, i) => (
