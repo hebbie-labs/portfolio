@@ -16,7 +16,8 @@ type Props = Pick<
 
 /**
  * Screen on the left, text on the right. From `lg` the frames stay pinned while the text scrolls;
- * the feature row in the middle of the viewport is highlighted and switches the screen to its view.
+ * the feature row in the middle of the viewport is highlighted and switches the screen to its view;
+ * from `lg` each row fills 40vh, so the views change slowly.
  */
 export function ProjectShowcase({
   title,
@@ -94,12 +95,13 @@ export function ProjectShowcase({
                   ref={(el) => {
                     rows.current[i] = el;
                   }}
+                  className="lg:flex lg:min-h-[40vh] lg:items-center"
                 >
                   <button
                     type="button"
                     onClick={() => select(i)}
                     className={cn(
-                      "w-full py-3 text-left transition-colors duration-300",
+                      "w-full py-3 text-left transition-colors duration-300 lg:py-0 lg:text-2xl",
                       i === feature ? "text-fg" : "text-muted hover:text-fg",
                     )}
                   >
