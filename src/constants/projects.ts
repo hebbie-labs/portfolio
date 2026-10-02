@@ -10,7 +10,8 @@ export const PROJECTS_SECTION = {
 export const PROJECTS_PAGE = {
   eyebrow: "(01) Alle Projekte",
   title: "Projekte",
-  intro: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.",
+  intro:
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.",
 } as const;
 
 type Item = { label: string; title: string; text: string };
@@ -117,4 +118,5 @@ export const PROJECTS: Project[] = [
 
 export const FEATURED_PROJECTS = PROJECTS.filter((p) => p.featured);
 
-export const getProject = (slug: string) => PROJECTS.find((p) => p.slug === slug);
+export const getProject = (slug: string) =>
+  PROJECTS.find((p) => p.slug === slug);
