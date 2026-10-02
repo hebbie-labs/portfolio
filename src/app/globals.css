@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* Dark is the default theme; light only via [data-theme="light"]. */
+@custom-variant dark (&:where(:root:not([data-theme="light"]) *));
+
 :root {
   --bg: #0a0d0b;
   --bg-2: #111612;
@@ -172,6 +175,25 @@ html[data-intro="logo"] [data-reveal] {
     transform: var(--from, translateY(32px));
     filter: blur(var(--blur, 0));
   }
+}
+
+/* `scroll`: hidden until the Reveal component sets `data-in` (when it enters the viewport), then plays the same animation. */
+[data-reveal][data-scroll] {
+  animation: none;
+}
+
+[data-reveal][data-scroll]:not([data-in]) {
+  opacity: 0;
+}
+
+[data-reveal][data-scroll][data-in] {
+  animation: reveal 700ms cubic-bezier(0.32, 0.72, 0, 1) backwards;
+  animation-delay: calc(var(--i, 0) * 120ms);
+}
+
+/* Visible on page load: start after the load reveals (300ms base + header stagger). */
+[data-reveal][data-scroll][data-in][data-load] {
+  animation-delay: calc(var(--i, 0) * 120ms + 700ms);
 }
 
 /* Reveal variants: only the hidden start state differs (see Reveal `variant`). */

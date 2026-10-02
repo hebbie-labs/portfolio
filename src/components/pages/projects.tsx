@@ -1,5 +1,13 @@
-import { PlaceholderTemplate } from "@/components/templates/placeholder-template";
+import { PageHeading } from "@/components/molecules/page-heading";
+import { ProjectList } from "@/components/organisms/project-list";
+import { PageTemplate } from "@/components/templates/page-template";
+import { PROJECTS_PAGE } from "@/constants/projects";
 
 export function ProjectsPage() {
-  return <PlaceholderTemplate title="Here will be the projects page some day." />;
+  return (
+    <PageTemplate>
+      <PageHeading {...PROJECTS_PAGE} />
+      <ProjectList />
+    </PageTemplate>
+  );
 }

@@ -2,13 +2,26 @@
 
 import { motion, type MotionStyle } from "motion/react";
 
-import { ProjectCard } from "@/components/organisms/project-card";
 import { ProjectEndCard } from "@/components/molecules/project-end-card";
 import { ProjectTitleCard } from "@/components/molecules/project-title-card";
-import { PROJECTS, PROJECTS_SECTION } from "@/constants/projects";
+import { ProjectPreview } from "@/components/organisms/project-preview";
+import { FEATURED_PROJECTS, PROJECTS_SECTION } from "@/constants/projects";
 import { useHorizontalScroll } from "@/hooks/useHorizontalScroll";
+import { cn } from "@/lib/utils";
 
-/** Sticky section: from `md` (motion allowed) the vertical scroll moves the track sideways; otherwise the panels just stack. */
+/** From `md` (motion allowed) the vertical scroll moves the track sideways; otherwise the panels just stack. Class names are spelled out in full so Tailwind finds them. */
+const trackClasses = cn(
+  "flex flex-col gap-12 page-x py-16",
+  // track: one row, translated by the scroll progress
+  "md:motion-safe:h-full md:motion-safe:w-max md:motion-safe:flex-row md:motion-safe:items-start md:motion-safe:gap-0 md:motion-safe:py-0",
+  "md:motion-safe:translate-x-[calc(var(--distance,0px)*var(--p,0)*-1)] md:motion-safe:will-change-[translate]",
+  // panels: fixed widths, spacing after each, title and end card centered, projects hang from the nav
+  "md:motion-safe:[&>*]:shrink-0 md:motion-safe:[&>*:not(:last-child)]:pr-20",
+  "md:motion-safe:[&>*:first-child]:w-[40vw] md:motion-safe:[&>article]:w-[36vw]",
+  "md:motion-safe:[&>:is(:first-child,:last-child)]:self-center md:motion-safe:[&>:not(:is(:first-child,:last-child))]:pt-nav",
+);
+
+/** Sticky section: the track of project previews moves sideways while scrolling. */
 export function ProjectScroll() {
   const { section, track, p } = useHorizontalScroll();
 
@@ -20,13 +33,10 @@ export function ProjectScroll() {
       className="md:motion-safe:h-[calc(100vh+var(--distance,0px))]"
     >
       <div className="md:motion-safe:sticky md:motion-safe:top-0 md:motion-safe:h-screen md:motion-safe:overflow-hidden">
-        <div
-          ref={track}
-          className="flex flex-col gap-12 page-x py-16 md:motion-safe:h-full md:motion-safe:w-max md:motion-safe:flex-row md:motion-safe:items-center md:motion-safe:gap-0 md:motion-safe:py-0 md:motion-safe:translate-x-[calc(var(--distance,0px)*var(--p,0)*-1)] md:motion-safe:will-change-[translate] md:motion-safe:[&>*]:shrink-0 md:motion-safe:[&>*:not(:last-child)]:pr-20 md:motion-safe:[&>*:first-child]:w-[40vw] md:motion-safe:[&>article]:w-[70vw]"
-        >
+        <div ref={track} className={trackClasses}>
           <ProjectTitleCard />
-          {PROJECTS.map((project) => (
-            <ProjectCard key={project.nr} {...project} />
+          {FEATURED_PROJECTS.map((project) => (
+            <ProjectPreview key={project.slug} {...project} />
           ))}
           <ProjectEndCard />
         </div>
