@@ -21,7 +21,7 @@ export type Project = {
   video?: string;
   /** Desktop views on the screen; the first one is also the start page preview and the poster of `video`. Reference each by a feature, below `md` tabs switch them. */
   views: readonly ProjectView[];
-  /** Mobile screenshot in a phone frame overlapping the screen. */
+  /** Mobile screenshot in a phone frame beside the screen. */
   phone?: { image?: string };
 };
 

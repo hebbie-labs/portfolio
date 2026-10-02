@@ -15,7 +15,7 @@ type Props = Pick<Project, "title" | "video" | "views" | "phone"> & {
 
 /**
  * Screen showing the active desktop view (the first one plays the project's video, the poster only with
- * reduced motion) and, if there is one, a phone frame overlapping its bottom right corner. Empty until the
+ * reduced motion) and, if there is one, a phone frame beside it. Empty until the
  * images are set. The tabs only show below `lg`,
  * where the frame does not stay in sight while the features scroll by.
  */
@@ -32,14 +32,16 @@ export function ProjectGallery({
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="relative">
-        <Screen
-          image={view?.image}
-          video={active === 0 && !reducedMotion ? video : undefined}
-          alt={PROJECT_TEXT.viewAlt(title, view?.label)}
-        />
+      <div className="flex items-end gap-4">
+        <div className="min-w-0 flex-1">
+          <Screen
+            image={view?.image}
+            video={active === 0 && !reducedMotion ? video : undefined}
+            alt={PROJECT_TEXT.viewAlt(title, view?.label)}
+          />
+        </div>
         {phone && (
-          <div className="absolute right-[4%] -bottom-10 w-[22%] drop-shadow-2xl">
+          <div className="w-[18%] shrink-0">
             <Iphone src={phone.image} alt={PROJECT_TEXT.phoneAlt(title)} />
           </div>
         )}
