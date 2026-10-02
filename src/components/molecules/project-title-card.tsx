@@ -3,7 +3,7 @@ import { PROJECTS_SECTION } from "@/constants/projects";
 
 export function ProjectTitleCard() {
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-15">
       <Label>{PROJECTS_SECTION.eyebrow}</Label>
       <Display as="h2" size="md">
         {PROJECTS_SECTION.title}

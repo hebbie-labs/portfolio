@@ -15,7 +15,7 @@ function accentPunct(children: Props["children"]) {
     .map((part, i) => (i % 2 ? <span key={i} className="text-accent">{part}</span> : part));
 }
 
-const displayVariants = cva("overflow-clip font-display font-condensed font-extrabold uppercase", {
+const displayVariants = cva("-my-[0.15em] overflow-clip py-[0.15em] font-display font-condensed font-extrabold uppercase", {
   variants: {
     size: { xl: "text-display", lg: "text-display-lg", md: "text-display-md" },
   },

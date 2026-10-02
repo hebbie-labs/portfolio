@@ -2,7 +2,7 @@
 
 import { motion, type MotionStyle } from "motion/react";
 
-import { ProjectCard } from "@/components/molecules/project-card";
+import { ProjectCard } from "@/components/organisms/project-card";
 import { ProjectEndCard } from "@/components/molecules/project-end-card";
 import { ProjectTitleCard } from "@/components/molecules/project-title-card";
 import { PROJECTS, PROJECTS_SECTION } from "@/constants/projects";
