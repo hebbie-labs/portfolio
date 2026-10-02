@@ -1,0 +1,127 @@
+"use client";
+
+import { useCallback, useEffect, useRef, useState } from "react";
+
+import { Reveal } from "@/components/atoms/reveal";
+import { Body } from "@/components/atoms/typography";
+import { ProjectActions } from "@/components/molecules/project-actions";
+import { TagList } from "@/components/molecules/tag-list";
+import { ProjectGallery } from "@/components/organisms/project-gallery";
+import type { Project } from "@/constants/projects";
+import { cn } from "@/lib/utils";
+
+type Props = Pick<
+  Project,
+  | "title"
+  | "description"
+  | "features"
+  | "tags"
+  | "url"
+  | "repo"
+  | "views"
+  | "phone"
+>;
+
+/**
+ * Device frames on the left, text on the right. From `md` the frames stay pinned while the text scrolls;
+ * the feature row in the middle of the viewport is highlighted and switches the frame to its view.
+ */
+export function ProjectShowcase({
+  title,
+  description,
+  features,
+  tags,
+  url,
+  repo,
+  views,
+  phone,
+}: Props) {
+  const [view, setView] = useState(0);
+  const [feature, setFeature] = useState(0);
+  const rows = useRef<(HTMLLIElement | null)[]>([]);
+
+  const select = useCallback(
+    (index: number) => {
+      setFeature(index);
+      const target = views.findIndex(
+        ({ label }) => label === features?.[index].view,
+      );
+      if (target >= 0) setView(target);
+    },
+    [features, views],
+  );
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          const index = rows.current.indexOf(entry.target as HTMLLIElement);
+          if (entry.isIntersecting && index >= 0) select(index);
+          // scrolled back above the list: first view and first row again
+          else if (index === 0 && entry.boundingClientRect.top > innerHeight / 2) {
+            setView(0);
+            setFeature(0);
+          }
+        }
+      },
+      { rootMargin: "-49% 0px -50% 0px" },
+    );
+    rows.current.forEach((row) => row && observer.observe(row));
+    return () => observer.disconnect();
+  }, [select]);
+
+  return (
+    <div className="grid gap-10 md:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] md:gap-16">
+      <Reveal
+        scroll
+        variant="scale"
+        className="md:sticky md:top-32 md:self-start"
+      >
+        <ProjectGallery
+          title={title}
+          url={url}
+          views={views}
+          phone={phone}
+          active={view}
+          onSelect={setView}
+        />
+      </Reveal>
+      <div className="flex min-w-0 flex-col gap-6 md:gap-8 md:self-center">
+        <Reveal scroll className="flex flex-col gap-4">
+          {description.map((paragraph) => (
+            <Body key={paragraph}>{paragraph}</Body>
+          ))}
+        </Reveal>
+        {features && (
+          <Reveal scroll>
+            <ul className="divide-y divide-line border-y border-line">
+              {features.map(({ text }, i) => (
+                <li
+                  key={text}
+                  ref={(el) => {
+                    rows.current[i] = el;
+                  }}
+                >
+                  <button
+                    type="button"
+                    onClick={() => select(i)}
+                    className={cn(
+                      "w-full py-3 text-left transition-colors duration-300",
+                      i === feature ? "text-fg" : "text-muted hover:text-fg",
+                    )}
+                  >
+                    {text}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </Reveal>
+        )}
+        <Reveal scroll className="flex flex-col gap-6">
+          <TagList tags={tags} />
+          <ProjectActions url={url} repo={repo} />
+        </Reveal>
+      </div>
+    </div>
+  );
+}

@@ -1,48 +1,61 @@
 import { Reveal } from "@/components/atoms/reveal";
-import { ProjectDetails } from "@/components/molecules/project-details";
-import { ProjectHeading } from "@/components/molecules/project-heading";
-import { ProjectMedia } from "@/components/molecules/project-media";
-import { ProjectMeta } from "@/components/molecules/project-meta";
+import { Display, Label } from "@/components/atoms/typography";
+import { ProjectVideo } from "@/components/molecules/project-video";
+import { ProjectShowcase } from "@/components/organisms/project-showcase";
 import type { Project } from "@/constants/projects";
 
 /**
- * Projects page entry; every part reveals on scroll.
- * Browser: title on top, media and text side by side. Phone: tall media left, title and text stacked right.
+ * One project on the projects page: the title is the hero, below it the showcase (frames and text).
  */
-export function ProjectCard(project: Project) {
-  const { slug, nr, category, title, description, tags, device, url, repo, image } = project;
-  const heading = <ProjectHeading title={title} />;
-  const media = (
-    <Reveal scroll variant="scale" index={1}>
-      <ProjectMedia device={device} url={url} image={image} title={title} />
-    </Reveal>
-  );
-  const details = (
-    <ProjectDetails description={description} tags={tags} url={url} repo={repo} />
-  );
-
+export function ProjectCard({
+  slug,
+  categories,
+  title,
+  description,
+  features,
+  tags,
+  url,
+  repo,
+  video,
+  views,
+  phone,
+}: Project) {
   return (
-    <article id={slug} className="flex scroll-mt-24 flex-col gap-6 md:gap-8">
-      <Reveal scroll variant="fade">
-        <ProjectMeta nr={nr} category={category} />
-      </Reveal>
-      {device === "phone" ? (
-        <div className="grid gap-6 md:grid-cols-[16rem_1fr] md:gap-10">
-          {media}
-          <div className="flex min-w-0 flex-col justify-center gap-8">
-            {heading}
-            {details}
-          </div>
+    <article id={slug} className="flex scroll-mt-24 flex-col gap-8 md:gap-12">
+      <Reveal
+        scroll
+        variant="blur"
+        className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between md:gap-8"
+      >
+        <Display as="h2" size="lg" className="min-w-0 break-words">
+          {title}
+        </Display>
+        <div className="flex flex-wrap gap-x-4 md:flex-col md:items-end md:pb-2">
+          {categories.map((category) => (
+            <Label key={category}>{category}</Label>
+          ))}
         </div>
-      ) : (
-        <>
-          {heading}
-          <div className="grid gap-6 md:grid-cols-[3fr_2fr] md:gap-10">
-            {media}
-            {details}
-          </div>
-        </>
+      </Reveal>
+      {video && (
+        <Reveal scroll variant="scale">
+          <ProjectVideo
+            src={video}
+            poster={views[0]?.image}
+            url={url}
+            title={title}
+          />
+        </Reveal>
       )}
+      <ProjectShowcase
+        title={title}
+        description={description}
+        features={features}
+        tags={tags}
+        url={url}
+        repo={repo}
+        views={views}
+        phone={phone}
+      />
     </article>
   );
 }

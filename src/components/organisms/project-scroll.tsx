@@ -19,8 +19,8 @@ const trackClasses = cn(
   "md:motion-safe:h-full md:motion-safe:w-max md:motion-safe:flex-row md:motion-safe:items-start md:motion-safe:gap-0 md:motion-safe:py-0",
   "md:motion-safe:translate-x-[calc(var(--distance,0px)*var(--progress,0)*-1)] md:motion-safe:will-change-[translate]",
   // panels: fixed widths, spacing after each, title and end card centered, projects hang from the nav
-  "md:motion-safe:[&>*]:shrink-0 md:motion-safe:[&>*:not(:last-child)]:pr-20",
-  "md:motion-safe:[&>*:first-child]:w-[40vw] md:motion-safe:[&>article]:w-[36vw]",
+  "md:motion-safe:[&>*]:shrink-0 md:motion-safe:[&>*:not(:last-child)]:pr-12",
+  "md:motion-safe:[&>*:first-child]:w-[30vw] md:motion-safe:[&>article]:w-[32vw]",
   "md:motion-safe:[&>:is(:first-child,:last-child)]:self-center md:motion-safe:[&>:not(:is(:first-child,:last-child))]:pt-nav",
 );
 

@@ -5,16 +5,16 @@ import { Body, Display, Label } from "@/components/atoms/typography";
 import { ProjectMedia } from "@/components/molecules/project-media";
 import type { Project } from "@/constants/projects";
 
-/** Start page teaser: number, media, title, one-liner; the whole card links to its entry on the projects page. Title and summary reserve two lines so card heights match. */
-export function ProjectPreview({ slug, nr, title, summary, device, url, image }: Project) {
+/** Start page teaser: number, media, title, one-liner; the whole card links to its entry on the projects page. */
+export function ProjectPreview({ slug, nr, title, summary, url, views }: Project) {
   return (
-    <article className="group relative flex flex-col gap-4 md:gap-6">
+    <article className="group relative flex flex-col gap-3 md:gap-4">
       <div className="flex items-center justify-between">
         <Label>{nr}</Label>
         <CornerArrow />
       </div>
       <div className="transition-transform duration-500 ease-spring group-hover:-translate-y-1">
-        <ProjectMedia device={device} url={url} image={image} title={title} />
+        <ProjectMedia url={url} views={views} title={title} />
       </div>
       <Link
         href={`/projekte#${slug}`}
@@ -23,12 +23,12 @@ export function ProjectPreview({ slug, nr, title, summary, device, url, image }:
         <Display
           as="h3"
           size="md"
-          className="min-h-[2.02em] text-balance transition-colors duration-300 group-hover:text-accent"
+          className="text-balance transition-colors duration-300 group-hover:text-accent"
         >
           {title}
         </Display>
       </Link>
-      <Body muted className="line-clamp-2 min-h-[2lh]">
+      <Body muted className="line-clamp-2">
         {summary}
       </Body>
     </article>

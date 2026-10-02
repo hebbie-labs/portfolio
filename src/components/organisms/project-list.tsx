@@ -1,6 +1,5 @@
 import { Fragment } from "react";
 
-import { FocusFade } from "@/components/atoms/focus-fade";
 import { Reveal } from "@/components/atoms/reveal";
 import { ProjectCard } from "@/components/organisms/project-card";
 import { Separator } from "@/components/ui/separator";
@@ -17,9 +16,7 @@ export function ProjectList() {
               <Separator />
             </Reveal>
           )}
-          <FocusFade>
-            <ProjectCard {...project} />
-          </FocusFade>
+          <ProjectCard {...project} />
         </Fragment>
       ))}
     </div>

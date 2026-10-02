@@ -106,6 +106,14 @@ button {
   padding-top: calc(var(--nav-top) + var(--nav-h) + 3rem);
 }
 
+/**
+ * Widest browser frame (aspect 1203:753, see ui/safari.tsx) whose full height fits on one screen below the nav,
+ * so scrolled into view its bottom edge stays visible.
+ */
+@utility max-w-first-screen {
+  max-width: max(28rem, calc((100dvh - var(--nav-top) - var(--nav-h) - 3rem) * 1.6));
+}
+
 @utility lnk {
   border-bottom: 1px solid var(--line);
   padding: 8px 0 2px;
