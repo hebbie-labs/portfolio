@@ -17,10 +17,3 @@ export const HOME_ABOUT = {
   linkLabel: "Mehr über mich",
   linkHref: "/about",
 } as const;
-
-/** Closing call to action above the footer; leads to the contact form. */
-export const HOME_CONTACT = {
-  text: "Fragen, Feedback oder ein gemeinsames Projekt?",
-  linkLabel: "Schreib mir",
-  linkHref: "/kontakt",
-} as const;

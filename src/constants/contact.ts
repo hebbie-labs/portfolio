@@ -7,6 +7,13 @@ export const CONTACT_PAGE = {
   direct: "oder direkt",
 } as const;
 
+/** Closing call to action at the end of the start, projects and about page. */
+export const CONTACT_CTA = {
+  text: "Fragen, Feedback oder ein gemeinsames Projekt?",
+  linkLabel: "Schreib mir",
+  linkHref: "/kontakt",
+} as const;
+
 /** Labels of the address link's copy button. */
 export const EMAIL_TEXT = { copyLabel: "Adresse kopieren", copiedLabel: "Kopiert" } as const;
 

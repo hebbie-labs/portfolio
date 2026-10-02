@@ -1,6 +1,6 @@
 import { Hero } from "@/components/organisms/hero";
 import { HomeAbout } from "@/components/organisms/home-about";
-import { HomeContact } from "@/components/organisms/home-contact";
+import { ContactCta } from "@/components/organisms/contact-cta";
 import { ProjectScroll } from "@/components/organisms/project-scroll";
 
 export function StartPage() {
@@ -9,7 +9,9 @@ export function StartPage() {
       <Hero />
       <ProjectScroll />
       <HomeAbout />
-      <HomeContact />
+      <div className="page-x py-16 md:py-32">
+        <ContactCta />
+      </div>
     </>
   );
 }

@@ -1,5 +1,6 @@
 import { Portrait } from "@/components/atoms/portrait";
 import { Reveal } from "@/components/atoms/reveal";
+import { ContactCta } from "@/components/organisms/contact-cta";
 import { AboutIntro } from "@/components/organisms/about-intro";
 import { AboutStory } from "@/components/organisms/about-story";
 import { Timeline } from "@/components/organisms/timeline";
@@ -25,6 +26,7 @@ export function AboutPage() {
           <Timeline {...ABOUT_TIMELINE} />
         </div>
       </div>
+      <ContactCta />
     </PageTemplate>
   );
 }
