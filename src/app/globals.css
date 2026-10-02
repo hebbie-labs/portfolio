@@ -12,6 +12,7 @@
   --fg: #e6ede8;
   --accent: #4fd88a;
   --accent-ink: #06120b;
+  --danger: #ff7b6b;
   --glass: rgba(17, 22, 18, 0.78);
   color-scheme: dark;
 }
@@ -25,6 +26,7 @@
   --fg: #0b110d;
   --accent: #0e7a4b;
   --accent-ink: #f2f7f3;
+  --danger: #b42318;
   --glass: rgba(226, 232, 227, 0.82);
   color-scheme: light;
 }
@@ -39,6 +41,7 @@
   --color-fg: var(--fg);
   --color-accent: var(--accent);
   --color-accent-ink: var(--accent-ink);
+  --color-danger: var(--danger);
   --color-glass: var(--glass);
   --color-transparent: transparent;
   --color-current: currentColor;

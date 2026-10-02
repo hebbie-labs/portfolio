@@ -43,6 +43,4 @@ export const HOME_TIMELINE = {
 /** Contact block above the footer; the address is `EMAIL` in `site.ts`. */
 export const HOME_CONTACT = {
   text: "Fragen, Feedback oder ein gemeinsames Projekt?",
-  copyLabel: "Adresse kopieren",
-  copiedLabel: "Kopiert",
 } as const;

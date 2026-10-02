@@ -43,9 +43,7 @@ export const ABOUT_BIO = [
 ] as const;
 
 /** Link list at the bottom (the employer's team page is left out); edit the profiles in `site.ts`. */
-export const ABOUT_LINKS = SOCIAL_PROFILES.filter(
-  ({ label }) => label !== "Noser Young",
-);
+export const ABOUT_LINKS = SOCIAL_PROFILES.filter(({ employer }) => !employer);
 
 /** Last, accented row of the link list. */
 export const ABOUT_CONTACT = { label: "Kontakt", href: "/kontakt" } as const;
