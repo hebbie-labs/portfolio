@@ -5,7 +5,7 @@ import { Body, Display, Label } from "@/components/atoms/typography";
 import { ProjectMedia } from "@/components/molecules/project-media";
 import type { Project } from "@/constants/projects";
 
-/** Start page teaser: number, media, title, one-liner; the whole card links to the case study. Title and summary reserve two lines so card heights match. */
+/** Start page teaser: number, media, title, one-liner; the whole card links to its entry on the projects page. Title and summary reserve two lines so card heights match. */
 export function ProjectPreview({ slug, nr, title, summary, device, url, image }: Project) {
   return (
     <article className="group relative flex flex-col gap-4 md:gap-6">
@@ -17,7 +17,7 @@ export function ProjectPreview({ slug, nr, title, summary, device, url, image }:
         <ProjectMedia device={device} url={url} image={image} title={title} />
       </div>
       <Link
-        href={`/projekte/${slug}`}
+        href={`/projekte#${slug}`}
         className="rounded-2xl after:absolute after:inset-0 after:rounded-2xl focus-visible:after:outline-2 focus-visible:after:outline-offset-4 focus-visible:after:outline-accent"
       >
         <Display

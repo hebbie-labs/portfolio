@@ -9,11 +9,13 @@ export const EMAIL = "contact@leonhebeisen.com";
 export const GITHUB_URL = "https://github.com/lelelon225";
 export const THEME_COLOR = "#0a0d0b";
 
-export const SOCIAL_LINKS = [
-  GITHUB_URL,
-  "https://www.linkedin.com/in/leonhebeisen",
-  "https://noseryoung.ch/team-members/leon-hebeisen/",
-  "https://www.instagram.com/lelelon225/",
-  "https://x.com/lee0_0oon",
-  "https://bsky.app/profile/lelelon225.bsky.social",
+export const SOCIAL_PROFILES = [
+  { label: "GitHub", href: GITHUB_URL },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/leonhebeisen" },
+  { label: "Noser Young", href: "https://noseryoung.ch/team-members/leon-hebeisen/" },
+  { label: "Instagram", href: "https://www.instagram.com/lelelon225/" },
+  { label: "X", href: "https://x.com/lee0_0oon" },
+  { label: "Bluesky", href: "https://bsky.app/profile/lelelon225.bsky.social" },
 ];
+
+export const SOCIAL_LINKS = SOCIAL_PROFILES.map(({ href }) => href);

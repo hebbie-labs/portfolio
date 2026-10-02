@@ -14,10 +14,8 @@ export const PROJECTS_PAGE = {
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.",
 } as const;
 
-type Item = { label: string; title: string; text: string };
-
 export type Project = {
-  /** URL segment of the case study page and anchor on the projects page. */
+  /** Anchor on the projects page. */
   slug: string;
   nr: string;
   title: string;
@@ -36,11 +34,6 @@ export type Project = {
   repo?: string;
   /** Screenshot in `public/`, shown inside the device frame. */
   image?: string;
-  /** Case study page. */
-  facts: readonly { label: string; value: string }[];
-  background: string;
-  implementation: readonly Item[];
-  learnings: readonly { title: string; text: string }[];
 };
 
 const LOREM =
@@ -48,29 +41,8 @@ const LOREM =
 
 const TAGS = ["React 19", "TypeScript", "Tailwind"];
 
-const DETAIL = {
-  facts: [
-    { label: "Rolle", value: "[Rolle]" },
-    { label: "Zeitraum", value: "[Zeitraum]" },
-    { label: "Plattform", value: "[Plattform]" },
-    { label: "Status", value: "[Status]" },
-  ],
-  background: `[Warum gebaut? Welches Problem, für wen?] ${LOREM}`,
-  implementation: [
-    { label: "Frontend", title: "[Titel]", text: LOREM },
-    { label: "Backend", title: "[Titel]", text: LOREM },
-    { label: "Auth", title: "[Titel]", text: LOREM },
-    { label: "Deployment", title: "[Titel]", text: LOREM },
-  ],
-  learnings: [
-    { title: "[Erkenntnis]", text: LOREM },
-    { title: "[Erkenntnis]", text: LOREM },
-  ],
-};
-
 export const PROJECTS: Project[] = [
   {
-    ...DETAIL,
     slug: "recur",
     nr: "01",
     title: "Recur",
@@ -82,41 +54,6 @@ export const PROJECTS: Project[] = [
     device: "browser",
     url: "https://dev.recur.dpdns.org",
   },
-  {
-    ...DETAIL,
-    slug: "projekt-zwei",
-    nr: "02",
-    title: "Projekt Zwei",
-    category: "Kategorie",
-    summary: "Lorem ipsum dolor sit amet, consectetur.",
-    description: LOREM,
-    tags: TAGS,
-    featured: true,
-  },
-  {
-    ...DETAIL,
-    slug: "projekt-drei",
-    nr: "03",
-    title: "Projekt Drei",
-    category: "Kategorie",
-    summary: "Lorem ipsum dolor sit amet, consectetur.",
-    description: LOREM,
-    tags: TAGS,
-    featured: true,
-  },
-  {
-    ...DETAIL,
-    slug: "projekt-vier",
-    nr: "04",
-    title: "Projekt Vier",
-    category: "Kategorie",
-    summary: "Lorem ipsum dolor sit amet, consectetur.",
-    description: LOREM,
-    tags: TAGS,
-  },
 ];
 
 export const FEATURED_PROJECTS = PROJECTS.filter((p) => p.featured);
-
-export const getProject = (slug: string) =>
-  PROJECTS.find((p) => p.slug === slug);

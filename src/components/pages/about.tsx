@@ -1,5 +1,25 @@
-import { PlaceholderTemplate } from "@/components/templates/placeholder-template";
+import { Portrait } from "@/components/atoms/portrait";
+import { Reveal } from "@/components/atoms/reveal";
+import { AboutIntro } from "@/components/organisms/about-intro";
+import { AboutLinks } from "@/components/organisms/about-links";
+import { SkillCloud } from "@/components/organisms/skill-cloud";
+import { PageTemplate } from "@/components/templates/page-template";
+import { ABOUT_PAGE } from "@/constants/about";
 
+/** Portrait sticks on the left while the text column scrolls; stacked on mobile. */
 export function AboutPage() {
-  return <PlaceholderTemplate title="Hier entsteht irgendwann die About-Seite." />;
+  return (
+    <PageTemplate>
+      <div className="grid gap-10 md:grid-cols-[1fr_2fr] md:gap-20">
+        <Reveal variant="scale" className="max-w-xs md:sticky md:top-32 md:self-start">
+          <Portrait src={ABOUT_PAGE.portrait} alt="Portrait von Leon Hebeisen" />
+        </Reveal>
+        <div className="flex min-w-0 flex-col gap-16 md:gap-24">
+          <AboutIntro />
+          <SkillCloud />
+          <AboutLinks />
+        </div>
+      </div>
+    </PageTemplate>
+  );
 }

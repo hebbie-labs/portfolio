@@ -18,13 +18,7 @@ export function ProjectCard(project: Project) {
     </Reveal>
   );
   const details = (
-    <ProjectDetails
-      slug={slug}
-      description={description}
-      tags={tags}
-      url={url}
-      repo={repo}
-    />
+    <ProjectDetails description={description} tags={tags} url={url} repo={repo} />
   );
 
   return (

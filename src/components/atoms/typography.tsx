@@ -1,9 +1,10 @@
-import type { ComponentProps, ElementType } from "react";
+import type { ComponentProps } from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 
 import { cn } from "@/lib/utils";
 
-type Props<V = object> = V & ComponentProps<"p"> & { as?: ElementType };
+// A closed set: `ElementType` would also admit the three.js elements that @react-three/fiber adds to JSX.
+type Props<V = object> = V & ComponentProps<"p"> & { as?: "h1" | "h2" | "h3" | "p" | "span" | "div" };
 
 const PUNCT = /((?:(?!@)\p{P})+)/u; // Unicode punctuation (. , ! ? : ; - – — ' " ( ) … & /) except @
 
