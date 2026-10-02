@@ -2,12 +2,9 @@
 
 export const CONTACT_PAGE = {
   title: "Schreib mir.",
-  lead: "Ob Anschlussstelle, Projekt oder einfach Hallo: Ich lese alles selbst und melde mich.",
-  status: "Offen für die Zeit nach der Lehre",
-  direct: "oder direkt",
 } as const;
 
-/** Closing call to action at the end of the start, projects and about page. */
+/** Closing call to action at the end of the start page. */
 export const CONTACT_CTA = {
   text: "Fragen, Feedback oder ein gemeinsames Projekt?",
   linkLabel: "Schreib mir",

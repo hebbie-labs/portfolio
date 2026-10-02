@@ -1,37 +1,42 @@
+"use client";
+
+import { useReducedMotion } from "motion/react";
+
+import { Screen } from "@/components/molecules/screen";
 import { Iphone } from "@/components/ui/iphone";
-import { Safari } from "@/components/ui/safari";
 import { PROJECT_TEXT, type Project } from "@/constants/projects";
 import { cn } from "@/lib/utils";
 
-type Props = Pick<Project, "title" | "url" | "views" | "phone"> & {
+type Props = Pick<Project, "title" | "video" | "views" | "phone"> & {
   /** Index into `views`. */
   active: number;
   onSelect: (index: number) => void;
 };
 
 /**
- * Browser frame showing the active desktop view and, if there is one, a phone frame overlapping its
- * bottom right corner. Frames stay empty until the images are set. The tabs only show below `lg`,
+ * Screen showing the active desktop view (the first one plays the project's video, the poster only with
+ * reduced motion) and, if there is one, a phone frame overlapping its bottom right corner. Empty until the
+ * images are set. The tabs only show below `lg`,
  * where the frame does not stay in sight while the features scroll by.
  */
 export function ProjectGallery({
   title,
-  url,
+  video,
   views,
   phone,
   active,
   onSelect,
 }: Props) {
   const view = views[active] ?? views[0];
+  const reducedMotion = useReducedMotion();
 
   return (
     <div className="flex flex-col gap-4">
       <div className="relative">
-        <Safari
-          url={url}
-          imageSrc={view?.image}
-          imageAlt={PROJECT_TEXT.viewAlt(title, view?.label)}
-          mode="simple"
+        <Screen
+          image={view?.image}
+          video={active === 0 && !reducedMotion ? video : undefined}
+          alt={PROJECT_TEXT.viewAlt(title, view?.label)}
         />
         {phone && (
           <div className="absolute right-[4%] -bottom-10 w-[22%] drop-shadow-2xl">

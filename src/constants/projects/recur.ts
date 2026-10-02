@@ -2,9 +2,7 @@ import { Project } from "../projects";
 
 export const RECUR: Project = {
   slug: "recur",
-  nr: "01",
   title: "Recur",
-  categories: ["Web-App", "PWA", "In Entwicklung"],
   summary: "Habit- und Task-Tracker mit Google-Login.",
   description: [
     "Recur ist ein Tracker für Gewohnheiten und Aufgaben. Habits und einmalige Tasks lege ich mit Kategorie, Häufigkeit und Fälligkeit an, markiere Favoriten und archiviere Erledigtes. Ein Monats- und Wochenkalender sowie eine Listenansicht zeigen, was ansteht. Projekte und Aufgaben teile ich über Einladungslinks mit einer Gruppe.",

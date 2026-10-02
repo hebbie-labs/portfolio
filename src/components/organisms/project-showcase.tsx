@@ -11,12 +11,12 @@ import { cn } from "@/lib/utils";
 
 type Props = Pick<
   Project,
-  "title" | "description" | "features" | "url" | "repo" | "views" | "phone"
+  "title" | "description" | "features" | "url" | "repo" | "video" | "views" | "phone"
 >;
 
 /**
- * Device frames on the left, text on the right. From `lg` the frames stay pinned while the text scrolls;
- * the feature row in the middle of the viewport is highlighted and switches the frame to its view.
+ * Screen on the left, text on the right. From `lg` the frames stay pinned while the text scrolls;
+ * the feature row in the middle of the viewport is highlighted and switches the screen to its view.
  */
 export function ProjectShowcase({
   title,
@@ -24,6 +24,7 @@ export function ProjectShowcase({
   features,
   url,
   repo,
+  video,
   views,
   phone,
 }: Props) {
@@ -73,7 +74,7 @@ export function ProjectShowcase({
       >
         <ProjectGallery
           title={title}
-          url={url}
+          video={video}
           views={views}
           phone={phone}
           active={view}

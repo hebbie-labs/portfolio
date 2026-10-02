@@ -4,34 +4,30 @@ import { HOMESERVER_PROJECT } from "./projects/homeserver";
 export type Project = {
   /** Anchor on the projects page. */
   slug: string;
-  nr: string;
   title: string;
-  /** Shown above the title. */
-  categories: readonly string[];
   /** One-liner for the preview on the start page. */
   summary: string;
   /** One entry per paragraph. */
   description: readonly string[];
-  /** Ruled rows below the description; scrolling one into the middle switches the browser frame to its `view`. */
+  /** Ruled rows below the description; scrolling one into the middle switches the screen to its `view`. */
   features?: readonly ProjectFeature[];
   /** Shown as preview on the start page. */
   featured?: boolean;
-  /** Live demo; also the address shown in the browser frame. */
+  /** Live demo. */
   url?: string;
   /** GitHub repository. */
   repo?: string;
-  /** Video in `public/`, shown in its own full-width browser frame above the others; plays muted and looped (paused with reduced motion). */
+  /** Video in `public/`, played muted and looped as the first view (the poster with reduced motion). */
   video?: string;
-  /** Desktop views in the browser frame; the first one is also the start page preview and the poster of `video`. Reference each by a feature, below `md` tabs switch them. */
+  /** Desktop views on the screen; the first one is also the start page preview and the poster of `video`. Reference each by a feature, below `md` tabs switch them. */
   views: readonly ProjectView[];
-  /** Mobile screenshot in a phone frame overlapping the browser frame. */
+  /** Mobile screenshot in a phone frame overlapping the screen. */
   phone?: { image?: string };
 };
 
 export const PROJECTS_SECTION = {
   label: "Projekte",
   title: "Ausgewählte Arbeiten",
-  intro: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
   allLabel: "Alle Projekte",
   allHref: "/projekte",
 } as const;

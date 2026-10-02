@@ -7,7 +7,7 @@ const ABOUT_TEASER_MAX_LENGTH = 100;
 export const HOME_HERO = {
   location: "Bern, CH",
   title: "Leon Hebeisen",
-  lead: "Frontend zuerst: Web-Apps, die sich gut anfühlen, mit Spring Boot im Rücken.",
+  lead: "Lernender Applikationsentwickler. Frontend zuerst, Spring Boot dahinter.",
 } as const;
 
 /** About teaser: short text and a link to the about page. */

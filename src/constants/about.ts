@@ -54,7 +54,7 @@ export const ABOUT_TIMELINE = {
   title: "Werdegang",
   items: [
     {
-      period: "[Jahre]",
+      period: "[Jahr]",
       title: "Sekundarschule",
       text: "[Ein Satz: Was ist hängen geblieben?]",
     },
@@ -65,7 +65,7 @@ export const ABOUT_TIMELINE = {
       details: ["[Erste Aufgaben und Technologien im Betrieb]"],
     },
     {
-      period: "2025 – 2026",
+      period: "2025",
       title: "1. Lehrjahr",
       text: "[Was habe ich im ersten Lehrjahr gelernt und gebaut?]",
     },
