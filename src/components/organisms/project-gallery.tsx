@@ -11,7 +11,7 @@ type Props = Pick<Project, "title" | "url" | "views" | "phone"> & {
 
 /**
  * Browser frame showing the active desktop view and, if there is one, a phone frame overlapping its
- * bottom right corner. Frames stay empty until the images are set. The tabs only show below `md`,
+ * bottom right corner. Frames stay empty until the images are set. The tabs only show below `lg`,
  * where the frame does not stay in sight while the features scroll by.
  */
 export function ProjectGallery({
@@ -40,7 +40,7 @@ export function ProjectGallery({
         )}
       </div>
       {views.length > 1 && (
-        <div className="flex flex-wrap gap-x-6 gap-y-2 md:hidden">
+        <div className="flex flex-wrap gap-x-6 gap-y-2 lg:hidden">
           {views.map(({ label }, i) => (
             <button
               key={label}

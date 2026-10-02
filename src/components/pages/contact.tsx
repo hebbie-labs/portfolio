@@ -12,7 +12,7 @@ import { CONTACT_PAGE } from "@/constants/contact";
 export function ContactPage() {
   return (
     <PageTemplate>
-      <div className="grid gap-12 md:grid-cols-2 md:gap-x-20 md:gap-y-16">
+      <div className="grid gap-12 md:grid-cols-2 md:gap-x-10 md:gap-y-16 lg:gap-x-20">
         <Reveal className="flex min-w-0 flex-col gap-6">
           <Display size="md">{CONTACT_PAGE.title}</Display>
           <Lead className="text-muted">{CONTACT_PAGE.lead}</Lead>

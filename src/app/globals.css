@@ -91,7 +91,7 @@ button {
 }
 
 @utility page-x {
-  @apply px-4 md:px-20;
+  @apply px-4 md:px-10 lg:px-20 2xl:px-[max(5rem,calc((100%-100rem)/2))];
 }
 
 /* Fixed nav pill: distance from the viewport top and its height (p-1 + 44px bar + border). */

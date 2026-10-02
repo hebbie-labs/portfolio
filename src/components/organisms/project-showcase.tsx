@@ -15,7 +15,7 @@ type Props = Pick<
 >;
 
 /**
- * Device frames on the left, text on the right. From `md` the frames stay pinned while the text scrolls;
+ * Device frames on the left, text on the right. From `lg` the frames stay pinned while the text scrolls;
  * the feature row in the middle of the viewport is highlighted and switches the frame to its view.
  */
 export function ProjectShowcase({
@@ -65,11 +65,11 @@ export function ProjectShowcase({
   }, [select]);
 
   return (
-    <div className="grid gap-10 md:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] md:gap-16">
+    <div className="grid gap-10 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] lg:gap-16">
       <Reveal
         scroll
         variant="scale"
-        className="md:sticky md:top-32 md:self-start"
+        className="lg:sticky lg:top-32 lg:self-start"
       >
         <ProjectGallery
           title={title}
@@ -80,7 +80,7 @@ export function ProjectShowcase({
           onSelect={setView}
         />
       </Reveal>
-      <div className="flex min-w-0 flex-col gap-6 md:gap-8 md:self-center">
+      <div className="flex min-w-0 flex-col gap-6 md:gap-8 lg:self-center">
         <Reveal scroll className="flex flex-col gap-4">
           {description.map((paragraph) => (
             <Body key={paragraph}>{paragraph}</Body>
