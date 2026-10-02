@@ -2,12 +2,16 @@
 
 export const CONTACT_PAGE = {
   title: "Schreib mir.",
-  lead: "Ob Anschlussstelle, Projekt oder einfach Hallo: Ich lese alles selbst und melde mich.",
-  status: "Offen für die Zeit nach der Lehre",
-  direct: "oder direkt",
 } as const;
 
-/** Labels of the address link's copy button (also used on the start page). */
+/** Closing call to action at the end of the start page. */
+export const CONTACT_CTA = {
+  text: "Fragen, Feedback oder ein gemeinsames Projekt?",
+  linkLabel: "Schreib mir",
+  linkHref: "/kontakt",
+} as const;
+
+/** Labels of the address link's copy button. */
 export const EMAIL_TEXT = { copyLabel: "Adresse kopieren", copiedLabel: "Kopiert" } as const;
 
 /** Field props for `FormField`; `maxLength` is also the limit in `contactSchema`. */

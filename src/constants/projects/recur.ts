@@ -2,9 +2,7 @@ import { Project } from "../projects";
 
 export const RECUR: Project = {
   slug: "recur",
-  nr: "01",
   title: "Recur",
-  categories: ["Web-App", "PWA", "In Entwicklung"],
   summary: "Habit- und Task-Tracker mit Google-Login.",
   description: [
     "Recur ist ein Tracker für Gewohnheiten und Aufgaben. Habits und einmalige Tasks lege ich mit Kategorie, Häufigkeit und Fälligkeit an, markiere Favoriten und archiviere Erledigtes. Ein Monats- und Wochenkalender sowie eine Listenansicht zeigen, was ansteht. Projekte und Aufgaben teile ich über Einladungslinks mit einer Gruppe.",
@@ -25,7 +23,7 @@ export const RECUR: Project = {
       view: "Gruppen",
     },
     { text: "Anmeldung per E-Mail oder mit Google" },
-    { text: "Als PWA installierbar, mit Offline-Seite" },
+    { text: "Als PWA installierbar, mit Offline-Seite", view: "Mobil" },
   ],
   featured: true,
   url: "https://dev.recur.dpdns.org",
@@ -37,6 +35,6 @@ export const RECUR: Project = {
     { label: "Kalender", image: "/placeholder/recur-kalender.svg" },
     { label: "Liste", image: "/placeholder/recur-liste.svg" },
     { label: "Gruppen", image: "/placeholder/recur-gruppen.svg" },
+    { label: "Mobil", image: "/recur-home-mobile.png", portrait: true },
   ],
-  phone: { image: "/recur-home-mobile.png" },
 };

@@ -1,18 +1,7 @@
-import { Safari } from "@/components/ui/safari";
+import { Screen } from "@/components/molecules/screen";
 import type { Project } from "@/constants/projects";
 
-/** Start page teaser: the first screenshot in a browser frame; empty frame until it is set. */
-export function ProjectMedia({
-  url,
-  views,
-  title,
-}: Pick<Project, "url" | "views" | "title">) {
-  return (
-    <Safari
-      url={url}
-      imageSrc={views[0]?.image}
-      imageAlt={`Screenshot von ${title}`}
-      mode="simple"
-    />
-  );
+/** Start page teaser: the first screenshot; an empty surface until it is set. */
+export function ProjectMedia({ views, title }: Pick<Project, "views" | "title">) {
+  return <Screen image={views[0]?.image} alt={`Screenshot von ${title}`} />;
 }

@@ -1,27 +1,20 @@
 import Link from "next/link";
 
-import { CornerArrow } from "@/components/atoms/corner-arrow";
-import { Body, Display, Label } from "@/components/atoms/typography";
+import { Body, Display } from "@/components/atoms/typography";
 import { ProjectMedia } from "@/components/molecules/project-media";
 import type { Project } from "@/constants/projects";
 
-/** Start page teaser: number, media, title, one-liner; the whole card links to its entry on the projects page. */
+/** Start page teaser: media, title, one-liner; the whole card links to its entry on the projects page. */
 export function ProjectPreview({
   slug,
-  nr,
   title,
   summary,
-  url,
   views,
 }: Project) {
   return (
     <article className="group @container relative flex flex-col gap-3 md:gap-4">
-      <div className="flex items-center justify-between">
-        <Label>{nr}</Label>
-        <CornerArrow />
-      </div>
       <div className="transition-transform duration-500 ease-spring group-hover:-translate-y-1">
-        <ProjectMedia url={url} views={views} title={title} />
+        <ProjectMedia views={views} title={title} />
       </div>
       <Link
         href={`/projekte#${slug}`}
