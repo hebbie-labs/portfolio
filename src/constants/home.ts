@@ -1,5 +1,5 @@
 // Content of the start page below the projects. Texts in [brackets] are placeholders.
-import { ABOUT_PAGE, type TimelineItem } from "@/constants/about";
+import { ABOUT_PAGE } from "@/constants/about";
 import { truncate } from "@/lib/utils";
 
 const ABOUT_TEASER_MAX_LENGTH = 100;
@@ -18,29 +18,9 @@ export const HOME_ABOUT = {
   linkHref: "/about",
 } as const;
 
-/** Short timeline; the detailed one is `ABOUT_TIMELINE`. */
-export const HOME_TIMELINE = {
-  title: "Werdegang",
-  items: [
-    {
-      period: "[Jahre]",
-      title: "Sekundarschule",
-      text: "[Ein Satz: Was ist hängen geblieben?]",
-    },
-    {
-      period: "2025",
-      title: "Noser Young",
-      text: "Start der Lehre als Applikationsentwickler EFZ.",
-    },
-    {
-      period: "Heute",
-      title: "2. Lehrjahr",
-      text: "Ich baue Recur, eine PWA mit Spring-Boot-API und Next.js-Frontend.",
-    },
-  ],
-} as const satisfies { title: string; items: readonly TimelineItem[] };
-
-/** Contact block above the footer; the address is `EMAIL` in `site.ts`. */
+/** Closing call to action above the footer; leads to the contact form. */
 export const HOME_CONTACT = {
   text: "Fragen, Feedback oder ein gemeinsames Projekt?",
+  linkLabel: "Schreib mir",
+  linkHref: "/kontakt",
 } as const;

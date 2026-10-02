@@ -7,7 +7,7 @@ export const CONTACT_PAGE = {
   direct: "oder direkt",
 } as const;
 
-/** Labels of the address link's copy button (also used on the start page). */
+/** Labels of the address link's copy button. */
 export const EMAIL_TEXT = { copyLabel: "Adresse kopieren", copiedLabel: "Kopiert" } as const;
 
 /** Field props for `FormField`; `maxLength` is also the limit in `contactSchema`. */

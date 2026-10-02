@@ -2,11 +2,12 @@ import { StatusDot } from "@/components/atoms/status-dot";
 import { Reveal } from "@/components/atoms/reveal";
 import { Body, Display, Lead } from "@/components/atoms/typography";
 import { DividerLabel } from "@/components/molecules/divider-label";
-import { EmailLink } from "@/components/molecules/email-link";
+import { CopyEmail } from "@/components/molecules/copy-email";
 import { ContactForm } from "@/components/organisms/contact-form";
 import { ContactLinks } from "@/components/organisms/contact-links";
 import { PageTemplate } from "@/components/templates/page-template";
 import { CONTACT_PAGE } from "@/constants/contact";
+import { EMAIL } from "@/constants/site";
 
 /** Order = priority: intro, the form (the main way), then the direct channels; on desktop the form spans both rows on the right. */
 export function ContactPage() {
@@ -26,7 +27,13 @@ export function ContactPage() {
         </Reveal>
         <Reveal index={2} className="flex min-w-0 flex-col items-start gap-6">
           <DividerLabel>{CONTACT_PAGE.direct}</DividerLabel>
-          <EmailLink size="md" copyVariant="outline" />
+          <a
+            href={`mailto:${EMAIL}`}
+            className="min-w-0 font-display text-2xl font-semibold wrap-anywhere transition-colors hover:text-accent lg:text-3xl"
+          >
+            {EMAIL}
+          </a>
+          <CopyEmail />
           <ContactLinks />
         </Reveal>
       </div>

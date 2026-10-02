@@ -1,6 +1,5 @@
 // Content of the about page, top to bottom. Texts in [brackets] are placeholders.
 // The skills for the icon cloud are in `skills.ts`.
-import { SOCIAL_PROFILES } from "@/constants/site";
 
 /** Header: portrait, headline, role and the first (large) paragraph. */
 export const ABOUT_PAGE = {
@@ -41,12 +40,6 @@ export const ABOUT_BIO = [
   { text: "[Hobby 2]", hint: "[Noch ein Satz, der nicht alles verrät.]" },
   ".",
 ] as const;
-
-/** Link list at the bottom (the employer's team page is left out); edit the profiles in `site.ts`. */
-export const ABOUT_LINKS = SOCIAL_PROFILES.filter(({ employer }) => !employer);
-
-/** Last, accented row of the link list. */
-export const ABOUT_CONTACT = { label: "Kontakt", href: "/kontakt" } as const;
 
 /** One station of a timeline; `details` are optional bullet lines below the text. */
 export type TimelineItem = {
