@@ -10,7 +10,7 @@ import { ABOUT_PAGE, ABOUT_TIMELINE } from "@/constants/about";
 export function AboutPage() {
   return (
     <PageTemplate>
-      <div className="grid gap-10 md:grid-cols-[1fr_2fr] md:gap-20">
+      <div className="grid gap-10 md:grid-cols-[1fr_2fr] md:gap-12 lg:gap-20">
         <Reveal
           variant="scale"
           className="max-w-xs md:sticky md:top-32 md:self-start"
