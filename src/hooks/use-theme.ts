@@ -8,7 +8,7 @@ const subscribe = (onChange: () => void) => {
 
 /** Current theme, from `data-theme` on `<html>` (set before hydration by `THEME_INIT_SCRIPT`). */
 export const useTheme = () =>
-  useSyncExternalStore(
+  useSyncExternalStore<"light" | "dark">(
     subscribe,
     () => (document.documentElement.dataset.theme === "light" ? "light" : "dark"),
     () => "dark",

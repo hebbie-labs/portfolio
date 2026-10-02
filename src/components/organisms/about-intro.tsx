@@ -5,7 +5,7 @@ import { ABOUT_PAGE } from "@/constants/about";
 /** Headline, then the intro sentence fading in word by word (CSS `reveal`, see globals.css). */
 export function AboutIntro() {
   return (
-    <header className="flex flex-col gap-6">
+    <header className="space-y-6">
       <Reveal variant="blur">
         <Headline as="h1">{ABOUT_PAGE.title}</Headline>
       </Reveal>

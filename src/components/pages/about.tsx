@@ -2,7 +2,7 @@ import { Portrait } from "@/components/atoms/portrait";
 import { Reveal } from "@/components/atoms/reveal";
 import { AboutIntro } from "@/components/organisms/about-intro";
 import { AboutLinks } from "@/components/organisms/about-links";
-import { SkillCloud } from "@/components/organisms/skill-cloud";
+import { AboutStory } from "@/components/organisms/about-story";
 import { PageTemplate } from "@/components/templates/page-template";
 import { ABOUT_PAGE } from "@/constants/about";
 
@@ -15,8 +15,10 @@ export function AboutPage() {
           <Portrait src={ABOUT_PAGE.portrait} alt="Portrait von Leon Hebeisen" />
         </Reveal>
         <div className="flex min-w-0 flex-col gap-16 md:gap-24">
-          <AboutIntro />
-          <SkillCloud />
+          <div className="flex flex-col gap-8">
+            <AboutIntro />
+            <AboutStory />
+          </div>
           <AboutLinks />
         </div>
       </div>
