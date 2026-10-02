@@ -19,7 +19,7 @@ export function NavLink({ href, label, index, active, onClick }: Props) {
       <span className="w-5 font-mono text-xs text-muted">
         {String(index + 1).padStart(2, "0")}
       </span>
-      <span className="grow font-display text-4xl leading-[1.05] font-semibold  transition-all duration-200 ease-in-out group-hover:text-accent group-hover:translate-x-2">
+      <span className="grow font-display text-4xl leading-[1.05] font-semibold transition-[color,translate] duration-200 ease-in-out group-hover:text-accent group-hover:translate-x-2">
         {label}
       </span>
       {active && <StatusDot className="size-2 self-center" />}

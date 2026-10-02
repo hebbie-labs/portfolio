@@ -72,6 +72,14 @@
 html {
   background-color: var(--bg);
   scrollbar-gutter: stable;
+  /* Anchors and focused elements stay clear of the fixed nav pill. */
+  scroll-padding-top: calc(var(--nav-top) + var(--nav-h) + 1rem);
+}
+
+a,
+button {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
 @utility font-condensed {

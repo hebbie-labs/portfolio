@@ -1,20 +1,35 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { NavBar } from "@/components/organisms/nav-bar";
 import { NavPanel } from "@/components/organisms/nav-panel";
-import { getNavLabel } from "@/constants/nav";
+import { getNavLink } from "@/constants/nav";
 import { cn } from "@/lib/utils";
 
 export function Nav() {
   const [open, setOpen] = useState(false);
-  const current = getNavLabel(usePathname());
+  const current = getNavLink(usePathname());
+  const menu = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!open) return;
+    const close = () => setOpen(false);
+    const closeOnEscape = (e: KeyboardEvent) => e.key === "Escape" && close();
+    const closeOnOutside = (e: PointerEvent) => menu.current?.contains(e.target as Node) || close();
+    addEventListener("keydown", closeOnEscape);
+    addEventListener("pointerdown", closeOnOutside);
+    return () => {
+      removeEventListener("keydown", closeOnEscape);
+      removeEventListener("pointerdown", closeOnOutside);
+    };
+  }, [open]);
 
   return (
     <div className="pointer-events-none fixed inset-x-4 top-(--nav-top) z-50 flex justify-center">
       <div
         id="menu"
+        ref={menu}
         className={cn(
           "pointer-events-auto isolate flex transform-gpu flex-col overflow-hidden border border-line p-1 backdrop-blur-14 transition-[width,background-color,border-radius,box-shadow] duration-450 ease-in-out in-data-[intro=logo]:w-(--nav-h) in-data-[intro=logo]:opacity-0 in-data-[intro=logo]:transition-none",
           open

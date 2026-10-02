@@ -10,7 +10,7 @@ export function MenuButton({ open, onToggle, className }: Props) {
   return (
     <Button
       aria-expanded={open}
-      aria-controls="menu-panel"
+      aria-controls={open ? "menu-panel" : undefined}
       onClick={onToggle}
       className={cn("group px-3 font-medium", className)}
     >

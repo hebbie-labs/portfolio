@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react"
 import { Moon, Sun } from "lucide-react"
 import { flushSync } from "react-dom"
 
+import { getCssColor, setThemeColor } from "@/lib/theme-color"
 import { cn } from "@/lib/utils"
 
 export type TransitionVariant =
@@ -28,8 +29,6 @@ interface AnimatedThemeTogglerProps extends React.ComponentPropsWithoutRef<"butt
   /** Called on toggle. Pair with `theme` for controlled usage. */
   onThemeChange?: (theme: "light" | "dark") => void
 }
-
-const THEME_COLORS = { dark: "#0a0d0b", light: "#eef2ee" } as const
 
 function polygonCollapsed(point: string, vertexCount: number): string {
   const pairs = Array.from({ length: vertexCount }, () => point).join(", ")
@@ -251,16 +250,12 @@ export const AnimatedThemeToggler = ({
       }
     }
 
-    const oldColor = THEME_COLORS[isDark ? "dark" : "light"]
-    const newColor = THEME_COLORS[isDark ? "light" : "dark"]
-    const setBarColor = (color: string) =>
-      document
-        .querySelector('meta[name="theme-color"]')
-        ?.setAttribute("content", color)
+    // Read before applyTheme switches `data-theme`; the bar color is read after it.
+    const oldColor = getCssColor("--bg")
 
     if (typeof document.startViewTransition !== "function") {
       applyTheme()
-      setBarColor(newColor)
+      setThemeColor()
       return
     }
 
@@ -297,7 +292,7 @@ export const AnimatedThemeToggler = ({
         el.style.removeProperty("background-color")
         setTimeout(() => el.style.removeProperty("transition"), FADE_MS)
       }
-      setBarColor(newColor)
+      setThemeColor()
     }
     const releaseTimer = setTimeout(release, duration * 0.65)
     const cleanup = () => {

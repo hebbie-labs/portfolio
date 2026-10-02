@@ -15,14 +15,14 @@ function accentPunct(children: Props["children"]) {
     .map((part, i) => (i % 2 ? <span key={i} className="text-accent">{part}</span> : part));
 }
 
-const displayVariants = cva("-my-[0.15em] overflow-clip py-[0.15em] font-display font-condensed font-extrabold uppercase", {
+const displayVariants = cva("-my-[0.15em] overflow-clip py-[0.15em] font-display text-balance font-condensed font-extrabold uppercase", {
   variants: {
     size: { xl: "text-display", lg: "text-display-lg", md: "text-display-md" },
   },
   defaultVariants: { size: "xl" },
 });
 
-const headlineVariants = cva("font-display font-semibold", {
+const headlineVariants = cva("font-display text-balance font-semibold", {
   variants: { size: { lg: "text-headline", sm: "text-headline-sm" } },
   defaultVariants: { size: "lg" },
 });

@@ -19,12 +19,15 @@ type SafariMode = "default" | "simple"
 export interface SafariProps extends HTMLAttributes<HTMLDivElement> {
   url?: string
   imageSrc?: string
+  /** Description of the screenshot; empty marks it decorative. */
+  imageAlt?: string
   videoSrc?: string
   mode?: SafariMode
 }
 
 export function Safari({
   imageSrc,
+  imageAlt = "",
   videoSrc,
   url,
   mode = "default",
@@ -79,7 +82,7 @@ export function Safari({
         >
           <Image
             src={imageSrc}
-            alt=""
+            alt={imageAlt}
             fill
             sizes="(min-width: 768px) 40vw, 100vw"
             className="object-cover object-top"

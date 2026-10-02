@@ -6,9 +6,9 @@ import { AnimatedThemeToggler } from "@/components/ui/animated-theme-toggler";
 import { buttonVariants } from "@/components/ui/button";
 import { NAV_LINKS } from "@/constants/nav";
 import { GITHUB_URL } from "@/constants/site";
-import type { NavPanelProps } from "@/types/nav";
+import type { NavMenuProps } from "@/types/nav";
 
-export function NavPanel({ open, setOpen, current }: NavPanelProps) {
+export function NavPanel({ open, setOpen, current }: NavMenuProps) {
   return (
     <Transition
       as="div"
@@ -24,7 +24,7 @@ export function NavPanel({ open, setOpen, current }: NavPanelProps) {
               href={href}
               label={label}
               index={i}
-              active={label === current}
+              active={href === current.href}
               onClick={() => setOpen(false)}
             />
           ))}
@@ -44,7 +44,7 @@ export function NavPanel({ open, setOpen, current }: NavPanelProps) {
           >
             GitHub
             <ArrowUpRight
-              className="size-0 opacity-0 -translate-x-3 transition-all duration-250 group-hover:size-3.5 group-hover:opacity-75 group-hover:translate-x-0"
+              className="size-0 opacity-0 -translate-x-3 transition-[width,height,opacity,translate] duration-250 group-hover:size-3.5 group-hover:opacity-75 group-hover:translate-x-0"
               aria-hidden
             />
           </a>

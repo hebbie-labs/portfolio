@@ -5,9 +5,9 @@ import { HyperText } from "@/components/ui/hyper-text";
 import { Logo } from "@/components/atoms/logo";
 import { StatusDot } from "@/components/atoms/status-dot";
 import { MenuButton } from "@/components/molecules/menu-button";
-import type { NavPanelProps } from "@/types/nav";
+import type { NavMenuProps } from "@/types/nav";
 
-export function NavBar({ open, setOpen, current }: NavPanelProps) {
+export function NavBar({ open, setOpen, current }: NavMenuProps) {
   return (
     // min-w = open pill content width, so the 54px intro pill clips toggler/menu instead of squeezing them onto the logo.
     <div className="relative flex min-w-[min(310px,calc(100vw-2rem-10px))] items-center">
@@ -19,12 +19,12 @@ export function NavBar({ open, setOpen, current }: NavPanelProps) {
       >
         <StatusDot className="size-1.5" />
         <HyperText
-          key={current}
+          key={current.label}
           as="span"
           animateOnHover={false}
           className="py-0 text-xs font-normal"
         >
-          {current}
+          {current.label}
         </HyperText>
       </Transition>
       <MenuButton

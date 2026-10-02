@@ -5,13 +5,16 @@ import { ProjectMedia } from "@/components/molecules/project-media";
 import { ProjectMeta } from "@/components/molecules/project-meta";
 import type { Project } from "@/constants/projects";
 
-/** Projects page entry; every part reveals on scroll. Browser: title on top, media and text side by side. Phone: tall media left, title and text stacked right. */
+/**
+ * Projects page entry; every part reveals on scroll.
+ * Browser: title on top, media and text side by side. Phone: tall media left, title and text stacked right.
+ */
 export function ProjectCard(project: Project) {
   const { slug, nr, category, title, description, tags, device, url, repo, image } = project;
   const heading = <ProjectHeading title={title} />;
   const media = (
     <Reveal scroll variant="scale" index={1}>
-      <ProjectMedia device={device} url={url} image={image} />
+      <ProjectMedia device={device} url={url} image={image} title={title} />
     </Reveal>
   );
   const details = (

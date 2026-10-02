@@ -1,86 +1,96 @@
 "use client";
 
-import { useAnimate } from "motion/react";
+import { useAnimate, type AnimationSequence } from "motion/react";
 import { useEffect } from "react";
 import { LogoIcon } from "@/components/atoms/logo";
 import { HyperText } from "@/components/ui/hyper-text";
 import { SITE_NAME } from "@/constants/site";
 import { INTRO_KEY } from "@/lib/init-scripts";
+import { getCssColor, setThemeColor } from "@/lib/theme-color";
 
 /** Coupled to Nav: the startup ring lands on the logo inside `#menu` (see nav.tsx, logo.tsx). */
 const NAV_LOGO = '#menu a[href="/"] svg';
 const EASE_IN_OUT = [0.65, 0, 0.35, 1] as const;
+
+/** Geometry of the ring's flight to the nav logo; null while the nav isn't there. */
+function measureLanding(scope: HTMLElement) {
+  const logo = scope.querySelector("[data-logo]");
+  const box = scope.querySelector<HTMLElement>("[data-box]");
+  const target = document.querySelector(NAV_LOGO)?.getBoundingClientRect();
+  const pill = document.getElementById("menu")?.getBoundingClientRect();
+  if (!logo || !box || !target || !pill) return null;
+
+  // The collapsed nav pill already sits where the ring has to land.
+  const from = logo.getBoundingClientRect();
+  return {
+    fly: {
+      x: target.left + target.width / 2 - (from.left + from.width / 2),
+      y: target.top + target.height / 2 - (from.top + from.height / 2),
+    },
+    ringRadius: box.offsetWidth / 2,
+    screenRadius: Math.hypot(innerWidth, innerHeight),
+    pillSize: pill.height,
+    logoScale: target.height / from.height,
+  };
+}
+
+type Landing = NonNullable<ReturnType<typeof measureLanding>>;
+
+/** The box resizes (not scales) so the ring border stays 1px; only the logo scales. */
+const createSequence = (
+  { fly, ringRadius, screenRadius, pillSize, logoScale }: Landing,
+  bg: string,
+  bg2: string,
+): AnimationSequence => [
+  ["[data-logo]", { opacity: [0, 1], scale: [0.9, 1] }, { duration: 0.8 }],
+  ["[data-name]", { opacity: [0, 1] }, { at: 0.2, duration: 0.6 }],
+  ["[data-name]", { opacity: 0 }, { at: 1.3, duration: 0.4 }],
+  [
+    "[data-screen]",
+    {
+      clipPath: [
+        `circle(${screenRadius}px at 50% 50%)`,
+        `circle(${ringRadius}px at 50% 50%)`,
+      ],
+    },
+    { at: 1, duration: 0.8, ease: EASE_IN_OUT },
+  ],
+  // html/body start as --bg-2 (globals.css) and open up together with the screen.
+  [document.documentElement, { backgroundColor: [bg2, bg] }, { at: 1, duration: 0.8, ease: EASE_IN_OUT }],
+  [document.body, { backgroundColor: [bg2, bg] }, { at: 1, duration: 0.8, ease: EASE_IN_OUT }],
+  // Once the screen has closed to the ring's size, the ring fades in on top, then the screen fades out under it.
+  ["[data-ring]", { opacity: 1 }, { at: 1.8, duration: 0.1 }],
+  ["[data-screen]", { opacity: 0 }, { at: 1.9, duration: 0.1 }],
+  ["[data-box]", { ...fly, width: `${pillSize}px`, height: `${pillSize}px` }, { at: 2, duration: 1, ease: EASE_IN_OUT }],
+  ["[data-logo]", { scale: logoScale }, { at: 2, duration: 1, ease: EASE_IN_OUT }],
+];
 
 export function Intro() {
   const [scope, animate] = useAnimate<HTMLDivElement>();
 
   useEffect(() => {
     const root = document.documentElement;
-    const logo = scope.current.querySelector("[data-logo]");
-    const box = scope.current.querySelector<HTMLElement>("[data-box]");
-    const target = document.querySelector(NAV_LOGO)?.getBoundingClientRect();
-    const pill = document.getElementById("menu")?.getBoundingClientRect();
-    if (root.dataset.intro !== "logo" || !logo || !box || !target || !pill) return;
+    const landing = root.dataset.intro === "logo" ? measureLanding(scope.current) : null;
+    if (!landing) return;
 
-    // The collapsed nav pill already sits where the ring has to land.
-    // The box resizes (not scales) so the ring border stays 1px; only the logo scales.
-    const from = logo.getBoundingClientRect();
-    const fly = {
-      x: target.left + target.width / 2 - (from.left + from.width / 2),
-      y: target.top + target.height / 2 - (from.top + from.height / 2),
-    };
-    const ringRadius = box.offsetWidth / 2;
-    const screenRadius = Math.hypot(innerWidth, innerHeight);
-    const styles = getComputedStyle(root);
-    const bg = styles.getPropertyValue("--bg").trim();
-    const bg2 = styles.getPropertyValue("--bg-2").trim();
-    const meta = document.querySelector('meta[name="theme-color"]');
     const pages = [root, document.body];
-    meta?.setAttribute("content", bg2);
+    setThemeColor("--bg-2");
 
-    const timeline = animate([
-      ["[data-logo]", { opacity: [0, 1], scale: [0.9, 1] }, { duration: 0.8 }],
-      ["[data-name]", { opacity: [0, 1] }, { at: 0.2, duration: 0.6 }],
-      ["[data-name]", { opacity: 0 }, { at: 1.3, duration: 0.4 }],
-      [
-        "[data-screen]",
-        {
-          clipPath: [
-            `circle(${screenRadius}px at 50% 50%)`,
-            `circle(${ringRadius}px at 50% 50%)`,
-          ],
-        },
-        { at: 1, duration: 0.8, ease: EASE_IN_OUT },
-      ],
-      // html/body start as --bg-2 (globals.css) and open up together with the screen.
-      [root, { backgroundColor: [bg2, bg] }, { at: 1, duration: 0.8, ease: EASE_IN_OUT }],
-      [document.body, { backgroundColor: [bg2, bg] }, { at: 1, duration: 0.8, ease: EASE_IN_OUT }],
-      // Once the screen has closed to the ring's size, the ring fades in on top, then the screen fades out under it.
-      ["[data-ring]", { opacity: 1 }, { at: 1.8, duration: 0.1 }],
-      ["[data-screen]", { opacity: 0 }, { at: 1.9, duration: 0.1 }],
-      [
-        "[data-box]",
-        { ...fly, width: `${pill.height}px`, height: `${pill.height}px` },
-        { at: 2, duration: 1, ease: EASE_IN_OUT },
-      ],
-      [
-        "[data-logo]",
-        { scale: target.height / from.height },
-        { at: 2, duration: 1, ease: EASE_IN_OUT },
-      ],
-    ]);
+    const timeline = animate(createSequence(landing, getCssColor("--bg"), getCssColor("--bg-2")));
 
-    const themeColor = setTimeout(() => meta?.setAttribute("content", bg), 1000);
+    const themeColor = setTimeout(() => setThemeColor(), 1000);
     const cleanup = () => {
       clearTimeout(themeColor);
-      meta?.setAttribute("content", bg);
+      setThemeColor();
       pages.forEach((el) => el.style.removeProperty("background-color"));
     };
 
     timeline.then(() => {
       try {
         sessionStorage.setItem(INTRO_KEY, "1");
-      } catch {}
+      } catch {
+        // Storage blocked: the startup screen simply plays again on the next load.
+      }
       root.dataset.intro = "done";
       cleanup();
     });

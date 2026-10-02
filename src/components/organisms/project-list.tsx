@@ -1,3 +1,5 @@
+import { Fragment } from "react";
+
 import { FocusFade } from "@/components/atoms/focus-fade";
 import { Reveal } from "@/components/atoms/reveal";
 import { ProjectCard } from "@/components/organisms/project-card";
@@ -9,7 +11,7 @@ export function ProjectList() {
   return (
     <div className="flex flex-col gap-16 md:gap-24">
       {PROJECTS.map((project, i) => (
-        <div key={project.slug} className="flex flex-col gap-16 md:gap-24">
+        <Fragment key={project.slug}>
           {i > 0 && (
             <Reveal scroll variant="fade">
               <Separator />
@@ -18,7 +20,7 @@ export function ProjectList() {
           <FocusFade>
             <ProjectCard {...project} />
           </FocusFade>
-        </div>
+        </Fragment>
       ))}
     </div>
   );

@@ -14,7 +14,7 @@ export function ProjectPreview({ slug, nr, title, summary, device, url, image }:
         <CornerArrow />
       </div>
       <div className="transition-transform duration-500 ease-spring group-hover:-translate-y-1">
-        <ProjectMedia device={device} url={url} image={image} />
+        <ProjectMedia device={device} url={url} image={image} title={title} />
       </div>
       <Link
         href={`/projekte/${slug}`}

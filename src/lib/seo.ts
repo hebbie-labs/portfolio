@@ -12,10 +12,10 @@ import {
 
 export const metadata: Metadata = {
   icons: { icon: "./logo.svg" },
-  title: SITE_TITLE,
+  title: { default: SITE_TITLE, template: `%s – ${SITE_NAME}` },
   description: SITE_DESCRIPTION,
   metadataBase: new URL(SITE_URL),
-  alternates: { canonical: "/" },
+  alternates: { canonical: "./" },
   openGraph: {
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
