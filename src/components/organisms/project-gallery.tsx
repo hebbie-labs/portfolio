@@ -1,6 +1,6 @@
 import { Iphone } from "@/components/ui/iphone";
 import { Safari } from "@/components/ui/safari";
-import type { Project } from "@/constants/projects";
+import { PROJECT_TEXT, type Project } from "@/constants/projects";
 import { cn } from "@/lib/utils";
 
 type Props = Pick<Project, "title" | "url" | "views" | "phone"> & {
@@ -30,15 +30,12 @@ export function ProjectGallery({
         <Safari
           url={url}
           imageSrc={view?.image}
-          imageAlt={`Screenshot von ${title}: ${view?.label}`}
+          imageAlt={PROJECT_TEXT.viewAlt(title, view?.label)}
           mode="simple"
         />
         {phone && (
           <div className="absolute right-[4%] -bottom-10 w-[22%] drop-shadow-2xl">
-            <Iphone
-              src={phone.image}
-              alt={`Screenshot von ${title} auf dem Handy`}
-            />
+            <Iphone src={phone.image} alt={PROJECT_TEXT.phoneAlt(title)} />
           </div>
         )}
       </div>

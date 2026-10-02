@@ -11,13 +11,7 @@ import { cn } from "@/lib/utils";
 
 type Props = Pick<
   Project,
-  | "title"
-  | "description"
-  | "features"
-  | "url"
-  | "repo"
-  | "views"
-  | "phone"
+  "title" | "description" | "features" | "url" | "repo" | "views" | "phone"
 >;
 
 /**
@@ -55,7 +49,10 @@ export function ProjectShowcase({
           const index = rows.current.indexOf(entry.target as HTMLLIElement);
           if (entry.isIntersecting && index >= 0) select(index);
           // scrolled back above the list: first view and first row again
-          else if (index === 0 && entry.boundingClientRect.top > innerHeight / 2) {
+          else if (
+            index === 0 &&
+            entry.boundingClientRect.top > innerHeight / 2
+          ) {
             setView(0);
             setFeature(0);
           }

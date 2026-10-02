@@ -9,6 +9,7 @@ export const ABOUT_PAGE = {
   intro:
     "[Ein, zwei Sätze: Wer bin ich, was baue ich gerne und was treibt mich an?]",
   portrait: "/portrait.jpg",
+  portraitAlt: "Portrait von Leon Hebeisen",
 } as const;
 
 /** Second paragraph. The skill cloud interrupts it between `before` and `after`; `after` wraps around it. */
@@ -45,3 +46,47 @@ export const ABOUT_BIO = [
 export const ABOUT_LINKS = SOCIAL_PROFILES.filter(
   ({ label }) => label !== "Noser Young",
 );
+
+/** Last, accented row of the link list. */
+export const ABOUT_CONTACT = { label: "Kontakt", href: "/kontakt" } as const;
+
+/** One station of a timeline; `details` are optional bullet lines below the text. */
+export type TimelineItem = {
+  period: string;
+  title: string;
+  text: string;
+  details?: readonly string[];
+};
+
+/** Detailed timeline on the about page, oldest first. */
+export const ABOUT_TIMELINE = {
+  title: "Werdegang",
+  items: [
+    {
+      period: "[Jahre]",
+      title: "Sekundarschule",
+      text: "[Ein Satz: Was ist hängen geblieben?]",
+    },
+    {
+      period: "2025",
+      title: "Noser Young",
+      text: "Start der Lehre als Applikationsentwickler EFZ.",
+      details: ["[Erste Aufgaben und Technologien im Betrieb]"],
+    },
+    {
+      period: "2025 – 2026",
+      title: "1. Lehrjahr",
+      text: "[Was habe ich im ersten Lehrjahr gelernt und gebaut?]",
+    },
+    {
+      period: "Heute",
+      title: "2. Lehrjahr",
+      text: "Ich baue Recur, einen Habit- und Task-Tracker als PWA.",
+      details: [
+        "Spring-Boot-4-API (Java 25) mit Postgres",
+        "Anmeldung per JWT und Google OAuth2/OIDC",
+        "Frontend mit Next.js, React und TypeScript nach Atomic Design",
+      ],
+    },
+  ],
+} as const satisfies { title: string; items: readonly TimelineItem[] };

@@ -53,7 +53,8 @@
   --text-display-lg: clamp(4rem, 12vw, 12.5rem);
   --text-display-lg--line-height: 0.82;
   --text-display-lg--letter-spacing: -0.03em;
-  --text-display-md: clamp(3rem, 7.5vw, 6.5rem);
+  /* cqw: fits long project names into the preview card (an @container); without one it equals 20svw, so 7.5vw wins. */
+  --text-display-md: clamp(3rem, min(7.5vw, 20cqw), 6.5rem);
   --text-display-md--line-height: 0.86;
   --text-display-md--letter-spacing: -0.03em;
   --text-headline: clamp(1.875rem, 4vw, 3.75rem);

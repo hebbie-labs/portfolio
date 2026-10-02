@@ -6,9 +6,16 @@ import { ProjectMedia } from "@/components/molecules/project-media";
 import type { Project } from "@/constants/projects";
 
 /** Start page teaser: number, media, title, one-liner; the whole card links to its entry on the projects page. */
-export function ProjectPreview({ slug, nr, title, summary, url, views }: Project) {
+export function ProjectPreview({
+  slug,
+  nr,
+  title,
+  summary,
+  url,
+  views,
+}: Project) {
   return (
-    <article className="group relative flex flex-col gap-3 md:gap-4">
+    <article className="group @container relative flex flex-col gap-3 md:gap-4">
       <div className="flex items-center justify-between">
         <Label>{nr}</Label>
         <CornerArrow />

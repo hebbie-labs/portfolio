@@ -2,7 +2,7 @@ import Link from "next/link";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 
 import { Reveal } from "@/components/atoms/reveal";
-import { ABOUT_LINKS } from "@/constants/about";
+import { ABOUT_CONTACT, ABOUT_LINKS } from "@/constants/about";
 
 const row =
   "group flex items-center justify-between py-4 font-display text-2xl font-semibold transition-colors hover:text-accent md:text-3xl";
@@ -22,8 +22,8 @@ export function AboutLinks() {
           </li>
         ))}
         <li>
-          <Link href="/kontakt" className={`${row} text-accent`}>
-            Kontakt
+          <Link href={ABOUT_CONTACT.href} className={`${row} text-accent`}>
+            {ABOUT_CONTACT.label}
             <ArrowRight aria-hidden className={`${arrow} group-hover:translate-x-1`} />
           </Link>
         </li>

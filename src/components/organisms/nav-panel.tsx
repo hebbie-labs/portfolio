@@ -4,7 +4,7 @@ import { ArrowUpRight } from "lucide-react";
 import { NavLink } from "@/components/molecules/nav-link";
 import { AnimatedThemeToggler } from "@/components/ui/animated-theme-toggler";
 import { buttonVariants } from "@/components/ui/button";
-import { NAV_LINKS } from "@/constants/nav";
+import { NAV_LINKS, NAV_TEXT } from "@/constants/nav";
 import { GITHUB_URL } from "@/constants/site";
 import type { NavMenuProps } from "@/types/nav";
 
@@ -17,7 +17,7 @@ export function NavPanel({ open, setOpen, current }: NavMenuProps) {
       className="grid grid-rows-[1fr] transition-[grid-template-rows,opacity] duration-450 ease-in-out data-closed:grid-rows-[0fr] data-closed:opacity-0"
     >
       <div className="min-h-0 overflow-hidden">
-        <nav aria-label="Hauptnavigation" className="flex flex-col pt-1 pb-2">
+        <nav aria-label={NAV_TEXT.ariaLabel} className="flex flex-col pt-1 pb-2">
           {NAV_LINKS.map(({ href, label }, i) => (
             <NavLink
               key={href}
@@ -33,8 +33,8 @@ export function NavPanel({ open, setOpen, current }: NavMenuProps) {
           <AnimatedThemeToggler
             className={cn(buttonVariants(), "gap-2.5 px-3.5")}
           >
-            <span className="in-data-[theme=light]:hidden">Hell</span>
-            <span className="hidden in-data-[theme=light]:inline">Dunkel</span>
+            <span className="in-data-[theme=light]:hidden">{NAV_TEXT.themeLight}</span>
+            <span className="hidden in-data-[theme=light]:inline">{NAV_TEXT.themeDark}</span>
           </AnimatedThemeToggler>
           <a
             href={GITHUB_URL}
@@ -42,7 +42,7 @@ export function NavPanel({ open, setOpen, current }: NavMenuProps) {
             rel="noopener noreferrer"
             className={cn(buttonVariants(), "px-3.5 group")}
           >
-            GitHub
+            {NAV_TEXT.github}
             <ArrowUpRight
               className="size-0 opacity-0 -translate-x-3 transition-[width,height,opacity,translate] duration-250 group-hover:size-3.5 group-hover:opacity-75 group-hover:translate-x-0"
               aria-hidden
