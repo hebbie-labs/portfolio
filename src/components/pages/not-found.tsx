@@ -1,6 +1,7 @@
 "use client";
 
 import { ArrowLeft } from "lucide-react";
+import { Reveal } from "@/components/atoms/reveal";
 import { Body, Display, Headline } from "@/components/atoms/typography";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -9,7 +10,7 @@ export function NotFoundPage() {
   const pathname = usePathname();
 
   return (
-    <div className="flex min-h-dvh flex-col items-center justify-center gap-4 px-4 text-center">
+    <Reveal className="flex min-h-dvh flex-col items-center justify-center gap-4 px-4 text-center">
       <Display size="xl" className="text-muted/30">
         404
       </Display>
@@ -26,6 +27,6 @@ export function NotFoundPage() {
         <ArrowLeft className="size-0 -translate-x-2 opacity-0 transition-all duration-400 group-hover:mr-1 group-hover:size-4.5 group-hover:translate-x-0 group-hover:opacity-100" />
         Zurück zur Startseite
       </Link>
-    </div>
+    </Reveal>
   );
 }

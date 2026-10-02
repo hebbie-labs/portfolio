@@ -11,6 +11,7 @@ import {
 } from "@/constants/site";
 
 export const metadata: Metadata = {
+  icons: { icon: "./logo.svg" },
   title: SITE_TITLE,
   description: SITE_DESCRIPTION,
   metadataBase: new URL(SITE_URL),
