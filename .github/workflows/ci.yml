@@ -3,13 +3,14 @@ name: CI
 on:
   pull_request:
     branches: [main, dev]
-  workflow_call:
+  push:
+    branches: [main, dev]
 
 permissions:
   contents: read
 
 concurrency:
-  group: ci-${{ github.workflow }}-${{ github.ref }}
+  group: ci-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:

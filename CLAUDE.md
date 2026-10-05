@@ -35,4 +35,4 @@ German-language personal portfolio (Next.js 16, React 19, Tailwind v4, TypeScrip
 
 ## Deployment
 
-GitHub Actions (`.github/workflows/deploy.yml`) builds the multi-stage `Dockerfile` and pushes to GHCR on every push to `main` (target `run` → `:latest`, production) and `dev` (target `dev` → `:dev`, runs `pnpm dev`), then redeploys via docker compose on a self-hosted runner. `next.config.ts` whitelists `dev.leonhebeisen.com` in `allowedDevOrigins`.
+GitHub Actions: `.github/workflows/ci.yml` (ESLint + Docker `run` build, on PRs and pushes to `main`/`dev`) gates `.github/workflows/cd.yml`, which starts via `workflow_run` after a green CI on `main`/`dev` (so the repo's default branch must stay `dev`, as `workflow_run` uses the default branch's file). CD builds the multi-stage `Dockerfile` and pushes to GHCR (`main` → `:latest` with target `placeholder` until launch, `dev` → `:dev` with target `dev`, runs `pnpm dev`), then redeploys via docker compose on a self-hosted runner. `next.config.ts` whitelists `dev.leonhebeisen.com` in `allowedDevOrigins`.
