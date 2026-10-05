@@ -6,7 +6,7 @@ import { HOME_HERO } from "@/constants/home";
 
 export function Hero() {
   return (
-    <div className="flex flex-col gap-7 page-x pt-nav pb-12 min-h-[calc(100dvh-4rem)] justify-between md:gap-3.5 md:pb-14 md:min-h-[calc(100dvh-6rem)]">
+    <div className="flex min-h-[calc(100dvh-4rem)] flex-col justify-between gap-7 page-x pt-nav pb-12 md:min-h-[calc(100dvh-6rem)] md:gap-3.5 md:pb-14">
       <Reveal variant="fade" className="flex items-center gap-2">
         <StatusDot className="size-1.5 animate-pulse shadow-[0_0_8px] shadow-accent" />
         <Label>

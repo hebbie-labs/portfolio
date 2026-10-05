@@ -25,7 +25,13 @@ export function NotFoundPage() {
         </code>{" "}
         {NOT_FOUND_PAGE.missing}
       </Body>
-      <Link href="/" className={buttonVariants({ variant: "default", className: "mt-4 h-13 px-6 text-base font-semibold" })}>
+      <Link
+        href="/"
+        className={buttonVariants({
+          variant: "default",
+          className: "mt-4 h-13 px-6 text-base font-semibold",
+        })}
+      >
         <ArrowLeft aria-hidden />
         {NOT_FOUND_PAGE.backLabel}
       </Link>

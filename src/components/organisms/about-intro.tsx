@@ -11,7 +11,12 @@ export function AboutIntro() {
       </Reveal>
       <Lead className="max-w-2xl text-3xl md:text-4xl">
         {ABOUT_PAGE.intro.split(" ").map((word, i) => (
-          <span key={i} data-reveal="blur" style={{ "--i": 1 + i * 0.25 } as React.CSSProperties} className="inline-block">
+          <span
+            key={i}
+            data-reveal="blur"
+            style={{ "--i": 1 + i * 0.25 } as React.CSSProperties}
+            className="inline-block"
+          >
             {word}
             {" "}
           </span>

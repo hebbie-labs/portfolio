@@ -30,7 +30,13 @@ export function ContactLinks() {
       </ul>
       <Label className="flex flex-wrap gap-x-5 gap-y-2">
         {others.map(({ label, href }) => (
-          <a key={label} href={href} target="_blank" rel="noreferrer" className="lnk">
+          <a
+            key={label}
+            href={href}
+            target="_blank"
+            rel="noreferrer"
+            className="lnk"
+          >
             {label}
           </a>
         ))}

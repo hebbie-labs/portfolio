@@ -4,26 +4,40 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 // A closed set: `ElementType` would also admit the three.js elements that @react-three/fiber adds to JSX.
-type Props<V = object> = V & ComponentProps<"p"> & { as?: "h1" | "h2" | "h3" | "p" | "span" | "div" };
+type Props<V = object> = V &
+  ComponentProps<"p"> & { as?: "h1" | "h2" | "h3" | "p" | "span" | "div" };
 
 const PUNCT = /((?:(?!@)\p{P})+)/u; // Unicode punctuation (. , ! ? : ; - – — ' " ( ) … & /) except @
 
 /** Colors punctuation and symbols in accent; skipped for non-strings. */
 function accentPunct(children: Props["children"]) {
   if (typeof children !== "string") return children;
-  return children
-    .split(PUNCT)
-    .map((part, i) => (i % 2 ? <span key={i} className="text-accent">{part}</span> : part));
+  return children.split(PUNCT).map((part, i) =>
+    i % 2 ? (
+      <span key={i} className="text-accent">
+        {part}
+      </span>
+    ) : (
+      part
+    ),
+  );
 }
 
-const displayVariants = cva("-my-[0.15em] overflow-clip py-[0.15em] font-display text-balance font-condensed font-extrabold uppercase", {
-  variants: {
-    size: { xl: "text-display", lg: "text-display-lg", md: "text-display-md" },
+const displayVariants = cva(
+  "-my-[0.15em] overflow-clip py-[0.15em] font-display font-extrabold text-balance uppercase font-condensed",
+  {
+    variants: {
+      size: {
+        xl: "text-display",
+        lg: "text-display-lg",
+        md: "text-display-md",
+      },
+    },
+    defaultVariants: { size: "xl" },
   },
-  defaultVariants: { size: "xl" },
-});
+);
 
-const headlineVariants = cva("font-display text-balance font-semibold", {
+const headlineVariants = cva("font-display font-semibold text-balance", {
   variants: { size: { lg: "text-headline", sm: "text-headline-sm" } },
   defaultVariants: { size: "lg" },
 });
@@ -62,17 +76,29 @@ export function Headline({
 export function Lead({ as: Tag = "p", className, ...props }: Props) {
   return (
     <Tag
-      className={cn("text-xl leading-[1.3] tracking-[-0.01em] text-pretty md:text-headline-sm", className)}
+      className={cn(
+        "text-xl leading-[1.3] tracking-[-0.01em] text-pretty md:text-headline-sm",
+        className,
+      )}
       {...props}
     />
   );
 }
 
 /** Regular paragraphs. */
-export function Body({ as: Tag = "p", muted, className, ...props }: Props<{ muted?: boolean }>) {
+export function Body({
+  as: Tag = "p",
+  muted,
+  className,
+  ...props
+}: Props<{ muted?: boolean }>) {
   return (
     <Tag
-      className={cn("text-base leading-normal text-pretty md:text-lg", muted && "text-muted", className)}
+      className={cn(
+        "text-base leading-normal text-pretty md:text-lg",
+        muted && "text-muted",
+        className,
+      )}
       {...props}
     />
   );
@@ -81,6 +107,9 @@ export function Body({ as: Tag = "p", muted, className, ...props }: Props<{ mute
 /** Meta lines, eyebrows, footer. */
 export function Label({ as: Tag = "span", className, ...props }: Props) {
   return (
-    <Tag className={cn("font-mono text-xs text-muted md:text-[13px]", className)} {...props} />
+    <Tag
+      className={cn("font-mono text-xs text-muted md:text-[13px]", className)}
+      {...props}
+    />
   );
 }

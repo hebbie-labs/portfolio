@@ -19,7 +19,10 @@ const initialValues = { name: "", email: "", message: "", website: "" };
 function FocusFirstError() {
   const { submitCount, isValid } = useFormikContext();
   useEffect(() => {
-    if (submitCount && !isValid) document.querySelector<HTMLElement>('form [aria-invalid="true"]')?.focus();
+    if (submitCount && !isValid)
+      document
+        .querySelector<HTMLElement>('form [aria-invalid="true"]')
+        ?.focus();
   }, [submitCount, isValid]);
   return null;
 }
@@ -39,7 +42,11 @@ export function ContactForm() {
 
   if (sent) {
     return (
-      <div ref={thanks} tabIndex={-1} className="flex flex-col gap-3 outline-none">
+      <div
+        ref={thanks}
+        tabIndex={-1}
+        className="flex flex-col gap-3 outline-none"
+      >
         <Headline>{success.title}</Headline>
         <Body muted>{success.text}</Body>
       </div>
@@ -64,9 +71,20 @@ export function ContactForm() {
           {Object.entries(fields).map(([name, props]) => (
             <FormField key={name} name={name} {...props} />
           ))}
-          <Field name="website" tabIndex={-1} autoComplete="off" aria-hidden className="absolute -left-[9999px]" />
+          <Field
+            name="website"
+            tabIndex={-1}
+            autoComplete="off"
+            aria-hidden
+            className="absolute -left-[9999px]"
+          />
           <div className="flex flex-col items-start gap-3">
-            <Button type="submit" variant="default" disabled={isSubmitting} className="h-13 px-6 text-base font-semibold">
+            <Button
+              type="submit"
+              variant="default"
+              disabled={isSubmitting}
+              className="h-13 px-6 text-base font-semibold"
+            >
               {isSubmitting ? CONTACT_FORM.pending : CONTACT_FORM.submit}
             </Button>
             {status && (

@@ -4,7 +4,10 @@ import { useEffect, type RefObject } from "react";
 const TRIGGER_MARGIN = "0px 0px -10% 0px";
 
 /** Sets `data-in` on the element once it enters the viewport; `data-load` too if it was already visible on the first check (page load). */
-export function useRevealOnScroll(ref: RefObject<HTMLElement | null>, enabled: boolean) {
+export function useRevealOnScroll(
+  ref: RefObject<HTMLElement | null>,
+  enabled: boolean,
+) {
   useEffect(() => {
     const element = ref.current;
     if (!enabled || !element) return;

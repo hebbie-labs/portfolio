@@ -17,7 +17,7 @@ export function AboutPage() {
         >
           <Portrait src={ABOUT_PAGE.portrait} alt={ABOUT_PAGE.portraitAlt} />
         </Reveal>
-        <div className="flex min-w-0 max-w-3xl flex-col gap-16 md:gap-24">
+        <div className="flex max-w-3xl min-w-0 flex-col gap-16 md:gap-24">
           <div className="flex flex-col gap-8">
             <AboutIntro />
             <AboutStory />

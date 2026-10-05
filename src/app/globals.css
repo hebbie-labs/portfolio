@@ -115,7 +115,10 @@ button {
  * so scrolled into view its bottom edge stays visible.
  */
 @utility max-w-first-screen {
-  max-width: max(28rem, calc((100dvh - var(--nav-top) - var(--nav-h) - 3rem) * 1.6));
+  max-width: max(
+    28rem,
+    calc((100dvh - var(--nav-top) - var(--nav-h) - 3rem) * 1.6)
+  );
 }
 
 @utility lnk {
@@ -217,9 +220,22 @@ html[data-intro="logo"] [data-reveal] {
 }
 
 /* Reveal variants: only the hidden start state differs (see Reveal `variant`). */
-[data-reveal="down"] { --from: translateY(-32px); }
-[data-reveal="left"] { --from: translateX(-32px); }
-[data-reveal="right"] { --from: translateX(32px); }
-[data-reveal="fade"] { --from: none; }
-[data-reveal="scale"] { --from: scale(0.92); }
-[data-reveal="blur"] { --from: translateY(16px); --blur: 12px; }
+[data-reveal="down"] {
+  --from: translateY(-32px);
+}
+[data-reveal="left"] {
+  --from: translateX(-32px);
+}
+[data-reveal="right"] {
+  --from: translateX(32px);
+}
+[data-reveal="fade"] {
+  --from: none;
+}
+[data-reveal="scale"] {
+  --from: scale(0.92);
+}
+[data-reveal="blur"] {
+  --from: translateY(16px);
+  --blur: 12px;
+}

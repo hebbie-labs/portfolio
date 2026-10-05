@@ -5,7 +5,8 @@ export type Theme = "light" | "dark";
 
 export const THEME_KEY = "theme";
 
-export const getTheme = (): Theme => (document.documentElement.dataset.theme === "light" ? "light" : "dark");
+export const getTheme = (): Theme =>
+  document.documentElement.dataset.theme === "light" ? "light" : "dark";
 
 /** Applies and persists the theme; does not touch `meta[name=theme-color]` (see `setThemeColor`). */
 export function setTheme(theme: Theme) {
@@ -19,6 +20,9 @@ export function setTheme(theme: Theme) {
 
 export function subscribeTheme(onChange: () => void) {
   const observer = new MutationObserver(onChange);
-  observer.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+  observer.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["data-theme"],
+  });
   return () => observer.disconnect();
 }

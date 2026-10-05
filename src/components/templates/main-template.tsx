@@ -20,7 +20,9 @@ export function MainTemplate({ children }: Props) {
       <SmoothScroll />
       <Intro />
       <Nav />
-      <main id="main" className="flex-1">{children}</main>
+      <main id="main" className="flex-1">
+        {children}
+      </main>
       <Reveal variant="fade" index={3}>
         <Footer />
       </Reveal>

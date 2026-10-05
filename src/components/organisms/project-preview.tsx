@@ -5,12 +5,7 @@ import { ProjectMedia } from "@/components/molecules/project-media";
 import type { Project } from "@/constants/projects";
 
 /** Start page teaser: media, title, one-liner; the whole card links to its entry on the projects page. */
-export function ProjectPreview({
-  slug,
-  title,
-  summary,
-  views,
-}: Project) {
+export function ProjectPreview({ slug, title, summary, views }: Project) {
   return (
     <article className="group @container relative flex flex-col gap-3 md:gap-4">
       <div className="transition-transform duration-500 ease-spring group-hover:-translate-y-1">

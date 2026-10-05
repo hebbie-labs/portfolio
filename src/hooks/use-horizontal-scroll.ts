@@ -40,7 +40,8 @@ export function useHorizontalScroll() {
     const focused = document.activeElement?.getBoundingClientRect();
     if (!focused) return;
     if (focused.left < 0) window.scrollBy(0, focused.left);
-    else if (focused.right > window.innerWidth) window.scrollBy(0, focused.right - window.innerWidth);
+    else if (focused.right > window.innerWidth)
+      window.scrollBy(0, focused.right - window.innerWidth);
   };
 
   return { section, track, progress, keepFocusInView };

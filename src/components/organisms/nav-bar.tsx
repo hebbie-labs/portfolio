@@ -15,7 +15,7 @@ export function NavBar({ open, setOpen, current }: NavMenuProps) {
       <Transition
         as="span"
         show={!open}
-        className="self-center flex items-center gap-2 whitespace-nowrap pr-3 pl-3.5 font-mono text-xs text-muted transition-opacity duration-400 data-closed:opacity-0"
+        className="flex items-center gap-2 self-center pr-3 pl-3.5 font-mono text-xs whitespace-nowrap text-muted transition-opacity duration-400 data-closed:opacity-0"
       >
         <StatusDot className="size-1.5" />
         <HyperText

@@ -11,7 +11,10 @@ export function Logo({ className }: Props) {
     <Link
       href="/"
       aria-label="Zur Startseite"
-      className={cn("flex shrink-0 size-11 items-center justify-center", className)}
+      className={cn(
+        "flex size-11 shrink-0 items-center justify-center",
+        className,
+      )}
     >
       <LogoIcon className="h-8" />
     </Link>

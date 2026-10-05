@@ -15,7 +15,10 @@ export function ContactPage() {
         <Reveal className="flex min-w-0 flex-col gap-6">
           <Display size="md">{CONTACT_PAGE.title}</Display>
         </Reveal>
-        <Reveal index={1} className="min-w-0 md:col-start-2 md:row-span-2 md:row-start-1">
+        <Reveal
+          index={1}
+          className="min-w-0 md:col-start-2 md:row-span-2 md:row-start-1"
+        >
           <ContactForm />
         </Reveal>
         <Reveal index={2} className="flex min-w-0 flex-col items-start gap-6">

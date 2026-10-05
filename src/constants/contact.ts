@@ -12,13 +12,27 @@ export const CONTACT_CTA = {
 } as const;
 
 /** Labels of the address link's copy button. */
-export const EMAIL_TEXT = { copyLabel: "Adresse kopieren", copiedLabel: "Kopiert" } as const;
+export const EMAIL_TEXT = {
+  copyLabel: "Adresse kopieren",
+  copiedLabel: "Kopiert",
+} as const;
 
 /** Field props for `FormField`; `maxLength` is also the limit in `contactSchema`. */
 export const CONTACT_FORM = {
   fields: {
-    name: { label: "Name", autoComplete: "name", spellCheck: false, maxLength: 100 },
-    email: { label: "E-Mail", autoComplete: "email", type: "email", spellCheck: false, maxLength: 200 },
+    name: {
+      label: "Name",
+      autoComplete: "name",
+      spellCheck: false,
+      maxLength: 100,
+    },
+    email: {
+      label: "E-Mail",
+      autoComplete: "email",
+      type: "email",
+      spellCheck: false,
+      maxLength: 200,
+    },
     message: { label: "Nachricht", multiline: true, maxLength: 5000 },
   },
   submit: "Nachricht senden",

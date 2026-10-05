@@ -27,7 +27,10 @@ export function SkillCloud() {
       scroll
       className="my-6 flex justify-center overflow-hidden md:float-right md:my-0 md:ml-8 md:size-[400px] md:[shape-outside:circle(30%)]"
     >
-      <div role="img" aria-label="Icon-Wolke mit den Technologien, mit denen ich arbeite">
+      <div
+        role="img"
+        aria-label="Icon-Wolke mit den Technologien, mit denen ich arbeite"
+      >
         <IconCloud icons={icons} showControl={false} />
       </div>
     </Reveal>

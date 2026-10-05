@@ -5,7 +5,9 @@ export const NAV_LINKS = [
   { href: "/kontakt", label: "Kontakt" },
 ] as const;
 
-export const OUTSIDE_NAV_LINKS = [{ href: "/impressum", label: "Impressum" }] as const;
+export const OUTSIDE_NAV_LINKS = [
+  { href: "/impressum", label: "Impressum" },
+] as const;
 
 /** Texts of the nav bar, menu panel and its buttons. */
 export const NAV_TEXT = {
@@ -23,7 +25,9 @@ export const NOT_FOUND_LINK = { href: "", label: "404" } as const;
 export function getNavLink(pathname: string) {
   return (
     [...NAV_LINKS, ...OUTSIDE_NAV_LINKS].find(({ href }) =>
-      href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(`${href}/`),
+      href === "/"
+        ? pathname === "/"
+        : pathname === href || pathname.startsWith(`${href}/`),
     ) ?? NOT_FOUND_LINK
   );
 }

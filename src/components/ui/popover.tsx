@@ -1,14 +1,14 @@
-"use client"
+"use client";
 
-import { Popover as PopoverPrimitive } from "@base-ui/react/popover"
-import { cn } from "@/lib/utils"
+import { Popover as PopoverPrimitive } from "@base-ui/react/popover";
+import { cn } from "@/lib/utils";
 
 function Popover({ ...props }: PopoverPrimitive.Root.Props) {
-  return <PopoverPrimitive.Root data-slot="popover" {...props} />
+  return <PopoverPrimitive.Root data-slot="popover" {...props} />;
 }
 
 function PopoverTrigger({ ...props }: PopoverPrimitive.Trigger.Props) {
-  return <PopoverPrimitive.Trigger data-slot="popover-trigger" {...props} />
+  return <PopoverPrimitive.Trigger data-slot="popover-trigger" {...props} />;
 }
 
 function PopoverContent({
@@ -36,8 +36,8 @@ function PopoverContent({
         <PopoverPrimitive.Popup
           data-slot="popover-content"
           className={cn(
-            "z-50 w-fit max-w-[min(16rem,80vw)] origin-(--transform-origin) rounded-xl bg-fg px-3 py-2 text-sm leading-snug text-bg outline-none transition duration-300 ease-spring data-ending-style:translate-y-1 data-ending-style:opacity-0 data-starting-style:translate-y-1 data-starting-style:opacity-0",
-            className
+            "z-50 w-fit max-w-[min(16rem,80vw)] origin-(--transform-origin) rounded-xl bg-fg px-3 py-2 text-sm leading-snug text-bg transition duration-300 ease-spring outline-none data-ending-style:translate-y-1 data-ending-style:opacity-0 data-starting-style:translate-y-1 data-starting-style:opacity-0",
+            className,
           )}
           {...props}
         >
@@ -45,7 +45,7 @@ function PopoverContent({
         </PopoverPrimitive.Popup>
       </PopoverPrimitive.Positioner>
     </PopoverPrimitive.Portal>
-  )
+  );
 }
 
-export { Popover, PopoverTrigger, PopoverContent }
+export { Popover, PopoverTrigger, PopoverContent };

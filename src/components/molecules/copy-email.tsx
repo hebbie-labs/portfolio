@@ -22,9 +22,15 @@ export function CopyEmail() {
   }
 
   return (
-    <Button variant="outline" onClick={copy} className="h-13 px-6 text-base font-semibold">
+    <Button
+      variant="outline"
+      onClick={copy}
+      className="h-13 px-6 text-base font-semibold"
+    >
       {copied ? <Check aria-hidden /> : <Copy aria-hidden />}
-      <span aria-live="polite">{copied ? EMAIL_TEXT.copiedLabel : EMAIL_TEXT.copyLabel}</span>
+      <span aria-live="polite">
+        {copied ? EMAIL_TEXT.copiedLabel : EMAIL_TEXT.copyLabel}
+      </span>
     </Button>
   );
 }

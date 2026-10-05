@@ -3,7 +3,8 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { NAV_TEXT } from "@/constants/nav";
 
-const LABEL = "col-start-1 row-start-1 flex items-center gap-2 transition-opacity duration-200";
+const LABEL =
+  "col-start-1 row-start-1 flex items-center gap-2 transition-opacity duration-200";
 
 type Props = { open: boolean; onToggle: () => void; className?: string };
 
@@ -20,7 +21,9 @@ export function MenuButton({ open, onToggle, className }: Props) {
           {NAV_TEXT.menuOpen}
           <Menu aria-hidden />
         </span>
-        <span className={cn(LABEL, "opacity-0 group-aria-expanded:opacity-100")}>
+        <span
+          className={cn(LABEL, "opacity-0 group-aria-expanded:opacity-100")}
+        >
           {NAV_TEXT.menuClose}
           <X aria-hidden />
         </span>

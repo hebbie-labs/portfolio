@@ -23,6 +23,7 @@ German-language personal portfolio (Next.js 16, React 19, Tailwind v4, TypeScrip
 **Shell**: `app/layout.tsx` → `MainTemplate` (`SmoothScroll` (Lenis), `Nav`, `Footer`). Page transitions come from `Reveal` (`atoms/reveal.tsx`, CSS in `globals.css`), which replays on every route change.
 
 **Single sources of truth**
+
 - `src/constants/nav.ts` — `NAV_LINKS` and `getNavLabel(pathname)` for the current label.
 - `src/constants/site.ts` + `src/lib/seo.ts` — site name, URLs, social links, metadata, JSON-LD, theme-color. `sitemap.ts`/`robots.ts` build on these.
 - `src/lib/init-scripts.ts` — pre-hydration theme/intro scripts and the shared `INTRO_KEY` (`sessionStorage`).

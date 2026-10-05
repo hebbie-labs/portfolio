@@ -17,7 +17,10 @@ export function NavPanel({ open, setOpen, current }: NavMenuProps) {
       className="grid grid-rows-[1fr] transition-[grid-template-rows,opacity] duration-450 ease-in-out data-closed:grid-rows-[0fr] data-closed:opacity-0"
     >
       <div className="min-h-0 overflow-hidden">
-        <nav aria-label={NAV_TEXT.ariaLabel} className="flex flex-col pt-1 pb-2">
+        <nav
+          aria-label={NAV_TEXT.ariaLabel}
+          className="flex flex-col pt-1 pb-2"
+        >
           {NAV_LINKS.map(({ href, label }, i) => (
             <NavLink
               key={href}
@@ -33,18 +36,22 @@ export function NavPanel({ open, setOpen, current }: NavMenuProps) {
           <AnimatedThemeToggler
             className={cn(buttonVariants(), "gap-2.5 px-3.5")}
           >
-            <span className="in-data-[theme=light]:hidden">{NAV_TEXT.themeLight}</span>
-            <span className="hidden in-data-[theme=light]:inline">{NAV_TEXT.themeDark}</span>
+            <span className="in-data-[theme=light]:hidden">
+              {NAV_TEXT.themeLight}
+            </span>
+            <span className="hidden in-data-[theme=light]:inline">
+              {NAV_TEXT.themeDark}
+            </span>
           </AnimatedThemeToggler>
           <a
             href={GITHUB_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className={cn(buttonVariants(), "px-3.5 group")}
+            className={cn(buttonVariants(), "group px-3.5")}
           >
             {NAV_TEXT.github}
             <ArrowUpRight
-              className="size-0 opacity-0 -translate-x-3 transition-[width,height,opacity,translate] duration-250 group-hover:size-3.5 group-hover:opacity-75 group-hover:translate-x-0"
+              className="size-0 -translate-x-3 opacity-0 transition-[width,height,opacity,translate] duration-250 group-hover:size-3.5 group-hover:translate-x-0 group-hover:opacity-75"
               aria-hidden
             />
           </a>

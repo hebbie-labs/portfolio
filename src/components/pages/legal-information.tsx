@@ -16,14 +16,21 @@ export function LegalInformationPage() {
           <Headline size="sm">{owner.heading}</Headline>
           <Body>
             {owner.lines.map((line) => (
-              <span key={line} className="block">{line}</span>
+              <span key={line} className="block">
+                {line}
+              </span>
             ))}
           </Body>
         </Reveal>
         <Reveal index={2} className="grid gap-3">
           <Headline size="sm">{contactHeading}</Headline>
           <Body>
-            <a href={`mailto:${EMAIL}`} className="transition-colors hover:text-accent">{EMAIL}</a>
+            <a
+              href={`mailto:${EMAIL}`}
+              className="transition-colors hover:text-accent"
+            >
+              {EMAIL}
+            </a>
           </Body>
         </Reveal>
         {sections.map(({ heading, text }, i) => (

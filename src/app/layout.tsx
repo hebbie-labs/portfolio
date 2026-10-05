@@ -14,7 +14,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${FONT_VARIABLES} h-full antialiased`}
       suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col bg-bg font-sans text-fg antialiased">
+      <body className="flex min-h-full flex-col bg-bg font-sans text-fg antialiased">
         <Script id="theme-init" strategy="beforeInteractive">
           {THEME_INIT_SCRIPT}
         </Script>

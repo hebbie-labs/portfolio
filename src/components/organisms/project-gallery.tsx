@@ -33,7 +33,10 @@ export function ProjectGallery({
       {view?.portrait ? (
         <div className="flex aspect-[12/7] justify-center">
           <div className="aspect-[433/882] h-full">
-            <Iphone src={view.image} alt={PROJECT_TEXT.viewAlt(title, view.label)} />
+            <Iphone
+              src={view.image}
+              alt={PROJECT_TEXT.viewAlt(title, view.label)}
+            />
           </div>
         </div>
       ) : (

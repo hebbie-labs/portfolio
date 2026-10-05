@@ -56,13 +56,29 @@ const createSequence = (
     { at: 1, duration: 0.8, ease: EASE_IN_OUT },
   ],
   // html/body start as --bg-2 (globals.css) and open up together with the screen.
-  [document.documentElement, { backgroundColor: [bg2, bg] }, { at: 1, duration: 0.8, ease: EASE_IN_OUT }],
-  [document.body, { backgroundColor: [bg2, bg] }, { at: 1, duration: 0.8, ease: EASE_IN_OUT }],
+  [
+    document.documentElement,
+    { backgroundColor: [bg2, bg] },
+    { at: 1, duration: 0.8, ease: EASE_IN_OUT },
+  ],
+  [
+    document.body,
+    { backgroundColor: [bg2, bg] },
+    { at: 1, duration: 0.8, ease: EASE_IN_OUT },
+  ],
   // Once the screen has closed to the ring's size, the ring fades in on top, then the screen fades out under it.
   ["[data-ring]", { opacity: 1 }, { at: 1.8, duration: 0.1 }],
   ["[data-screen]", { opacity: 0 }, { at: 1.9, duration: 0.1 }],
-  ["[data-box]", { ...fly, width: `${pillSize}px`, height: `${pillSize}px` }, { at: 2, duration: 1, ease: EASE_IN_OUT }],
-  ["[data-logo]", { scale: logoScale }, { at: 2, duration: 1, ease: EASE_IN_OUT }],
+  [
+    "[data-box]",
+    { ...fly, width: `${pillSize}px`, height: `${pillSize}px` },
+    { at: 2, duration: 1, ease: EASE_IN_OUT },
+  ],
+  [
+    "[data-logo]",
+    { scale: logoScale },
+    { at: 2, duration: 1, ease: EASE_IN_OUT },
+  ],
 ];
 
 export function Intro() {
@@ -70,13 +86,16 @@ export function Intro() {
 
   useEffect(() => {
     const root = document.documentElement;
-    const landing = root.dataset.intro === "logo" ? measureLanding(scope.current) : null;
+    const landing =
+      root.dataset.intro === "logo" ? measureLanding(scope.current) : null;
     if (!landing) return;
 
     const pages = [root, document.body];
     setThemeColor("--bg-2");
 
-    const timeline = animate(createSequence(landing, getCssColor("--bg"), getCssColor("--bg-2")));
+    const timeline = animate(
+      createSequence(landing, getCssColor("--bg"), getCssColor("--bg-2")),
+    );
 
     const themeColor = setTimeout(() => setThemeColor(), 1000);
     const cleanup = () => {
@@ -121,7 +140,11 @@ export function Intro() {
             style={{ opacity: 0 }}
             className="absolute inset-0 rounded-full border border-line bg-glass"
           />
-          <span data-logo style={{ opacity: 0 }} className="relative flex shrink-0">
+          <span
+            data-logo
+            style={{ opacity: 0 }}
+            className="relative flex shrink-0"
+          >
             <LogoIcon className="h-24 md:h-32" />
           </span>
         </div>
