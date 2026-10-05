@@ -10,6 +10,7 @@ colors:
   fg: "#E6EDE8"
   accent: "#4FD88A"
   accent-ink: "#06120B"
+  danger: "#FF7B6B"
   light-bg: "#EEF2EE"
   light-bg-2: "#E2E8E3"
   light-placeholder: "#DCE4DE"
@@ -18,6 +19,7 @@ colors:
   light-fg: "#0B110D"
   light-accent: "#0E7A4B"
   light-accent-ink: "#F2F7F3"
+  light-danger: "#B42318"
 typography:
   display:
     fontFamily: "Bricolage Grotesque, sans-serif"
@@ -43,6 +45,9 @@ typography:
     fontWeight: 400
 rounded:
   xl: "12px"
+  row: "16px"
+  nav: "27px"
+  nav-open: "28px"
   full: "999px"
 spacing:
   grid-gap: "16px"
@@ -75,6 +80,22 @@ components:
     rounded: "{rounded.xl}"
     height: "52px"
     width: "200px"
+  input:
+    backgroundColor: "{colors.bg-2}"
+    textColor: "{colors.fg}"
+    typography: "{typography.body}"
+    rounded: "{rounded.xl}"
+    padding: "12px 16px"
+  nav-pill:
+    backgroundColor: "{colors.bg-2}"
+    textColor: "{colors.fg}"
+    rounded: "{rounded.nav}"
+    width: "320px"
+    padding: "4px"
+  nav-pill-open:
+    backgroundColor: "{colors.bg-2}"
+    rounded: "{rounded.nav-open}"
+    width: "358px"
 ---
 
 # Design System: Leon Hebeisen Portfolio
@@ -93,7 +114,7 @@ Flächen sind flach und tonal gestuft, Rundung ist freundlich (Pills, 12px), die
 - Ein Akzent (Terminal-Grün) für Aktion, Fokus und Interpunktion; alles andere ist grün getöntes Neutral.
 - Display in Versalien, `wdth` 75, extrabold, Zeilenhöhe 0.82.
 - Mono-Labels (JetBrains Mono) für Meta, Beschriftungen und Chips.
-- Flach, ohne Schatten; Trennung über Ton und 1px-Linien.
+- Flach; Trennung über Ton und 1px-Linien. Einziger Schatten: die schwebende Nav-Pill.
 
 ## Colors
 
@@ -111,8 +132,11 @@ Fast schwarzes Waldgrün mit einem hellen Terminal-Grün; alle Neutrals sind lei
 - **Mist** (#8D9A92 / #56635B): Sekundärtext, Labels, Chips. Kontrast 6.7:1 (dunkel) bzw. 6.0:1 (hell).
 - **Pale Frost** (#E6EDE8 / #0B110D): Haupttext.
 
+### Semantic
+- **Signal Coral** (#FF7B6B dunkel / #B42318 hell): Fehlerzustand im Formularfeld (Rahmen und Meldung). Kontrast 7.7:1 (dunkel) bzw. 5.8:1 (hell).
+
 ### Named Rules
-**The One Signal Rule.** Terminal Green ist die einzige Farbe mit Bedeutung. Es markiert Aktion, Fokus und Interpunktion und wird sparsam eingesetzt.
+**The One Signal Rule.** Terminal Green ist die einzige Farbe mit Bedeutung für Aktion. Es markiert Aktion, Fokus und Interpunktion und wird sparsam eingesetzt; Signal Coral gehört allein den Fehlern.
 
 **The Contrast Rule.** Textfarben halten mindestens 4.5:1; die Werte stehen im Styleguide neben den Swatches.
 
@@ -135,18 +159,22 @@ Fast schwarzes Waldgrün mit einem hellen Terminal-Grün; alle Neutrals sind lei
 
 ## Layout
 
-Eine Spalte mit 80px Seitenrand auf 1440px Breite, vertikal gestapelt mit 64px Abstand zwischen Abschnitten. Farbfelder liegen in einem 8-spaltigen Raster mit 16px Lücke. Typo-Zeilen nutzen ein Raster aus 280px Beschriftungsspalte und flexibler Inhaltsspalte mit 40px Lücke, getrennt durch 1px-Linien und 20px Innenabstand. Bausteine stehen in einer umbrechenden Zeile mit 24px Abstand.
+Eine Spalte mit 80px Seitenrand auf 1440px Breite, vertikal gestapelt mit 64px Abstand zwischen Abschnitten. Farbfelder liegen in einem 9-spaltigen Raster mit 16px Lücke. Typo-Zeilen nutzen ein Raster aus 280px Beschriftungsspalte und flexibler Inhaltsspalte mit 40px Lücke, getrennt durch 1px-Linien und 20px Innenabstand. Bausteine stehen in einer umbrechenden Zeile mit 24px Abstand.
 
 ## Elevation & Depth
 
-Flach. Es gibt keine Schatten; Tiefe entsteht durch Tonstufen (Night Moss, Deep Moss, Placeholder Moss) und 1px-Hairlines.
+Flach. Tiefe entsteht durch Tonstufen (Night Moss, Deep Moss, Placeholder Moss) und 1px-Hairlines. Einzige Ausnahme ist die schwebende Nav-Pill.
+
+### Shadow Vocabulary
+- **Nav at rest** (`box-shadow: 0 4px 12px rgba(0,0,0,0.15)`): Pill geschlossen, auf Glass mit Blur.
+- **Nav open** (`box-shadow: 0 24px 60px rgba(0,0,0,0.35)`): Menü offen, auf Deep Moss.
 
 ### Named Rules
-**The Flat Rule.** Flächen trennen sich über Ton oder Linie, nie über Schatten.
+**The Floating Nav Only Rule.** Schatten gehören der Nav-Pill allein. Alle anderen Flächen trennen sich über Ton oder Linie.
 
 ## Shapes
 
-Pill (999px) für Buttons und Chips, 12px für Farbfelder und Bild-Platzhalter. Rahmen sind 1px.
+Pill (999px) für Buttons und Chips, 12px für Farbfelder, Eingabefelder und Bild-Platzhalter, 16px für Menüzeilen, 27–28px für die Nav-Pill. Rahmen sind 1px.
 
 ## Components
 
@@ -163,8 +191,21 @@ Stack-Chip (z. B. «Spring Boot»): Pill, transparent, 1px Hairline-Rahmen, 6×1
 ### Image Placeholder
 Placeholder-Moss-Fläche, 1px Hairline, 12px Radius, zentrierte Mono-Beschriftung in Klammern («[Screenshot]», 11px, Mist). Beispielmass 200×52px.
 
+### Form Field
+Label darüber (14px, Gewicht 600), Eingabefeld in Deep Moss, 12px Radius, 16×12px Padding, 16px Text, 1px Mist-Rahmen (80% Deckkraft).
+- **Hover:** Rahmen wird Pale Frost.
+- **Fokus:** Rahmen Terminal Green, zusätzlich 2px Ring mit 3px Abstand.
+- **Fehler:** Rahmen Signal Coral; darunter Icon (16px) plus Meldung in Signal Coral (14px). Fehler nie nur über Farbe zeigen.
+
+### Navigation
+Schwebende Pill, 1px Hairline-Rahmen, 4px Innenabstand, Logo links (44px).
+- **Geschlossen:** 320px breit, 27px Radius, Glass (rgba(17,22,18,0.78)) mit 14px Blur und Nav-at-rest-Schatten; Status-Dot in Terminal Green, aktueller Seitenname in Mono 12px (Mist) und Menü-Button.
+- **Offen:** 358px breit, 28px Radius, Deep Moss und Nav-open-Schatten; Zeilen mit Mono-Index (12px, Mist), Bricolage 36px (600, -0.025em) und Status-Dot an der aktiven Seite; 16px Radius, 8×14px Padding.
+
 ### Motion
 `ease-out` `cubic-bezier(0.2, 0.7, 0.2, 1)`, 240ms, nur `transform` und `opacity`. `prefers-reduced-motion` schaltet Animation ab.
+
+**Reveal (Seiteneintritt):** `cubic-bezier(0.32, 0.72, 0, 1)`, 700ms, `translateY(32px)` → 0 mit `opacity`, Stagger 120ms, Start nach 300ms; die Variante `blur` nutzt zusätzlich `filter`.
 
 ## Do's and Don'ts
 
@@ -172,9 +213,10 @@ Placeholder-Moss-Fläche, 1px Hairline, 12px Radius, zentrierte Mono-Beschriftun
 - **Do** Farben nur aus dem Styleguide-Set nehmen; Hell und Dunkel nutzen dieselben Rollen.
 - **Do** Terminal Green für die Hauptaktion, den Fokusring und den Display-Punkt reservieren.
 - **Do** Mono für Meta, Beschriftungen und Chips verwenden.
+- **Do** Fehler im Formular mit Icon und Text zeigen, nicht nur über Signal Coral.
 - **Do** nur `transform` und `opacity` animieren und `prefers-reduced-motion` respektieren.
 
 ### Don't:
-- **Don't** Schatten auf Flächen legen.
+- **Don't** Schatten auf Flächen ausser der Nav-Pill legen.
 - **Don't** Display in Gemischtschreibung oder mit normaler Laufweite setzen.
 - **Don't** den Akzent für Dekoration einsetzen.

@@ -138,6 +138,21 @@
           "#c6cac6",
           "#edefed"
         ]
+      },
+      "danger": {
+        "role": "semantic",
+        "displayName": "Signal Coral",
+        "canonical": "#FF7B6B",
+        "tonalRamp": [
+          "#370000",
+          "#5d0000",
+          "#840000",
+          "#ab2d24",
+          "#d25346",
+          "#fb7767",
+          "#ff9c8a",
+          "#ffdacf"
+        ]
       }
     },
     "typographyMeta": {
@@ -163,9 +178,26 @@
         "name": "ease-out",
         "value": "cubic-bezier(0.2, 0.7, 0.2, 1)",
         "purpose": "Standard für Zustandswechsel (240ms), nur transform und opacity."
+      },
+      {
+        "name": "ease-spring",
+        "value": "cubic-bezier(0.32, 0.72, 0, 1)",
+        "purpose": "Reveal beim Seiteneintritt (700ms, Stagger 120ms)."
       }
     ],
-    "breakpoints": []
+    "breakpoints": [],
+    "shadows": [
+      {
+        "name": "nav-rest",
+        "value": "0 4px 12px rgba(0,0,0,0.15)",
+        "purpose": "Nav-Pill geschlossen."
+      },
+      {
+        "name": "nav-open",
+        "value": "0 24px 60px rgba(0,0,0,0.35)",
+        "purpose": "Nav-Menü geöffnet."
+      }
+    ]
   },
   "components": [
     {
@@ -199,6 +231,30 @@
       "description": "Platzhalterfläche für fehlende Medien.",
       "html": "<div class=\"ds-ph\">[Screenshot]</div>",
       "css": ".ds-ph{display:flex;align-items:center;justify-content:center;width:200px;height:52px;box-sizing:border-box;background:var(--ph);border:1px solid var(--line);border-radius:12px;font-family:var(--font-mono,monospace);font-size:11px;color:var(--muted);}"
+    },
+    {
+      "name": "Form Field",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Label plus Eingabefeld; Hover hell, Fokus grün mit Ring, Fehler in Signal Coral.",
+      "html": "<div class=\"ds-field\"><label>E-Mail</label><input placeholder=\"name@beispiel.ch\"></div>",
+      "css": ".ds-field{display:flex;flex-direction:column;gap:8px;width:300px;}.ds-field label{font-size:14px;font-weight:600;color:var(--fg);}.ds-field input{box-sizing:border-box;width:100%;background:var(--bg-2);color:var(--fg);border:1px solid color-mix(in srgb,var(--muted) 80%,transparent);border-radius:12px;padding:12px 16px;font:inherit;font-size:16px;transition:border-color 240ms;}.ds-field input:hover{border-color:var(--fg);}.ds-field input:focus-visible{border-color:var(--accent);outline:2px solid var(--accent);outline-offset:3px;}"
+    },
+    {
+      "name": "Nav Pill",
+      "kind": "nav",
+      "refersTo": "nav-pill",
+      "description": "Schwebende Glass-Pill mit Logo, Status-Dot, Seitenname und Menü.",
+      "html": "<div class=\"ds-nav\"><span class=\"ds-logo\"></span><span class=\"ds-status\"><i></i>Start</span><span class=\"ds-menu\">Menü</span></div>",
+      "css": ".ds-nav{display:flex;align-items:center;box-sizing:border-box;width:320px;max-width:100%;padding:4px;border:1px solid var(--line);border-radius:27px;background:rgba(17,22,18,0.78);backdrop-filter:blur(14px);box-shadow:0 4px 12px rgba(0,0,0,0.15);color:var(--fg);}.ds-logo{width:44px;height:44px;border-radius:9999px;background:var(--line);}.ds-status{display:flex;align-items:center;gap:8px;padding:0 12px 0 14px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted);}.ds-status i{width:6px;height:6px;border-radius:9999px;background:var(--accent);}.ds-menu{margin-left:auto;padding:0 12px;font-size:14px;font-weight:500;}"
+    },
+    {
+      "name": "Nav Row",
+      "kind": "custom",
+      "refersTo": null,
+      "description": "Zeile im geöffneten Menü: Mono-Index, grosser Name, Status-Dot bei aktiver Seite.",
+      "html": "<div class=\"ds-navrow\"><span>01</span><b>Start</b><i></i></div>",
+      "css": ".ds-navrow{display:flex;align-items:baseline;gap:14px;padding:8px 14px;border-radius:16px;color:var(--fg);}.ds-navrow span{width:20px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted);}.ds-navrow b{flex:1;font-size:36px;line-height:1.05;font-weight:600;letter-spacing:-0.025em;}.ds-navrow i{align-self:center;width:8px;height:8px;border-radius:9999px;background:var(--accent);}"
     }
   ],
   "narrative": {
@@ -208,12 +264,12 @@
       "Ein Akzent (Terminal-Grün) für Aktion, Fokus und Interpunktion; alles andere ist grün getöntes Neutral.",
       "Display in Versalien, wdth 75, extrabold, Zeilenhöhe 0.82.",
       "Mono-Labels (JetBrains Mono) für Meta, Beschriftungen und Chips.",
-      "Flach, ohne Schatten; Trennung über Ton und 1px-Linien."
+      "Flach; Trennung über Ton und 1px-Linien. Einziger Schatten: die schwebende Nav-Pill."
     ],
     "rules": [
       {
         "name": "The One Signal Rule",
-        "body": "Terminal Green ist die einzige Farbe mit Bedeutung. Es markiert Aktion, Fokus und Interpunktion und wird sparsam eingesetzt.",
+        "body": "Terminal Green ist die einzige Farbe mit Bedeutung für Aktion. Es markiert Aktion, Fokus und Interpunktion und wird sparsam eingesetzt; Signal Coral gehört allein den Fehlern.",
         "section": "colors"
       },
       {
@@ -227,8 +283,8 @@
         "section": "typography"
       },
       {
-        "name": "The Flat Rule",
-        "body": "Flächen trennen sich über Ton oder Linie, nie über Schatten.",
+        "name": "The Floating Nav Only Rule",
+        "body": "Schatten gehören der Nav-Pill allein. Alle anderen Flächen trennen sich über Ton oder Linie.",
         "section": "elevation"
       }
     ],
@@ -236,10 +292,11 @@
       "Do Farben nur aus dem Styleguide-Set nehmen; Hell und Dunkel nutzen dieselben Rollen.",
       "Do Terminal Green für die Hauptaktion, den Fokusring und den Display-Punkt reservieren.",
       "Do Mono für Meta, Beschriftungen und Chips verwenden.",
+      "Do Fehler im Formular mit Icon und Text zeigen, nicht nur über Signal Coral.",
       "Do nur transform und opacity animieren und prefers-reduced-motion respektieren."
     ],
     "donts": [
-      "Don't Schatten auf Flächen legen.",
+      "Don't Schatten auf Flächen ausser der Nav-Pill legen.",
       "Don't Display in Gemischtschreibung oder mit normaler Laufweite setzen.",
       "Don't den Akzent für Dekoration einsetzen."
     ]
