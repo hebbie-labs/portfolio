@@ -11,7 +11,10 @@ export function TitleLink({
   ...props
 }: React.ComponentProps<typeof Link> & { narrow?: boolean }) {
   return (
-    <Link className="group flex items-end gap-4" {...props}>
+    <Link
+      className="group flex origin-left items-end gap-4 transition-transform active:scale-[0.99]"
+      {...props}
+    >
       <Display
         as="span"
         size="md"

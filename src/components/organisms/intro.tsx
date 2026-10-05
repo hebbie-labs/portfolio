@@ -11,6 +11,8 @@ import { getCssColor, setThemeColor } from "@/lib/theme-color";
 /** Coupled to Nav: the startup ring lands on the logo inside `#menu` (see nav.tsx, logo.tsx). */
 const NAV_LOGO = '#menu a[href="/"] svg';
 const EASE_IN_OUT = [0.65, 0, 0.35, 1] as const;
+/** The sequence is written for 3s; recruiters scanning in minutes shouldn't wait for it. */
+const SPEED = 1.4;
 
 /** Geometry of the ring's flight to the nav logo; null while the nav isn't there. */
 function measureLanding(scope: HTMLElement) {
@@ -97,7 +99,8 @@ export function Intro() {
       createSequence(landing, getCssColor("--bg"), getCssColor("--bg-2")),
     );
 
-    const themeColor = setTimeout(() => setThemeColor(), 1000);
+    timeline.speed = SPEED;
+    const themeColor = setTimeout(() => setThemeColor(), 1000 / SPEED);
     const cleanup = () => {
       clearTimeout(themeColor);
       setThemeColor();
