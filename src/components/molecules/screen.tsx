@@ -1,11 +1,19 @@
 import Image from "next/image";
 
-type Props = { image?: string; video?: string; alt?: string };
+import { StackDiagram } from "@/components/molecules/stack-diagram";
+import type { DiagramRow } from "@/constants/projects";
 
-/** Screenshot or muted looping video in a hairline frame; stays an empty surface until one is set. */
-export function Screen({ image, video, alt = "" }: Props) {
+type Props = {
+  image?: string;
+  video?: string;
+  diagram?: readonly DiagramRow[];
+  alt?: string;
+};
+
+/** Screenshot, muted looping video or diagram in a hairline frame; stays an empty surface until one is set. */
+export function Screen({ image, video, diagram, alt = "" }: Props) {
   return (
-    <figure className="relative aspect-[12/7] overflow-hidden rounded-xl border border-line bg-bg-2">
+    <figure className="relative @container aspect-[12/7] overflow-hidden rounded-xl border border-line bg-bg-2">
       {video ? (
         <video
           className="absolute inset-0 size-full object-cover object-top"
@@ -17,6 +25,8 @@ export function Screen({ image, video, alt = "" }: Props) {
           playsInline
           preload="metadata"
         />
+      ) : diagram ? (
+        <StackDiagram rows={diagram} />
       ) : (
         image && (
           <Image

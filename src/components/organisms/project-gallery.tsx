@@ -42,6 +42,7 @@ export function ProjectGallery({
       ) : (
         <Screen
           image={view?.image}
+          diagram={view?.diagram}
           video={active === 0 && !reducedMotion ? video : undefined}
           alt={PROJECT_TEXT.viewAlt(title, view?.label)}
         />
