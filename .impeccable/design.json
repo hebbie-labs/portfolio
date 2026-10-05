@@ -1,0 +1,247 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-05T14:20:38.413024+00:00",
+  "title": "Design System: Leon Hebeisen Portfolio",
+  "extensions": {
+    "colorMeta": {
+      "accent": {
+        "role": "primary",
+        "displayName": "Terminal Green",
+        "canonical": "#4fd88a",
+        "tonalRamp": [
+          "#001800",
+          "#003700",
+          "#005810",
+          "#007a33",
+          "#009d54",
+          "#32c276",
+          "#61e899",
+          "#c4ffd7"
+        ]
+      },
+      "accent-ink": {
+        "role": "primary",
+        "displayName": "Ink on Green",
+        "canonical": "#06120b",
+        "tonalRamp": [
+          "#040e08",
+          "#1b2921",
+          "#38463d",
+          "#56655c",
+          "#77877d",
+          "#99aaa0",
+          "#bdcec3",
+          "#e8f1eb"
+        ]
+      },
+      "bg": {
+        "role": "neutral",
+        "displayName": "Night Moss",
+        "canonical": "#0a0d0b",
+        "tonalRamp": [
+          "#090c0a",
+          "#232624",
+          "#3f4341",
+          "#5e6260",
+          "#7f8381",
+          "#a2a6a3",
+          "#c6cac7",
+          "#edefed"
+        ]
+      },
+      "bg-2": {
+        "role": "neutral",
+        "displayName": "Deep Moss",
+        "canonical": "#111612",
+        "tonalRamp": [
+          "#080d09",
+          "#212722",
+          "#3e443f",
+          "#5d635e",
+          "#7e847f",
+          "#a0a7a1",
+          "#c4cbc5",
+          "#ecefec"
+        ]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Hairline Moss",
+        "canonical": "#1e2721",
+        "tonalRamp": [
+          "#060d08",
+          "#1f2822",
+          "#3b453e",
+          "#5a645d",
+          "#7b867e",
+          "#9da8a1",
+          "#c1cdc5",
+          "#eaf0ec"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Mist",
+        "canonical": "#8d9a92",
+        "tonalRamp": [
+          "#050e08",
+          "#1d2822",
+          "#3a453e",
+          "#59655d",
+          "#79867e",
+          "#9ca9a1",
+          "#bfcdc5",
+          "#e9f0ec"
+        ]
+      },
+      "fg": {
+        "role": "neutral",
+        "displayName": "Pale Frost",
+        "canonical": "#e6ede8",
+        "tonalRamp": [
+          "#080c09",
+          "#212723",
+          "#3e4440",
+          "#5d635f",
+          "#7e8480",
+          "#a0a7a2",
+          "#c4cbc6",
+          "#ecefed"
+        ]
+      },
+      "light-accent": {
+        "role": "primary",
+        "displayName": "Terminal Green (hell)",
+        "canonical": "#0e7a4b",
+        "tonalRamp": [
+          "#001600",
+          "#003409",
+          "#005327",
+          "#007446",
+          "#389766",
+          "#5fbb88",
+          "#84e0ab",
+          "#cffbdf"
+        ]
+      },
+      "light-bg": {
+        "role": "neutral",
+        "displayName": "Night Moss (hell)",
+        "canonical": "#eef2ee",
+        "tonalRamp": [
+          "#090c09",
+          "#232623",
+          "#404340",
+          "#5f625f",
+          "#808380",
+          "#a2a6a2",
+          "#c6cac6",
+          "#edefed"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Hero- und Seitentitel, Versalien, wdth 75, 78–280px."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Abschnittsüberschriften, 30–60px."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Fliesstext und Buttons in Instrument Sans."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Mono-Meta, Beschriftungen, Chips."
+      }
+    },
+    "motion": [
+      {
+        "name": "ease-out",
+        "value": "cubic-bezier(0.2, 0.7, 0.2, 1)",
+        "purpose": "Standard für Zustandswechsel (240ms), nur transform und opacity."
+      }
+    ],
+    "breakpoints": []
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Hauptaktion: Terminal-Grün-Pill, hebt beim Hover um 2px.",
+      "html": "<button class=\"ds-btn-primary\">Adresse kopieren</button>",
+      "css": ".ds-btn-primary{display:inline-flex;align-items:center;justify-content:center;height:52px;border-radius:999px;font-family:'Instrument Sans',sans-serif;font-size:16px;cursor:pointer;transition:transform 240ms cubic-bezier(0.2,0.7,0.2,1);padding:0 24px;border:0;background:var(--accent);color:var(--accent-ink);font-weight:600;}.ds-btn-primary:hover{transform:translateY(-2px);}.ds-btn-primary:focus-visible{outline:2px solid var(--accent);outline-offset:3px;}"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Sekundäraktion mit Mist-Rahmen (70%).",
+      "html": "<a class=\"ds-btn-secondary\" href=\"#\">Case Study ansehen</a>",
+      "css": ".ds-btn-secondary{display:inline-flex;align-items:center;justify-content:center;height:52px;border-radius:999px;font-family:'Instrument Sans',sans-serif;font-size:16px;cursor:pointer;transition:transform 240ms cubic-bezier(0.2,0.7,0.2,1);box-sizing:border-box;padding:0 24px;border:1px solid color-mix(in srgb,var(--muted) 70%,transparent);color:var(--fg);text-decoration:none;font-weight:600;}.ds-btn-secondary:focus-visible{outline:2px solid var(--accent);outline-offset:3px;}"
+    },
+    {
+      "name": "Stack Chip",
+      "kind": "chip",
+      "refersTo": "chip",
+      "description": "Pill-Label für Technologien; Mono, Hairline-Rahmen, nicht klickbar.",
+      "html": "<span class=\"ds-chip\">Spring Boot</span>",
+      "css": ".ds-chip{display:inline-block;padding:6px 12px;border:1px solid var(--line);border-radius:9999px;font-family:var(--font-mono,monospace);font-size:12px;color:var(--muted);}"
+    },
+    {
+      "name": "Image Placeholder",
+      "kind": "custom",
+      "refersTo": "image-placeholder",
+      "description": "Platzhalterfläche für fehlende Medien.",
+      "html": "<div class=\"ds-ph\">[Screenshot]</div>",
+      "css": ".ds-ph{display:flex;align-items:center;justify-content:center;width:200px;height:52px;box-sizing:border-box;background:var(--ph);border:1px solid var(--line);border-radius:12px;font-family:var(--font-mono,monospace);font-size:11px;color:var(--muted);}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Homeserver Terminal",
+    "overview": "Das Portfolio sieht aus wie eine Konsole, die jemand selbst aufgebaut hat und selbst betreibt: fast schwarzes Grün, ein einziges Terminal-Grün als Signal, Mono-Labels für alles Technische und darüber riesige, kondensierte Versalien. Das Handwerk zeigt sich in Typo-Massstab, Bewegung und Details, nicht in Dekoration.\n\nFlächen sind flach und tonal gestuft, Rundung ist freundlich (Pills, 12px), die Typografie dagegen laut und eng gesetzt. Dunkel ist der Standard, Hell ist ein gleich aufgebautes Zweitthema mit abgedunkeltem Akzent.",
+    "keyCharacteristics": [
+      "Ein Akzent (Terminal-Grün) für Aktion, Fokus und Interpunktion; alles andere ist grün getöntes Neutral.",
+      "Display in Versalien, wdth 75, extrabold, Zeilenhöhe 0.82.",
+      "Mono-Labels (JetBrains Mono) für Meta, Beschriftungen und Chips.",
+      "Flach, ohne Schatten; Trennung über Ton und 1px-Linien."
+    ],
+    "rules": [
+      {
+        "name": "The One Signal Rule",
+        "body": "Terminal Green ist die einzige Farbe mit Bedeutung. Es markiert Aktion, Fokus und Interpunktion und wird sparsam eingesetzt.",
+        "section": "colors"
+      },
+      {
+        "name": "The Contrast Rule",
+        "body": "Textfarben halten mindestens 4.5:1; die Werte stehen im Styleguide neben den Swatches.",
+        "section": "colors"
+      },
+      {
+        "name": "The Accent Full Stop Rule",
+        "body": "Der Punkt am Ende eines Display-Titels steht in Terminal Green.",
+        "section": "typography"
+      },
+      {
+        "name": "The Flat Rule",
+        "body": "Flächen trennen sich über Ton oder Linie, nie über Schatten.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do Farben nur aus dem Styleguide-Set nehmen; Hell und Dunkel nutzen dieselben Rollen.",
+      "Do Terminal Green für die Hauptaktion, den Fokusring und den Display-Punkt reservieren.",
+      "Do Mono für Meta, Beschriftungen und Chips verwenden.",
+      "Do nur transform und opacity animieren und prefers-reduced-motion respektieren."
+    ],
+    "donts": [
+      "Don't Schatten auf Flächen legen.",
+      "Don't Display in Gemischtschreibung oder mit normaler Laufweite setzen.",
+      "Don't den Akzent für Dekoration einsetzen."
+    ]
+  }
+}
