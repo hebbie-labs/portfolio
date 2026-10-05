@@ -20,7 +20,7 @@ type Props = Pick<
 /**
  * Screen on the left, text on the right. From `lg` the frames stay pinned while the text scrolls;
  * the feature row in the middle of the viewport is highlighted and switches the screen to its view;
- * from `lg` each row with a view fills 40vh, so the views change slowly; rows without a view stay compact.
+ * from `lg` each row fills 40vh, so the views change slowly.
  */
 export function ProjectShowcase({
   title,
@@ -103,23 +103,19 @@ export function ProjectShowcase({
         {features && (
           <Reveal scroll>
             <ul className="divide-y divide-line border-y border-line">
-              {features.map(({ text, view }, i) => (
+              {features.map(({ text }, i) => (
                 <li
                   key={text}
                   ref={(el) => {
                     rows.current[i] = el;
                   }}
-                  className={cn(
-                    "lg:flex lg:items-center",
-                    view && "lg:min-h-[40vh]",
-                  )}
+                  className="lg:flex lg:min-h-[40vh] lg:items-center"
                 >
                   <button
                     type="button"
                     onClick={() => select(i)}
                     className={cn(
-                      "w-full py-3 text-left transition-colors duration-300 lg:text-2xl",
-                      view ? "lg:py-0" : "lg:py-5",
+                      "w-full py-3 text-left transition-colors duration-300 lg:py-0 lg:text-2xl",
                       i === feature ? "text-fg" : "text-muted hover:text-fg",
                     )}
                   >
