@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import { Field, Form, Formik, useFormikContext } from "formik";
 
 import { Body, Headline } from "@/components/atoms/typography";
@@ -87,6 +88,12 @@ export function ContactForm() {
             >
               {isSubmitting ? CONTACT_FORM.pending : CONTACT_FORM.submit}
             </Button>
+            <p className="text-sm text-muted">
+              {CONTACT_FORM.privacy.text}{" "}
+              <Link href="/datenschutz" className="lnk">
+                {CONTACT_FORM.privacy.linkLabel}
+              </Link>
+            </p>
             {status && (
               <p role="alert" className="text-sm text-danger">
                 {status}

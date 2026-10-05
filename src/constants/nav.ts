@@ -7,6 +7,7 @@ export const NAV_LINKS = [
 
 export const OUTSIDE_NAV_LINKS = [
   { href: "/impressum", label: "Impressum" },
+  { href: "/datenschutz", label: "Datenschutz" },
 ] as const;
 
 /** Texts of the nav bar, menu panel and its buttons. */

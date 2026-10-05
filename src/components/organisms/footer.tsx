@@ -13,12 +13,13 @@ export function Footer() {
       >
         {NAV_LINKS[3].label}
       </Link>
-      <Link
-        href={OUTSIDE_NAV_LINKS[0].href}
-        className="w-fit lnk md:justify-self-end"
-      >
-        {OUTSIDE_NAV_LINKS[0].label}
-      </Link>
+      <div className="flex gap-6 md:justify-self-end">
+        {OUTSIDE_NAV_LINKS.map(({ href, label }) => (
+          <Link key={href} href={href} className="lnk">
+            {label}
+          </Link>
+        ))}
+      </div>
     </footer>
   );
 }
