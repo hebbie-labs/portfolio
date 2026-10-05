@@ -50,4 +50,4 @@ Name «Leon Hebeisen», Logo `public/logo.svg`, Portrait `public/portrait.jpg`, 
 
 ## Accessibility & Inclusion
 
-Kein produktspezifischer Standard festgelegt; Reduced-Motion wird bereits respektiert (Showreel-Poster). Offen: ob WCAG 2.1 AA verbindlich sein soll.
+Ziel ist WCAG 2.1 AA (Kontrast mindestens 4.5:1, volle Tastaturbedienung mit sichtbarem Fokus, Labels und Fehlermeldungen in Formularen, Alternativtexte). Reduced-Motion wird bereits respektiert (Showreel-Poster).
