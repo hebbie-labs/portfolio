@@ -118,7 +118,8 @@ export function ProjectShowcase({
                     type="button"
                     onClick={() => select(i)}
                     className={cn(
-                      "w-full py-3 text-left transition-colors duration-300 lg:py-0 lg:text-2xl",
+                      "w-full py-3 text-left transition-colors duration-300 lg:text-2xl",
+                      view ? "lg:py-0" : "lg:py-5",
                       i === feature ? "text-fg" : "text-muted hover:text-fg",
                     )}
                   >
