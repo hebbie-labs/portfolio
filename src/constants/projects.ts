@@ -45,7 +45,12 @@ export type ProjectView = {
   image?: string;
   /** Portrait (mobile) screenshot: shown in a phone frame instead of the screen. */
   portrait?: boolean;
+  /** Drawn in the frame instead of a screenshot, for projects without a UI. */
+  diagram?: readonly DiagramRow[];
 };
+
+/** One lane of a diagram: a label and the stations in flow order, joined by arrows. */
+export type DiagramRow = { label: string; flow: readonly string[] };
 
 export type ProjectFeature = {
   text: string;

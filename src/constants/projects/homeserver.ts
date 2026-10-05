@@ -18,5 +18,20 @@ export const HOMESERVER_PROJECT: Project = {
       text: "Tägliche Backups von Datenbanken und Konfiguration, inklusive Off-Site-Kopie",
     },
   ],
-  views: [{ label: "Ansicht 1" }],
+  views: [
+    {
+      label: "Stack",
+      diagram: [
+        {
+          label: "Zugriff",
+          flow: ["Internet", "Cloudflare Tunnel", "Stack"],
+        },
+        {
+          label: "Deploy",
+          flow: ["git push", "GitHub Action", "Runner", "Stack"],
+        },
+        { label: "Backup", flow: ["Nachts", "Skript", "Cloud"] },
+      ],
+    },
+  ],
 };

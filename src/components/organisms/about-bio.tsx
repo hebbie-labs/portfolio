@@ -9,12 +9,17 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { ABOUT_BIO } from "@/constants/about";
+import { hasPlaceholder } from "@/lib/utils";
 
 /** Accent at 33%; the SVG stroke resolves the variable itself, so it follows the theme without JS. */
 const MARKER = "color-mix(in srgb, var(--accent) 33%, transparent)";
 
 /** Short CV as one paragraph with accent-marked words; the hint opens on hover, and on tap or Enter (touch has no hover). */
 export function AboutBio({ className }: { className?: string }) {
+  const texts = ABOUT_BIO.flatMap((part) =>
+    typeof part === "string" ? part : [part.text, part.hint],
+  );
+  if (hasPlaceholder(...texts)) return null;
   return (
     <Reveal scroll className={className}>
       <Body>

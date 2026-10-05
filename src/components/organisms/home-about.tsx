@@ -14,7 +14,9 @@ export function HomeAbout() {
       className="flex flex-col items-start gap-6 page-x py-16 md:py-24"
     >
       <Headline>{HOME_ABOUT.title}</Headline>
-      <Lead className="max-w-3xl text-muted">{HOME_ABOUT.text}</Lead>
+      {HOME_ABOUT.text && (
+        <Lead className="max-w-3xl text-muted">{HOME_ABOUT.text}</Lead>
+      )}
       <Link
         href={HOME_ABOUT.linkHref}
         className={buttonVariants({ variant: "outline", className: "px-5" })}

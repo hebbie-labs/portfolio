@@ -5,16 +5,23 @@ import { useEffect, useRef, useState } from "react";
 import { Reveal } from "@/components/atoms/reveal";
 import { Body, Display } from "@/components/atoms/typography";
 import type { TimelineItem } from "@/constants/about";
-import { cn } from "@/lib/utils";
+import { cn, hasPlaceholder } from "@/lib/utils";
 
 /** Ruled rows: the period as a large number left, station, text and optional detail lines right. The row in the middle of the viewport lights up its period. */
 export function Timeline({
   title,
-  items,
+  items: all,
 }: {
   title: string;
   items: readonly TimelineItem[];
 }) {
+  // Unfinished stations stay hidden; placeholder detail lines are dropped.
+  const items = all
+    .filter((i) => !hasPlaceholder(i.period, i.title, i.text))
+    .map((i) => ({
+      ...i,
+      details: i.details?.filter((d) => !hasPlaceholder(d)),
+    }));
   const [active, setActive] = useState(0);
   const rows = useRef<(HTMLLIElement | null)[]>([]);
 

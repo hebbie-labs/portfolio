@@ -149,7 +149,7 @@ export function IconCloud({
   }, [icons, images]);
 
   // Handle mouse events
-  const handleMouseDown = (e: React.MouseEvent<HTMLCanvasElement>) => {
+  const handleMouseDown = (e: React.PointerEvent<HTMLCanvasElement>) => {
     const rect = canvasRef.current?.getBoundingClientRect();
     if (!rect || !canvasRef.current) return;
 
@@ -209,7 +209,7 @@ export function IconCloud({
     setLastMousePos({ x: e.clientX, y: e.clientY });
   };
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLCanvasElement>) => {
+  const handleMouseMove = (e: React.PointerEvent<HTMLCanvasElement>) => {
     const rect = canvasRef.current?.getBoundingClientRect();
     if (rect) {
       const x = e.clientX - rect.left;
@@ -357,11 +357,12 @@ export function IconCloud({
         ref={canvasRef}
         width={400}
         height={400}
-        onMouseDown={handleMouseDown}
-        onMouseMove={handleMouseMove}
-        onMouseUp={handleMouseUp}
-        onMouseLeave={handleMouseUp}
-        className="rounded-lg"
+        onPointerDown={handleMouseDown}
+        onPointerMove={handleMouseMove}
+        onPointerUp={handleMouseUp}
+        onPointerCancel={handleMouseUp}
+        onPointerLeave={handleMouseUp}
+        className="touch-pan-y rounded-lg"
         aria-label="Interactive 3D Icon Cloud"
         role="img"
       />
