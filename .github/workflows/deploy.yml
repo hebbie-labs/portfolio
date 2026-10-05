@@ -12,7 +12,7 @@ jobs:
   ci:
     uses: ./.github/workflows/ci.yml
 
-  build:
+  publish:
     needs: ci
     runs-on: ubuntu-latest
     steps:
@@ -37,7 +37,7 @@ jobs:
   # No docker/login-action in the deploy jobs: it overwrites the runner's persistent
   # ghcr.io login (PAT) and logs out afterwards. Log in once on the server instead.
   deploy-www:
-    needs: build
+    needs: publish
     if: github.ref == 'refs/heads/main'
     runs-on: self-hosted
     concurrency: deploy-www
@@ -46,7 +46,7 @@ jobs:
       - run: docker compose -f /srv/homelab/compose.yml up -d portfolio
 
   deploy-dev:
-    needs: build
+    needs: publish
     if: github.ref == 'refs/heads/dev'
     runs-on: self-hosted
     concurrency: deploy-dev
