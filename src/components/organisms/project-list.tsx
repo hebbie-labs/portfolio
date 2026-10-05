@@ -16,7 +16,7 @@ export function ProjectList() {
               <Separator />
             </Reveal>
           )}
-          <ProjectCard {...project} />
+          <ProjectCard {...project} flip={i % 2 === 1} />
         </Fragment>
       ))}
     </div>

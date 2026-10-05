@@ -33,7 +33,7 @@ export const PROJECTS_SECTION = {
 export const PROJECTS_PAGE = { title: "Projekte" } as const;
 
 export const PROJECT_TEXT = {
-  demoLabel: "Live-Demo",
+  demoLabel: "Dev-Demo",
   repoLabel: "GitHub",
   viewAlt: (title: string, view?: string) => `Screenshot von ${title}: ${view}`,
 };

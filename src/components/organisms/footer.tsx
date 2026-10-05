@@ -1,7 +1,7 @@
 import { Label } from "@/components/atoms/typography";
 import Link from "next/link";
 import { NAV_LINKS, OUTSIDE_NAV_LINKS } from "@/constants/nav";
-import { LOCATION, SITE_NAME } from "@/constants/site";
+import { LOCATION, SITE_NAME, SOCIAL_PROFILES } from "@/constants/site";
 
 export function Footer() {
   return (
@@ -9,12 +9,22 @@ export function Footer() {
       <Label>
         © {new Date().getFullYear()} {SITE_NAME}, {LOCATION}
       </Label>
-      <Link
-        href={NAV_LINKS[3].href}
-        className="w-fit lnk md:justify-self-center"
-      >
-        {NAV_LINKS[3].label}
-      </Link>
+      <div className="flex gap-6 md:justify-self-center">
+        <Link href={NAV_LINKS[3].href} className="lnk">
+          {NAV_LINKS[3].label}
+        </Link>
+        {SOCIAL_PROFILES.slice(0, 2).map(({ label, href }) => (
+          <a
+            key={href}
+            href={href}
+            target="_blank"
+            rel="noreferrer"
+            className="lnk"
+          >
+            {label}
+          </a>
+        ))}
+      </div>
       <div className="flex gap-6 md:justify-self-end">
         {OUTSIDE_NAV_LINKS.map(({ href, label }) => (
           <Link key={href} href={href} className="lnk">

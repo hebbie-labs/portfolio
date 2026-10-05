@@ -15,7 +15,8 @@ export function ProjectCard({
   repo,
   video,
   views,
-}: Project) {
+  flip,
+}: Project & { flip?: boolean }) {
   return (
     <article id={slug} className="flex scroll-mt-24 flex-col gap-8 md:gap-12">
       <Reveal scroll variant="blur">
@@ -31,6 +32,7 @@ export function ProjectCard({
         repo={repo}
         video={video}
         views={views}
+        flip={flip}
       />
     </article>
   );
