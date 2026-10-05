@@ -12,7 +12,10 @@ import { cn } from "@/lib/utils";
 type Props = Pick<
   Project,
   "title" | "description" | "features" | "url" | "repo" | "video" | "views"
->;
+> & {
+  /** From `lg` the screen sits on the right, for rhythm between projects. */
+  flip?: boolean;
+};
 
 /**
  * Screen on the left, text on the right. From `lg` the frames stay pinned while the text scrolls;
@@ -27,6 +30,7 @@ export function ProjectShowcase({
   repo,
   video,
   views,
+  flip,
 }: Props) {
   const [view, setView] = useState(0);
   const [feature, setFeature] = useState(0);
@@ -66,11 +70,21 @@ export function ProjectShowcase({
   }, [select]);
 
   return (
-    <div className="grid gap-10 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] lg:gap-16">
+    <div
+      className={cn(
+        "grid gap-10 lg:gap-16",
+        flip
+          ? "lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)]"
+          : "lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]",
+      )}
+    >
       <Reveal
         scroll
         variant="scale"
-        className="lg:sticky lg:top-32 lg:self-start"
+        className={cn(
+          "lg:sticky lg:top-32 lg:self-start",
+          flip && "lg:order-last",
+        )}
       >
         <ProjectGallery
           title={title}

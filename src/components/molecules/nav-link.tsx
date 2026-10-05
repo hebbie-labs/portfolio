@@ -14,7 +14,7 @@ export function NavLink({ href, label, index, active, onClick }: Props) {
     <Link
       href={href}
       onClick={onClick}
-      className="group flex items-baseline gap-3.5 rounded-2xl px-3.5 py-2"
+      className="group flex items-baseline gap-3.5 rounded-2xl px-3.5 py-2 transition-transform active:scale-[0.98]"
     >
       <span className="w-5 font-mono text-xs text-muted">
         {String(index + 1).padStart(2, "0")}

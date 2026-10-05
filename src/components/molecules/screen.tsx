@@ -1,5 +1,6 @@
 import Image from "next/image";
 
+import { ViewportVideo } from "@/components/atoms/viewport-video";
 import { StackDiagram } from "@/components/molecules/stack-diagram";
 import type { DiagramRow } from "@/constants/projects";
 
@@ -13,16 +14,12 @@ type Props = {
 /** Screenshot, muted looping video or diagram in a hairline frame; stays an empty surface until one is set. */
 export function Screen({ image, video, diagram, alt = "" }: Props) {
   return (
-    <figure className="relative @container aspect-[12/7] overflow-hidden rounded-xl border border-line bg-bg-2">
+    <figure className="@container relative aspect-[12/7] overflow-hidden rounded-xl border border-line bg-bg-2">
       {video ? (
-        <video
+        <ViewportVideo
           className="absolute inset-0 size-full object-cover object-top"
           src={video}
           poster={image}
-          autoPlay
-          loop
-          muted
-          playsInline
           preload="metadata"
         />
       ) : diagram ? (

@@ -12,7 +12,7 @@ import {
 
 export const metadata: Metadata = {
   icons: { icon: "./logo.svg" },
-  title: { default: SITE_TITLE, template: `%s – ${SITE_NAME}` },
+  title: { default: SITE_TITLE, template: `%s | ${SITE_NAME}` },
   description: SITE_DESCRIPTION,
   metadataBase: new URL(SITE_URL),
   alternates: { canonical: "./" },
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
         url: "/og.png",
         width: 1200,
         height: 630,
-        alt: `${SITE_NAME} – Portfolio`,
+        alt: `${SITE_NAME}: Portfolio`,
       },
     ],
   },

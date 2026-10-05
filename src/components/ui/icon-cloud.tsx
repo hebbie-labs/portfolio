@@ -35,8 +35,6 @@ export function IconCloud({
   const [iconPositions, setIconPositions] = useState<Icon[]>([]);
   const [isDragging, setIsDragging] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
-  const [lastMousePos, setLastMousePos] = useState({ x: 0, y: 0 });
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [targetRotation, setTargetRotation] = useState<{
     x: number;
     y: number;
@@ -48,6 +46,9 @@ export function IconCloud({
   } | null>(null);
   const animationFrameRef = useRef<number>(0);
   const rotationRef = useRef({ x: 0, y: 0 });
+  // pointer positions change on every move; as refs they do not re-render or restart the loop
+  const lastMousePosRef = useRef({ x: 0, y: 0 });
+  const mousePosRef = useRef({ x: 0, y: 0 });
   const iconCanvasesRef = useRef<HTMLCanvasElement[]>([]);
   const imagesLoadedRef = useRef<boolean[]>([]);
 
@@ -206,7 +207,7 @@ export function IconCloud({
     });
 
     setIsDragging(true);
-    setLastMousePos({ x: e.clientX, y: e.clientY });
+    lastMousePosRef.current = { x: e.clientX, y: e.clientY };
   };
 
   const handleMouseMove = (e: React.PointerEvent<HTMLCanvasElement>) => {
@@ -214,19 +215,19 @@ export function IconCloud({
     if (rect) {
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
-      setMousePos({ x, y });
+      mousePosRef.current = { x, y };
     }
 
     if (isDragging) {
-      const deltaX = e.clientX - lastMousePos.x;
-      const deltaY = e.clientY - lastMousePos.y;
+      const deltaX = e.clientX - lastMousePosRef.current.x;
+      const deltaY = e.clientY - lastMousePosRef.current.y;
 
       rotationRef.current = {
         x: rotationRef.current.x + deltaY * 0.002,
         y: rotationRef.current.y + deltaX * 0.002,
       };
 
-      setLastMousePos({ x: e.clientX, y: e.clientY });
+      lastMousePosRef.current = { x: e.clientX, y: e.clientY };
     }
   };
 
@@ -245,8 +246,8 @@ export function IconCloud({
         const centerX = canvas.width / 2;
         const centerY = canvas.height / 2;
         const maxDistance = Math.sqrt(centerX * centerX + centerY * centerY);
-        const dx = mousePos.x - centerX;
-        const dy = mousePos.y - centerY;
+        const dx = mousePosRef.current.x - centerX;
+        const dy = mousePosRef.current.y - centerY;
         const distance = Math.sqrt(dx * dx + dy * dy);
         const speed = 0.003 + (distance / maxDistance) * 0.01;
 
@@ -341,15 +342,7 @@ export function IconCloud({
         cancelAnimationFrame(animationFrameRef.current);
       }
     };
-  }, [
-    icons,
-    images,
-    iconPositions,
-    isDragging,
-    isPaused,
-    mousePos,
-    targetRotation,
-  ]);
+  }, [icons, images, iconPositions, isDragging, isPaused, targetRotation]);
 
   return (
     <div className="relative inline-block">
