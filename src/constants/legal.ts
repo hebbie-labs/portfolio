@@ -6,7 +6,7 @@ export const LEGAL_PAGE = {
   /** Name and address; each entry is one line. */
   owner: {
     heading: "Verantwortlich",
-    lines: ["Leon Hebeisen", "[Strasse und Nr.]", "[PLZ Ort]", "Schweiz"],
+    lines: ["Leon Hebeisen", "Brunismattweg 5", "3665 Wattenwil", "Schweiz"],
   },
   contactHeading: "Kontakt",
   /** Plain paragraphs below the contact block. */
