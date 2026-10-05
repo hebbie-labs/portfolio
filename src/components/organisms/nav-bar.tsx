@@ -34,7 +34,7 @@ export function NavBar({ open, setOpen, current }: NavMenuProps) {
       <MenuButton
         open={open}
         onToggle={() => setOpen(!open)}
-        className="ml-auto -translate-x-12 transition-transform duration-300 ease-in-out aria-expanded:translate-x-0"
+        className="ml-auto -translate-x-12 transition-transform duration-400 ease-out aria-expanded:translate-x-0"
       />
       <Transition
         as="div"
