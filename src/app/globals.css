@@ -136,6 +136,11 @@ button {
   outline-offset: 3px;
 }
 
+/* The nav pill clips its content (overflow-hidden, 4px padding): keep the ring inside it. */
+#menu :focus-visible {
+  outline-offset: 0;
+}
+
 @media (prefers-reduced-motion: reduce) {
   [data-reveal] {
     animation: none;

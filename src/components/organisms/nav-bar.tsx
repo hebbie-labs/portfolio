@@ -18,14 +18,18 @@ export function NavBar({ open, setOpen, current }: NavMenuProps) {
         className="flex items-center gap-2 self-center pr-3 pl-3.5 font-mono text-xs whitespace-nowrap text-muted transition-opacity duration-400 data-closed:opacity-0"
       >
         <StatusDot className="size-1.5" />
-        <HyperText
-          key={current.label}
-          as="span"
-          animateOnHover={false}
-          className="py-0 text-xs font-normal"
-        >
-          {current.label}
-        </HyperText>
+        {/* HyperText scrambles its letters; screen readers get the plain label. */}
+        <span className="sr-only">{current.label}</span>
+        <span aria-hidden>
+          <HyperText
+            key={current.label}
+            as="span"
+            animateOnHover={false}
+            className="py-0 text-xs font-normal"
+          >
+            {current.label}
+          </HyperText>
+        </span>
       </Transition>
       <MenuButton
         open={open}
