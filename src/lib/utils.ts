@@ -17,6 +17,11 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
+/** True if any text still holds a `[bracketed]` placeholder; such blocks stay hidden until they are filled in. */
+export function hasPlaceholder(...texts: string[]) {
+  return texts.some((text) => /\[[^\]]*\]/.test(text));
+}
+
 /** Cuts `text` at the last word boundary within `max` characters and appends "…"; shorter text is unchanged. */
 export function truncate(text: string, max: number) {
   if (text.length <= max) return text;
