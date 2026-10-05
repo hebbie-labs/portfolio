@@ -5,10 +5,9 @@ import { hasPlaceholder, truncate } from "@/lib/utils";
 const ABOUT_TEASER_MAX_LENGTH = 100;
 
 export const HOME_HERO = {
-  location: "Bern, CH",
   title: "Leon Hebeisen",
   lead: "Lernender Applikationsentwickler. Frontend zuerst, Spring Boot dahinter.",
-  contactLabel: "Kontakt aufnehmen",
+  contactLabel: "Schreib mir",
   contactHref: "/kontakt",
 } as const;
 

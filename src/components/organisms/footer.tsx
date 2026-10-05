@@ -1,12 +1,14 @@
 import { Label } from "@/components/atoms/typography";
 import Link from "next/link";
 import { NAV_LINKS, OUTSIDE_NAV_LINKS } from "@/constants/nav";
-import { SITE_NAME } from "@/constants/site";
+import { LOCATION, SITE_NAME } from "@/constants/site";
 
 export function Footer() {
   return (
     <footer className="flex w-full flex-col gap-2.5 border-t border-line page-x py-4 font-mono text-xs text-muted md:grid md:grid-cols-3 md:items-center md:py-10 md:text-[13px]">
-      <Label>© 2026 {SITE_NAME}</Label>
+      <Label>
+        © {new Date().getFullYear()} {SITE_NAME}, {LOCATION}
+      </Label>
       <Link
         href={NAV_LINKS[3].href}
         className="w-fit lnk md:justify-self-center"

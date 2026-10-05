@@ -4,6 +4,7 @@ export const SITE_TITLE = "Leon Hebeisen | Lernender Applikationsentwickler";
 export const SITE_DESCRIPTION =
   "Leon Hebeisen, Lernender Applikationsentwickler EFZ bei Noser Young. Portfolio mit Projekten in Spring Boot, React und TypeScript.";
 export const JOB_TITLE = "Lernender Applikationsentwickler EFZ";
+export const LOCATION = "Bern, CH";
 export const EMPLOYER = "Noser Young";
 export const EMAIL = "contact@leonhebeisen.com";
 export const GITHUB_URL = "https://github.com/lelelon225";
