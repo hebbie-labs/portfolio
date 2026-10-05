@@ -26,7 +26,7 @@ export function Portrait({
           alt={alt}
           fill
           sizes="(min-width: 768px) 20rem, 10rem"
-          className="object-cover grayscale transition-[filter] duration-500 group-hover:grayscale-0"
+          className="object-cover grayscale transition-[filter] duration-200 group-hover:grayscale-0"
         />
       ) : (
         <Label className="absolute inset-0 grid place-items-center">

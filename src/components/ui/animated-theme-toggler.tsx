@@ -77,7 +77,10 @@ export const AnimatedThemeToggler = ({
     // Read before applyTheme switches `data-theme`; the bar color is read after it.
     const oldColor = getCssColor("--bg");
 
-    if (typeof document.startViewTransition !== "function") {
+    if (
+      matchMedia("(prefers-reduced-motion: reduce)").matches ||
+      typeof document.startViewTransition !== "function"
+    ) {
       applyTheme();
       setThemeColor();
       return;
@@ -130,7 +133,7 @@ export const AnimatedThemeToggler = ({
           { clipPath },
           {
             duration,
-            easing: "ease-in-out",
+            easing: "cubic-bezier(0.77, 0, 0.175, 1)", // = --ease-in-out (WAAPI can't read the token)
             fill: "forwards",
             pseudoElement: "::view-transition-new(root)",
           },

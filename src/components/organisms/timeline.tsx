@@ -55,7 +55,7 @@ export function Timeline({
               as="p"
               size="md"
               className={cn(
-                "transition-colors duration-500",
+                "transition-colors duration-300",
                 i === active ? "text-accent" : "text-muted",
               )}
             >

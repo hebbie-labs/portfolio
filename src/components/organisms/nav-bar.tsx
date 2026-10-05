@@ -15,7 +15,7 @@ export function NavBar({ open, setOpen, current }: NavMenuProps) {
       <Transition
         as="span"
         show={!open}
-        className="flex items-center gap-2 self-center pr-3 pl-3.5 font-mono text-xs whitespace-nowrap text-muted transition-opacity duration-400 data-closed:opacity-0"
+        className="flex items-center gap-2 self-center pr-3 pl-3.5 font-mono text-xs whitespace-nowrap text-muted transition-opacity duration-200 data-closed:opacity-0"
       >
         <StatusDot className="size-1.5" />
         {/* HyperText scrambles its letters; screen readers get the plain label. */}
@@ -34,7 +34,7 @@ export function NavBar({ open, setOpen, current }: NavMenuProps) {
       <MenuButton
         open={open}
         onToggle={() => setOpen(!open)}
-        className="ml-auto -translate-x-12 transition-transform duration-450 ease-in-out aria-expanded:translate-x-0"
+        className="ml-auto -translate-x-12 transition-transform duration-300 ease-in-out aria-expanded:translate-x-0"
       />
       <Transition
         as="div"

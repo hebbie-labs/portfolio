@@ -8,7 +8,7 @@ import type { Project } from "@/constants/projects";
 export function ProjectPreview({ slug, title, summary, views }: Project) {
   return (
     <article className="group @container relative flex flex-col gap-3 md:gap-4">
-      <div className="transition-transform duration-500 ease-spring group-hover:-translate-y-1">
+      <div className="transition-transform duration-200 ease-out group-hover:-translate-y-1">
         <ProjectMedia views={views} title={title} />
       </div>
       <Link
@@ -18,7 +18,7 @@ export function ProjectPreview({ slug, title, summary, views }: Project) {
         <Display
           as="h3"
           size="md"
-          className="text-balance transition-colors duration-300 group-hover:text-accent"
+          className="text-balance transition-colors duration-150 group-hover:text-accent"
         >
           {title}
         </Display>

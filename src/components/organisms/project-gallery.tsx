@@ -30,23 +30,28 @@ export function ProjectGallery({
 
   return (
     <div className="flex flex-col gap-4">
-      {view?.portrait ? (
-        <div className="flex aspect-[12/7] justify-center">
-          <div className="aspect-[433/882] h-full">
-            <Iphone
-              src={view.image}
-              alt={PROJECT_TEXT.viewAlt(title, view.label)}
-            />
+      <div
+        key={active}
+        className="transition-opacity duration-200 ease-out starting:opacity-0"
+      >
+        {view?.portrait ? (
+          <div className="flex aspect-[12/7] justify-center">
+            <div className="aspect-[433/882] h-full">
+              <Iphone
+                src={view.image}
+                alt={PROJECT_TEXT.viewAlt(title, view.label)}
+              />
+            </div>
           </div>
-        </div>
-      ) : (
-        <Screen
-          image={view?.image}
-          diagram={view?.diagram}
-          video={active === 0 && !reducedMotion ? video : undefined}
-          alt={PROJECT_TEXT.viewAlt(title, view?.label)}
-        />
-      )}
+        ) : (
+          <Screen
+            image={view?.image}
+            diagram={view?.diagram}
+            video={active === 0 && !reducedMotion ? video : undefined}
+            alt={PROJECT_TEXT.viewAlt(title, view?.label)}
+          />
+        )}
+      </div>
       {views.length > 1 && (
         <div className="flex flex-wrap gap-x-6 gap-y-2 lg:hidden">
           {views.map(({ label }, i) => (

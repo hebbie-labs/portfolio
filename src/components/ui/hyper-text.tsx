@@ -12,6 +12,7 @@ import {
   motion,
   type DOMMotionComponents,
   type HTMLMotionProps,
+  useReducedMotion,
   type MotionProps,
 } from "motion/react";
 
@@ -84,6 +85,7 @@ export function HyperText({
     children.split(""),
   );
   const [isAnimating, setIsAnimating] = useState(false);
+  const reduced = useReducedMotion();
   const iterationCount = useRef(0);
   const elementRef = useRef<HTMLElement | null>(null);
 
@@ -126,7 +128,7 @@ export function HyperText({
   useEffect(() => {
     let animationFrameId: number | null = null;
 
-    if (isAnimating) {
+    if (isAnimating && !reduced) {
       const maxIterations = children.length;
       const startTime = performance.now();
 
@@ -161,7 +163,9 @@ export function HyperText({
         cancelAnimationFrame(animationFrameId);
       }
     };
-  }, [children, duration, isAnimating, characterSet]);
+  }, [children, duration, isAnimating, characterSet, reduced]);
+
+  const letters = reduced ? children.split("") : displayText;
 
   return (
     <MotionComponent
@@ -171,7 +175,7 @@ export function HyperText({
       {...props}
     >
       <AnimatePresence>
-        {displayText.map((letter, index) => (
+        {letters.map((letter, index) => (
           <motion.span
             key={index}
             className={cn("font-mono", letter === " " ? "w-3" : "")}
