@@ -1,6 +1,6 @@
 export const SITE_URL = "https://leonhebeisen.com";
 export const SITE_NAME = "Leon Hebeisen";
-export const SITE_TITLE = "Leon Hebeisen – Lernender Applikationsentwickler";
+export const SITE_TITLE = "Leon Hebeisen | Lernender Applikationsentwickler";
 export const SITE_DESCRIPTION =
   "Leon Hebeisen, Lernender Applikationsentwickler EFZ bei Noser Young. Portfolio mit Projekten in Spring Boot, React und TypeScript.";
 export const JOB_TITLE = "Lernender Applikationsentwickler EFZ";

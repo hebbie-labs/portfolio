@@ -71,7 +71,7 @@ export function Timeline({
                   {details.map((d) => (
                     <li key={d} className="flex gap-2 text-sm md:text-base">
                       <span aria-hidden className="text-accent">
-                        –
+                        ·
                       </span>
                       {d}
                     </li>
