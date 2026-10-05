@@ -20,7 +20,7 @@ const trackClasses = cn(
   "lg:motion-safe:translate-x-[calc(var(--distance,0px)*var(--progress,0)*-1)] lg:motion-safe:will-change-[translate]",
   // panels: fixed widths, spacing after each, title and end card centered, projects hang from the nav
   "lg:motion-safe:[&>*]:shrink-0 lg:motion-safe:[&>*:not(:last-child)]:pr-12",
-  "lg:motion-safe:[&>*:first-child]:w-[40vw] lg:motion-safe:[&>article]:w-[32vw]",
+  "lg:motion-safe:[&>*:first-child]:w-[40vw] lg:motion-safe:[&>article]:w-[45vw]",
   "lg:motion-safe:[&>:is(:first-child,:last-child)]:self-center lg:motion-safe:[&>:not(:is(:first-child,:last-child))]:pt-nav",
 );
 
