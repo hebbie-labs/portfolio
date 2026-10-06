@@ -14,7 +14,7 @@ export function NavPanel({ open, setOpen, current }: NavMenuProps) {
       as="div"
       show={open}
       id="menu-panel"
-      className="grid grid-rows-[1fr] transition-[grid-template-rows,opacity] duration-450 ease-in-out data-closed:grid-rows-[0fr] data-closed:opacity-0"
+      className="grid grid-rows-[1fr] transition-[grid-template-rows,opacity] duration-400 ease-out data-closed:grid-rows-[0fr] data-closed:opacity-0"
     >
       <div className="min-h-0 overflow-hidden">
         <nav
@@ -47,11 +47,11 @@ export function NavPanel({ open, setOpen, current }: NavMenuProps) {
             href={GITHUB_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className={cn(buttonVariants(), "group px-3.5")}
+            className={cn(buttonVariants(), "group pr-2.5 pl-3.5")}
           >
             {NAV_TEXT.github}
             <ArrowUpRight
-              className="size-0 -translate-x-3 opacity-0 transition-[width,height,opacity,translate] duration-250 group-hover:size-3.5 group-hover:translate-x-0 group-hover:opacity-75"
+              className="size-3.5 -translate-x-2 opacity-0 transition-[opacity,translate] duration-200 group-hover:translate-x-0 group-hover:opacity-75"
               aria-hidden
             />
           </a>

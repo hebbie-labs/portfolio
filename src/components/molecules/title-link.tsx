@@ -19,7 +19,7 @@ export function TitleLink({
         as="span"
         size="md"
         className={cn(
-          "transition-colors duration-300 group-hover:text-accent",
+          "transition-colors duration-150 group-hover:text-accent",
           narrow && "w-min",
         )}
       >

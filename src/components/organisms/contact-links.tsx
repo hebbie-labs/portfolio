@@ -22,7 +22,7 @@ export function ContactLinks() {
               {label}
               <ArrowUpRight
                 aria-hidden
-                className="size-5 transition-transform duration-300 ease-spring group-hover:translate-x-1 group-hover:-translate-y-1"
+                className="size-5 transition-transform duration-200 ease-out group-hover:translate-x-1 group-hover:-translate-y-1"
               />
             </a>
           </li>

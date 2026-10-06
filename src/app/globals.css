@@ -31,6 +31,13 @@
   color-scheme: light;
 }
 
+/* `static`: always emitted as :root custom properties so plain CSS (keyframes) can use var(--ease-*). */
+@theme static {
+  --ease-spring: cubic-bezier(0.32, 0.72, 0, 1);
+  --ease-out: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+}
+
 @theme inline {
   --color-*: initial;
   --color-bg: var(--bg);
@@ -67,10 +74,8 @@
   --text-headline-sm--line-height: 1.05;
   --text-headline-sm--letter-spacing: -0.025em;
 
-  --ease-spring: cubic-bezier(0.32, 0.72, 0, 1);
-  --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
-  --default-transition-duration: 240ms;
-  --default-transition-timing-function: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --default-transition-duration: 160ms;
+  --default-transition-timing-function: var(--ease-out);
 }
 
 html {
@@ -144,21 +149,6 @@ button {
   outline-offset: 0;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  [data-reveal] {
-    animation: none;
-  }
-
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-}
-
 ::view-transition-old(root),
 ::view-transition-new(root) {
   animation: none;
@@ -190,10 +180,11 @@ html[data-intro="logo"] footer {
   visibility: hidden;
 }
 
-/* Plays on every page load; paused behind the startup screen until `data-intro` leaves "logo". */
-[data-reveal] {
-  animation: reveal 700ms cubic-bezier(0.32, 0.72, 0, 1) backwards;
-  animation-delay: calc(var(--i, 0) * 120ms + 300ms);
+/* Plays on every page load and route change; paused behind the startup screen until `data-intro` leaves "logo". */
+[data-reveal]:not([data-scroll]),
+[data-reveal][data-in] {
+  animation: var(--reveal, reveal) 450ms var(--ease-spring) backwards;
+  animation-delay: calc(var(--i, 0) * 60ms);
 }
 
 html[data-intro="logo"] [data-reveal] {
@@ -204,27 +195,31 @@ html[data-intro="logo"] [data-reveal] {
   from {
     opacity: 0;
     transform: var(--from, translateY(32px));
-    filter: blur(var(--blur, 0));
   }
 }
 
-/* `scroll`: hidden until the Reveal component sets `data-in` (when it enters the viewport), then plays the same animation. */
-[data-reveal][data-scroll] {
-  animation: none;
+@keyframes reveal-blur {
+  from {
+    opacity: 0;
+    transform: var(--from, translateY(32px));
+    filter: blur(12px);
+  }
 }
 
+@keyframes reveal-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+/* `scroll`: hidden until the Reveal component sets `data-in` (when it enters the viewport), then plays the same animation (rule above). */
 [data-reveal][data-scroll]:not([data-in]) {
   opacity: 0;
 }
 
-[data-reveal][data-scroll][data-in] {
-  animation: reveal 700ms cubic-bezier(0.32, 0.72, 0, 1) backwards;
-  animation-delay: calc(var(--i, 0) * 120ms);
-}
-
-/* Visible on page load: start after the load reveals (300ms base + header stagger). */
+/* Visible on page load: start after the header reveals. */
 [data-reveal][data-scroll][data-in][data-load] {
-  animation-delay: calc(var(--i, 0) * 120ms + 700ms);
+  animation-delay: calc(var(--i, 0) * 60ms + 200ms);
 }
 
 /* Reveal variants: only the hidden start state differs (see Reveal `variant`). */
@@ -245,5 +240,24 @@ html[data-intro="logo"] [data-reveal] {
 }
 [data-reveal="blur"] {
   --from: translateY(16px);
-  --blur: 12px;
+  --reveal: reveal-blur;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* Movement goes; fades and colour changes stay. */
+  *,
+  *::before,
+  *::after {
+    transition-property: color, background-color, border-color, fill, stroke,
+      opacity, box-shadow, filter !important;
+    scroll-behavior: auto !important;
+  }
+
+  [data-reveal]:not([data-scroll]),
+  [data-reveal][data-in],
+  [data-reveal][data-scroll][data-in][data-load] {
+    --reveal: reveal-fade;
+    animation-duration: 200ms;
+    animation-delay: 0ms;
+  }
 }

@@ -7,6 +7,9 @@ import { Button } from "@/components/ui/button";
 import { EMAIL_TEXT } from "@/constants/contact";
 import { EMAIL } from "@/constants/site";
 
+const ICON_SWAP_IN =
+  "transition-[opacity,scale] duration-150 ease-out starting:scale-90 starting:opacity-0";
+
 /** Copies the address; the label switches to "Kopiert" for two seconds. Does nothing if the clipboard is blocked. */
 export function CopyEmail() {
   const [copied, setCopied] = useState(false);
@@ -27,7 +30,11 @@ export function CopyEmail() {
       onClick={copy}
       className="h-13 px-6 text-base font-semibold"
     >
-      {copied ? <Check aria-hidden /> : <Copy aria-hidden />}
+      {copied ? (
+        <Check aria-hidden className={ICON_SWAP_IN} />
+      ) : (
+        <Copy aria-hidden className={ICON_SWAP_IN} />
+      )}
       <span aria-live="polite">
         {copied ? EMAIL_TEXT.copiedLabel : EMAIL_TEXT.copyLabel}
       </span>

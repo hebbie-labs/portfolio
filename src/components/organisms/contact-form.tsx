@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { Field, Form, Formik, useFormikContext } from "formik";
 
+import { Reveal } from "@/components/atoms/reveal";
 import { Body, Headline } from "@/components/atoms/typography";
 import { FormField } from "@/components/molecules/form-field";
 import { Button } from "@/components/ui/button";
@@ -48,8 +49,12 @@ export function ContactForm() {
         tabIndex={-1}
         className="flex flex-col gap-3 outline-none"
       >
-        <Headline>{success.title}</Headline>
-        <Body muted>{success.text}</Body>
+        <Reveal>
+          <Headline>{success.title}</Headline>
+        </Reveal>
+        <Reveal index={1}>
+          <Body muted>{success.text}</Body>
+        </Reveal>
       </div>
     );
   }
