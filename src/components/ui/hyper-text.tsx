@@ -81,9 +81,8 @@ export function HyperText({
 }: HyperTextProps) {
   const MotionComponent = motionElements[Component] as HyperTextMotionComponent;
 
-  const [displayText, setDisplayText] = useState<string[]>(() =>
-    children.split(""),
-  );
+  const plainLetters = children.split("");
+  const [displayText, setDisplayText] = useState<string[]>(plainLetters);
   const [isAnimating, setIsAnimating] = useState(false);
   const reduced = useReducedMotion();
   const iterationCount = useRef(0);
@@ -165,7 +164,7 @@ export function HyperText({
     };
   }, [children, duration, isAnimating, characterSet, reduced]);
 
-  const letters = reduced ? children.split("") : displayText;
+  const letters = reduced ? plainLetters : displayText;
 
   return (
     <MotionComponent

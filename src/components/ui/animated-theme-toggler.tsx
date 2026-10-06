@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef } from "react";
 import { Moon, Sun } from "lucide-react";
 import { flushSync } from "react-dom";
 
+import { NAV_TEXT } from "@/constants/nav";
 import { useTheme } from "@/hooks/use-theme";
 import { setTheme } from "@/lib/theme";
 import { getCssColor, setThemeColor } from "@/lib/theme-color";
@@ -133,7 +134,9 @@ export const AnimatedThemeToggler = ({
           { clipPath },
           {
             duration,
-            easing: "cubic-bezier(0.77, 0, 0.175, 1)", // = --ease-in-out (WAAPI can't read the token)
+            easing:
+              getComputedStyle(root).getPropertyValue("--ease-in-out").trim() ||
+              "ease-in-out",
             fill: "forwards",
             pseudoElement: "::view-transition-new(root)",
           },
@@ -145,7 +148,7 @@ export const AnimatedThemeToggler = ({
   return (
     <button type="button" ref={buttonRef} onClick={toggleTheme} {...props}>
       {isDark ? <Sun /> : <Moon />}
-      {children ?? <span className="sr-only">Toggle theme</span>}
+      {children ?? <span className="sr-only">{NAV_TEXT.themeToggle}</span>}
     </button>
   );
 };

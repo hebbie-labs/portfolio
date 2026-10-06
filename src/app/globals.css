@@ -181,7 +181,8 @@ html[data-intro="logo"] footer {
 }
 
 /* Plays on every page load and route change; paused behind the startup screen until `data-intro` leaves "logo". */
-[data-reveal] {
+[data-reveal]:not([data-scroll]),
+[data-reveal][data-in] {
   animation: var(--reveal, reveal) 450ms var(--ease-spring) backwards;
   animation-delay: calc(var(--i, 0) * 60ms);
 }
@@ -211,18 +212,9 @@ html[data-intro="logo"] [data-reveal] {
   }
 }
 
-/* `scroll`: hidden until the Reveal component sets `data-in` (when it enters the viewport), then plays the same animation. */
-[data-reveal][data-scroll] {
-  animation: none;
-}
-
+/* `scroll`: hidden until the Reveal component sets `data-in` (when it enters the viewport), then plays the same animation (rule above). */
 [data-reveal][data-scroll]:not([data-in]) {
   opacity: 0;
-}
-
-[data-reveal][data-scroll][data-in] {
-  animation: var(--reveal, reveal) 450ms var(--ease-spring) backwards;
-  animation-delay: calc(var(--i, 0) * 60ms);
 }
 
 /* Visible on page load: start after the header reveals. */
@@ -261,8 +253,8 @@ html[data-intro="logo"] [data-reveal] {
     scroll-behavior: auto !important;
   }
 
-  [data-reveal],
-  [data-reveal][data-scroll][data-in],
+  [data-reveal]:not([data-scroll]),
+  [data-reveal][data-in],
   [data-reveal][data-scroll][data-in][data-load] {
     --reveal: reveal-fade;
     animation-duration: 200ms;

@@ -18,6 +18,7 @@ export const NAV_TEXT = {
   themeLight: "Hell",
   themeDark: "Dunkel",
   github: "GitHub",
+  themeToggle: "Farbschema wechseln",
 } as const;
 
 export const NOT_FOUND_LINK = { href: "", label: "404" } as const;

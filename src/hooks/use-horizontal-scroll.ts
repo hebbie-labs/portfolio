@@ -3,9 +3,12 @@ import { useMotionValue, useScroll, useTransform } from "motion/react";
 
 import { useMediaQuery } from "@/hooks/use-media-query";
 
+/** Same breakpoint as the `lg:` classes of the track (see ProjectScroll). */
+const DESKTOP_QUERY = "(min-width: 64rem)";
+
 /**
  * Feeds the sticky scroll section the CSS variable `--distance` (px the track overflows the viewport, 0 unless desktop
- * and motion allowed) and returns `x`, the track's `transform`, set directly on the track so no CSS variable cascades through its children.
+ * and motion allowed) and returns `trackTransform`, the track's `transform`, set directly on the track so no CSS variable cascades through its children.
  * `keepFocusInView` goes on the clipping wrapper: tabbing to an off-screen panel makes the browser scroll
  * that wrapper sideways, so it is reset and the page is scrolled instead (1px of scroll = 1px of track).
  */
@@ -13,7 +16,7 @@ export function useHorizontalScroll() {
   const section = useRef<HTMLElement>(null);
   const track = useRef<HTMLDivElement>(null);
   const distance = useMotionValue(0);
-  const desktop = useMediaQuery("(min-width: 64rem)");
+  const desktop = useMediaQuery(DESKTOP_QUERY);
   const reduced = useMediaQuery("(prefers-reduced-motion: reduce)");
   const enabled = desktop && !reduced;
 
@@ -40,8 +43,10 @@ export function useHorizontalScroll() {
     offset: ["start start", "end end"],
   });
 
-  const x = useTransform([progress, distance], ([p, d]: number[]) =>
-    d ? `translate3d(${-p * d}px, 0, 0)` : "none",
+  const trackTransform = useTransform(
+    [progress, distance],
+    ([progress, distance]: number[]) =>
+      distance ? `translate3d(${-progress * distance}px, 0, 0)` : "none",
   );
 
   const keepFocusInView = ({ currentTarget }: UIEvent<HTMLElement>) => {
@@ -54,5 +59,5 @@ export function useHorizontalScroll() {
       window.scrollBy(0, focused.right - window.innerWidth);
   };
 
-  return { section, track, x, keepFocusInView };
+  return { section, track, trackTransform, keepFocusInView };
 }

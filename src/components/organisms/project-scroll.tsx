@@ -26,7 +26,7 @@ const trackClasses = cn(
 
 /** Sticky section: the track of project previews moves sideways while scrolling. */
 export function ProjectScroll() {
-  const { section, track, x, keepFocusInView } = useHorizontalScroll();
+  const { section, track, trackTransform, keepFocusInView } = useHorizontalScroll();
 
   return (
     <section
@@ -40,7 +40,7 @@ export function ProjectScroll() {
       >
         <motion.div
           ref={track}
-          style={{ transform: x }}
+          style={{ transform: trackTransform }}
           className={trackClasses}
         >
           <ProjectTitleCard />

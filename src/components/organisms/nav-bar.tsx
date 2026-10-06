@@ -5,6 +5,7 @@ import { HyperText } from "@/components/ui/hyper-text";
 import { Logo } from "@/components/atoms/logo";
 import { StatusDot } from "@/components/atoms/status-dot";
 import { MenuButton } from "@/components/molecules/menu-button";
+import { NAV_TEXT } from "@/constants/nav";
 import type { NavMenuProps } from "@/types/nav";
 
 export function NavBar({ open, setOpen, current }: NavMenuProps) {
@@ -42,7 +43,7 @@ export function NavBar({ open, setOpen, current }: NavMenuProps) {
         className="absolute right-0 transition-opacity duration-150 data-closed:opacity-0"
       >
         <AnimatedThemeToggler
-          aria-label="Farbschema wechseln"
+          aria-label={NAV_TEXT.themeToggle}
           className={buttonVariants({ size: "icon" })}
         />
       </Transition>
