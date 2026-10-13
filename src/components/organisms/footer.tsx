@@ -1,6 +1,6 @@
 import { Label } from "@/components/atoms/typography";
 import Link from "next/link";
-import { NAV_LINKS, OUTSIDE_NAV_LINKS } from "@/constants/nav";
+import { CONTACT_LINK, OUTSIDE_NAV_LINKS } from "@/constants/nav";
 import { LOCATION, SITE_NAME } from "@/constants/site";
 
 export function Footer() {
@@ -10,8 +10,8 @@ export function Footer() {
         © {new Date().getFullYear()} {SITE_NAME}, {LOCATION}
       </Label>
       <div className="flex gap-6 md:justify-self-center">
-        <Link href={NAV_LINKS[3].href} className="lnk">
-          {NAV_LINKS[3].label}
+        <Link href={CONTACT_LINK.href} className="lnk">
+          {CONTACT_LINK.label}
         </Link>
       </div>
       <div className="flex gap-6 md:justify-self-end">

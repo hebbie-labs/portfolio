@@ -4,7 +4,7 @@ import { ArrowUpRight } from "lucide-react";
 import { NavLink } from "@/components/molecules/nav-link";
 import { AnimatedThemeToggler } from "@/components/ui/animated-theme-toggler";
 import { buttonVariants } from "@/components/ui/button";
-import Button from "@/components/atoms/button";
+import { Button } from "@/components/atoms/button";
 import { NAV_LINKS, NAV_TEXT } from "@/constants/nav";
 import { GITHUB_URL } from "@/constants/site";
 import type { NavMenuProps } from "@/types/nav";

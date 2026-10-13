@@ -2,7 +2,7 @@
 
 import { useReducedMotion } from "motion/react";
 
-import Button from "@/components/atoms/button";
+import { Button } from "@/components/atoms/button";
 import { Screen } from "@/components/molecules/screen";
 import { Iphone } from "@/components/ui/iphone";
 import { PROJECT_TEXT, type Project } from "@/constants/projects";

@@ -7,7 +7,7 @@ import { Field, Form, Formik, useFormikContext } from "formik";
 import { Reveal } from "@/components/atoms/reveal";
 import { Body, Headline } from "@/components/atoms/typography";
 import { FormField } from "@/components/molecules/form-field";
-import Button from "@/components/atoms/button";
+import { Button } from "@/components/atoms/button";
 import { CONTACT_FORM } from "@/constants/contact";
 import { sendContact } from "@/lib/contact-action";
 import { contactSchema } from "@/lib/contact-schema";

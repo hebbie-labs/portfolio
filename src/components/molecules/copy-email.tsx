@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Check, Copy } from "lucide-react";
 
-import Button from "@/components/atoms/button";
+import { Button } from "@/components/atoms/button";
 import { EMAIL_TEXT } from "@/constants/contact";
 import { EMAIL } from "@/constants/site";
 

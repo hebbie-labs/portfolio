@@ -12,7 +12,7 @@ type ButtonProps = Omit<ShadcnProps, "variant"> & {
 const TEXT =
   "h-auto justify-start rounded-none p-0 whitespace-normal hover:bg-transparent active:scale-100";
 
-function Button({ variant, className, ...props }: ButtonProps) {
+export function Button({ variant, className, ...props }: ButtonProps) {
   if (variant === "interactive") {
     // ponytail: Magic UI button is a plain <button>, so no href/render/function className
     return (
@@ -33,5 +33,3 @@ function Button({ variant, className, ...props }: ButtonProps) {
   }
   return <ShadcnButton variant={variant} className={className} {...props} />;
 }
-
-export default Button;

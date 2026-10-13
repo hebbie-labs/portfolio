@@ -2,7 +2,7 @@ import { ArrowRight } from "lucide-react";
 
 import { Reveal } from "@/components/atoms/reveal";
 import Link from "next/link";
-import Button from "@/components/atoms/button";
+import { Button } from "@/components/atoms/button";
 import { Display, Lead } from "@/components/atoms/typography";
 import { HOME_HERO } from "@/constants/home";
 

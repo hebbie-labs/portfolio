@@ -3,7 +3,7 @@
 import { ArrowLeft } from "lucide-react";
 import { Reveal } from "@/components/atoms/reveal";
 import { Body, Display, Headline } from "@/components/atoms/typography";
-import Button from "@/components/atoms/button";
+import { Button } from "@/components/atoms/button";
 import { NOT_FOUND_PAGE } from "@/constants/not-found";
 import Link from "next/link";
 import { usePathname } from "next/navigation";

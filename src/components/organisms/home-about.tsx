@@ -4,7 +4,7 @@ import { Portrait } from "@/components/atoms/portrait";
 import { Reveal } from "@/components/atoms/reveal";
 import { Headline, Lead } from "@/components/atoms/typography";
 import Link from "next/link";
-import Button from "@/components/atoms/button";
+import { Button } from "@/components/atoms/button";
 import { ABOUT_PAGE } from "@/constants/about";
 import { HOME_ABOUT } from "@/constants/home";
 

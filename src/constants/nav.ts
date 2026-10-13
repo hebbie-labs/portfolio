@@ -5,6 +5,8 @@ export const NAV_LINKS = [
   { href: "/kontakt", label: "Kontakt" },
 ] as const;
 
+export const CONTACT_LINK = NAV_LINKS[3];
+
 export const OUTSIDE_NAV_LINKS = [
   { href: "/impressum", label: "Impressum" },
   { href: "/datenschutz", label: "Datenschutz" },
