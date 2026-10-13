@@ -1,16 +1,16 @@
-import { Hero } from "@/components/organisms/hero";
-import { HomeAbout } from "@/components/organisms/home-about";
-import { ContactCta } from "@/components/organisms/contact-cta";
-import { ProjectScroll } from "@/components/organisms/project-scroll";
+import { Hero } from "@/components/organisms/home/hero";
+import { AboutTeaser } from "@/components/organisms/home/about-teaser";
+import { ContactTeaser } from "@/components/organisms/home/contact-teaser";
+import { ProjectsScroller } from "@/components/organisms/home/projects-scroller";
 
 export function StartPage() {
   return (
     <>
       <Hero />
-      <ProjectScroll />
-      <HomeAbout />
+      <ProjectsScroller />
+      <AboutTeaser />
       <div className="page-x py-16 md:py-32">
-        <ContactCta />
+        <ContactTeaser />
       </div>
     </>
   );

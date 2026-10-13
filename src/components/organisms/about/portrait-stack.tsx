@@ -12,7 +12,7 @@ import { cn } from "@/lib/utils";
 const stations: readonly TimelineItem[] = ABOUT_TIMELINE.items;
 
 /** Portrait that cross-fades to the photo of the timeline station in view, and back to the portrait. */
-export function AboutPortrait() {
+export function PortraitStack() {
   const { photo } = useTimelinePhoto();
   // One layer per photo: stations sharing a file would otherwise stack on each other.
   const layers = [

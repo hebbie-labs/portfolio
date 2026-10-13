@@ -1,11 +1,11 @@
 import Link from "next/link";
 
 import { Body, Display } from "@/components/atoms/typography";
-import { ProjectMedia } from "@/components/molecules/project-media";
+import { ProjectMedia } from "@/components/molecules/home/project-media";
 import type { Project } from "@/constants/projects";
 
 /** Start page teaser: media, title, one-liner; the whole card links to its entry on the projects page. */
-export function ProjectPreview({ slug, title, summary, views }: Project) {
+export function ProjectTeaser({ slug, title, summary, views }: Project) {
   return (
     <article className="group @container relative flex flex-col gap-3 md:gap-4">
       <div className="transition-transform duration-200 ease-out group-hover:-translate-y-1">

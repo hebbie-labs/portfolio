@@ -9,7 +9,7 @@ import { ABOUT_PAGE } from "@/constants/about";
 import { HOME_ABOUT } from "@/constants/home";
 
 /** Portrait next to a short text and a link to the about page. */
-export function HomeAbout() {
+export function AboutTeaser() {
   return (
     <Reveal
       scroll

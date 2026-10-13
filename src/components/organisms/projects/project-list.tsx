@@ -1,7 +1,7 @@
 import { Fragment } from "react";
 
 import { Reveal } from "@/components/atoms/reveal";
-import { ProjectCard } from "@/components/organisms/project-card";
+import { ProjectEntry } from "@/components/organisms/projects/project-entry";
 import { Separator } from "@/components/ui/separator";
 import { PROJECTS } from "@/constants/projects";
 
@@ -16,7 +16,7 @@ export function ProjectList() {
               <Separator />
             </Reveal>
           )}
-          <ProjectCard {...project} flip={i % 2 === 1} />
+          <ProjectEntry {...project} flip={i % 2 === 1} />
         </Fragment>
       ))}
     </div>

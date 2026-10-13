@@ -17,12 +17,20 @@ export function MenuButton({ open, onToggle, className }: Props) {
       className={cn("group px-3 font-medium", className)}
     >
       <span className="grid justify-items-center">
-        <span className={cn(LABEL, "group-aria-expanded:opacity-0 group-aria-expanded:blur-[2px]")}>
+        <span
+          className={cn(
+            LABEL,
+            "group-aria-expanded:opacity-0 group-aria-expanded:blur-[2px]",
+          )}
+        >
           {NAV_TEXT.menuOpen}
           <Menu aria-hidden />
         </span>
         <span
-          className={cn(LABEL, "opacity-0 blur-[2px] group-aria-expanded:opacity-100 group-aria-expanded:blur-none")}
+          className={cn(
+            LABEL,
+            "opacity-0 blur-[2px] group-aria-expanded:opacity-100 group-aria-expanded:blur-none",
+          )}
         >
           {NAV_TEXT.menuClose}
           <X aria-hidden />

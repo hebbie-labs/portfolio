@@ -8,7 +8,7 @@ import { SITE_NAME } from "@/constants/site";
 import { INTRO_KEY } from "@/lib/init-scripts";
 import { getCssColor, setThemeColor } from "@/lib/theme-color";
 
-/** Coupled to Nav: the startup ring lands on the logo inside `#menu` (see nav.tsx, logo.tsx). */
+/** Coupled to Nav: the startup ring lands on the logo inside `#menu` (see layout/nav/nav.tsx, atoms/logo.tsx). */
 const NAV_LOGO = '#menu a[href="/"] svg';
 const EASE_IN_OUT = [0.65, 0, 0.35, 1] as const;
 /** The sequence is written for 3s; recruiters scanning in minutes shouldn't wait for it. */
@@ -83,7 +83,7 @@ const createSequence = (
   ],
 ];
 
-export function Intro() {
+export function StartupIntro() {
   const [scope, animate] = useAnimate<HTMLDivElement>();
 
   useEffect(() => {

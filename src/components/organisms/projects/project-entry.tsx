@@ -1,12 +1,12 @@
 import { Reveal } from "@/components/atoms/reveal";
 import { Display } from "@/components/atoms/typography";
-import { ProjectShowcase } from "@/components/organisms/project-showcase";
+import { ProjectFeatureScroller } from "@/components/organisms/projects/project-feature-scroller";
 import type { Project } from "@/constants/projects";
 
 /**
  * One project on the projects page: the title is the hero, below it the showcase (screen and text).
  */
-export function ProjectCard({
+export function ProjectEntry({
   slug,
   title,
   description,
@@ -24,7 +24,7 @@ export function ProjectCard({
           {title}
         </Display>
       </Reveal>
-      <ProjectShowcase
+      <ProjectFeatureScroller
         title={title}
         description={description}
         features={features}

@@ -1,7 +1,7 @@
 import Image from "next/image";
 
 import { ViewportVideo } from "@/components/atoms/viewport-video";
-import { StackDiagram } from "@/components/molecules/stack-diagram";
+import { StackDiagram } from "@/components/atoms/stack-diagram";
 import type { DiagramRow } from "@/constants/projects";
 
 type Props = {
@@ -12,7 +12,7 @@ type Props = {
 };
 
 /** Screenshot, muted looping video or diagram in a hairline frame; stays an empty surface until one is set. */
-export function Screen({ image, video, diagram, alt = "" }: Props) {
+export function MediaFrame({ image, video, diagram, alt = "" }: Props) {
   return (
     <figure className="@container relative aspect-[12/7] overflow-hidden rounded-xl border border-line bg-bg-2">
       {video ? (

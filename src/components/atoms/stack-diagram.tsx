@@ -2,7 +2,7 @@ import { ArrowRight } from "lucide-react";
 
 import type { DiagramRow } from "@/constants/projects";
 
-/** Lanes of stations joined by arrows; sized by the container (`Screen` is an `@container`), so it scales like a screenshot. */
+/** Lanes of stations joined by arrows; sized by the container (`MediaFrame` is an `@container`), so it scales like a screenshot. */
 export function StackDiagram({ rows }: { rows: readonly DiagramRow[] }) {
   return (
     <div className="absolute inset-0 flex flex-col justify-center gap-[3.5cqw] p-[4cqw] text-[clamp(10px,2.1cqw,16px)] leading-tight">

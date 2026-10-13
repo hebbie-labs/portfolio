@@ -15,7 +15,7 @@ const MIDDLE_LINE = { rootMargin: "-49% 0px -50% 0px" };
 /**
  * Ruled rows: the period as a large number left, station, text and optional detail lines right. The row in the
  * middle of the viewport lights up its period and, from `md`, puts its photo in the sticky portrait frame
- * (`AboutPortrait`); below `md` the photo sits in the row instead.
+ * (`PortraitStack`); below `md` the photo sits in the row instead.
  */
 export function Timeline({
   title,

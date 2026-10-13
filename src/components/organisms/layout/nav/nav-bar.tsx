@@ -4,7 +4,7 @@ import { buttonVariants } from "@/components/ui/button";
 import { HyperText } from "@/components/ui/hyper-text";
 import { Logo } from "@/components/atoms/logo";
 import { StatusDot } from "@/components/atoms/status-dot";
-import { MenuButton } from "@/components/molecules/menu-button";
+import { MenuButton } from "@/components/molecules/layout/menu-button";
 import { NAV_TEXT } from "@/constants/nav";
 import type { NavMenuProps } from "@/types/nav";
 

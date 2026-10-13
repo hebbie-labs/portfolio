@@ -1,4 +1,4 @@
-import { ProjectList } from "@/components/organisms/project-list";
+import { ProjectList } from "@/components/organisms/projects/project-list";
 import { PageTemplate } from "@/components/templates/page-template";
 import { PROJECTS_PAGE } from "@/constants/projects";
 

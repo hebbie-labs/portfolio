@@ -1,8 +1,8 @@
 import { Reveal } from "@/components/atoms/reveal";
 import { Display } from "@/components/atoms/typography";
-import { CopyEmail } from "@/components/molecules/copy-email";
-import { ContactForm } from "@/components/organisms/contact-form";
-import { ContactLinks } from "@/components/organisms/contact-links";
+import { CopyEmail } from "@/components/molecules/contact/copy-email";
+import { ContactForm } from "@/components/organisms/contact/contact-form";
+import { ContactLinks } from "@/components/organisms/contact/contact-links";
 import { PageTemplate } from "@/components/templates/page-template";
 import { CONTACT_PAGE } from "@/constants/contact";
 import { EMAIL } from "@/constants/site";

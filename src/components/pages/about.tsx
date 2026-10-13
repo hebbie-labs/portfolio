@@ -1,8 +1,8 @@
 import { Reveal } from "@/components/atoms/reveal";
-import { AboutIntro } from "@/components/organisms/about-intro";
-import { AboutPortrait } from "@/components/organisms/about-portrait";
-import { AboutStory } from "@/components/organisms/about-story";
-import { Timeline } from "@/components/organisms/timeline";
+import { AboutIntro } from "@/components/organisms/about/about-intro";
+import { PortraitStack } from "@/components/organisms/about/portrait-stack";
+import { AboutStory } from "@/components/organisms/about/about-story";
+import { Timeline } from "@/components/organisms/about/timeline";
 import { TimelinePhotoProvider } from "@/components/providers/timeline-photo";
 import { PageTemplate } from "@/components/templates/page-template";
 import { ABOUT_TIMELINE } from "@/constants/about";
@@ -17,7 +17,7 @@ export function AboutPage() {
             variant="scale"
             className="max-w-xs md:sticky md:top-32 md:self-start"
           >
-            <AboutPortrait />
+            <PortraitStack />
           </Reveal>
           <div className="flex max-w-3xl min-w-0 flex-col gap-16 md:gap-24">
             <div className="flex flex-col gap-8">

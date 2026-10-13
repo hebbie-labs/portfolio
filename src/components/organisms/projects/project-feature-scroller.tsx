@@ -5,8 +5,8 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { Button } from "@/components/atoms/button";
 import { Reveal } from "@/components/atoms/reveal";
 import { Body } from "@/components/atoms/typography";
-import { ProjectActions } from "@/components/molecules/project-actions";
-import { ProjectGallery } from "@/components/organisms/project-gallery";
+import { ProjectActions } from "@/components/molecules/projects/project-actions";
+import { ProjectViewer } from "@/components/molecules/projects/project-viewer";
 import type { Project } from "@/constants/projects";
 import { cn } from "@/lib/utils";
 
@@ -19,11 +19,11 @@ type Props = Pick<
 };
 
 /**
- * Screen on the left, text on the right. From `lg` the frames stay pinned while the text scrolls;
+ * MediaFrame on the left, text on the right. From `lg` the frames stay pinned while the text scrolls;
  * the feature row in the middle of the viewport is highlighted and switches the screen to its view;
  * from `lg` each row fills 40vh, so the views change slowly.
  */
-export function ProjectShowcase({
+export function ProjectFeatureScroller({
   title,
   description,
   features,
@@ -87,7 +87,7 @@ export function ProjectShowcase({
           flip && "lg:order-last",
         )}
       >
-        <ProjectGallery
+        <ProjectViewer
           title={title}
           video={video}
           views={views}

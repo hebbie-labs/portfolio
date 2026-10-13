@@ -1,7 +1,7 @@
 import { Reveal } from "@/components/atoms/reveal";
-import { Footer } from "@/components/organisms/footer";
-import { Intro } from "@/components/organisms/intro";
-import { Nav } from "@/components/organisms/nav";
+import { Footer } from "@/components/organisms/layout/footer";
+import { StartupIntro } from "@/components/organisms/layout/startup-intro";
+import { Nav } from "@/components/organisms/layout/nav/nav";
 import { SmoothScroll } from "@/components/providers/smooth-scroll";
 
 type Props = {
@@ -18,7 +18,7 @@ export function MainTemplate({ children }: Props) {
         Zum Inhalt springen
       </a>
       <SmoothScroll />
-      <Intro />
+      <StartupIntro />
       <Nav />
       <main id="main" className="flex-1">
         {children}

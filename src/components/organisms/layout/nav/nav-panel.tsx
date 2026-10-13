@@ -1,7 +1,7 @@
 import { Transition } from "@headlessui/react";
 import { cn } from "@/lib/utils";
 import { ArrowUpRight } from "lucide-react";
-import { NavLink } from "@/components/molecules/nav-link";
+import { NavLink } from "@/components/molecules/layout/nav-link";
 import { AnimatedThemeToggler } from "@/components/ui/animated-theme-toggler";
 import { buttonVariants } from "@/components/ui/button";
 import { Button } from "@/components/atoms/button";

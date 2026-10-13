@@ -2,7 +2,7 @@
 
 import { useReducedMotion } from "motion/react";
 
-import { Screen } from "@/components/molecules/screen";
+import { MediaFrame } from "@/components/molecules/shared/media-frame";
 import { Iphone } from "@/components/ui/iphone";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { PROJECT_TEXT, type Project } from "@/constants/projects";
@@ -14,11 +14,11 @@ type Props = Pick<Project, "title" | "video" | "views"> & {
 };
 
 /**
- * Screen showing the active view (the first one plays the project's video, the poster only with
+ * MediaFrame showing the active view (the first one plays the project's video, the poster only with
  * reduced motion); a portrait view sits in a phone frame without a surrounding frame. Empty until the images are set. The tabs only show below `lg`,
  * where the frame does not stay in sight while the features scroll by.
  */
-export function ProjectGallery({
+export function ProjectViewer({
   title,
   video,
   views,
@@ -44,7 +44,7 @@ export function ProjectGallery({
             </div>
           </div>
         ) : (
-          <Screen
+          <MediaFrame
             image={view?.image}
             diagram={view?.diagram}
             video={active === 0 && !reducedMotion ? video : undefined}

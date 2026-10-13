@@ -2,9 +2,9 @@
 
 import { motion } from "motion/react";
 
-import { ProjectEndCard } from "@/components/molecules/project-end-card";
-import { ProjectTitleCard } from "@/components/molecules/project-title-card";
-import { ProjectPreview } from "@/components/organisms/project-preview";
+import { ProjectEndCard } from "@/components/molecules/home/project-end-card";
+import { ProjectTitleCard } from "@/components/molecules/home/project-title-card";
+import { ProjectTeaser } from "@/components/organisms/home/project-teaser";
 import { FEATURED_PROJECTS, PROJECTS_SECTION } from "@/constants/projects";
 import { useHorizontalScroll } from "@/hooks/use-horizontal-scroll";
 import { cn } from "@/lib/utils";
@@ -25,8 +25,9 @@ const trackClasses = cn(
 );
 
 /** Sticky section: the track of project previews moves sideways while scrolling. */
-export function ProjectScroll() {
-  const { section, track, trackTransform, keepFocusInView } = useHorizontalScroll();
+export function ProjectsScroller() {
+  const { section, track, trackTransform, keepFocusInView } =
+    useHorizontalScroll();
 
   return (
     <section
@@ -45,7 +46,7 @@ export function ProjectScroll() {
         >
           <ProjectTitleCard />
           {FEATURED_PROJECTS.map((project) => (
-            <ProjectPreview key={project.slug} {...project} />
+            <ProjectTeaser key={project.slug} {...project} />
           ))}
           <ProjectEndCard />
         </motion.div>

@@ -3,7 +3,7 @@ import { useMotionValue, useScroll, useTransform } from "motion/react";
 
 import { useMediaQuery } from "@/hooks/use-media-query";
 
-/** Same breakpoint as the `lg:` classes of the track (see ProjectScroll). */
+/** Same breakpoint as the `lg:` classes of the track (see ProjectsScroller). */
 const DESKTOP_QUERY = "(min-width: 64rem)";
 
 /**

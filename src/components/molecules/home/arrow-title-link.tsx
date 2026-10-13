@@ -5,7 +5,7 @@ import { Display } from "@/components/atoms/typography";
 import { cn } from "@/lib/utils";
 
 /** Large title with an arrow; turns accent on hover. `narrow` wraps the title word by word. */
-export function TitleLink({
+export function ArrowTitleLink({
   narrow,
   children,
   ...props
