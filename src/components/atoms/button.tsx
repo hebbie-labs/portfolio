@@ -14,7 +14,7 @@ const TEXT =
 
 export function Button({ variant, className, ...props }: ButtonProps) {
   if (variant === "interactive") {
-    // ponytail: Magic UI button is a plain <button>, so no href/render/function className
+    // ponytail: only a string className is passed on (the Magic UI button styles inner elements itself)
     return (
       <InteractiveHoverButton
         {...(props as React.ComponentProps<"button">)}

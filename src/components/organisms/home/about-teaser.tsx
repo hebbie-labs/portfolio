@@ -1,5 +1,3 @@
-import { ArrowRight } from "lucide-react";
-
 import { Portrait } from "@/components/atoms/portrait";
 import { Reveal } from "@/components/atoms/reveal";
 import { Headline, Lead } from "@/components/atoms/typography";
@@ -26,14 +24,10 @@ export function AboutTeaser() {
           <Lead className="max-w-3xl text-muted">{HOME_ABOUT.text}</Lead>
         )}
         <Button
-          variant="outline"
+          variant="interactive"
           render={<Link href={HOME_ABOUT.linkHref} />}
-          nativeButton={false}
-          role="link"
-          className="px-5"
         >
           {HOME_ABOUT.linkLabel}
-          <ArrowRight aria-hidden />
         </Button>
       </div>
     </Reveal>
