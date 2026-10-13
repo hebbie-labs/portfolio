@@ -1,8 +1,8 @@
-import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
 import { Reveal } from "@/components/atoms/reveal";
-import { buttonVariants } from "@/components/ui/button";
+import Link from "next/link";
+import Button from "@/components/atoms/button";
 import { Display, Lead } from "@/components/atoms/typography";
 import { HOME_HERO } from "@/constants/home";
 
@@ -16,16 +16,16 @@ export function Hero() {
       </Reveal>
       <Reveal variant="up" index={1} className="flex flex-col gap-6 md:gap-8">
         <Lead className="max-w-xl">{HOME_HERO.lead}</Lead>
-        <Link
-          href={HOME_HERO.contactHref}
-          className={buttonVariants({
-            variant: "default",
-            className: "self-start px-5",
-          })}
+        <Button
+          variant="default"
+          render={<Link href={HOME_HERO.contactHref} />}
+          nativeButton={false}
+          role="link"
+          className="self-start px-5"
         >
           {HOME_HERO.contactLabel}
           <ArrowRight aria-hidden />
-        </Link>
+        </Button>
       </Reveal>
     </div>
   );

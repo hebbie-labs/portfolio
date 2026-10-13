@@ -1,9 +1,7 @@
 import { ArrowUpRight } from "lucide-react";
 
-import { buttonVariants } from "@/components/ui/button";
+import Button from "@/components/atoms/button";
 import { PROJECT_TEXT, type Project } from "@/constants/projects";
-
-const LINK = buttonVariants({ variant: "outline", className: "px-5" });
 
 /** External links; only the ones the project has. */
 export function ProjectActions({ url, repo }: Pick<Project, "url" | "repo">) {
@@ -11,16 +9,28 @@ export function ProjectActions({ url, repo }: Pick<Project, "url" | "repo">) {
   return (
     <div className="flex flex-wrap items-center gap-3">
       {url && (
-        <a href={url} target="_blank" rel="noreferrer" className={LINK}>
+        <Button
+          variant="outline"
+          render={<a href={url} target="_blank" rel="noopener noreferrer" />}
+          nativeButton={false}
+          role="link"
+          className="px-5"
+        >
           {PROJECT_TEXT.demoLabel}
           <ArrowUpRight aria-hidden />
-        </a>
+        </Button>
       )}
       {repo && (
-        <a href={repo} target="_blank" rel="noreferrer" className={LINK}>
+        <Button
+          variant="outline"
+          render={<a href={repo} target="_blank" rel="noopener noreferrer" />}
+          nativeButton={false}
+          role="link"
+          className="px-5"
+        >
           {PROJECT_TEXT.repoLabel}
           <ArrowUpRight aria-hidden />
-        </a>
+        </Button>
       )}
     </div>
   );

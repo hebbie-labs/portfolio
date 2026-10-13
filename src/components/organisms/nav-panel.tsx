@@ -4,6 +4,7 @@ import { ArrowUpRight } from "lucide-react";
 import { NavLink } from "@/components/molecules/nav-link";
 import { AnimatedThemeToggler } from "@/components/ui/animated-theme-toggler";
 import { buttonVariants } from "@/components/ui/button";
+import Button from "@/components/atoms/button";
 import { NAV_LINKS, NAV_TEXT } from "@/constants/nav";
 import { GITHUB_URL } from "@/constants/site";
 import type { NavMenuProps } from "@/types/nav";
@@ -43,18 +44,20 @@ export function NavPanel({ open, setOpen, current }: NavMenuProps) {
               {NAV_TEXT.themeDark}
             </span>
           </AnimatedThemeToggler>
-          <a
-            href={GITHUB_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={cn(buttonVariants(), "group pr-2.5 pl-3.5")}
+          <Button
+            render={
+              <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer" />
+            }
+            nativeButton={false}
+            role="link"
+            className="group pr-2.5 pl-3.5"
           >
             {NAV_TEXT.github}
             <ArrowUpRight
               className="size-3.5 -translate-x-2 opacity-0 transition-[opacity,translate] duration-200 group-hover:translate-x-0 group-hover:opacity-75"
               aria-hidden
             />
-          </a>
+          </Button>
         </div>
       </div>
     </Transition>

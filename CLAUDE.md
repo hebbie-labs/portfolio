@@ -20,6 +20,10 @@ German-language personal portfolio (Next.js 16, React 19, Tailwind v4, TypeScrip
 
 **Atomic layout under `src/components/`**: `atoms` → `molecules` → `organisms` → `templates` (+ `pages`, `providers`). `ui/` holds shadcn-style primitives (`components.json`: style `base-nova`, `@base-ui/react`, lucide icons, `@magicui` registry). Add shadcn components with the `shadcn` CLI so aliases (`@/components`, `@/lib/utils`, `@/hooks`) resolve.
 
+**`ui/` is vendored library code** (shadcn / Magic UI, imported by the owner): handle with caution. Don't refactor, restyle or rewrite those files; adapt them from outside (wrapper in `atoms/`, `className`). Edit one only when the owner explicitly asks.
+
+**Buttons**: use `atoms/button.tsx` for every button-like action (variants: shadcn `default`/`outline`/`ghost`, plus `text` and `interactive`; `href` renders a link). Don't use `ui/button` or `buttonVariants` directly, except to style `ui/` components that own their own element (e.g. `AnimatedThemeToggler`).
+
 **Shell**: `app/layout.tsx` → `MainTemplate` (`SmoothScroll` (Lenis), `Nav`, `Footer`). Page transitions come from `Reveal` (`atoms/reveal.tsx`, CSS in `globals.css`), which replays on every route change.
 
 **Single sources of truth**

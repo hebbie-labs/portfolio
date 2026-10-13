@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 
+import Button from "@/components/atoms/button";
 import { Reveal } from "@/components/atoms/reveal";
 import { Body } from "@/components/atoms/typography";
 import { ProjectActions } from "@/components/molecules/project-actions";
@@ -111,8 +112,8 @@ export function ProjectShowcase({
                   }}
                   className="lg:flex lg:min-h-[40vh] lg:items-center"
                 >
-                  <button
-                    type="button"
+                  <Button
+                    variant="text"
                     onClick={() => select(i)}
                     className={cn(
                       "w-full py-3 text-left transition-colors duration-300 lg:py-0 lg:text-2xl",
@@ -120,7 +121,7 @@ export function ProjectShowcase({
                     )}
                   >
                     {text}
-                  </button>
+                  </Button>
                 </li>
               ))}
             </ul>

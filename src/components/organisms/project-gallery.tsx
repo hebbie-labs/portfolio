@@ -2,6 +2,7 @@
 
 import { useReducedMotion } from "motion/react";
 
+import Button from "@/components/atoms/button";
 import { Screen } from "@/components/molecules/screen";
 import { Iphone } from "@/components/ui/iphone";
 import { PROJECT_TEXT, type Project } from "@/constants/projects";
@@ -55,9 +56,9 @@ export function ProjectGallery({
       {views.length > 1 && (
         <div className="flex flex-wrap gap-x-6 gap-y-2 lg:hidden">
           {views.map(({ label }, i) => (
-            <button
+            <Button
               key={label}
-              type="button"
+              variant="text"
               aria-pressed={i === active}
               onClick={() => onSelect(i)}
               className={cn(
@@ -66,7 +67,7 @@ export function ProjectGallery({
               )}
             >
               {label}
-            </button>
+            </Button>
           ))}
         </div>
       )}

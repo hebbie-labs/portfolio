@@ -3,7 +3,7 @@
 import { ArrowLeft } from "lucide-react";
 import { Reveal } from "@/components/atoms/reveal";
 import { Body, Display, Headline } from "@/components/atoms/typography";
-import { buttonVariants } from "@/components/ui/button";
+import Button from "@/components/atoms/button";
 import { NOT_FOUND_PAGE } from "@/constants/not-found";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -25,16 +25,16 @@ export function NotFoundPage() {
         </code>{" "}
         {NOT_FOUND_PAGE.missing}
       </Body>
-      <Link
-        href="/"
-        className={buttonVariants({
-          variant: "default",
-          className: "mt-4 h-13 px-6 text-base font-semibold",
-        })}
+      <Button
+        variant="default"
+        render={<Link href="/" />}
+        nativeButton={false}
+        role="link"
+        className="mt-4 h-13 px-6 text-base font-semibold"
       >
         <ArrowLeft aria-hidden />
         {NOT_FOUND_PAGE.backLabel}
-      </Link>
+      </Button>
     </Reveal>
   );
 }

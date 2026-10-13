@@ -1,10 +1,10 @@
-import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
 import { Portrait } from "@/components/atoms/portrait";
 import { Reveal } from "@/components/atoms/reveal";
 import { Headline, Lead } from "@/components/atoms/typography";
-import { buttonVariants } from "@/components/ui/button";
+import Link from "next/link";
+import Button from "@/components/atoms/button";
 import { ABOUT_PAGE } from "@/constants/about";
 import { HOME_ABOUT } from "@/constants/home";
 
@@ -25,13 +25,16 @@ export function HomeAbout() {
         {HOME_ABOUT.text && (
           <Lead className="max-w-3xl text-muted">{HOME_ABOUT.text}</Lead>
         )}
-        <Link
-          href={HOME_ABOUT.linkHref}
-          className={buttonVariants({ variant: "outline", className: "px-5" })}
+        <Button
+          variant="outline"
+          render={<Link href={HOME_ABOUT.linkHref} />}
+          nativeButton={false}
+          role="link"
+          className="px-5"
         >
           {HOME_ABOUT.linkLabel}
           <ArrowRight aria-hidden />
-        </Link>
+        </Button>
       </div>
     </Reveal>
   );
