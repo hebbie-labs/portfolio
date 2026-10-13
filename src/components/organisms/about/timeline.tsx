@@ -7,7 +7,8 @@ import { Reveal } from "@/components/atoms/reveal";
 import { Body, Display } from "@/components/atoms/typography";
 import { useTimelinePhoto } from "@/components/providers/timeline-photo";
 import type { TimelineItem } from "@/constants/about";
-import { cn, hasPlaceholder } from "@/lib/utils";
+import { hasPlaceholder } from "@/lib/content";
+import { cn } from "@/lib/utils";
 
 /** Observes the horizontal line in the middle of the viewport. */
 const MIDDLE_LINE = { rootMargin: "-49% 0px -50% 0px" };

@@ -26,6 +26,8 @@ German-language personal portfolio (Next.js 16, React 19, Tailwind v4, TypeScrip
 
 **Shell**: `app/layout.tsx` → `MainTemplate` (`SmoothScroll` (Lenis), `Nav`, `Footer`). Page transitions come from `Reveal` (`atoms/reveal.tsx`, CSS in `globals.css`), which replays on every route change.
 
+**Server side**: `src/actions/` (Server Actions, validate and orchestrate), `src/schemas/` (Yup schemas shared by form and action), `src/services/` (external APIs, e.g. Resend in `mail.ts`). `src/lib/` holds only generic helpers (`utils`, `content`, theme, fonts, seo).
+
 **Single sources of truth**
 
 - `src/constants/nav.ts` — `NAV_LINKS` and `getNavLabel(pathname)` for the current label.

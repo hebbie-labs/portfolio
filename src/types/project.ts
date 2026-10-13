@@ -1,6 +1,3 @@
-import { RECUR } from "./projects/recur";
-import { HOMESERVER_PROJECT } from "./projects/homeserver";
-
 export type Project = {
   /** Anchor on the projects page. */
   slug: string;
@@ -23,21 +20,6 @@ export type Project = {
   views: readonly ProjectView[];
 };
 
-export const PROJECTS_SECTION = {
-  label: "Projekte",
-  title: "Ausgewählte Arbeiten",
-  allLabel: "Alle Projekte",
-  allHref: "/projekte",
-} as const;
-
-export const PROJECTS_PAGE = { title: "Projekte" } as const;
-
-export const PROJECT_TEXT = {
-  demoLabel: "Dev-Demo",
-  repoLabel: "GitHub",
-  viewAlt: (title: string, view?: string) => `Screenshot von ${title}: ${view}`,
-};
-
 /** One view of a project; the frame stays empty until `image` is set. */
 export type ProjectView = {
   label: string;
@@ -57,7 +39,3 @@ export type ProjectFeature = {
   /** `label` of the `views` entry this feature shows; without it the frame stays as it is. */
   view?: string;
 };
-
-export const PROJECTS: Project[] = [RECUR, HOMESERVER_PROJECT];
-
-export const FEATURED_PROJECTS = PROJECTS.filter((p) => p.featured);

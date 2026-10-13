@@ -2,20 +2,19 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { Field, Form, Formik, useFormikContext } from "formik";
+import { Form, Formik, useFormikContext } from "formik";
 
 import { Reveal } from "@/components/atoms/reveal";
 import { Body, Headline } from "@/components/atoms/typography";
 import { FormField } from "@/components/molecules/contact/form-field";
 import { Button } from "@/components/atoms/button";
 import { CONTACT_FORM } from "@/constants/contact";
-import { sendContact } from "@/lib/contact-action";
-import { contactSchema } from "@/lib/contact-schema";
+import { sendContact } from "@/actions/contact";
+import { contactSchema } from "@/schemas/contact";
 
 const { fields, success } = CONTACT_FORM;
 
-/** `website` is the honeypot: hidden from people, filled by bots. */
-const initialValues = { name: "", email: "", message: "", website: "" };
+const initialValues = { name: "", email: "", message: "" };
 
 /** Moves focus to the first invalid field after a submit attempt. */
 function FocusFirstError() {
@@ -32,12 +31,8 @@ function FocusFirstError() {
 /** Contact form (Formik + Yup); swaps for a thank-you message (and moves focus there) once sent. */
 export function ContactForm() {
   const [sent, setSent] = useState(false);
-  const shownAt = useRef(0); // the action drops submits that come too fast after the form was shown
   const thanks = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    shownAt.current = Date.now();
-  }, []);
   useEffect(() => {
     if (sent) thanks.current?.focus();
   }, [sent]);
@@ -64,7 +59,7 @@ export function ContactForm() {
       initialValues={initialValues}
       validationSchema={contactSchema}
       onSubmit={async (values, { setErrors, setStatus }) => {
-        const result = await sendContact({ ...values, t: shownAt.current });
+        const result = await sendContact(values);
         if (result.status === "success") return setSent(true);
         const { send, ...fieldErrors } = result.errors ?? {};
         setErrors(fieldErrors);
@@ -77,13 +72,6 @@ export function ContactForm() {
           {Object.entries(fields).map(([name, props]) => (
             <FormField key={name} name={name} {...props} />
           ))}
-          <Field
-            name="website"
-            tabIndex={-1}
-            autoComplete="off"
-            aria-hidden
-            className="absolute -left-[9999px]"
-          />
           <div className="flex flex-col items-start gap-3">
             <Button
               type="submit"

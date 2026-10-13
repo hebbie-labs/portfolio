@@ -4,7 +4,7 @@ import { RichText } from "@/components/molecules/about/rich-text";
 import { AboutBio } from "@/components/organisms/about/about-bio";
 import { SkillCloud } from "@/components/organisms/about/skill-cloud";
 import { ABOUT_STORY } from "@/constants/about";
-import { hasPlaceholder, richStrings } from "@/lib/utils";
+import { hasPlaceholder, richStrings } from "@/lib/content";
 
 /**
  * Second paragraph with the skill cloud in the middle, then the bio paragraph. From `md` the cloud floats right

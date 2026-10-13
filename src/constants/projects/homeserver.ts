@@ -1,4 +1,4 @@
-import type { Project } from "@/constants/projects";
+import type { Project } from "@/types/project";
 
 export const HOMESERVER_PROJECT: Project = {
   slug: "homeserver",

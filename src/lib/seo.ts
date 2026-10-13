@@ -10,6 +10,8 @@ import {
   THEME_COLOR,
 } from "@/constants/site";
 
+const OG_IMAGE = "/og.png";
+
 export const metadata: Metadata = {
   icons: { icon: "./logo.svg" },
   title: { default: SITE_TITLE, template: `%s | ${SITE_NAME}` },
@@ -25,7 +27,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/og.png",
+        url: OG_IMAGE,
         width: 1200,
         height: 630,
         alt: `${SITE_NAME}: Portfolio`,
@@ -36,13 +38,14 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
-    images: ["/og.png"],
+    images: [OG_IMAGE],
   },
 };
 
 export const viewport: Viewport = { themeColor: THEME_COLOR };
 
-export const JSON_LD = JSON.stringify({
+/** Person structured data; `<` is escaped so the string is safe inside a `<script>` tag. */
+export const JSON_LD: string = JSON.stringify({
   "@context": "https://schema.org",
   "@type": "Person",
   name: SITE_NAME,

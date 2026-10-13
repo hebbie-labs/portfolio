@@ -1,7 +1,7 @@
 import { Reveal } from "@/components/atoms/reveal";
 import { Display } from "@/components/atoms/typography";
 import { ProjectFeatureScroller } from "@/components/organisms/projects/project-feature-scroller";
-import type { Project } from "@/constants/projects";
+import type { Project } from "@/types/project";
 
 /**
  * One project on the projects page: the title is the hero, below it the showcase (screen and text).

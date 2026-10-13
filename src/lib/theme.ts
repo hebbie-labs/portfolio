@@ -5,6 +5,7 @@ export type Theme = "light" | "dark";
 
 export const THEME_KEY = "theme";
 
+/** Current theme, read from `data-theme` on <html>. */
 export const getTheme = (): Theme =>
   document.documentElement.dataset.theme === "light" ? "light" : "dark";
 
@@ -18,7 +19,8 @@ export function setTheme(theme: Theme) {
   }
 }
 
-export function subscribeTheme(onChange: () => void) {
+/** Calls `onChange` whenever `data-theme` changes; returns the unsubscribe function (for `useSyncExternalStore`). */
+export function subscribeTheme(onChange: () => void): () => void {
   const observer = new MutationObserver(onChange);
   observer.observe(document.documentElement, {
     attributes: true,

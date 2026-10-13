@@ -1,7 +1,8 @@
 import { ArrowUpRight } from "lucide-react";
 
 import { Button } from "@/components/atoms/button";
-import { PROJECT_TEXT, type Project } from "@/constants/projects";
+import { PROJECT_TEXT } from "@/constants/projects";
+import type { Project } from "@/types/project";
 
 /** External links; only the ones the project has. */
 export function ProjectActions({ url, repo }: Pick<Project, "url" | "repo">) {

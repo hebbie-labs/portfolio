@@ -1,6 +1,6 @@
 import { ArrowRight } from "lucide-react";
 
-import type { DiagramRow } from "@/constants/projects";
+import type { DiagramRow } from "@/types/project";
 
 /** Lanes of stations joined by arrows; sized by the container (`MediaFrame` is an `@container`), so it scales like a screenshot. */
 export function StackDiagram({ rows }: { rows: readonly DiagramRow[] }) {

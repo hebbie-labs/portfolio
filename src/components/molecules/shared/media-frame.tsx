@@ -2,7 +2,7 @@ import Image from "next/image";
 
 import { ViewportVideo } from "@/components/atoms/viewport-video";
 import { StackDiagram } from "@/components/atoms/stack-diagram";
-import type { DiagramRow } from "@/constants/projects";
+import type { DiagramRow } from "@/types/project";
 
 type Props = {
   image?: string;

@@ -2,7 +2,7 @@ import Link from "next/link";
 
 import { Body, Display } from "@/components/atoms/typography";
 import { ProjectMedia } from "@/components/molecules/home/project-media";
-import type { Project } from "@/constants/projects";
+import type { Project } from "@/types/project";
 
 /** Start page teaser: media, title, one-liner; the whole card links to its entry on the projects page. */
 export function ProjectTeaser({ slug, title, summary, views }: Project) {

@@ -1,4 +1,4 @@
-import { Project } from "../projects";
+import type { Project } from "@/types/project";
 
 export const RECUR: Project = {
   slug: "recur",

@@ -3,7 +3,7 @@ import { Fragment } from "react";
 import { Reveal } from "@/components/atoms/reveal";
 import { Display, Lead } from "@/components/atoms/typography";
 import { ABOUT_PAGE } from "@/constants/about";
-import { hasPlaceholder } from "@/lib/utils";
+import { hasPlaceholder } from "@/lib/content";
 
 /** Headline, then the intro sentence fading in word by word (CSS `reveal`, see globals.css). Hidden while it is a placeholder. */
 export function AboutIntro() {

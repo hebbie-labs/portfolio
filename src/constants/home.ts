@@ -1,6 +1,6 @@
 // Content of the start page below the projects. Texts in [brackets] are placeholders.
 import { ABOUT_PAGE } from "@/constants/about";
-import { hasPlaceholder, truncate } from "@/lib/utils";
+import { hasPlaceholder, truncate } from "@/lib/content";
 
 const ABOUT_TEASER_MAX_LENGTH = 100;
 

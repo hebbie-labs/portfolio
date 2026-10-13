@@ -7,7 +7,7 @@ import { Reveal } from "@/components/atoms/reveal";
 import { Body } from "@/components/atoms/typography";
 import { ProjectActions } from "@/components/molecules/projects/project-actions";
 import { ProjectViewer } from "@/components/molecules/projects/project-viewer";
-import type { Project } from "@/constants/projects";
+import type { Project } from "@/types/project";
 import { cn } from "@/lib/utils";
 
 type Props = Pick<

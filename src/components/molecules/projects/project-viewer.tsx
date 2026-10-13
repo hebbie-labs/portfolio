@@ -5,7 +5,8 @@ import { useReducedMotion } from "motion/react";
 import { MediaFrame } from "@/components/molecules/shared/media-frame";
 import { Iphone } from "@/components/ui/iphone";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { PROJECT_TEXT, type Project } from "@/constants/projects";
+import { PROJECT_TEXT } from "@/constants/projects";
+import type { Project } from "@/types/project";
 
 type Props = Pick<Project, "title" | "video" | "views"> & {
   /** Index into `views`. */

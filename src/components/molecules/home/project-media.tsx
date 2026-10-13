@@ -1,5 +1,5 @@
 import { MediaFrame } from "@/components/molecules/shared/media-frame";
-import type { Project } from "@/constants/projects";
+import type { Project } from "@/types/project";
 
 /** Start page teaser: the first screenshot or diagram; an empty surface until it is set. */
 export function ProjectMedia({

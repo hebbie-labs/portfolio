@@ -1,47 +1,22 @@
 import { clsx, type ClassValue } from "clsx";
 import { extendTailwindMerge } from "tailwind-merge";
 
-import type { RichPart } from "@/types/rich-text";
+/** Custom font sizes from `globals.css` (`text-display`, `text-headline`, …). */
+const CUSTOM_TEXT_SIZES = [
+  "display",
+  "display-hero",
+  "display-lg",
+  "display-md",
+  "headline",
+];
 
-// Custom `text-display*` sizes must be known as font-size, otherwise twMerge
-// treats them as colors and drops them when a `text-<color>` class follows.
+// twMerge must know them as font-size, otherwise it treats them as colors
+// and drops them when a `text-<color>` class follows.
 const twMerge = extendTailwindMerge({
-  extend: {
-    classGroups: {
-      "font-size": [
-        {
-          text: [
-            "display",
-            "display-hero",
-            "display-lg",
-            "display-md",
-            "headline",
-          ],
-        },
-      ],
-    },
-  },
+  extend: { classGroups: { "font-size": [{ text: CUSTOM_TEXT_SIZES }] } },
 });
 
+/** Joins class names and resolves Tailwind conflicts (the last one wins). */
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
-}
-
-/** True if any text still holds a `[bracketed]` placeholder; such blocks stay hidden until they are filled in. */
-export function hasPlaceholder(...texts: string[]) {
-  return texts.some((text) => /\[[^\]]*\]/.test(text));
-}
-
-/** All strings of rich-text `parts` (text and hint or href), for `hasPlaceholder`. */
-export const richStrings = (parts: readonly RichPart[]) =>
-  parts.flatMap((part) =>
-    typeof part === "string"
-      ? part
-      : [part.text, "hint" in part ? part.hint : part.href],
-  );
-
-/** Cuts `text` at the last word boundary within `max` characters and appends "…"; shorter text is unchanged. */
-export function truncate(text: string, max: number) {
-  if (text.length <= max) return text;
-  return `${text.slice(0, max - 1).replace(/\s+\S*$/, "")}…`;
 }

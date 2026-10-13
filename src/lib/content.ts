@@ -1,0 +1,20 @@
+import type { RichPart } from "@/types/rich-text";
+
+/** True if any text still holds a `[bracketed]` placeholder; such blocks stay hidden until they are filled in. */
+export function hasPlaceholder(...texts: string[]): boolean {
+  return texts.some((text) => /\[[^\]]*\]/.test(text));
+}
+
+/** All strings of rich-text `parts` (text and hint or href), for `hasPlaceholder`. */
+export const richStrings = (parts: readonly RichPart[]) =>
+  parts.flatMap((part) =>
+    typeof part === "string"
+      ? part
+      : [part.text, "hint" in part ? part.hint : part.href],
+  );
+
+/** Cuts `text` at the last word boundary within `max` characters and appends "…"; shorter text is unchanged. */
+export function truncate(text: string, max: number): string {
+  if (text.length <= max) return text;
+  return `${text.slice(0, max - 1).replace(/\s+\S*$/, "")}…`;
+}
