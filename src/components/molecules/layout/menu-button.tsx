@@ -3,12 +3,13 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/atoms/button";
 import { NAV_TEXT } from "@/constants/nav";
 
+// Only the visible label is in flow, so the button is as wide as what it shows; the hidden one is absolute and clipped.
 const LABEL =
   "col-start-1 row-start-1 flex items-center gap-2 transition-[opacity,filter] duration-200";
 
 type Props = { open: boolean; onToggle: () => void; className?: string };
 
-export function MenuButton({ open, onToggle, className }: Props) {
+export function MenuButton({ open, onToggle, className }: Readonly<Props>) {
   return (
     <Button
       aria-expanded={open}
@@ -16,11 +17,11 @@ export function MenuButton({ open, onToggle, className }: Props) {
       onClick={onToggle}
       className={cn("group px-3 font-medium", className)}
     >
-      <span className="grid justify-items-center">
+      <span className="relative grid justify-items-center overflow-hidden">
         <span
           className={cn(
             LABEL,
-            "group-aria-expanded:opacity-0 group-aria-expanded:blur-[2px]",
+            "group-aria-expanded:absolute group-aria-expanded:opacity-0 group-aria-expanded:blur-[2px]",
           )}
         >
           {NAV_TEXT.menuOpen}
@@ -29,7 +30,7 @@ export function MenuButton({ open, onToggle, className }: Props) {
         <span
           className={cn(
             LABEL,
-            "opacity-0 blur-[2px] group-aria-expanded:opacity-100 group-aria-expanded:blur-none",
+            "absolute opacity-0 blur-[2px] group-aria-expanded:static group-aria-expanded:opacity-100 group-aria-expanded:blur-none",
           )}
         >
           {NAV_TEXT.menuClose}

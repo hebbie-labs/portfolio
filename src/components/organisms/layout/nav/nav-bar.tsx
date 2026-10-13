@@ -10,8 +10,8 @@ import type { NavMenuProps } from "@/types/nav";
 
 export function NavBar({ open, setOpen, current }: NavMenuProps) {
   return (
-    // min-w = open pill content width, so the 54px intro pill clips toggler/menu instead of squeezing them onto the logo.
-    <div className="relative flex min-w-[min(310px,calc(100vw-2rem-10px))] items-center">
+    // pr-12 reserves the (absolute) theme toggler, so the closed pill is as wide as its items; min-w-max keeps the 54px intro pill clipping them instead of squeezing them onto the logo.
+    <div className="relative flex min-w-max items-center pr-12">
       <Logo className="in-data-[intro=logo]:invisible" />
       <Transition
         as="span"
@@ -35,7 +35,7 @@ export function NavBar({ open, setOpen, current }: NavMenuProps) {
       <MenuButton
         open={open}
         onToggle={() => setOpen(!open)}
-        className="ml-auto -translate-x-12 transition-transform duration-400 ease-out aria-expanded:translate-x-0"
+        className="ml-auto transition-transform duration-400 ease-out aria-expanded:translate-x-12"
       />
       <Transition
         as="div"
