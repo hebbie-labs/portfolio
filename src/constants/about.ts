@@ -1,28 +1,45 @@
 // Content of the about page, top to bottom. Texts in [brackets] are placeholders.
 // The skills for the icon cloud are in `skills.ts`.
 
+import type { RichPart } from "@/types/rich-text";
+
 /** Header: portrait, headline, role and the first (large) paragraph. */
 export const ABOUT_PAGE = {
   title: "Hi, ich bin Leon.",
   role: "Applikationsentwickler in Ausbildung",
   intro:
-    "[Ein, zwei Sätze: Wer bin ich, was baue ich gerne und was treibt mich an?]",
+    "Ich lerne gern neue Technologien, tausche mich mit anderen Menschen aus und baue Software, am liebsten im Frontend :)",
   portrait: "/portrait.jpg",
   portraitAlt: "Portrait von Leon Hebeisen",
 } as const;
 
 /** Second paragraph. The skill cloud interrupts it between `before` and `after`; `after` wraps around it. */
 export const ABOUT_STORY = {
-  before:
-    "[Absatz 2, erster Teil: Wie bin ich zur Informatik gekommen und was hat mich dabei gepackt? Hier stehen zwei, drei Sätze in voller Breite, bevor die Skill-Cloud den Text unterbricht und alles Weitere neben ihr weiterläuft.]",
-  after:
-    "[Absatz 2, zweiter Teil: Woran arbeite ich gerade, womit baue ich am liebsten und was möchte ich als Nächstes lernen? Der Text läuft zuerst schmal neben der Kugel, danach nimmt er unterhalb wieder die volle Breite ein. Ersetze diesen Platzhalter durch deinen echten Text, damit der Umbruch so aussieht, wie er später wirklich wirkt.]",
-} as const;
+  before: [
+    "Schon bevor ich Informatiker geworden bin, habe ich mich sehr für ",
+    {
+      text: "Technik",
+      hint: "Smartphones, Gadgets, alles mit Display und Akku.",
+    },
+    " interessiert. Ich habe mir stundenlang ",
+    {
+      text: "Videos",
+      hint: "Tech-Reviews und Launch-Events, am liebsten bis spät in die Nacht.",
+    },
+    " über verschiedenste neueste Technik angeschaut. Daher wurde mir schon früh klar, dass ich später mal etwas in diese Richtung machen möchte, jedoch noch nicht, dass es die Informatik wird. Das habe ich erst bei mehreren Schnupperlehren gemerkt: Die Informatik war die, die hängen blieb.",
+  ],
+  after: [
+    "Ich baue momentan an ",
+    { text: "Recur", href: "/projekte/#recur" },
+    ", einer Habit-Tracking-App, zusammen mit meinen Kollegen. Das beste Beispiel für meine Vorliebe fürs Frontend. Solche Apps baue ich am liebsten mit React und TypeScript, dazu noch mit ",
+    { text: "Tailwind", href: "https://tailwindcss.com/" },
+    " und ",
+    { text: "Shadcn", href: "https://ui.shadcn.com/" },
+    " als UI-Library.",
+  ],
+} as const satisfies Record<"before" | "after", readonly RichPart[]>;
 
-/**
- * Third paragraph, a short CV. A string is plain text; `{ text, hint }` is a highlighted word that shows
- * its `hint` in a tooltip. Keep spaces and punctuation inside the strings.
- */
+/** Third paragraph, a short CV, made of `RichPart`s. */
 export const ABOUT_BIO = [
   "Seit 2025 lerne ich bei ",
   {
@@ -32,14 +49,25 @@ export const ABOUT_BIO = [
   ", davor drückte ich die Bank an der ",
   {
     text: "Sekundarschule",
-    hint: "[Ein Satz dazu: Was ist hängen geblieben?]",
+    hint: "Grüsse an Märci und Jürg, für alle Hilfe.",
   },
   ". Wenn ich nicht code, findet man mich meist bei ",
-  { text: "[Hobby 1]", hint: "[Ein Satz dazu, gern mit Augenzwinkern.]" },
+  {
+    text: "Gitarre",
+    hint: "Spiele ich jetzt schon seit 2025, aber bin nicht so diszipliniert.",
+  },
+  ", ",
+  {
+    text: "Fashion",
+    hint: "Meine Hauptausgabe, gefühlt jedes Monatslohns. (momentan)",
+  },
   " oder ",
-  { text: "[Hobby 2]", hint: "[Noch ein Satz, der nicht alles verrät.]" },
+  {
+    text: "Sport",
+    hint: "Krafttraining im Gym: Fehler behebe ich dort nicht per Debugging, sondern mit weniger Gewicht.",
+  },
   ".",
-] as const;
+] as const satisfies readonly RichPart[];
 
 /** One station of a timeline; `details` are optional bullet lines below the text. */
 export type TimelineItem = {
@@ -47,35 +75,44 @@ export type TimelineItem = {
   title: string;
   text: string;
   details?: readonly string[];
+  /** Photo in `public/` for the portrait frame while this station is in view; the portrait stays until set. */
+  image?: { src: string; alt: string };
 };
 
-/** Detailed timeline on the about page, oldest first. */
+/** Detailed timeline on the about page, oldest first. Stations with a [placeholder] text stay hidden. */
 export const ABOUT_TIMELINE = {
   title: "Werdegang",
   items: [
     {
-      period: "[Jahr]",
+      period: "bis 2023",
       title: "Sekundarschule",
-      text: "[Ein Satz: Was ist hängen geblieben?]",
+      text: "Der Zusammenhalt der Klasse fehlt mir sehr und die Sachen die mir geblieben sind:",
+      details: [
+        "Das Abschlusslager in Yverdon-les-Bains",
+        "Die Freundschaften, welche bis heute bestehen",
+      ],
     },
     {
-      period: "2025",
-      title: "Noser Young",
-      text: "Start der Lehre als Applikationsentwickler EFZ.",
-      details: ["[Erste Aufgaben und Technologien im Betrieb]"],
-    },
-    {
-      period: "2025",
+      period: "2025–2026",
       title: "1. Lehrjahr",
-      text: "[Was habe ich im ersten Lehrjahr gelernt und gebaut?]",
+      text: "Im Basislehrjahr lernten wir die Grundlagen der Informatik, hier folgende Themen:",
+      details: [
+        "Einführung in C mit der geliebten Linked List",
+        "üK 187, um die Basics in Filesystemen und OS zu lernen",
+        "üK 106, um Datenbanken zu verstehen und SQL zu lernen",
+        "üK 210, mit Arduino und ESP32 zum Umgang mit der IoT und IoE",
+        "üK 294 und 295, um Backend und Frontend separat zu lernen.",
+      ],
+      image: {
+        src: "/timeline-lehrjahr-1.jpg",
+        alt: "Leon im ersten Lehrjahr bei Noser Young",
+      },
     },
     {
-      period: "Heute",
+      period: "2026–heute",
       title: "2. Lehrjahr",
       text: "Ich baue Recur, einen Habit- und Task-Tracker als PWA.",
       details: [
-        "Spring-Boot-4-API (Java 25) mit Postgres",
-        "Anmeldung per JWT und Google OAuth2/OIDC",
         "Frontend mit Next.js, React und TypeScript nach Atomic Design",
       ],
     },
