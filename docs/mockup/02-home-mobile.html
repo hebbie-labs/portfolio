@@ -7,149 +7,133 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&amp;family=Instrument+Sans:wdth,wght@75..100,400..700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap">
 <style>
 body{margin:0;background:#0A0D0B}
-.t-dark{--bg:#0A0D0B;--bg-2:#111612;--ph:#141B16;--line:#1E2721;--muted:#8D9A92;--fg:#E6EDE8;--accent:#4FD88A;--accent-ink:#06120B;--glass:rgba(17,22,18,0.78)}
-.t-light{--bg:#EEF2EE;--bg-2:#E2E8E3;--ph:#DCE4DE;--line:#C9D3CC;--muted:#56635B;--fg:#0B110D;--accent:#0E7A4B;--accent-ink:#F2F7F3;--glass:rgba(226,232,227,0.82)}
-a{color:inherit}
-a:hover{color:var(--accent)}
-.lnk{text-decoration:none;border-bottom:1px solid var(--line)}
+.t-dark{--bg:#0A0D0B;--bg-2:#111612;--ph:#141B16;--line:#1E2721;--muted:#8D9A92;--fg:#E6EDE8;--accent:#4FD88A;--accent-ink:#06120B;--danger:#FF7B6B;--glass:rgba(17,22,18,0.78)}
+.t-light{--bg:#EEF2EE;--bg-2:#E2E8E3;--ph:#DCE4DE;--line:#C9D3CC;--muted:#56635B;--fg:#0B110D;--accent:#0E7A4B;--accent-ink:#F2F7F3;--danger:#B42318;--glass:rgba(226,232,227,0.82)}
+body:has(.t-light){background:#EEF2EE}
+.page{position:relative;background:var(--bg);color:var(--fg);font-family:'Instrument Sans',system-ui,sans-serif;font-size:16px;line-height:1.5}
+*{box-sizing:border-box}
+a{color:inherit;text-decoration:none}
+p,h1,h2,h3,figure,ul{margin:0}
+ul{padding:0;list-style:none}
+.px{padding-left:80px;padding-right:80px}
+.m .px{padding-left:16px;padding-right:16px}
+.mono{font-family:'JetBrains Mono',monospace}
+.muted{color:var(--muted)}
+.accent{color:var(--accent)}
+/* Typography: atoms/typography.tsx, sizes from globals.css at 1440 x 900 (desktop) and 390 x 844 (mobile) */
+.display{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-stretch:75%;text-transform:uppercase;letter-spacing:-0.03em;text-wrap:balance;overflow-wrap:break-word;min-width:0}
+.d-hero{font-size:233px;line-height:.82}
+.m .d-hero{font-size:101px}
+.d-lg{font-size:173px;line-height:.82}
+.m .d-lg{font-size:64px}
+.d-md{font-size:104px;line-height:.86}
+.m .d-md{font-size:48px}
+.headline{font-family:'Bricolage Grotesque',sans-serif;font-weight:600;font-size:58px;line-height:1.05;letter-spacing:-0.025em;text-wrap:balance}
+.m .headline{font-size:30px}
+.lead{font-size:28px;line-height:1.3;letter-spacing:-0.01em;text-wrap:pretty}
+.m .lead{font-size:20px}
+.body{font-size:18px;line-height:1.5;text-wrap:pretty}
+.m .body{font-size:16px}
+.label{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--muted)}
+.m .label{font-size:12px}
+/* Buttons: ui/button.tsx via atoms/button.tsx */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:44px;padding:0 20px;border-radius:999px;white-space:nowrap;font-size:16px;align-self:flex-start;transition:transform 160ms cubic-bezier(.25,1,.5,1),border-color 160ms,background 160ms}
 .btn:active{transform:scale(.98)}
-.nav-btn:hover{background:var(--line)!important}
-.nav-link:hover{background:var(--line)}
+.btn-default{background:var(--accent);color:var(--accent-ink)}
+.btn-default:hover{transform:translateY(-2px)}
+.btn-outline{border:1px solid color-mix(in srgb,var(--muted) 70%,transparent)}
+.btn-outline:hover{border-color:var(--fg)}
+.btn-ghost{background:transparent;border:0;color:var(--fg);font:inherit;cursor:pointer;padding:0 12px}
+.btn-ghost:hover{background:var(--line)}
+.btn-icon{width:44px;padding:0}
+.lnk{border-bottom:1px solid var(--line);padding:8px 0 2px;transition:color 160ms,border-color 160ms}
+.lnk:hover{color:var(--accent);border-color:var(--accent)}
 :focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+/* Interactive: ui/interactive-hover-button.tsx (Magic UI) via atoms/button.tsx variant="interactive" */
+.btn-interactive{position:relative;display:inline-flex;align-self:flex-start;overflow:hidden;border:1px solid color-mix(in srgb,var(--muted) 70%,transparent);border-radius:999px;background:var(--bg);padding:8px 24px;font-weight:600}
+.btn-interactive .front{display:flex;align-items:center;gap:8px}
+.btn-interactive .front i{width:8px;height:8px;border-radius:999px;background:var(--accent);transition:transform 300ms}
+.btn-interactive .front span{transition:transform 300ms,opacity 300ms}
+.btn-interactive .back{position:absolute;inset:0;z-index:1;display:flex;align-items:center;justify-content:center;gap:8px;color:var(--accent-ink);opacity:0;transform:translateX(48px);transition:transform 300ms,opacity 300ms}
+.btn-interactive:hover .front i,.btn-interactive.hover .front i{transform:scale(100.8)}
+.btn-interactive:hover .front span,.btn-interactive.hover .front span{transform:translateX(48px);opacity:0}
+.btn-interactive:hover .back,.btn-interactive.hover .back{transform:translateX(-20px);opacity:1}
+/* Frames: molecules/shared/media-frame.tsx, atoms/portrait.tsx */
+.screen{position:relative;aspect-ratio:12/7;border:1px solid var(--line);border-radius:12px;background:var(--bg-2);overflow:hidden;display:grid;place-items:center;padding:24px;text-align:center}
+.portrait{aspect-ratio:4/5;width:100%;border-radius:12px;background:var(--bg-2);display:grid;place-items:center}
+.phone{aspect-ratio:433/882;height:100%;border:6px solid var(--line);border-radius:44px;background:var(--bg-2);display:grid;place-items:center;padding:16px;text-align:center}
+/* Nav: organisms/layout/nav/*.tsx */
+.nav-wrap{position:absolute;top:20px;left:0;right:0;z-index:20;display:flex;justify-content:center}
+.m .nav-wrap{top:16px}
+.pill{width:320px;padding:4px;border:1px solid var(--line);border-radius:27px;background:var(--glass);backdrop-filter:blur(14px);box-shadow:0 4px 12px rgba(0,0,0,.15)}
+.pill.open{width:358px;border-radius:28px;background:var(--bg-2);box-shadow:0 24px 60px rgba(0,0,0,.35)}
+.bar{display:flex;align-items:center}
+.logo{display:flex;width:44px;height:44px;flex-shrink:0;align-items:center;justify-content:center;color:var(--fg)}
+.dot{display:inline-block;border-radius:999px;background:var(--accent);flex-shrink:0}
+.cur{display:flex;align-items:center;gap:8px;padding:0 12px 0 14px;font-size:12px;white-space:nowrap}
+.navlink{display:flex;align-items:baseline;gap:14px;padding:8px 14px;border-radius:16px}
+.navlink .n{width:20px;font-size:12px}
+.navlink .t{flex-grow:1;font-family:'Bricolage Grotesque',sans-serif;font-weight:600;font-size:36px;line-height:1.05;transition:color 200ms,translate 200ms}
+.navlink:hover .t{color:var(--accent);translate:8px 0}
+.panel-foot{display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--line);padding:6px 4px 2px;font-size:12px}
+.title-link{display:flex;align-items:flex-end;gap:16px}
+.title-link:hover .display{color:var(--accent)}
+.title-link svg{color:var(--accent);flex-shrink:0}
+.feature{display:flex;align-items:center;min-height:360px;font-size:24px;border-top:1px solid var(--line)}
+.m .feature{min-height:0;padding:12px 0;font-size:16px}
+.features{border-bottom:1px solid var(--line)}
+.note{position:absolute;right:16px;bottom:16px;font-size:11px}
 @media (prefers-reduced-motion: reduce){*{transition:none!important}}
 </style>
-<style></style>
 </head>
 <body>
-<div class="t-dark" style="position: relative; width: 390px; background: var(--bg); color: var(--fg); font-family: 'Instrument Sans', system-ui, sans-serif;">
-
-<div style="position: absolute; top: 16px; left: 16px; z-index: 20; width: 358px; height: 460px; pointer-events: none;">
-<div style="width: 358px; height: 460px; display: flex; flex-direction: column; align-items: center; font-family: 'Instrument Sans', system-ui, sans-serif; color: var(--fg, #E6EDE8); pointer-events: none;">
-
-<div style="pointer-events: auto; display: flex; align-items: center; gap: 2px; padding: 5px; background: var(--glass, rgba(17,22,18,0.78)); border: 1px solid var(--line, #1E2721); border-radius: 999px; backdrop-filter: blur(14px);">
-<a href="01-home-desktop.html" aria-label="Zur Startseite" style="width: 44px; height: 44px; border-radius: 999px; display: flex; align-items: center; justify-content: center; background: var(--fg, #E6EDE8); color: var(--bg, #0A0D0B); font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-size: 16px; letter-spacing: -0.03em; text-decoration: none;">LH</a>
-<span style="display: flex; align-items: center; gap: 8px; padding: 0 12px 0 14px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--muted, #8D9A92);"><span style="width: 6px; height: 6px; border-radius: 999px; background: var(--accent, #4FD88A);"></span>Start</span>
-<button type="button" class="nav-btn" aria-expanded="false" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: transparent; color: var(--fg, #E6EDE8); font-family: 'Instrument Sans', sans-serif; font-weight: 500; font-size: 15px; display: flex; align-items: center; gap: 8px; cursor: pointer;">Menü<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><path d="M4 9h16M4 15h16"></path></svg></button>
-<button type="button" class="nav-btn" aria-label="Zum hellen Modus wechseln" style="width: 44px; height: 44px; border: 0; border-radius: 999px; background: transparent; color: var(--fg, #E6EDE8); display: flex; align-items: center; justify-content: center; cursor: pointer;">
-<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>
-
-</button>
+<div class="t-dark page m" style="width:390px">
+<div class="nav-wrap"><div class="pill"><div class="bar">
+<a href="02-home-mobile.html" class="logo" aria-label="Zur Startseite"><svg viewBox="382 318 490 619" height="32" fill="currentColor" aria-hidden="true"><path d="M382 342A24 24 0 0 1 406 318L436 318A24 24 0 0 1 460 342L460 679A24 24 0 0 0 484 703L542 703A24 24 0 0 1 566 727L566 859A24 24 0 0 1 542 883L518 883A24 24 0 0 1 494 859L494 787A24 24 0 0 0 470 763L406 763A24 24 0 0 1 382 739ZM494 503A24 24 0 0 1 518 479L542 479A24 24 0 0 1 566 503L566 596A24 24 0 0 0 590 620L770 620A24 24 0 0 0 794 596L794 503A24 24 0 0 1 818 479L848 479A24 24 0 0 1 872 503L872 913A24 24 0 0 1 848 937L818 937A24 24 0 0 1 794 913L794 706A24 24 0 0 0 770 682L518 682A24 24 0 0 1 494 658Z"></path></svg></a>
+<span class="cur mono muted"><span class="dot" style="width:6px;height:6px"></span>Start</span>
+<button type="button" class="btn btn-ghost" aria-expanded="false" style="margin-left:auto;font-weight:500">Menü<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16"></path><path d="M4 12h16"></path><path d="M4 18h16"></path></svg></button>
+<button type="button" class="btn btn-ghost btn-icon" aria-label="Farbschema wechseln"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path><path d="M16 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0"></path></svg></button>
+</div></div></div>
+<main>
+<section class="px" style="display:flex;flex-direction:column;justify-content:flex-end;gap:28px;min-height:700px;padding-top:118px;padding-bottom:48px">
+<h1 class="display d-hero" translate="no">Leon<br>Hebeisen<span class="accent">.</span></h1>
+<div style="display:flex;flex-direction:column;gap:24px">
+<p class="lead" style="max-width:576px">[Kurzvorstellung: Rolle und fachlicher Schwerpunkt in einem Satz]</p>
+<a href="#" class="btn btn-default">Schreib mir<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a>
 </div>
-
-
-</div>
-</div>
-
-<section style="box-sizing: border-box; padding: 104px 16px 48px; display: flex; flex-direction: column; gap: 28px;">
-<span style="display: flex; align-items: center; gap: 10px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--muted);"><span style="width: 7px; height: 7px; border-radius: 999px; background: var(--accent);"></span>Bern, CH — 14:32</span>
-<h1 style="margin: 0; font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-stretch: 75%; font-size: 78px; line-height: 0.82; letter-spacing: -0.03em; text-transform: uppercase; overflow-wrap: anywhere; min-width: 0;">Leon<br>Hebeisen<span style="color: var(--accent);">.</span></h1>
-<p style="margin: 0; font-size: 20px; line-height: 1.35;">Ich baue Full-Stack-Apps — vom Spring-Boot-Backend bis zum React-Interface. Und hoste sie selbst.</p>
-<span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--muted);">Applikationsentwickler EFZ · 1. Lehrjahr · Noser Young</span>
 </section>
-
-<section aria-label="Ausgewählte Arbeiten" style="box-sizing: border-box; padding: 48px 16px; border-top: 1px solid var(--line); display: flex; flex-direction: column; gap: 32px;">
-<h2 style="margin: 0; font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-stretch: 75%; font-size: 56px; line-height: 0.86; letter-spacing: -0.03em; text-transform: uppercase;">Ausgewählte Arbeiten</h2>
-
-<article style="display: flex; flex-direction: column; gap: 14px;">
-<div style="display: flex; justify-content: space-between; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--muted);"><span>01</span><span>Web-App · In Entwicklung</span></div>
-<figure style="margin: 0; height: 224px; box-sizing: border-box; background: var(--ph); border: 1px solid var(--line); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--muted);">[Screenshot: RECUR · 16:10]</figure>
-<h3 style="margin: 0; font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-stretch: 75%; font-size: 64px; line-height: 0.82; letter-spacing: -0.03em; text-transform: uppercase;">Recur</h3>
-<p style="margin: 0; font-size: 16px; line-height: 1.5;">Habit- und Task-Tracker mit Google-Login. Läuft im Browser und bald als iOS- und Android-App.</p>
-<ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 6px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--muted);">
-<li style="padding: 5px 10px; border: 1px solid var(--line); border-radius: 999px;">React 19</li>
-<li style="padding: 5px 10px; border: 1px solid var(--line); border-radius: 999px;">TypeScript</li>
-<li style="padding: 5px 10px; border: 1px solid var(--line); border-radius: 999px;">Tailwind</li>
-<li style="padding: 5px 10px; border: 1px solid var(--line); border-radius: 999px;">shadcn/ui</li>
-<li style="padding: 5px 10px; border: 1px solid var(--line); border-radius: 999px;">Spring Boot</li>
-<li style="padding: 5px 10px; border: 1px solid var(--line); border-radius: 999px;">PostgreSQL</li>
-<li style="padding: 5px 10px; border: 1px solid var(--line); border-radius: 999px;">OAuth2 / JWT</li>
-<li style="padding: 5px 10px; border: 1px solid var(--line); border-radius: 999px;">Capacitor</li>
-</ul>
-<a href="04-case-recur-mobile.html" style="height: 48px; box-sizing: border-box; padding: 0 20px; border: 1px solid var(--fg); border-radius: 999px; display: flex; align-items: center; justify-content: space-between; color: var(--fg); text-decoration: none; font-weight: 500; font-size: 16px;">Case Study ansehen<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg></a>
+<section aria-label="Projekte" class="px" style="display:flex;flex-direction:column;gap:48px;padding-top:64px;padding-bottom:64px">
+<h2 class="display d-md">Ausge&shy;wählte Arbeiten</h2>
+<article style="display:flex;flex-direction:column;gap:12px">
+<figure class="screen label">[Erste Ansicht des Projekts: Screenshot, bei Projekten ohne UI ein Ablauf-Diagramm]</figure>
+<a href="04-projekte-mobile.html#projekt-1"><h3 class="display d-md">[Projekt 1]</h3></a>
+<p class="body muted" style="display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">[Kurzbeschreibung des Projekts in einem Satz, höchstens zwei Zeilen]</p>
 </article>
-
-<article style="display: flex; flex-direction: column; gap: 14px; padding-top: 32px; border-top: 1px solid var(--line);">
-<div style="display: flex; justify-content: space-between; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--muted);"><span>02</span><span>Self-Hosting · Läuft</span></div>
-<figure aria-label="Schema des Homeservers" style="margin: 0; box-sizing: border-box; padding: 16px; background: var(--ph); border: 1px solid var(--line); border-radius: 14px; display: flex; flex-direction: column; gap: 8px;">
-<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px;">
-<div style="padding: 10px 12px; background: var(--bg); border: 1px solid var(--line); border-radius: 10px;"><div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--muted);">Unterwegs</div><div style="font-size: 14px; margin-top: 2px;">Tailscale</div></div>
-<div style="padding: 10px 12px; background: var(--bg); border: 1px solid var(--line); border-radius: 10px;"><div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--muted);">Internet</div><div style="font-size: 14px; margin-top: 2px;">Cloudflare Tunnel</div></div>
-</div>
-<div style="display: flex; justify-content: center; color: var(--muted);"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 3v17"></path><path d="M7 15l5 5 5-5"></path></svg></div>
-<div style="padding: 12px; background: var(--bg); border: 1px solid var(--accent); border-radius: 12px; display: flex; flex-direction: column; gap: 10px;">
-<div style="display: flex; justify-content: space-between; align-items: baseline;"><span style="font-size: 15px; font-weight: 600;">ThinkPad T580</span><span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--muted);">Debian · Docker</span></div>
-<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; font-family: 'JetBrains Mono', monospace; font-size: 11px;">
-<div style="padding: 8px; border: 1px solid var(--line); border-radius: 8px;">Pi-hole</div>
-<div style="padding: 8px; border: 1px solid var(--line); border-radius: 8px;">RECUR</div>
-<div style="padding: 8px; border: 1px solid var(--line); border-radius: 8px; overflow-wrap: anywhere;">cloudflared</div>
-</div>
-</div>
-<div style="display: flex; justify-content: center; color: var(--muted);"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 21V4"></path><path d="M7 9l5-5 5 5"></path></svg></div>
-<div style="padding: 10px 12px; border: 1px dashed var(--line); border-radius: 10px; display: flex; justify-content: space-between; font-size: 13px;"><span>Heimnetz</span><span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--muted);">DNS über Pi-hole</span></div>
-</figure>
-<h3 style="margin: 0; font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-stretch: 75%; font-size: 56px; line-height: 0.82; letter-spacing: -0.03em; text-transform: uppercase;">Homeserver</h3>
-<p style="margin: 0; font-size: 16px; line-height: 1.5;">Ein ThinkPad als Server: Pi-hole blockt Werbung im ganzen Netz, eigene Apps laufen in Containern, Zugriff von unterwegs nur über Tailscale.</p>
-<ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 6px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--muted);">
-<li style="padding: 5px 10px; border: 1px solid var(--line); border-radius: 999px;">Debian</li>
-<li style="padding: 5px 10px; border: 1px solid var(--line); border-radius: 999px;">Umbrel OS</li>
-<li style="padding: 5px 10px; border: 1px solid var(--line); border-radius: 999px;">Docker</li>
-<li style="padding: 5px 10px; border: 1px solid var(--line); border-radius: 999px;">Pi-hole</li>
-<li style="padding: 5px 10px; border: 1px solid var(--line); border-radius: 999px;">Tailscale</li>
-<li style="padding: 5px 10px; border: 1px solid var(--line); border-radius: 999px;">Cloudflare Tunnel</li>
-</ul>
-<span style="height: 48px; box-sizing: border-box; padding: 0 20px; border: 1px solid var(--line); border-radius: 999px; display: flex; align-items: center; color: var(--muted); font-size: 16px;">Case Study folgt</span>
+<article style="display:flex;flex-direction:column;gap:12px">
+<figure class="screen label">[Erste Ansicht des Projekts: Screenshot, bei Projekten ohne UI ein Ablauf-Diagramm]</figure>
+<a href="04-projekte-mobile.html#projekt-2"><h3 class="display d-md">[Projekt 2]</h3></a>
+<p class="body muted" style="display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">[Kurzbeschreibung des Projekts in einem Satz, höchstens zwei Zeilen]</p>
 </article>
-
-<div style="display: flex; flex-direction: column; gap: 12px; padding-top: 32px; border-top: 1px solid var(--line);">
-<span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--muted);">Archiv</span>
-<ul style="margin: 0; padding: 0; list-style: none;">
-<li style="display: flex; flex-direction: column; gap: 4px; padding: 12px 0; border-top: 1px solid var(--line);"><span style="font-family: 'Bricolage Grotesque', sans-serif; font-weight: 600; font-size: 22px; letter-spacing: -0.02em;">OSV Sportsapp</span><span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--muted);">Spring Boot · Keycloak</span></li>
-<li style="display: flex; flex-direction: column; gap: 4px; padding: 12px 0; border-top: 1px solid var(--line);"><span style="font-family: 'Bricolage Grotesque', sans-serif; font-weight: 600; font-size: 22px; letter-spacing: -0.02em;">Roulette</span><span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--muted);">TypeScript · WebSockets</span></li>
-<li style="display: flex; flex-direction: column; gap: 4px; padding: 12px 0; border-top: 1px solid var(--line);"><span style="font-family: 'Bricolage Grotesque', sans-serif; font-weight: 600; font-size: 22px; letter-spacing: -0.02em;">PyPass</span><span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--muted);">Python · SQLite</span></li>
-<li style="display: flex; flex-direction: column; gap: 4px; padding: 12px 0; border-top: 1px solid var(--line);"><span style="font-family: 'Bricolage Grotesque', sans-serif; font-weight: 600; font-size: 22px; letter-spacing: -0.02em;">Movie DB</span><span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--muted);">React · TMDB API</span></li>
-<li style="display: flex; flex-direction: column; gap: 4px; padding: 12px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);"><span style="font-family: 'Bricolage Grotesque', sans-serif; font-weight: 600; font-size: 22px; letter-spacing: -0.02em;">Little Bambus</span><span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--muted);">Spring Boot · PostgreSQL</span></li>
-</ul>
-<a href="#" style="display: flex; align-items: center; justify-content: space-between; padding: 12px 0; font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-stretch: 75%; font-size: 40px; letter-spacing: -0.03em; text-transform: uppercase; color: var(--fg); text-decoration: none;">Alle Projekte<svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color: var(--accent);"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg></a>
+<a href="04-projekte-mobile.html" class="title-link"><span class="display d-md">Alle<br>Projekte</span><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="stroke-width:2"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a>
+</section>
+<section class="px" style="display:grid;gap:32px;padding-top:64px;padding-bottom:64px">
+<div class="portrait label" style="max-width:192px">[Foto]</div>
+<div style="display:flex;flex-direction:column;align-items:flex-start;gap:24px">
+<h2 class="headline">Hi, ich bin Leon<span class="accent">.</span></h2>
+<p class="lead muted" style="max-width:768px">[Teaser: Anfang des About-Texts, gekürzt auf 100 Zeichen]</p>
+<a href="#" class="btn-interactive"><span class="front"><i></i><span>Mehr über mich</span></span><span class="back"><span>Mehr über mich</span><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></span></a>
 </div>
 </section>
-
-<section style="box-sizing: border-box; padding: 64px 16px; border-top: 1px solid var(--line); display: flex; flex-direction: column; gap: 40px;">
-<h2 style="margin: 0; font-family: 'Bricolage Grotesque', sans-serif; font-weight: 600; font-size: 30px; line-height: 1.12; letter-spacing: -0.02em;">Ich bin Leon, Applikationsentwickler im ersten Lehrjahr. Am meisten lerne ich, wenn ich etwas baue, deploye und selbst betreibe.</h2>
-<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px 16px;">
-<div style="display: flex; flex-direction: column; gap: 10px;">
-<h3 style="margin: 0; font-size: 13px; font-weight: 600; color: var(--muted);">Frontend</h3>
-<ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 4px; font-family: 'JetBrains Mono', monospace; font-size: 13px;"><li>React · Next.js</li><li>TypeScript</li><li>Tailwind CSS</li><li>shadcn/ui</li><li>Framer Motion</li></ul>
-</div>
-<div style="display: flex; flex-direction: column; gap: 10px;">
-<h3 style="margin: 0; font-size: 13px; font-weight: 600; color: var(--muted);">Backend</h3>
-<ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 4px; font-family: 'JetBrains Mono', monospace; font-size: 13px;"><li>Java · Spring Boot</li><li>Spring Security</li><li>PostgreSQL</li><li>Keycloak</li><li>Python</li></ul>
-</div>
-<div style="display: flex; flex-direction: column; gap: 10px;">
-<h3 style="margin: 0; font-size: 13px; font-weight: 600; color: var(--muted);">Infrastruktur</h3>
-<ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 4px; font-family: 'JetBrains Mono', monospace; font-size: 13px;"><li>Docker · Compose</li><li>Linux · Debian</li><li>Tailscale</li><li>Cloudflare</li><li>Git · GitHub</li></ul>
-</div>
-</div>
-<a href="#" class="lnk" style="align-self: flex-start; display: flex; align-items: center; gap: 10px; padding: 12px 0 4px; font-size: 17px; font-weight: 500;">Mehr über mich<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg></a>
-</section>
-
-<section style="box-sizing: border-box; padding: 64px 16px 32px; border-top: 1px solid var(--line); display: flex; flex-direction: column; gap: 20px;">
-<p style="margin: 0; font-size: 20px; line-height: 1.35; color: var(--muted);">Fragen, Feedback oder ein gemeinsames Projekt?</p>
-<a href="mailto:hallo@leonhebeisen.com" style="font-family: 'Bricolage Grotesque', sans-serif; font-weight: 700; font-stretch: 75%; font-size: 46px; line-height: 0.95; letter-spacing: -0.03em; color: var(--fg); text-decoration: none; overflow-wrap: anywhere; min-width: 0;">hallo@<br>leonhebeisen.com</a>
-<button type="button" class="btn" style="height: 52px; border: 0; border-radius: 999px; background: var(--accent); color: var(--accent-ink); font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 16px; display: flex; align-items: center; justify-content: center; gap: 10px; cursor: pointer;">
-<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15V5a1 1 0 0 1 1-1h10"></path></svg>
-
-Adresse kopieren</button>
-<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px;">
-<a href="https://github.com/lelelon225" style="height: 48px; box-sizing: border-box; border: 1px solid var(--line); border-radius: 999px; display: flex; align-items: center; justify-content: center; gap: 8px; color: var(--fg); text-decoration: none; font-size: 15px;">GitHub<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7"></path><path d="M8 7h9v9"></path></svg></a>
-<span style="height: 48px; box-sizing: border-box; border: 1px dashed var(--line); border-radius: 999px; display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 15px;">LinkedIn — folgt</span>
-</div>
-<span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--muted);">[Platzhalter-Adresse — ersetzen]</span>
-<footer style="margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--line); display: flex; flex-direction: column; gap: 10px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--muted);">
-<div style="display: flex; justify-content: space-between;"><span>© 2026 Leon Hebeisen</span><a href="#" class="lnk" style="padding: 6px 0 2px;">Impressum</a></div>
-<div style="display: flex; justify-content: space-between;"><span>Bern, CH — 14:32</span><a href="#" class="lnk" style="padding: 6px 0 2px;">Nach oben ↑</a></div>
+<section class="px" style="padding-top:64px;padding-bottom:64px"><div style="display:flex;flex-direction:column;align-items:flex-start;gap:28px">
+<h2 class="headline">Fragen, Feedback oder ein gemeinsames Projekt<span class="accent">?</span></h2>
+<a href="#" class="title-link"><span class="display d-md">Schreib mir</span><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="stroke-width:2"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a>
+</div></section>
+</main>
+<footer class="px mono muted" style="border-top:1px solid var(--line);display:flex;flex-direction:column;gap:10px;padding-top:16px;padding-bottom:16px;font-size:12px">
+<span>© 2026 Leon Hebeisen, Bern, CH</span>
+<div style="display:flex;gap:24px;"><a href="#" class="lnk">Kontakt</a></div>
+<div style="display:flex;gap:24px;"><a href="#" class="lnk">Impressum</a><a href="#" class="lnk">Datenschutz</a></div>
 </footer>
-</section>
-
 </div>
 </body>
 </html>

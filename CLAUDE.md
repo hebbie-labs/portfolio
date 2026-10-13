@@ -37,7 +37,7 @@ German-language personal portfolio (Next.js 16, React 19, Tailwind v4, TypeScrip
 
 **Theming**: Colors are CSS variables in `src/app/globals.css` (`:root` = dark, `[data-theme="light"]` = light), exposed as Tailwind tokens (`bg-bg`, `text-fg`, `bg-accent`, `border-line`, …). The `@theme inline` block resets `--color-*`, so **default Tailwind palette colors don't exist** — use only the tokens. Display sizes (`text-display`, `text-headline`, …) and `ease-spring` are also defined there. The theme is applied before hydration by `THEME_INIT_SCRIPT` (reads `localStorage.theme`) in `layout.tsx`; `<html>` uses `suppressHydrationWarning`.
 
-**Design reference**: `docs/mockup/*.html` are the static mockups (home, case study, navigation, styleguide, light theme) the UI is implemented against.
+**Design reference**: `docs/mockup/*.html` are the static mockups (home, projects page, navigation, styleguide, light theme) the UI is implemented against.
 
 ## Reviews
 
