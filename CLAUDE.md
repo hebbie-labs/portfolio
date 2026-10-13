@@ -33,6 +33,10 @@ German-language personal portfolio (Next.js 16, React 19, Tailwind v4, TypeScrip
 
 **Design reference**: `docs/mockup/*.html` are the static mockups (home, case study, navigation, styleguide, light theme) the UI is implemented against.
 
+## Reviews
+
+`[bracketed]` placeholders in content files (`src/constants/*`) and placeholder assets (e.g. a missing photo in `public/`) are work in progress: do **not** report them in reviews. The only exception is a review about shipping to `main` (prod, e.g. a `release/` or `hotfix/` PR), where unfilled placeholders and missing assets are blockers.
+
 ## Deployment
 
 GitHub Actions: `.github/workflows/ci.yml` (ESLint + Docker `run` build, on PRs and pushes to `main`/`dev`) gates `.github/workflows/cd.yml`, which starts via `workflow_run` after a green CI on `main`/`dev` (so the repo's default branch must stay `dev`, as `workflow_run` uses the default branch's file). CD builds the multi-stage `Dockerfile` and pushes to GHCR (`main` → `:latest` with target `placeholder` until launch, `dev` → `:dev` with target `dev`, runs `pnpm dev`), then redeploys via docker compose on a self-hosted runner. `next.config.ts` whitelists `dev.leonhebeisen.com` in `allowedDevOrigins`.
