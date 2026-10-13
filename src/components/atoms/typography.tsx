@@ -29,6 +29,8 @@ const displayVariants = cva(
     variants: {
       size: {
         xl: "text-display",
+        // Start page name: words stacked (`w-min`), sized by width on mobile and by `--text-display-hero` from `md`.
+        hero: "w-min text-display max-md:text-[26vw] md:text-display-hero",
         lg: "text-display-lg",
         md: "text-display-md",
       },
