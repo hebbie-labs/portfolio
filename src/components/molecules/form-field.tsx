@@ -1,7 +1,9 @@
 import { useField } from "formik";
 import { CircleAlert } from "lucide-react";
 
-import { cn } from "@/lib/utils";
+import { Field, FieldError, FieldLabel } from "@/components/ui/field";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 
 type Props = {
   name: string;
@@ -18,32 +20,28 @@ export function FormField({ name, label, multiline, ...props }: Props) {
   const [field, { touched, error }] = useField(name);
   const shownError = touched ? error : undefined;
   const errorId = `${name}-error`;
-  const Control = multiline ? "textarea" : "input";
+  const Control = multiline ? Textarea : Input;
 
   return (
-    <div className="flex flex-col gap-2">
-      <label htmlFor={name} className="text-sm font-semibold">
+    <Field data-invalid={!!shownError}>
+      <FieldLabel htmlFor={name} className="font-semibold">
         {label}
-      </label>
+      </FieldLabel>
       <Control
         id={name}
         rows={multiline ? 6 : undefined}
         aria-required
         aria-invalid={!!shownError}
         aria-describedby={shownError ? errorId : undefined}
-        className={cn(
-          "w-full resize-y rounded-xl border bg-bg-2 px-4 py-3 text-base transition-colors hover:border-fg focus-visible:border-accent",
-          shownError ? "border-danger" : "border-muted/80",
-        )}
         {...field}
         {...props}
       />
       {shownError && (
-        <p id={errorId} className="flex items-center gap-2 text-sm text-danger">
+        <FieldError id={errorId} className="flex items-center gap-2">
           <CircleAlert aria-hidden className="size-4 shrink-0" />
           {shownError}
-        </p>
+        </FieldError>
       )}
-    </div>
+    </Field>
   );
 }

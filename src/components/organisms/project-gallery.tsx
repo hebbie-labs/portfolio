@@ -2,11 +2,10 @@
 
 import { useReducedMotion } from "motion/react";
 
-import { Button } from "@/components/atoms/button";
 import { Screen } from "@/components/molecules/screen";
 import { Iphone } from "@/components/ui/iphone";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { PROJECT_TEXT, type Project } from "@/constants/projects";
-import { cn } from "@/lib/utils";
 
 type Props = Pick<Project, "title" | "video" | "views"> & {
   /** Index into `views`. */
@@ -54,22 +53,26 @@ export function ProjectGallery({
         )}
       </div>
       {views.length > 1 && (
-        <div className="flex flex-wrap gap-x-6 gap-y-2 lg:hidden">
-          {views.map(({ label }, i) => (
-            <Button
-              key={label}
-              variant="text"
-              aria-pressed={i === active}
-              onClick={() => onSelect(i)}
-              className={cn(
-                "py-2 font-mono text-sm transition-colors duration-300",
-                i === active ? "text-fg" : "text-muted hover:text-fg",
-              )}
-            >
-              {label}
-            </Button>
-          ))}
-        </div>
+        <Tabs
+          value={active}
+          onValueChange={(index) => onSelect(Number(index))}
+          className="lg:hidden"
+        >
+          <TabsList
+            variant="line"
+            className="h-auto w-full flex-wrap justify-start gap-x-6 gap-y-2 p-0"
+          >
+            {views.map(({ label }, i) => (
+              <TabsTrigger
+                key={label}
+                value={i}
+                className="h-auto flex-none rounded-none border-0 p-0 py-2 font-mono text-sm text-muted transition-colors duration-300 after:hidden hover:text-fg data-active:text-fg"
+              >
+                {label}
+              </TabsTrigger>
+            ))}
+          </TabsList>
+        </Tabs>
       )}
     </div>
   );
