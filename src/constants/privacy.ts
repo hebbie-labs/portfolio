@@ -17,10 +17,6 @@ export const PRIVACY_PAGE = {
       text: "Im Formular gibst du Name, E-Mail-Adresse und Nachricht an. Diese Angaben nutze ich nur, um dir zu antworten. Sie werden per Mail an mich gesendet; den Versand übernimmt der Dienst Resend als Auftragsbearbeiter. [Aufbewahrung: wie lange werden Anfragen aufbewahrt? Standort und Vertrag von Resend prüfen.]",
     },
     {
-      heading: "Schutz vor Spam",
-      text: "Das Formular nutzt ein verstecktes Feld und misst, wie schnell es ausgefüllt wird, um Bots zu erkennen. Dafür werden keine Daten an Dritte übermittelt.",
-    },
-    {
       heading: "Hosting und Server-Logs",
       text: "Die Website läuft auf meinem eigenen Server und ist über Cloudflare (Tunnel) erreichbar. Cloudflare sieht dabei technisch den Datenverkehr, etwa die IP-Adresse. [Welche Logs entstehen auf dem Server und wie lange werden sie aufbewahrt? Cloudflare-Angaben prüfen.]",
     },
