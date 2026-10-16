@@ -1,10 +1,11 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { NavBar } from "@/components/organisms/layout/nav/nav-bar";
 import { NavPanel } from "@/components/organisms/layout/nav/nav-panel";
 import { getNavLink } from "@/constants/nav";
+import { useDismiss } from "@/hooks/use-dismiss";
 import { cn } from "@/lib/utils";
 
 export function Nav() {
@@ -12,19 +13,11 @@ export function Nav() {
   const current = getNavLink(usePathname());
   const menu = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    if (!open) return;
-    const close = () => setOpen(false);
-    const closeOnEscape = (e: KeyboardEvent) => e.key === "Escape" && close();
-    const closeOnOutside = (e: PointerEvent) =>
-      menu.current?.contains(e.target as Node) || close();
-    addEventListener("keydown", closeOnEscape);
-    addEventListener("pointerdown", closeOnOutside);
-    return () => {
-      removeEventListener("keydown", closeOnEscape);
-      removeEventListener("pointerdown", closeOnOutside);
-    };
-  }, [open]);
+  useDismiss(
+    menu,
+    open,
+    useCallback(() => setOpen(false), []),
+  );
 
   return (
     <div className="pointer-events-none fixed inset-x-4 top-(--nav-top) z-50 flex justify-center">
