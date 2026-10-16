@@ -9,8 +9,8 @@ import { Body, Headline } from "@/components/atoms/typography";
 import { FormField } from "@/components/molecules/contact/form-field";
 import { Button } from "@/components/atoms/button";
 import { CONTACT_FORM } from "@/constants/contact";
-import { sendContact } from "@/actions/contact";
-import { contactSchema } from "@/schemas/contact";
+import { sendContact } from "@/server/contact";
+import { contactSchema } from "@/validation/contact";
 
 const { fields, success } = CONTACT_FORM;
 
