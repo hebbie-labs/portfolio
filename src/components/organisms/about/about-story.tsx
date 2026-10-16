@@ -1,7 +1,7 @@
 import { Reveal } from "@/components/atoms/reveal";
 import { Body } from "@/components/atoms/typography";
 import { RichText } from "@/components/molecules/about/rich-text";
-import { AboutBio } from "@/components/organisms/about/about-bio";
+import { AboutBio } from "@/components/molecules/about/about-bio";
 import { SkillCloud } from "@/components/organisms/about/skill-cloud";
 import { ABOUT_STORY } from "@/constants/about";
 import { hasPlaceholder, richStrings } from "@/lib/content";
