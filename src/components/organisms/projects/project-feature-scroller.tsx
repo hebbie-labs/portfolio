@@ -1,12 +1,13 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useState } from "react";
 
 import { Button } from "@/components/atoms/button";
 import { Reveal } from "@/components/atoms/reveal";
 import { Body } from "@/components/atoms/typography";
 import { ProjectActions } from "@/components/molecules/projects/project-actions";
 import { ProjectViewer } from "@/components/molecules/projects/project-viewer";
+import { useActiveRow } from "@/hooks/use-active-row";
 import type { Project } from "@/types/project";
 import { cn } from "@/lib/utils";
 
@@ -35,8 +36,6 @@ export function ProjectFeatureScroller({
 }: Props) {
   const [view, setView] = useState(0);
   const [feature, setFeature] = useState(0);
-  const rows = useRef<(HTMLLIElement | null)[]>([]);
-
   const select = useCallback(
     (index: number) => {
       setFeature(index);
@@ -48,27 +47,13 @@ export function ProjectFeatureScroller({
     [features, views],
   );
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          const index = rows.current.indexOf(entry.target as HTMLLIElement);
-          if (entry.isIntersecting && index >= 0) select(index);
-          // scrolled back above the list: first view and first row again
-          else if (
-            index === 0 &&
-            entry.boundingClientRect.top > innerHeight / 2
-          ) {
-            setView(0);
-            setFeature(0);
-          }
-        }
-      },
-      { rootMargin: "-49% 0px -50% 0px" },
-    );
-    rows.current.forEach((row) => row && observer.observe(row));
-    return () => observer.disconnect();
-  }, [select]);
+  // scrolled back above the list: first view and first row again
+  const reset = useCallback(() => {
+    setView(0);
+    setFeature(0);
+  }, []);
+
+  const rows = useActiveRow<HTMLLIElement>(select, reset);
 
   return (
     <div

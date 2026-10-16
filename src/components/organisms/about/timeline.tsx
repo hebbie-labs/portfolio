@@ -1,17 +1,15 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 import { Reveal } from "@/components/atoms/reveal";
 import { Body, Display } from "@/components/atoms/typography";
 import { useTimelinePhoto } from "@/components/providers/timeline-photo";
-import type { TimelineItem } from "@/constants/about";
+import { MIDDLE_LINE, useActiveRow } from "@/hooks/use-active-row";
 import { hasPlaceholder } from "@/lib/content";
 import { cn } from "@/lib/utils";
-
-/** Observes the horizontal line in the middle of the viewport. */
-const MIDDLE_LINE = { rootMargin: "-49% 0px -50% 0px" };
+import type { TimelineItem } from "@/types/about";
 
 /**
  * Ruled rows: the period as a large number left, station, text and optional detail lines right. The row in the
@@ -35,25 +33,23 @@ export function Timeline({
   const [active, setActive] = useState(0);
   const { setPhoto } = useTimelinePhoto();
   const list = useRef<HTMLOListElement>(null);
-  const rows = useRef<(HTMLLIElement | null)[]>([]);
+  const rows = useActiveRow<HTMLLIElement>(
+    useCallback(
+      (index, row) => {
+        setActive(index);
+        setPhoto(row.dataset.photo ?? null);
+      },
+      [setPhoto],
+    ),
+  );
 
   useEffect(() => {
-    const rowObserver = new IntersectionObserver((entries) => {
-      for (const entry of entries) {
-        const index = rows.current.indexOf(entry.target as HTMLLIElement);
-        if (!entry.isIntersecting || index < 0) continue;
-        setActive(index);
-        setPhoto((entry.target as HTMLElement).dataset.photo ?? null);
-      }
-    }, MIDDLE_LINE);
     // Back to the portrait once the list no longer crosses the middle line.
     const listObserver = new IntersectionObserver(([entry]) => {
       if (!entry.isIntersecting) setPhoto(null);
     }, MIDDLE_LINE);
-    rows.current.forEach((row) => row && rowObserver.observe(row));
     if (list.current) listObserver.observe(list.current);
     return () => {
-      rowObserver.disconnect();
       listObserver.disconnect();
       setPhoto(null);
     };
