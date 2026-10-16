@@ -10,7 +10,11 @@ export const PROJECTS_SECTION = {
   allHref: "/projekte",
 } as const;
 
-export const PROJECTS_PAGE = { title: "Projekte" } as const;
+export const PROJECTS_PAGE = {
+  title: "Projekte",
+  /** Tab title (`metadata` in `app/projekte/page.tsx`). */
+  meta: { title: "Projekte" },
+} as const;
 
 export const PROJECT_TEXT = {
   demoLabel: "Dev-Demo",

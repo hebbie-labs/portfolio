@@ -1,6 +1,12 @@
 // Content of the contact page (`/kontakt`); the address is `EMAIL` in `site.ts`.
 
 export const CONTACT_PAGE = {
+  /** Tab title and search description (`metadata` in `app/kontakt/page.tsx`). */
+  meta: {
+    title: "Kontakt",
+    description:
+      "Schreib Leon Hebeisen eine Nachricht oder finde ihn auf GitHub und LinkedIn.",
+  },
   title: "Schreib mir.",
 } as const;
 

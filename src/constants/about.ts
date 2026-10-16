@@ -6,6 +6,12 @@ import type { RichPart } from "@/types/rich-text";
 
 /** Header: portrait, headline, role and the first (large) paragraph. */
 export const ABOUT_PAGE = {
+  /** Tab title and search description (`metadata` in `app/about/page.tsx`). */
+  meta: {
+    title: "About",
+    description:
+      "Werdegang und Hintergrund von Leon Hebeisen, Lernender Applikationsentwickler EFZ bei Noser Young in Bern.",
+  },
   title: "Hi, ich bin Leon.",
   role: "Applikationsentwickler in Ausbildung",
   intro:

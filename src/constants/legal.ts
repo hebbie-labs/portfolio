@@ -2,6 +2,8 @@
 // Texts in [brackets] are placeholders.
 
 export const LEGAL_PAGE = {
+  /** Tab title and search description (`metadata` in `app/impressum/page.tsx`). */
+  meta: { title: "Impressum" },
   title: "Impressum.",
   /** Name and address; each entry is one line. */
   owner: {

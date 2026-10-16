@@ -2,6 +2,8 @@
 // texts in [brackets] are open decisions and must be filled or checked before launch, not guessed.
 
 export const PRIVACY_PAGE = {
+  /** Tab title and search description (`metadata` in `app/datenschutz/page.tsx`). */
+  meta: { title: "Datenschutz" },
   title: "Datenschutz.",
   intro:
     "Hier steht, welche Daten beim Besuch dieser Website und beim Kontaktformular anfallen und was damit passiert.",
