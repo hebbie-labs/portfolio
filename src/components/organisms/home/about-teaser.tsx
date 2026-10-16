@@ -5,9 +5,13 @@ import Link from "next/link";
 import { Button } from "@/components/atoms/button";
 import { ABOUT_PAGE } from "@/constants/about";
 import { HOME_ABOUT } from "@/constants/home";
+import { hasPlaceholder, truncate } from "@/lib/content";
 
-/** Portrait next to a short text and a link to the about page. */
+/** Portrait next to a short text and a link to the about page; the text stays hidden while it is a placeholder. */
 export function AboutTeaser() {
+  const text = hasPlaceholder(HOME_ABOUT.text)
+    ? ""
+    : truncate(HOME_ABOUT.text, HOME_ABOUT.maxLength);
   return (
     <Reveal
       scroll
@@ -20,8 +24,8 @@ export function AboutTeaser() {
       />
       <div className="flex flex-col items-start gap-6">
         <Headline>{HOME_ABOUT.title}</Headline>
-        {HOME_ABOUT.text && (
-          <Lead className="max-w-3xl text-muted">{HOME_ABOUT.text}</Lead>
+        {text && (
+          <Lead className="max-w-3xl text-muted">{text}</Lead>
         )}
         <Button
           variant="interactive"

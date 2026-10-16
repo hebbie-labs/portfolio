@@ -30,7 +30,7 @@ German-language personal portfolio (Next.js 16, React 19, Tailwind v4, TypeScrip
 
 **Single sources of truth**
 
-- `src/constants/nav.ts` — `NAV_LINKS` and `getNavLabel(pathname)` for the current label.
+- `src/constants/nav.ts` — `NAV_LINKS` (and the other links); `getNavLink(pathname)` in `src/lib/nav.ts` picks the current one.
 - `src/constants/site.ts` + `src/lib/seo.ts` — site name, URLs, social links, metadata, JSON-LD, theme-color. `sitemap.ts`/`robots.ts` build on these.
 - `src/lib/init-scripts.ts` — pre-hydration theme/intro scripts and the shared `INTRO_KEY` (`sessionStorage`).
 - `src/components/atoms/typography.tsx` — `Display`/`Headline`/… (cva variants); use these instead of raw heading classes.

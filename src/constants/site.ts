@@ -1,3 +1,5 @@
+import type { SocialProfile } from "@/types/site";
+
 export const SITE_URL = "https://leonhebeisen.com";
 export const SITE_NAME = "Leon Hebeisen";
 export const SITE_TITLE = "Leon Hebeisen | Lernender Applikationsentwickler";
@@ -9,9 +11,6 @@ export const EMPLOYER = "Noser Young";
 export const EMAIL = "contact@leonhebeisen.com";
 export const GITHUB_URL = "https://github.com/lelelon225";
 export const THEME_COLOR = "#0a0d0b";
-
-/** `featured`: large row on the contact page. */
-type SocialProfile = { label: string; href: string; featured?: boolean };
 
 export const SOCIAL_PROFILES: SocialProfile[] = [
   { label: "GitHub", href: GITHUB_URL, featured: true },

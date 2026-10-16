@@ -1,8 +1,5 @@
 // Content of the start page below the projects. Texts in [brackets] are placeholders.
 import { ABOUT_PAGE } from "@/constants/about";
-import { hasPlaceholder, truncate } from "@/lib/content";
-
-const ABOUT_TEASER_MAX_LENGTH = 100;
 
 export const HOME_HERO = {
   title: "Leon Hebeisen",
@@ -11,13 +8,11 @@ export const HOME_HERO = {
   contactHref: "/kontakt",
 } as const;
 
-/** About teaser: short text and a link to the about page. */
+/** About teaser: the about intro cut to `maxLength` characters, and a link to the about page. */
 export const HOME_ABOUT = {
   title: ABOUT_PAGE.title,
-  /** Empty while the intro is still a placeholder; the teaser then shows only title and link. */
-  text: hasPlaceholder(ABOUT_PAGE.intro)
-    ? ""
-    : truncate(ABOUT_PAGE.intro, ABOUT_TEASER_MAX_LENGTH),
+  text: ABOUT_PAGE.intro,
+  maxLength: 100,
   linkLabel: "Mehr über mich",
   linkHref: "/about",
 } as const;

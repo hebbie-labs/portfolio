@@ -4,8 +4,8 @@ import { useCallback, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { NavBar } from "@/components/organisms/layout/nav/nav-bar";
 import { NavPanel } from "@/components/organisms/layout/nav/nav-panel";
-import { getNavLink } from "@/constants/nav";
 import { useDismiss } from "@/hooks/use-dismiss";
+import { getNavLink } from "@/lib/nav";
 import { cn } from "@/lib/utils";
 
 export function Nav() {
