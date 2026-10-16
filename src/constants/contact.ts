@@ -36,10 +36,8 @@ export const CONTACT_FORM = {
     message: { label: "Nachricht", multiline: true, maxLength: 5000 },
   },
   submit: "Nachricht senden",
-  privacy: {
-    text: "Was mit deinen Angaben passiert:",
-    linkLabel: "Datenschutz",
-  },
+  /** Followed by a link to `PRIVACY_LINK`. */
+  privacyText: "Was mit deinen Angaben passiert:",
   pending: "Wird gesendet …",
   errors: {
     name: "Wie heisst du?",

@@ -27,6 +27,10 @@ type SkillIcon = Icon | { light: Icon; dark: Icon };
  * Icons for the cloud on the about page. To add one, import it from `developer-icons` above and add it here.
  * `{ light, dark }` picks an icon per theme (GitHub, Apple).
  */
+/** Text alternative for the whole cloud (it shows icons only). */
+export const SKILLS_LABEL =
+  "Icon-Wolke mit den Technologien, mit denen ich arbeite";
+
 export const SKILLS: readonly SkillIcon[] = [
   Java,
   Spring,

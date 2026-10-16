@@ -15,7 +15,8 @@ export const PROJECTS_PAGE = { title: "Projekte" } as const;
 export const PROJECT_TEXT = {
   demoLabel: "Dev-Demo",
   repoLabel: "GitHub",
-  viewAlt: (title: string, view?: string) => `Screenshot von ${title}: ${view}`,
+  viewAlt: (title: string, view?: string) =>
+    view ? `Screenshot von ${title}: ${view}` : `Screenshot von ${title}`,
 };
 
 export const PROJECTS: Project[] = [RECUR, HOMESERVER_PROJECT];

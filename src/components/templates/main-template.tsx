@@ -3,6 +3,7 @@ import { Footer } from "@/components/organisms/layout/footer";
 import { StartupIntro } from "@/components/organisms/layout/startup-intro";
 import { Nav } from "@/components/organisms/layout/nav/nav";
 import { SmoothScroll } from "@/components/providers/smooth-scroll";
+import { NAV_TEXT } from "@/constants/nav";
 
 type Props = {
   children: React.ReactNode;
@@ -15,7 +16,7 @@ export function MainTemplate({ children }: Props) {
         href="#main"
         className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-110 focus:rounded-2xl focus:bg-bg-2 focus:px-4 focus:py-2"
       >
-        Zum Inhalt springen
+        {NAV_TEXT.skipToContent}
       </a>
       <SmoothScroll />
       <StartupIntro />

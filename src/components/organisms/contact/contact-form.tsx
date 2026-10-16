@@ -9,6 +9,7 @@ import { Body, Headline } from "@/components/atoms/typography";
 import { FormField } from "@/components/molecules/contact/form-field";
 import { Button } from "@/components/atoms/button";
 import { CONTACT_FORM } from "@/constants/contact";
+import { PRIVACY_LINK } from "@/constants/nav";
 import { sendContact } from "@/server/contact";
 import { contactSchema } from "@/validation/contact";
 
@@ -82,9 +83,9 @@ export function ContactForm() {
               {isSubmitting ? CONTACT_FORM.pending : CONTACT_FORM.submit}
             </Button>
             <p className="text-sm text-muted">
-              {CONTACT_FORM.privacy.text}{" "}
-              <Link href="/datenschutz" className="lnk">
-                {CONTACT_FORM.privacy.linkLabel}
+              {CONTACT_FORM.privacyText}{" "}
+              <Link href={PRIVACY_LINK.href} className="lnk">
+                {PRIVACY_LINK.label}
               </Link>
             </p>
             {status && (

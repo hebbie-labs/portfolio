@@ -3,7 +3,7 @@
 import { useMemo } from "react";
 import { Reveal } from "@/components/atoms/reveal";
 import { IconCloud } from "@/components/ui/icon-cloud";
-import { SKILLS } from "@/constants/skills";
+import { SKILLS, SKILLS_LABEL } from "@/constants/skills";
 import { useTheme } from "@/hooks/use-theme";
 
 /**
@@ -27,10 +27,7 @@ export function SkillCloud() {
       scroll
       className="my-6 flex justify-center overflow-hidden md:float-right md:my-0 md:ml-8 md:size-[400px] md:[shape-outside:circle(30%)]"
     >
-      <div
-        role="img"
-        aria-label="Icon-Wolke mit den Technologien, mit denen ich arbeite"
-      >
+      <div role="img" aria-label={SKILLS_LABEL}>
         <IconCloud icons={icons} showControl={false} />
       </div>
     </Reveal>
