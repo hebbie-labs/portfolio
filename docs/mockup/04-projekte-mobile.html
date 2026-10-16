@@ -65,9 +65,11 @@ ul{padding:0;list-style:none}
 /* Nav: organisms/layout/nav/*.tsx */
 .nav-wrap{position:absolute;top:20px;left:0;right:0;z-index:20;display:flex;justify-content:center}
 .m .nav-wrap{top:16px}
-.pill{width:320px;padding:4px;border:1px solid var(--line);border-radius:27px;background:var(--glass);backdrop-filter:blur(14px);box-shadow:0 4px 12px rgba(0,0,0,.15)}
+/* Closed pill: w-fit + min 15.5rem, toggler reserved by pr-12 (48px) */
+.pill{width:fit-content;min-width:248px;padding:4px;border:1px solid var(--line);border-radius:27px;background:var(--glass);backdrop-filter:blur(14px);box-shadow:0 4px 12px rgba(0,0,0,.15)}
 .pill.open{width:358px;border-radius:28px;background:var(--bg-2);box-shadow:0 24px 60px rgba(0,0,0,.35)}
 .bar{display:flex;align-items:center}
+.pill:not(.open) .btn-icon{margin-left:4px}
 .logo{display:flex;width:44px;height:44px;flex-shrink:0;align-items:center;justify-content:center;color:var(--fg)}
 .dot{display:inline-block;border-radius:999px;background:var(--accent);flex-shrink:0}
 .cur{display:flex;align-items:center;gap:8px;padding:0 12px 0 14px;font-size:12px;white-space:nowrap}

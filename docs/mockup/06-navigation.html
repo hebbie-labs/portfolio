@@ -65,9 +65,11 @@ ul{padding:0;list-style:none}
 /* Nav: organisms/layout/nav/*.tsx */
 .nav-wrap{position:absolute;top:20px;left:0;right:0;z-index:20;display:flex;justify-content:center}
 .m .nav-wrap{top:16px}
-.pill{width:320px;padding:4px;border:1px solid var(--line);border-radius:27px;background:var(--glass);backdrop-filter:blur(14px);box-shadow:0 4px 12px rgba(0,0,0,.15)}
+/* Closed pill: w-fit + min 15.5rem, toggler reserved by pr-12 (48px) */
+.pill{width:fit-content;min-width:248px;padding:4px;border:1px solid var(--line);border-radius:27px;background:var(--glass);backdrop-filter:blur(14px);box-shadow:0 4px 12px rgba(0,0,0,.15)}
 .pill.open{width:358px;border-radius:28px;background:var(--bg-2);box-shadow:0 24px 60px rgba(0,0,0,.35)}
 .bar{display:flex;align-items:center}
+.pill:not(.open) .btn-icon{margin-left:4px}
 .logo{display:flex;width:44px;height:44px;flex-shrink:0;align-items:center;justify-content:center;color:var(--fg)}
 .dot{display:inline-block;border-radius:999px;background:var(--accent);flex-shrink:0}
 .cur{display:flex;align-items:center;gap:8px;padding:0 12px 0 14px;font-size:12px;white-space:nowrap}
@@ -93,7 +95,7 @@ ul{padding:0;list-style:none}
 <span class="cur mono muted"><span class="dot" style="width:6px;height:6px"></span>Start</span>
 <button type="button" class="btn btn-ghost" aria-expanded="false" style="margin-left:auto;font-weight:500">Menü<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16"></path><path d="M4 12h16"></path><path d="M4 18h16"></path></svg></button>
 <button type="button" class="btn btn-ghost btn-icon" aria-label="Farbschema wechseln"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path><path d="M16 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0"></path></svg></button>
-</div></div><span class="mono muted" style="font-size:11px">Geschlossen · 320 px · Glass + Blur 14 px · Schatten 0 4 12</span></div>
+</div></div><span class="mono muted" style="font-size:11px">Geschlossen · Breite nach Inhalt, min. 248 px · Glass + Blur 14 px · Schatten 0 4 12</span></div>
 <div style="display:flex;flex-direction:column;gap:12px"><div class="pill open"><div class="bar">
 <a href="01-home-desktop.html" class="logo" aria-label="Zur Startseite"><svg viewBox="382 318 490 619" height="32" fill="currentColor" aria-hidden="true"><path d="M382 342A24 24 0 0 1 406 318L436 318A24 24 0 0 1 460 342L460 679A24 24 0 0 0 484 703L542 703A24 24 0 0 1 566 727L566 859A24 24 0 0 1 542 883L518 883A24 24 0 0 1 494 859L494 787A24 24 0 0 0 470 763L406 763A24 24 0 0 1 382 739ZM494 503A24 24 0 0 1 518 479L542 479A24 24 0 0 1 566 503L566 596A24 24 0 0 0 590 620L770 620A24 24 0 0 0 794 596L794 503A24 24 0 0 1 818 479L848 479A24 24 0 0 1 872 503L872 913A24 24 0 0 1 848 937L818 937A24 24 0 0 1 794 913L794 706A24 24 0 0 0 770 682L518 682A24 24 0 0 1 494 658Z"></path></svg></a>
 <button type="button" class="btn btn-ghost" aria-expanded="true" style="margin-left:auto;font-weight:500">Schliessen<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg></button>
