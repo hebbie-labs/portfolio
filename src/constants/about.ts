@@ -1,6 +1,7 @@
 // Content of the about page, top to bottom. Texts in [brackets] are placeholders.
 // The skills for the icon cloud are in `skills.ts`.
 
+import type { TimelineItem } from "@/types/about";
 import type { RichPart } from "@/types/rich-text";
 
 /** Header: portrait, headline, role and the first (large) paragraph. */
@@ -68,16 +69,6 @@ export const ABOUT_BIO = [
   },
   ".",
 ] as const satisfies readonly RichPart[];
-
-/** One station of a timeline; `details` are optional bullet lines below the text. */
-export type TimelineItem = {
-  period: string;
-  title: string;
-  text: string;
-  details?: readonly string[];
-  /** Photo in `public/` for the portrait frame while this station is in view; the portrait stays until set. */
-  image?: { src: string; alt: string };
-};
 
 /** Detailed timeline on the about page, oldest first. Stations with a [placeholder] text stay hidden. */
 export const ABOUT_TIMELINE = {

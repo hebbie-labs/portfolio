@@ -2,12 +2,9 @@
 
 import { Portrait } from "@/components/atoms/portrait";
 import { useTimelinePhoto } from "@/components/providers/timeline-photo";
-import {
-  ABOUT_PAGE,
-  ABOUT_TIMELINE,
-  type TimelineItem,
-} from "@/constants/about";
+import { ABOUT_PAGE, ABOUT_TIMELINE } from "@/constants/about";
 import { cn } from "@/lib/utils";
+import type { TimelineItem } from "@/types/about";
 
 const stations: readonly TimelineItem[] = ABOUT_TIMELINE.items;
 
