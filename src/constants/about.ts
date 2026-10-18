@@ -16,7 +16,7 @@ export const ABOUT_PAGE = {
   role: "Applikationsentwickler in Ausbildung",
   intro:
     "Ich lerne gern neue Technologien, tausche mich mit anderen Menschen aus und baue Software, am liebsten im Frontend :)",
-  portrait: "/portrait.jpg",
+  portrait: "/about/portrait.jpg",
   portraitAlt: "Portrait von Leon Hebeisen",
 } as const;
 

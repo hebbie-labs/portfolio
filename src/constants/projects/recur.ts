@@ -28,13 +28,13 @@ export const RECUR: Project = {
   featured: true,
   url: "https://dev.recur.dpdns.org",
   repo: "https://github.com/hebbie-labs/recur",
-  video: "/recur-showreel.mp4",
+  video: "/projects/recur/showreel.mp4",
   views: [
-    { label: "Aufgaben", image: "/recur-home.png" },
-    // TODO: Platzhalter durch echte Screenshots ersetzen (public/placeholder/ danach löschen)
-    { label: "Kalender", image: "/placeholder/recur-kalender.svg" },
-    { label: "Liste", image: "/placeholder/recur-liste.svg" },
-    { label: "Gruppen", image: "/placeholder/recur-gruppen.svg" },
-    { label: "Mobil", image: "/recur-home-mobile.png", portrait: true },
+    { label: "Aufgaben", image: "/projects/recur/home.png" },
+    // TODO: Platzhalter durch echte Screenshots ersetzen (public/projects/recur/placeholder/ danach löschen)
+    { label: "Kalender", image: "/projects/recur/placeholder/kalender.svg" },
+    { label: "Liste", image: "/projects/recur/placeholder/liste.svg" },
+    { label: "Gruppen", image: "/projects/recur/placeholder/gruppen.svg" },
+    { label: "Mobil", image: "/projects/recur/home-mobile.png", portrait: true },
   ],
 };
