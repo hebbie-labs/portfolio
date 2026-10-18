@@ -18,9 +18,9 @@ German-language personal portfolio (Next.js 16, React 19, Tailwind v4, TypeScrip
 
 **Pages are thin.** Each `src/app/<route>/page.tsx` only renders a component from `src/components/pages/`. Several (projects, skills, …) are still `PlaceholderTemplate` stubs.
 
-**Atomic layout under `src/components/`**: `atoms` → `molecules` → `organisms` → `templates` (+ `pages`, `providers`). `atoms/` is flat (page-independent); `molecules/` and `organisms/` are split per page area (`home`, `about`, `projects`, `contact`, `layout`, plus `molecules/shared` for parts used by several areas). A level only imports from the levels below it. `ui/` holds shadcn-style primitives (`components.json`: style `base-nova`, `@base-ui/react`, lucide icons, `@magicui` registry). Add shadcn components with the `shadcn` CLI so aliases (`@/components`, `@/lib/utils`, `@/hooks`) resolve.
+**Atomic layout under `src/components/`**: `atoms` → `molecules` → `organisms` → `templates` (+ `pages`, `providers`). `atoms/` is flat (page-independent); `molecules/` and `organisms/` are split per page area (`home`, `about`, `projects`, `contact`, `layout`, plus `molecules/shared` for parts used by several areas). A level only imports from the levels below it. `ui/` holds shadcn-style primitives (`components.json`: style `base-nova`, `@base-ui/react`, lucide icons, `@magicui` and `@react-bits` registries). Add shadcn components with the `shadcn` CLI so aliases (`@/components`, `@/lib/utils`, `@/hooks`) resolve.
 
-**`ui/` is vendored library code** (shadcn / Magic UI, imported by the owner): handle with caution. Don't refactor, restyle or rewrite those files; adapt them from outside (wrapper in `atoms/`, `className`). Edit one only when the owner explicitly asks.
+**`ui/` is vendored library code** (shadcn / Magic UI / React Bits, imported by the owner): handle with caution. Don't refactor, restyle or rewrite those files; adapt them from outside (wrapper in `atoms/`, `className`). Edit one only when the owner explicitly asks.
 
 **Buttons**: use `atoms/button.tsx` for every button-like action (variants: shadcn `default`/`outline`/`ghost`, plus `text` and `interactive`; links go through `render={<Link href />}` with `nativeButton={false}`). Don't use `ui/button` or `buttonVariants` directly, except to style `ui/` components that own their own element (e.g. `AnimatedThemeToggler`).
 
@@ -40,6 +40,13 @@ German-language personal portfolio (Next.js 16, React 19, Tailwind v4, TypeScrip
 **Assets**: `public/<area>/<kebab-name>` grouped by page area (e.g. `projects/recur/home.png`, `about/portrait.jpg`); site-wide files (`og.png`, `logo.svg`, the latter copied by the `Dockerfile`) stay at the root.
 
 **Design reference**: `docs/mockup/*.html` are the static mockups (home, projects page, navigation, styleguide, light theme) the UI is implemented against.
+
+## 3D & animations
+
+- **Self-built 3D**: React Three Fiber + drei (three.js), installed when the first self-built scene lands (none in the repo right now). Put the reusable canvas in `atoms/` and scene objects in `molecules/<area>/`, load them with `next/dynamic` (`ssr: false`) only on the page that uses them (three.js is heavy), take colors from the CSS tokens so they follow the theme, and respect reduced motion.
+- **Other tools**: R3F is the default. Propose a different tool only if it clearly wins (bundle size, licence, DX) and ask before adopting it. No tools with watermarks or paywalled exports (Spline was dropped for that).
+- **3D text in the site font**: drei's `Text3D` needs a typeface JSON; convert the TTF with opentype.js into the facetype.js format, subset to the needed characters, keep the font's copyright/licence fields. Google Fonts serves a static TTF per weight from `https://fonts.googleapis.com/css2?family=<Family>:wght@<weight>` when fetched without a browser user agent (e.g. `curl`).
+- **Predefined animations**: React Bits (`@react-bits` registry, licence MIT + Commons Clause: fine on the site, never sell or redistribute the components themselves). Install with `pnpm dlx shadcn@latest add @react-bits/<Name>-TS-TW`, then: move the file it creates (`components/<Name>.tsx`) to `ui/<kebab-name>.tsx`, revert any change the CLI made to pinned deps (e.g. a `three` downgrade), and add the header `// React Bits (reactbits.dev), MIT + Commons Clause, (c) David Haz`, the only edit allowed to that file. Theme it through its props from a wrapper in `atoms/`/`molecules/` (e.g. `atoms/fuzzy-text.tsx`).
 
 ## Reviews
 
