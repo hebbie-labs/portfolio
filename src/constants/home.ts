@@ -6,6 +6,8 @@ export const HOME_HERO = {
   lead: "Lernender Applikationsentwickler. Frontend zuerst, Spring Boot dahinter.",
   contactLabel: "Schreib mir",
   contactHref: "/kontakt",
+  /** Spinning circle next to the CTA (desktop); the trailing separator joins end and start. */
+  circleText: "Applikationsentwickler · Bern · ",
 } as const;
 
 /** About teaser: the about intro cut to `maxLength` characters, and a link to the about page. */
