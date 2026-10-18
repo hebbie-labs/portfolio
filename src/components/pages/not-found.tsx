@@ -2,8 +2,9 @@
 
 import { ArrowLeft } from "lucide-react";
 import { Reveal } from "@/components/atoms/reveal";
-import { Body, Display, Headline } from "@/components/atoms/typography";
+import { Body, Headline } from "@/components/atoms/typography";
 import { Button } from "@/components/atoms/button";
+import { FuzzyText } from "@/components/atoms/fuzzy-text";
 import { NOT_FOUND_PAGE } from "@/constants/not-found";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -13,9 +14,7 @@ export function NotFoundPage() {
 
   return (
     <Reveal className="flex min-h-[calc(100dvh-7rem)] flex-col items-center justify-center gap-4 px-4 text-center">
-      <Display as="p" size="xl" className="text-muted/30" aria-hidden>
-        404
-      </Display>
+      <FuzzyText>404</FuzzyText>
       <Headline as="h1" size="sm">
         {NOT_FOUND_PAGE.title}
       </Headline>
@@ -30,7 +29,8 @@ export function NotFoundPage() {
         render={<Link href="/" />}
         nativeButton={false}
         role="link"
-        className="mt-4 h-13 px-6 text-base font-semibold"
+        size="lg"
+        className="mt-4"
       >
         <ArrowLeft aria-hidden />
         {NOT_FOUND_PAGE.backLabel}
