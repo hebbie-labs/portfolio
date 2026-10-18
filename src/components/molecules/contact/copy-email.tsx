@@ -25,11 +25,7 @@ export function CopyEmail() {
   }
 
   return (
-    <Button
-      variant="outline"
-      onClick={copy}
-      className="h-13 px-6 text-base font-semibold"
-    >
+    <Button variant="outline" onClick={copy} size="lg">
       {copied ? (
         <Check aria-hidden className={ICON_SWAP_IN} />
       ) : (

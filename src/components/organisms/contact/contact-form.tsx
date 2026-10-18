@@ -78,7 +78,7 @@ export function ContactForm() {
               type="submit"
               variant="default"
               disabled={isSubmitting}
-              className="h-13 px-6 text-base font-semibold"
+              size="lg"
             >
               {isSubmitting ? CONTACT_FORM.pending : CONTACT_FORM.submit}
             </Button>
