@@ -24,7 +24,7 @@ export const SOCIAL_PROFILES: SocialProfile[] = [
     href: "https://noseryoung.ch/team-members/leon-hebeisen/",
     featured: true,
   },
-  { label: "Instagram", href: "https://www.instagram.com/lelelon225/" },
+  { label: "Instagram", href: "https://www.instagram.com/lee0._.0oon/" },
   { label: "X", href: "https://x.com/lee0_0oon" },
   { label: "Bluesky", href: "https://bsky.app/profile/lelelon225.bsky.social" },
 ];

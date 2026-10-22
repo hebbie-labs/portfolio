@@ -31,10 +31,9 @@ export const RECUR: Project = {
   video: "/projects/recur/showreel.mp4",
   views: [
     { label: "Aufgaben", image: "/projects/recur/home.png" },
-    // TODO: Platzhalter durch echte Screenshots ersetzen (public/projects/recur/placeholder/ danach löschen)
-    { label: "Kalender", image: "/projects/recur/placeholder/kalender.svg" },
-    { label: "Liste", image: "/projects/recur/placeholder/liste.svg" },
-    { label: "Gruppen", image: "/projects/recur/placeholder/gruppen.svg" },
+    { label: "Kalender", image: "/projects/recur/kalender.png" },
+    { label: "Liste", image: "/projects/recur/liste.png" },
+    { label: "Gruppen", image: "/projects/recur/gruppen.png" },
     { label: "Mobil", image: "/projects/recur/home-mobile.png", portrait: true },
   ],
 };

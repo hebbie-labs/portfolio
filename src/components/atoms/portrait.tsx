@@ -1,16 +1,15 @@
 import Image from "next/image";
 
-import { Label } from "@/components/atoms/typography";
 import { cn } from "@/lib/utils";
 
-/** Portrait (in `public/`); empty frame until `src` is set. Grey until hovered. */
+/** Portrait (in `public/`), grey until hovered. */
 export function Portrait({
   src,
   alt,
   className,
   preload,
 }: {
-  src?: string;
+  src: string;
   alt: string;
   className?: string;
   /** Load right away; for the portrait above the fold (LCP). */
@@ -23,20 +22,14 @@ export function Portrait({
         className,
       )}
     >
-      {src ? (
-        <Image
-          src={src}
-          alt={alt}
-          fill
-          preload={preload}
-          sizes="(min-width: 768px) 20rem, 10rem"
-          className="object-cover grayscale transition-[filter] duration-200 group-hover:grayscale-0"
-        />
-      ) : (
-        <Label className="absolute inset-0 grid place-items-center">
-          [Foto]
-        </Label>
-      )}
+      <Image
+        src={src}
+        alt={alt}
+        fill
+        preload={preload}
+        sizes="(min-width: 768px) 20rem, 10rem"
+        className="object-cover grayscale transition-[filter] duration-200 group-hover:grayscale-0"
+      />
     </div>
   );
 }
