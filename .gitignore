@@ -43,3 +43,6 @@ next-env.d.ts
 
 # animation plans (local only)
 plans/
+
+# playwright mcp output
+.playwright-mcp/

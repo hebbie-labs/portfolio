@@ -1,4 +1,4 @@
-import { ArrowTitleLink } from "@/components/molecules/home/arrow-title-link";
+import { ArrowTitleLink } from "@/components/atoms/arrow-title-link";
 import { PROJECTS_SECTION } from "@/constants/projects";
 
 export function ProjectEndCard() {

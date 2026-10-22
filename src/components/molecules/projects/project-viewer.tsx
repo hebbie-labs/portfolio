@@ -1,11 +1,10 @@
 "use client";
 
-import { useReducedMotion } from "motion/react";
-
-import { MediaFrame } from "@/components/molecules/shared/media-frame";
+import { MediaFrame } from "@/components/atoms/media-frame";
 import { Iphone } from "@/components/ui/iphone";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { PROJECT_TEXT } from "@/constants/projects";
+import { useMediaQuery } from "@/hooks/use-media-query";
 import type { Project } from "@/types/project";
 
 type Props = Pick<Project, "title" | "video" | "views"> & {
@@ -27,7 +26,7 @@ export function ProjectViewer({
   onSelect,
 }: Props) {
   const view = views[active] ?? views[0];
-  const reducedMotion = useReducedMotion();
+  const reducedMotion = useMediaQuery("(prefers-reduced-motion: reduce)");
 
   return (
     <div className="flex flex-col gap-4">

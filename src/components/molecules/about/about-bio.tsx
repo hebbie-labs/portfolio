@@ -1,6 +1,6 @@
 import { Reveal } from "@/components/atoms/reveal";
 import { Body } from "@/components/atoms/typography";
-import { RichText } from "@/components/molecules/about/rich-text";
+import { RichText } from "@/components/atoms/rich-text";
 import { ABOUT_BIO } from "@/constants/about";
 import { hasPlaceholder, richStrings } from "@/lib/content";
 

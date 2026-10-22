@@ -1,4 +1,3 @@
-import { Transition } from "@headlessui/react";
 import { AnimatedThemeToggler } from "@/components/ui/animated-theme-toggler";
 import { buttonVariants } from "@/components/ui/button";
 import { HyperText } from "@/components/ui/hyper-text";
@@ -13,10 +12,9 @@ export function NavBar({ open, setOpen, current }: NavMenuProps) {
     // pr-12 reserves the (absolute) theme toggler, so the closed pill is as wide as its items; min-w-max keeps the 54px intro pill clipping them instead of squeezing them onto the logo.
     <div className="relative flex min-w-max items-center pr-12">
       <Logo className="in-data-[intro=logo]:invisible" />
-      <Transition
-        as="span"
-        show={!open}
-        className="flex items-center gap-2 self-center pr-3 pl-3.5 font-mono text-xs whitespace-nowrap text-muted transition-opacity duration-200 data-closed:opacity-0"
+      <span
+        inert={open}
+        className="flex items-center gap-2 self-center pr-3 pl-3.5 font-mono text-xs whitespace-nowrap text-muted transition-opacity duration-200 inert:opacity-0"
       >
         <StatusDot className="size-1.5" />
         {/* HyperText scrambles its letters; screen readers get the plain label. */}
@@ -31,22 +29,21 @@ export function NavBar({ open, setOpen, current }: NavMenuProps) {
             {current.label}
           </HyperText>
         </span>
-      </Transition>
+      </span>
       <MenuButton
         open={open}
         onToggle={() => setOpen(!open)}
         className="ml-auto transition-transform duration-400 ease-out aria-expanded:translate-x-12"
       />
-      <Transition
-        as="div"
-        show={!open}
-        className="absolute right-0 transition-opacity duration-150 data-closed:opacity-0"
+      <div
+        inert={open}
+        className="absolute right-0 transition-opacity duration-150 inert:opacity-0"
       >
         <AnimatedThemeToggler
           aria-label={NAV_TEXT.themeToggle}
           className={buttonVariants({ size: "icon" })}
         />
-      </Transition>
+      </div>
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import { MediaFrame } from "@/components/molecules/shared/media-frame";
+import { MediaFrame } from "@/components/atoms/media-frame";
 import { PROJECT_TEXT } from "@/constants/projects";
 import type { Project } from "@/types/project";
 
