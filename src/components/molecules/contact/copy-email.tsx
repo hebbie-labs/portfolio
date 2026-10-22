@@ -31,8 +31,14 @@ export function CopyEmail() {
       ) : (
         <Copy aria-hidden className={ICON_SWAP_IN} />
       )}
-      <span aria-live="polite">
-        {copied ? EMAIL_TEXT.copiedLabel : EMAIL_TEXT.copyLabel}
+      {/* Both labels share one grid cell, so the button keeps the width of the longer one. */}
+      <span className="grid">
+        <span aria-hidden className="invisible col-start-1 row-start-1">
+          {EMAIL_TEXT.copyLabel}
+        </span>
+        <span aria-live="polite" className="col-start-1 row-start-1">
+          {copied ? EMAIL_TEXT.copiedLabel : EMAIL_TEXT.copyLabel}
+        </span>
       </span>
     </Button>
   );

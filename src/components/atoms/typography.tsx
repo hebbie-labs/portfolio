@@ -3,7 +3,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 
 import { cn } from "@/lib/utils";
 
-// A closed set: `ElementType` would also admit the three.js elements that @react-three/fiber adds to JSX.
+// A closed set of text tags instead of any `ElementType`.
 type Props<V = object> = V &
   ComponentProps<"p"> & { as?: "h1" | "h2" | "h3" | "p" | "span" | "div" };
 

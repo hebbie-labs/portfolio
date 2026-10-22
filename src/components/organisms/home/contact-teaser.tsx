@@ -1,6 +1,6 @@
 import { Reveal } from "@/components/atoms/reveal";
 import { Headline } from "@/components/atoms/typography";
-import { ArrowTitleLink } from "@/components/molecules/home/arrow-title-link";
+import { ArrowTitleLink } from "@/components/atoms/arrow-title-link";
 import { CONTACT_CTA } from "@/constants/contact";
 
 /** Closing block: question and a large link to the contact page. The parent provides the spacing. */

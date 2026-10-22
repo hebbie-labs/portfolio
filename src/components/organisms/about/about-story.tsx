@@ -1,6 +1,6 @@
 import { Reveal } from "@/components/atoms/reveal";
 import { Body } from "@/components/atoms/typography";
-import { RichText } from "@/components/molecules/about/rich-text";
+import { RichText } from "@/components/atoms/rich-text";
 import { AboutBio } from "@/components/molecules/about/about-bio";
 import { SkillCloud } from "@/components/molecules/about/skill-cloud";
 import { ABOUT_STORY } from "@/constants/about";

@@ -33,7 +33,7 @@ export function PortraitStack() {
               : "pointer-events-none opacity-0",
           )}
         >
-          <Portrait src={layer.src} alt={layer.alt} />
+          <Portrait src={layer.src} alt={layer.alt} preload={i === 0} />
         </div>
       ))}
     </div>
