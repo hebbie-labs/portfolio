@@ -14,17 +14,19 @@ Package manager is **pnpm** (pinned via `packageManager`; Docker uses corepack).
 
 ## Architecture
 
-German-language personal portfolio (Next.js 16, React 19, Tailwind v4, TypeScript). Routes are German (`/projekte`, `/kontakt`, `/impressum`) except `/about` and `/skills`.
+German-language personal portfolio (Next.js 16, React 19, Tailwind v4, TypeScript). Routes are German (`/projekte`, `/kontakt`, `/impressum`, `/datenschutz`) except `/about`.
 
-**Pages are thin.** Each `src/app/<route>/page.tsx` only renders a component from `src/components/pages/`. Several (projects, skills, …) are still `PlaceholderTemplate` stubs.
+**Pages are thin.** Each `src/app/<route>/page.tsx` only renders a component from `src/components/pages/` and sets its `metadata` from the page's constant.
 
-**Atomic layout under `src/components/`**: `atoms` → `molecules` → `organisms` → `templates` (+ `pages`, `providers`). `atoms/` is flat (page-independent); `molecules/` and `organisms/` are split per page area (`home`, `about`, `projects`, `contact`, `layout`, plus `molecules/shared` for parts used by several areas). A level only imports from the levels below it. `ui/` holds shadcn-style primitives (`components.json`: style `base-nova`, `@base-ui/react`, lucide icons, `@magicui` and `@react-bits` registries). Add shadcn components with the `shadcn` CLI so aliases (`@/components`, `@/lib/utils`, `@/hooks`) resolve.
+**Atomic layout under `src/components/`**: `atoms` → `molecules` → `organisms` → `templates` (+ `pages`, `providers`). `atoms/` is flat (page-independent; an atom may use another atom or `ui/`, e.g. `media-frame`, `rich-text`); `molecules/` and `organisms/` are split per page area (`home`, `about`, `projects`, `contact`, `layout`). A level only imports from the levels below it; a molecule that needs another molecule is an organism. Sub-parts of one organism may sit in its own folder (e.g. `organisms/layout/nav/`). `ui/` holds shadcn-style primitives (`components.json`: style `base-nova`, `@base-ui/react`, lucide icons, `@magicui` and `@react-bits` registries). Add shadcn components with the `shadcn` CLI so aliases (`@/components`, `@/lib/utils`, `@/hooks`) resolve.
 
 **`ui/` is vendored library code** (shadcn / Magic UI / React Bits, imported by the owner): handle with caution. Don't refactor, restyle or rewrite those files; adapt them from outside (wrapper in `atoms/`, `className`). Edit one only when the owner explicitly asks.
 
 **Buttons**: use `atoms/button.tsx` for every button-like action (variants: shadcn `default`/`outline`/`ghost`, plus `text` and `interactive`; links go through `render={<Link href />}` with `nativeButton={false}`). Don't use `ui/button` or `buttonVariants` directly, except to style `ui/` components that own their own element (e.g. `AnimatedThemeToggler`).
 
 **Shell**: `app/layout.tsx` → `MainTemplate` (`SmoothScroll` (Lenis), `Nav`, `Footer`). Page transitions come from `Reveal` (`atoms/reveal.tsx`, CSS in `globals.css`), which replays on every route change.
+
+**Transitions**: CSS first. Hover, press and state changes are Tailwind transitions on the `--ease-*` tokens; enter/exit of elements that stay mounted toggles `inert` and styles the hidden state with `inert:` (e.g. the nav panel), elements that mount use `starting:`. `motion` only where JS has to drive the value: scroll-linked transforms (`use-horizontal-scroll`), the intro sequence (`startup-intro`) and the vendored `ui/` components that ship with it. Reduced motion comes from `motion-safe:`/`motion-reduce:` or `useMediaQuery("(prefers-reduced-motion: reduce)")`. No other animation libraries.
 
 **Server side**: `src/server/` (`"use server"` entries the client calls, e.g. `sendContact`; export only those functions, each is a public POST endpoint), `src/validation/` (Yup schemas shared by form and server, plus the generic `validate` helper), `src/services/` (external APIs, e.g. Resend in `mail.ts`), `src/types/` (shared types). `src/lib/` holds only generic helpers (`utils`, `content`, theme, fonts, seo).
 
