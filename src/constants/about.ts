@@ -97,7 +97,7 @@ export const ABOUT_TIMELINE = {
         "Einführung in C mit der geliebten Linked List",
         "üK 187, um die Basics in Filesystemen und OS zu lernen",
         "üK 106, um Datenbanken zu verstehen und SQL zu lernen",
-        "üK 210, mit Arduino und ESP32 zum Umgang mit dem IoT und IoE",
+        "üK 216, mit Arduino und ESP32 zum Umgang mit dem IoT und IoE",
         "üK 294 und 295, um Backend und Frontend separat zu lernen.",
       ],
       image: {
