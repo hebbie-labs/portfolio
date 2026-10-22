@@ -4,7 +4,7 @@ import { motion } from "motion/react";
 
 import { ProjectEndCard } from "@/components/molecules/home/project-end-card";
 import { ProjectTitleCard } from "@/components/molecules/home/project-title-card";
-import { ProjectTeaser } from "@/components/molecules/home/project-teaser";
+import { ProjectTeaser } from "@/components/organisms/home/project-teaser";
 import { FEATURED_PROJECTS, PROJECTS_SECTION } from "@/constants/projects";
 import { useHorizontalScroll } from "@/hooks/use-horizontal-scroll";
 import { cn } from "@/lib/utils";

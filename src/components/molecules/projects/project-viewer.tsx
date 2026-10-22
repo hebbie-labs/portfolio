@@ -2,7 +2,7 @@
 
 import { useReducedMotion } from "motion/react";
 
-import { MediaFrame } from "@/components/molecules/shared/media-frame";
+import { MediaFrame } from "@/components/atoms/media-frame";
 import { Iphone } from "@/components/ui/iphone";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { PROJECT_TEXT } from "@/constants/projects";
