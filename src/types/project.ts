@@ -20,7 +20,7 @@ export type Project = {
   views: readonly ProjectView[];
 };
 
-/** One view of a project; the frame stays empty until `image` is set. */
+/** One view of a project: a screenshot or, for projects without a UI, a diagram. */
 export type ProjectView = {
   label: string;
   /** Screenshot in `public/`. */

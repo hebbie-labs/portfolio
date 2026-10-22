@@ -1,4 +1,4 @@
-// Content of the about page, top to bottom. Texts in [brackets] are placeholders.
+// Content of the about page, top to bottom.
 // The skills for the icon cloud are in `skills.ts`.
 
 import type { TimelineItem } from "@/types/about";
@@ -76,7 +76,7 @@ export const ABOUT_BIO = [
   ".",
 ] as const satisfies readonly RichPart[];
 
-/** Detailed timeline on the about page, oldest first. Stations with a [placeholder] text stay hidden. */
+/** Detailed timeline on the about page, oldest first. */
 export const ABOUT_TIMELINE = {
   title: "Werdegang",
   items: [

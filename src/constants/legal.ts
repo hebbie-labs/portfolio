@@ -1,5 +1,5 @@
 // Content of the legal notice page (`/impressum`); the contact address is `EMAIL` in `site.ts`.
-// Texts in [brackets] are placeholders.
+//
 
 export const LEGAL_PAGE = {
   /** Tab title and search description (`metadata` in `app/impressum/page.tsx`). */

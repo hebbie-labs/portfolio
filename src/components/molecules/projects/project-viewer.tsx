@@ -17,7 +17,7 @@ type Props = Pick<Project, "title" | "video" | "views"> & {
 
 /**
  * MediaFrame showing the active view (the first one plays the project's video, the poster only with
- * reduced motion); a portrait view sits in a phone frame without a surrounding frame. Empty until the images are set. The tabs only show below `lg`,
+ * reduced motion); a portrait view sits in a phone frame without a surrounding frame. The tabs only show below `lg`,
  * where the frame does not stay in sight while the features scroll by; there the video gets its own tab, so the first view shows its screenshot.
  */
 export function ProjectViewer({

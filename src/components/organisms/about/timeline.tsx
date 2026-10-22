@@ -7,7 +7,6 @@ import { Reveal } from "@/components/atoms/reveal";
 import { Body, Display } from "@/components/atoms/typography";
 import { useTimelinePhoto } from "@/components/providers/timeline-photo";
 import { MIDDLE_LINE, useActiveRow } from "@/hooks/use-active-row";
-import { hasPlaceholder } from "@/lib/content";
 import { cn } from "@/lib/utils";
 import type { TimelineItem } from "@/types/about";
 
@@ -18,18 +17,11 @@ import type { TimelineItem } from "@/types/about";
  */
 export function Timeline({
   title,
-  items: all,
+  items,
 }: {
   title: string;
   items: readonly TimelineItem[];
 }) {
-  // Unfinished stations stay hidden; placeholder detail lines are dropped.
-  const items = all
-    .filter((i) => !hasPlaceholder(i.period, i.title, i.text))
-    .map((i) => ({
-      ...i,
-      details: i.details?.filter((d) => !hasPlaceholder(d)),
-    }));
   const [active, setActive] = useState(0);
   const { setPhoto } = useTimelinePhoto();
   const list = useRef<HTMLOListElement>(null);
