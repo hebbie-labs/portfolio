@@ -5,7 +5,7 @@ export const MIDDLE_LINE = { rootMargin: "-49% 0px -50% 0px" };
 
 /**
  * Calls `onEnter` for the row crossing the middle of the viewport, and `onAbove` once the list is scrolled back
- * below it (the first row leaves downwards). Attach the returned ref per row: `ref={(el) => { rows.current[i] = el }}`.
+ * below it (a row leaves while the first row sits below the middle). Attach the returned ref per row: `ref={(el) => { rows.current[i] = el }}`.
  * Pass stable callbacks (`useCallback`), or the observer is rebuilt on every render.
  */
 export function useActiveRow<T extends HTMLElement>(
@@ -21,7 +21,8 @@ export function useActiveRow<T extends HTMLElement>(
         const index = rows.current.indexOf(row);
         if (index < 0) continue;
         if (entry.isIntersecting) onEnter(index, row);
-        else if (index === 0 && entry.boundingClientRect.top > innerHeight / 2)
+        // Any row leaving counts, not just the first: a jump to the top skips the first row's own exit.
+        else if ((rows.current[0]?.getBoundingClientRect().top ?? 0) > innerHeight / 2)
           onAbove?.();
       }
     }, MIDDLE_LINE);
