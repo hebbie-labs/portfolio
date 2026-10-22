@@ -101,7 +101,7 @@ export const ABOUT_TIMELINE = {
         "üK 294 und 295, um Backend und Frontend separat zu lernen.",
       ],
       image: {
-        src: "/timeline-lehrjahr-1.jpg",
+        src: "/about/timeline-lehrjahr-1.jpg",
         alt: "Leon im ersten Lehrjahr bei Noser Young",
       },
     },
