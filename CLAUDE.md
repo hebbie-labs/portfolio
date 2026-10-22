@@ -52,7 +52,7 @@ German-language personal portfolio (Next.js 16, React 19, Tailwind v4, TypeScrip
 
 ## Reviews
 
-`[bracketed]` placeholders in content files (`src/constants/*`) and placeholder assets (e.g. a missing photo in `public/`) are work in progress: do **not** report them in reviews. The only exception is a review about shipping to `main` (prod, e.g. a `release/` or `hotfix/` PR), where unfilled placeholders and missing assets are blockers.
+Content has no placeholder mechanism: texts in `src/constants/*` are final and every referenced asset must exist in `public/`. A missing asset is a bug in any review and a blocker when shipping to `main` (prod, e.g. a `release/` or `hotfix/` PR).
 
 ## Deployment
 
