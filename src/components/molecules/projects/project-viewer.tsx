@@ -30,28 +30,27 @@ export function ProjectViewer({
 
   return (
     <div className="flex flex-col gap-4">
-      <div
-        key={active}
-        className="transition-opacity duration-200 ease-out starting:opacity-0"
-      >
-        {view?.portrait ? (
-          <div className="flex aspect-[12/7] justify-center">
-            <div className="aspect-[433/882] h-full">
-              <Iphone
-                src={view.image}
-                alt={PROJECT_TEXT.viewAlt(title, view.label)}
-              />
-            </div>
+      {view?.portrait ? (
+        <div
+          key={active}
+          className="flex aspect-[12/7] justify-center transition-opacity duration-200 ease-out starting:opacity-0"
+        >
+          <div className="aspect-[433/882] h-full">
+            <Iphone
+              src={view.image}
+              alt={PROJECT_TEXT.viewAlt(title, view.label)}
+            />
           </div>
-        ) : (
-          <MediaFrame
-            image={view?.image}
-            diagram={view?.diagram}
-            video={active === 0 && !reducedMotion ? video : undefined}
-            alt={PROJECT_TEXT.viewAlt(title, view?.label)}
-          />
-        )}
-      </div>
+        </div>
+      ) : (
+        <MediaFrame
+          image={view?.image}
+          diagram={view?.diagram}
+          video={active === 0 && !reducedMotion ? video : undefined}
+          alt={PROJECT_TEXT.viewAlt(title, view?.label)}
+          fadeKey={active}
+        />
+      )}
       {views.length > 1 && (
         <Tabs
           value={active}
