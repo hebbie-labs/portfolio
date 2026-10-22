@@ -5,7 +5,10 @@ Was nur Leon erledigen kann. Erledigtes abhaken, die Datei wird mit dem Release 
 ## Blocker
 
 - [ ] **Homelab: `RESEND_API_KEY` für den Prod-Service** – in `homelab/compose.yml` hat nur `portfolio-dev` den Key, `portfolio` (leonhebeisen.com) nicht. Ohne ihn schlägt das Kontaktformular nach dem Launch bei jeder Anfrage fehl.
-- [ ] **Timeline-Foto 1. Lehrjahr** bis Mi 28.10. nach `public/about/timeline-lehrjahr-1.jpg` legen (Hochformat, ca. 4:5). Fehlt es, wird das Bild aus `src/constants/about.ts` entfernt.
+- [ ] **Timeline-Fotos: OK von Noser Young einholen** (bis Mi 28.10.). Beide Fotos gehören Noser Young AG:
+  - 1. Lehrjahr: Instagram-Post „üK 216 Insights“ vom 7.11.2025, Slide 2 (https://www.instagram.com/p/DQv3rJUiLUt/?img_index=2). Am besten gleich das Original **ohne Textbanner** anfragen.
+  - 2. Lehrjahr: Portrait „leon_portraet_2026.jpg“ von der Profilseite (https://noseryoung.ch/team-members/leon-hebeisen/), bereits auf 4:5 zugeschnitten vorbereitet.
+  - Nach dem OK: Fotos Claude geben bzw. Bescheid sagen, dann landen sie als `public/about/timeline-lehrjahr-1.jpg` und `-2.jpg` in #52. Ohne OK werden die Bilder aus der Timeline entfernt.
 - [ ] **PRs mergen**, in dieser Reihenfolge: #50 → #51 → #52 → `feature/mvp-polish`. Danach wird `release/1.0.0` erstellt (Mi 28.10.).
 
 ## Prüfen
