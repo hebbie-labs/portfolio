@@ -56,17 +56,17 @@ export const ABOUT_BIO = [
   ", davor drückte ich die Bank an der ",
   {
     text: "Sekundarschule",
-    hint: "Grüsse an Märci und Jürg, für alle Hilfe.",
+    hint: "Grüsse an Märci und Jürg für alle Hilfe.",
   },
   ". Wenn ich nicht code, findet man mich meist bei ",
   {
     text: "Gitarre",
-    hint: "Spiele ich jetzt schon seit 2025, aber bin nicht so diszipliniert.",
+    hint: "Spiele ich jetzt schon seit 2025, bin aber nicht so diszipliniert.",
   },
   ", ",
   {
     text: "Fashion",
-    hint: "Meine Hauptausgabe, gefühlt jedes Monatslohns. (momentan)",
+    hint: "Meine Hauptausgabe, gefühlt jedes Monatslohns (momentan).",
   },
   " oder ",
   {
@@ -83,7 +83,7 @@ export const ABOUT_TIMELINE = {
     {
       period: "bis 2023",
       title: "Sekundarschule",
-      text: "Der Zusammenhalt der Klasse fehlt mir sehr und die Sachen die mir geblieben sind:",
+      text: "Der Zusammenhalt der Klasse fehlt mir sehr, und das sind die Sachen, die mir geblieben sind:",
       details: [
         "Das Abschlusslager in Yverdon-les-Bains",
         "Die Freundschaften, welche bis heute bestehen",
@@ -97,7 +97,7 @@ export const ABOUT_TIMELINE = {
         "Einführung in C mit der geliebten Linked List",
         "üK 187, um die Basics in Filesystemen und OS zu lernen",
         "üK 106, um Datenbanken zu verstehen und SQL zu lernen",
-        "üK 210, mit Arduino und ESP32 zum Umgang mit der IoT und IoE",
+        "üK 210, mit Arduino und ESP32 zum Umgang mit dem IoT und IoE",
         "üK 294 und 295, um Backend und Frontend separat zu lernen.",
       ],
       image: {
