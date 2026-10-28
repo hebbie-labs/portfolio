@@ -51,6 +51,8 @@ export function buildServerScene(
 ) {
   const accent = new THREE.Color(colors.accent);
   const muted = new THREE.Color(colors.muted);
+  // Idle color of the solid models: they can't fade, so they recede by color instead.
+  const dim = muted.clone().lerp(new THREE.Color(colors.line), 0.55);
 
   // Neutral white light: the tokens flip between themes, the shading shouldn't.
   const sun = new THREE.DirectionalLight(0xffffff, 1.2);
@@ -128,12 +130,82 @@ export function buildServerScene(
     return sprite;
   }
 
-  function wire() {
-    return new THREE.MeshBasicMaterial({
-      color: colors.muted,
-      wireframe: true,
-      transparent: true,
-    });
+  /** Material that takes the link's color: muted when idle, the accent when its step is on. */
+  function tinted<M extends THREE.Material & { color: THREE.Color }>(
+    material: M,
+  ) {
+    material.color.copy(muted);
+    material.userData.tint = true;
+    return material;
+  }
+
+  /** Globe: a shaded sphere with parallels and meridians, tilted like the earth and turning about its axis. */
+  function globe(at: THREE.Vector3) {
+    const r = 0.45;
+    const tilt = new THREE.Group();
+    const turn = new THREE.Group();
+    tilt.position.copy(at);
+    tilt.rotation.z = 0.41;
+    tilt.userData.spin = turn;
+    tilt.add(turn);
+    turn.add(
+      new THREE.Mesh(
+        new THREE.SphereGeometry(r, 32, 16),
+        new THREE.MeshLambertMaterial({ color: colors.line }),
+      ),
+    );
+    const lines = tinted(new THREE.LineBasicMaterial({ transparent: true }));
+    const circle = (radius: number) =>
+      new THREE.BufferGeometry().setFromPoints(
+        new THREE.EllipseCurve(0, 0, radius, radius).getPoints(64),
+      );
+    for (const lat of [-60, -30, 0, 30, 60]) {
+      const phi = THREE.MathUtils.degToRad(lat);
+      const parallel = new THREE.LineLoop(
+        circle(r * 1.01 * Math.cos(phi)),
+        lines,
+      );
+      parallel.rotation.x = Math.PI / 2;
+      parallel.position.y = r * 1.01 * Math.sin(phi);
+      turn.add(parallel);
+    }
+    for (let i = 0; i < 6; i++) {
+      const meridian = new THREE.LineLoop(circle(r * 1.01), lines);
+      meridian.rotation.y = (i * Math.PI) / 6;
+      turn.add(meridian);
+    }
+    return tilt;
+  }
+
+  /** Cloud: overlapping shaded spheres on a flat base, the classic cloud silhouette in 3D. */
+  function cloud(at: THREE.Vector3) {
+    const group = new THREE.Group();
+    group.position.copy(at);
+    const material = tinted(new THREE.MeshLambertMaterial());
+    for (const [x, y, r] of [
+      [-0.45, -0.08, 0.24],
+      [-0.18, 0.1, 0.34],
+      [0.2, 0.16, 0.4],
+      [0.52, -0.04, 0.26],
+    ]) {
+      const puff = new THREE.Mesh(
+        new THREE.SphereGeometry(r, 32, 16),
+        material,
+      );
+      puff.position.set(x, y, 0);
+      puff.scale.z = 0.8;
+      group.add(puff);
+    }
+    // Flat underside: a squashed capsule joining the puffs.
+    const base = new THREE.Mesh(
+      new THREE.CapsuleGeometry(0.22, 0.95, 8, 24),
+      material,
+    );
+    base.rotation.z = Math.PI / 2;
+    base.position.y = -0.12;
+    base.scale.set(1, 1, 0.8);
+    group.add(base);
+    return group;
   }
 
   // Server: body, hairline edges, Docker on top, one bay per container with its name and an LED.
@@ -171,27 +243,9 @@ export function buildServerScene(
     return material;
   });
 
-  function cloud() {
-    const group = new THREE.Group();
-    const material = wire();
-    for (const [x, y, r] of [
-      [-0.3, 0, 0.28],
-      [0, 0.12, 0.36],
-      [0.32, 0, 0.26],
-    ]) {
-      const puff = new THREE.Mesh(
-        new THREE.IcosahedronGeometry(r, 1),
-        material,
-      );
-      puff.position.set(x, y, 0);
-      group.add(puff);
-    }
-    return group;
-  }
-
   /**
    * A link: the curve through `points` in flow direction, particles flowing along it, and the
-   * objects (logos, labels, wireframes) that light up with it.
+   * objects (logos, labels, models) that light up with it.
    */
   function link(points: THREE.Vector3[], parts: THREE.Object3D[]) {
     const curve = new THREE.CatmullRomCurve3(points);
@@ -211,10 +265,13 @@ export function buildServerScene(
     const materials = new Set<THREE.Material>();
     for (const part of parts)
       part.traverse((o) => {
-        if (o instanceof THREE.Mesh || o instanceof THREE.Sprite)
-          materials.add(o.material);
+        if (
+          o instanceof THREE.Mesh ||
+          o instanceof THREE.Line ||
+          o instanceof THREE.Sprite
+        )
+          materials.add(o.material as THREE.Material);
       });
-    const spinning = parts.filter((p) => !(p instanceof THREE.Sprite));
     scene.add(
       new THREE.Line(
         new THREE.BufferGeometry().setFromPoints(curve.getPoints(64)),
@@ -224,35 +281,36 @@ export function buildServerScene(
       ...parts,
     );
     let strength = IDLE;
+    const spinning = parts.flatMap((p) => p.userData.spin ?? []);
     return (on: boolean, k: number, dt: number, time: number) => {
       strength += ((on ? 1 : IDLE) - strength) * k;
       lineMaterial.opacity = strength;
       particleMaterial.opacity = on ? strength : 0;
       for (const m of materials) {
-        m.opacity = Math.max(strength, FLOOR);
-        // Only the wireframes take the accent; logos keep their colors.
-        if (m instanceof THREE.MeshBasicMaterial && m.wireframe)
-          m.color.lerpColors(muted, accent, strength);
+        // Opaque models only change color, so their overlapping parts don't show through.
+        if (m.transparent) m.opacity = Math.max(strength, FLOOR);
+        // Only the tinted models take the accent; logos keep their colors.
+        if (m.userData.tint && "color" in m)
+          (m.color as THREE.Color).lerpColors(
+            m.transparent ? muted : dim,
+            accent,
+            strength,
+          );
       }
-      if (!still) for (const p of spinning) p.rotation.y += dt * 0.3;
+      if (!still) for (const p of spinning) p.rotation.y += dt * 0.25;
       particles.forEach((p, i) =>
         p.position.copy(curve.getPoint((time * 0.3 + i / PARTICLES) % 1)),
       );
     };
   }
 
-  const globe = new THREE.Mesh(new THREE.IcosahedronGeometry(0.42, 1), wire());
-  globe.position.set(-3, 1.3, -0.5);
-  const offsite = cloud();
-  offsite.position.set(3, 1.3, -0.5);
-
   const links = [
     // Tunnel: internet → Cloudflare → server, no port open at home.
     link(
       [v(-3, 1.3, -0.5), v(-1.7, 1.75, -0.2), v(-0.7, 0.8, 0)],
       [
-        globe,
-        label("Internet", v(-3, 0.7, -0.5)),
+        globe(v(-3, 1.3, -0.5)),
+        label("Internet", v(-3, 0.75, -0.5)),
         logo(logos.cloudflare, v(-1.7, 1.75, -0.2), 0.3),
         label("Cloudflare Tunnel", v(-1.7, 2.25, -0.2), 0.15, colors.accent),
         label("keine offenen Ports", v(-1.7, 2.05, -0.2), 0.12),
@@ -275,8 +333,8 @@ export function buildServerScene(
         logo(logos.postgres, v(1.4, 0.3, 0.9), 0.3),
         label("Datenbanken + Config", v(1.4, -0.02, 0.9), 0.12),
         label("nachts · Skript", v(2.2, 1.88, 0), 0.15, colors.accent),
-        offsite,
-        label("Off-Site-Kopie", v(3, 0.75, -0.5)),
+        cloud(v(3, 1.3, -0.5)),
+        label("Off-Site-Kopie", v(3, 0.8, -0.5)),
       ],
     ),
   ];
