@@ -7,6 +7,7 @@ import { Button } from "@/components/atoms/button";
 import { Reveal } from "@/components/atoms/reveal";
 import { Body } from "@/components/atoms/typography";
 import { ProjectActions } from "@/components/molecules/projects/project-actions";
+import { ProjectCarousel } from "@/components/molecules/projects/project-carousel";
 import { ProjectViewer } from "@/components/molecules/projects/project-viewer";
 import { PROJECT_TEXT } from "@/constants/projects";
 import { useActiveRow } from "@/hooks/use-active-row";
@@ -57,7 +58,8 @@ export function ProjectFeatureScroller({
   flip,
 }: Props) {
   const Scene = scene && SCENES[scene];
-  // Below `lg` a scene project shows only its text; the scene isn't even loaded there.
+  // Below `lg` the frame is hidden (a carousel shows the views, a scene project only its text); the scene isn't
+  // even loaded there.
   const wide = useMediaQuery("(min-width: 64rem)");
   const [view, setView] = useState(0);
   const [feature, setFeature] = useState(0);
@@ -95,7 +97,7 @@ export function ProjectFeatureScroller({
         className={cn(
           "lg:sticky lg:top-32 lg:self-start",
           flip && "lg:order-last",
-          Scene && "max-lg:hidden",
+          "max-lg:hidden",
         )}
       >
         <ProjectViewer
@@ -103,7 +105,6 @@ export function ProjectFeatureScroller({
           video={video}
           views={views}
           active={view}
-          onSelect={setView}
           scene={
             Scene &&
             wide && (
@@ -146,9 +147,12 @@ export function ProjectFeatureScroller({
                   <Button
                     variant="text"
                     onClick={() => select(i)}
+                    // Highlighted only from `lg`, where the frame follows the rows.
                     className={cn(
                       "w-full py-3 text-left transition-colors duration-300 lg:py-0 lg:text-2xl",
-                      i === feature ? "text-fg" : "text-muted hover:text-fg",
+                      i === feature
+                        ? "text-fg"
+                        : "lg:text-muted lg:hover:text-fg",
                     )}
                   >
                     {text}
@@ -156,6 +160,11 @@ export function ProjectFeatureScroller({
                 </li>
               ))}
             </ul>
+          </Reveal>
+        )}
+        {!Scene && (
+          <Reveal scroll className="lg:hidden">
+            <ProjectCarousel title={title} video={video} views={views} />
           </Reveal>
         )}
         <Reveal scroll className="flex flex-col gap-6">
