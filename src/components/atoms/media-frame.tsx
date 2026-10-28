@@ -28,14 +28,17 @@ export function MediaFrame({
   return (
     <figure
       className={cn(
-        "@container relative aspect-[12/7] overflow-hidden",
-        // A scene has no frame: it fades out into the page at its edges.
-        children
-          ? "[mask-image:radial-gradient(closest-side,black_78%,transparent)]"
-          : "rounded-xl border border-line bg-bg-2",
+        "@container relative aspect-[12/7]",
+        // A scene has no frame: it sits right on the page.
+        !children && "overflow-hidden rounded-xl border border-line bg-bg-2",
       )}
     >
-      {children ?? (
+      {children ? (
+        // Bleeds past the frame, so the scene gets more room; it has no edge to show.
+        <div className="pointer-events-none absolute -inset-x-[6%] -top-[14%] -bottom-[26%]">
+          {children}
+        </div>
+      ) : (
         <div
           key={fadeKey}
           className={cn(

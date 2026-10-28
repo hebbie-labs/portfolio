@@ -30,7 +30,9 @@ const SHOTS = [
   { azimuth: -0.1, target: new THREE.Vector3(-0.8, -0.1, 0) },
   { azimuth: 0.5, target: new THREE.Vector3(0.8, 0.4, 0) },
 ];
-const DISTANCE = 7.8;
+const DISTANCE = 7.6;
+/** Aspect the distance is set for; a narrower canvas moves the camera back, so the whole width still fits. */
+const ASPECT = 1.75;
 const PARTICLES = 4;
 /** Opacity of the links that aren't the current step's, so the whole setup stays readable. */
 const IDLE = 0.15;
@@ -57,9 +59,53 @@ export function buildServerScene(
   sun.position.set(3, 5, 4);
   scene.add(new THREE.HemisphereLight(0xffffff, 0x404040, 1.6), sun);
 
-  const grid = new THREE.GridHelper(14, 28, colors.line, colors.line);
-  grid.position.y = -1.11; // just below the server, so its bottom edges don't flicker
-  scene.add(grid);
+  scene.add(floor());
+
+  /**
+   * Floor grid in the accent that fades out towards its rim, so the scene has no edge and sits in the page.
+   * The lines are cut into short segments, each vertex carrying its own alpha.
+   */
+  function floor() {
+    const SIZE = 3.6;
+    const SEGMENT = 0.25;
+    const positions: number[] = [];
+    const alphas: number[] = [];
+    const add = (x: number, z: number) => {
+      positions.push(x, 0, z);
+      const r = Math.hypot(x, z) / SIZE;
+      alphas.push(0.35 * (1 - THREE.MathUtils.smootherstep(r, 0.15, 1)));
+    };
+    for (let a = -SIZE; a <= SIZE; a += 0.5)
+      for (let b = -SIZE; b < SIZE; b += SEGMENT) {
+        add(a, b);
+        add(a, b + SEGMENT);
+        add(b, a);
+        add(b + SEGMENT, a);
+      }
+    const geometry = new THREE.BufferGeometry();
+    geometry.setAttribute(
+      "position",
+      new THREE.Float32BufferAttribute(positions, 3),
+    );
+    const color = new THREE.Color(colors.accent);
+    geometry.setAttribute(
+      "color",
+      new THREE.Float32BufferAttribute(
+        alphas.flatMap((alpha) => [color.r, color.g, color.b, alpha]),
+        4,
+      ),
+    );
+    const grid = new THREE.LineSegments(
+      geometry,
+      new THREE.LineBasicMaterial({
+        vertexColors: true,
+        transparent: true,
+        depthWrite: false,
+      }),
+    );
+    grid.position.y = -1.11; // just below the server, so its bottom edges don't flicker
+    return grid;
+  }
 
   /** Canvas texture with one line of text; redrawn once the web font has loaded. */
   function textTexture(text: string, color: string, size = 64) {
@@ -384,10 +430,11 @@ export function buildServerScene(
     azimuth += (shot.azimuth - azimuth) * k;
     target.lerp(shot.target, k);
     const sway = still ? 0 : Math.sin(t * 0.4) * 0.05;
+    const distance = DISTANCE * Math.max(1, ASPECT / camera.aspect);
     camera.position.set(
-      Math.sin(azimuth + sway) * DISTANCE,
+      Math.sin(azimuth + sway) * distance,
       2.2,
-      Math.cos(azimuth + sway) * DISTANCE,
+      Math.cos(azimuth + sway) * distance,
     );
     camera.lookAt(target);
   };
