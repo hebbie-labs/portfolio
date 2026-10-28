@@ -12,8 +12,12 @@ export const PROJECTS_SECTION = {
 
 export const PROJECTS_PAGE = {
   title: "Projekte",
-  /** Tab title (`metadata` in `app/projekte/page.tsx`). */
-  meta: { title: "Projekte" },
+  /** Tab title and search description (`metadata` in `app/projekte/page.tsx`). */
+  meta: {
+    title: "Projekte",
+    description:
+      "Projekte von Leon Hebeisen: Recur, ein Habit- und Task-Tracker, und ein selbst gebauter Homeserver.",
+  },
 } as const;
 
 export const PROJECT_TEXT = {

@@ -49,6 +49,11 @@ jobs:
     steps:
       - run: docker compose -f /srv/homelab/compose.yml pull portfolio
       - run: docker compose -f /srv/homelab/compose.yml up -d portfolio
+      # IndexNow (Bing, Yandex, …): announce every sitemap URL; the key file is public/ef2c3e7c632c589fd2ef863297a1e555.txt
+      - run: |
+          urls=$(curl -fsS --retry 10 --retry-all-errors --retry-delay 3 https://leonhebeisen.com/sitemap.xml | grep -o '<loc>[^<]*' | sed 's/<loc>\(.*\)/"\1"/' | paste -sd, -)
+          curl -fsS -X POST https://api.indexnow.org/indexnow -H 'Content-Type: application/json; charset=utf-8' \
+            -d "{\"host\":\"leonhebeisen.com\",\"key\":\"ef2c3e7c632c589fd2ef863297a1e555\",\"urlList\":[$urls]}"
 
   deploy-dev:
     needs: publish

@@ -1,8 +1,9 @@
 import Script from "next/script";
+import { JsonLd } from "@/components/atoms/json-ld";
 import { MainTemplate } from "@/components/templates/main-template";
 import { FONT_VARIABLES } from "@/lib/fonts";
 import { INTRO_INIT_SCRIPT, THEME_INIT_SCRIPT } from "@/lib/init-scripts";
-import { JSON_LD } from "@/lib/seo";
+import { SITE_JSON_LD } from "@/lib/seo";
 import "./globals.css";
 
 export { metadata, viewport } from "@/lib/seo";
@@ -21,10 +22,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <Script id="intro-init" strategy="beforeInteractive">
           {INTRO_INIT_SCRIPT}
         </Script>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON_LD }}
-        />
+        <JsonLd data={SITE_JSON_LD} />
         <MainTemplate>{children}</MainTemplate>
       </body>
     </html>
