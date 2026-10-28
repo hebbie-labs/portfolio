@@ -175,42 +175,58 @@ export function buildServerScene(
     return tilt;
   }
 
-  /** Cloud: a flat, extruded cloud outline like the globe, a shaded body with hairline contours that light up. */
+  /**
+   * Cloud as contour lines: horizontal slices through a few overlapping puffs (flat underside), each slice drawn
+   * only where it is the cloud's surface. An invisible body (depth only) hides the slices behind it, so the lines
+   * alone read as a solid 3D cloud.
+   */
   function cloud(at: THREE.Vector3) {
     const group = new THREE.Group();
     group.position.copy(at);
     group.rotation.y = -0.35; // turned towards the server
-    group.scale.setScalar(1.2);
-    const shape = new THREE.Shape()
-      .moveTo(-0.5, -0.18)
-      .lineTo(0.5, -0.18)
-      .absarc(0.5, 0, 0.18, -Math.PI / 2, Math.PI * 0.6, false)
-      .absarc(0.08, 0.06, 0.3, Math.PI * 0.12, Math.PI * 0.85, false)
-      .absarc(-0.42, 0, 0.2, Math.PI * 0.4, Math.PI * 1.5, false);
-    const body = new THREE.ExtrudeGeometry(shape, {
-      depth: 0.22,
-      bevelEnabled: false,
-      curveSegments: 24,
-    }).translate(0, 0, -0.11);
-    const lines = tinted(new THREE.LineBasicMaterial({ transparent: true }));
-    group.add(
-      new THREE.Mesh(
-        body,
-        new THREE.MeshLambertMaterial({ color: colors.line }),
-      ),
-      new THREE.LineSegments(new THREE.EdgesGeometry(body, 30), lines),
-    );
-    // Inner contours on the front, so it reads as line art rather than a flat slab.
-    const outline = shape.getPoints(32);
-    for (const scale of [0.72, 0.44]) {
-      const contour = new THREE.LineLoop(
-        new THREE.BufferGeometry().setFromPoints(outline),
-        lines,
-      );
-      contour.scale.setScalar(scale);
-      contour.position.set(0.02, 0.02, 0.112);
-      group.add(contour);
+    const puffs = [
+      { c: v(-0.48, 0, 0), r: 0.26 },
+      { c: v(-0.12, 0.14, 0.02), r: 0.36 },
+      { c: v(0.28, 0.08, -0.04), r: 0.32 },
+      { c: v(0.58, -0.02, 0), r: 0.22 },
+      { c: v(0.06, 0, 0.2), r: 0.28 },
+    ];
+    const base = -0.14;
+    const inside = (p: THREE.Vector3, skip: number) =>
+      puffs.some(({ c, r }, j) => j !== skip && p.distanceTo(c) < r);
+    const points: THREE.Vector3[] = [];
+    const SEGMENTS = 72;
+    for (let y = base; y < 0.5; y += 0.07) {
+      puffs.forEach(({ c, r }, i) => {
+        const dy = y - c.y;
+        if (Math.abs(dy) >= r) return;
+        const ring = Math.sqrt(r * r - dy * dy);
+        const at = (k: number) => {
+          const a = (k / SEGMENTS) * Math.PI * 2;
+          return v(c.x + Math.cos(a) * ring, y, c.z + Math.sin(a) * ring);
+        };
+        for (let k = 0; k < SEGMENTS; k++) {
+          const [p, q] = [at(k), at(k + 1)];
+          if (!inside(p, i) && !inside(q, i)) points.push(p, q);
+        }
+      });
     }
+    const occluder = new THREE.MeshBasicMaterial({ colorWrite: false });
+    for (const { c, r } of puffs) {
+      const puff = new THREE.Mesh(
+        new THREE.SphereGeometry(r * 0.97, 24, 12),
+        occluder,
+      );
+      puff.position.copy(c);
+      puff.renderOrder = -1;
+      group.add(puff);
+    }
+    group.add(
+      new THREE.LineSegments(
+        new THREE.BufferGeometry().setFromPoints(points),
+        tinted(new THREE.LineBasicMaterial({ transparent: true })),
+      ),
+    );
     return group;
   }
 

@@ -12,7 +12,7 @@ type Props = {
   alt?: string;
   /** When it changes, the media fades in again while the frame stays. */
   fadeKey?: React.Key;
-  /** Drawn instead of the media and kept mounted across `fadeKey` changes (e.g. a 3D scene). */
+  /** Drawn instead of the media, without the frame, and kept mounted across `fadeKey` changes (e.g. a 3D scene). */
   children?: React.ReactNode;
 };
 
@@ -26,7 +26,15 @@ export function MediaFrame({
   children,
 }: Props) {
   return (
-    <figure className="@container relative aspect-[12/7] overflow-hidden rounded-xl border border-line bg-bg-2">
+    <figure
+      className={cn(
+        "@container relative aspect-[12/7] overflow-hidden",
+        // A scene has no frame: it fades out into the page at its edges.
+        children
+          ? "[mask-image:radial-gradient(closest-side,black_78%,transparent)]"
+          : "rounded-xl border border-line bg-bg-2",
+      )}
+    >
       {children ?? (
         <div
           key={fadeKey}
