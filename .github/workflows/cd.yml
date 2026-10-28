@@ -30,11 +30,10 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       # main -> :latest (www), dev -> :dev, see /srv/homelab/compose.yml
-      # main builds the 'placeholder' target until launch, switch back to 'run'
       - uses: docker/build-push-action@v6
         with:
           context: .
-          target: ${{ env.BRANCH == 'main' && 'placeholder' || 'dev' }}
+          target: ${{ env.BRANCH == 'main' && 'run' || 'dev' }}
           push: true
           tags: ghcr.io/hebbie-labs/portfolio:${{ env.BRANCH == 'main' && 'latest' || 'dev' }}
           cache-from: type=gha
