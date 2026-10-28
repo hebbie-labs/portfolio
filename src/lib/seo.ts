@@ -33,13 +33,32 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = { themeColor: THEME_COLOR };
 
-/** Person structured data; `<` is escaped so the string is safe inside a `<script>` tag. */
+/** Person and WebSite structured data; `<` is escaped so the string is safe inside a `<script>` tag. */
 export const JSON_LD: string = JSON.stringify({
   "@context": "https://schema.org",
-  "@type": "Person",
-  name: SITE_NAME,
-  url: SITE_URL,
-  jobTitle: JOB_TITLE,
-  worksFor: { "@type": "Organization", name: EMPLOYER },
-  sameAs: SOCIAL_LINKS,
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": `${SITE_URL}/#person`,
+      name: SITE_NAME,
+      url: SITE_URL,
+      image: `${SITE_URL}/about/portrait.jpg`,
+      jobTitle: JOB_TITLE,
+      worksFor: { "@type": "Organization", name: EMPLOYER },
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: "Bern",
+        addressCountry: "CH",
+      },
+      knowsAbout: ["Java", "Spring Boot", "React", "TypeScript", "Next.js"],
+      sameAs: SOCIAL_LINKS,
+    },
+    {
+      "@type": "WebSite",
+      name: SITE_NAME,
+      url: SITE_URL,
+      inLanguage: "de-CH",
+      publisher: { "@id": `${SITE_URL}/#person` },
+    },
+  ],
 }).replace(/</g, "\\u003c");
