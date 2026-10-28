@@ -4,14 +4,24 @@ import * as THREE from "three";
 export type SceneColors = Record<"bg" | "line" | "muted" | "accent", string>;
 
 /** SVG markup of the logos in the scene. */
-export type SceneLogos = Record<
-  "docker" | "cloudflare" | "github" | "postgres" | "nextjs" | "spring",
-  string
->;
+export type SceneLogos = Record<"docker" | "cloudflare" | "github", string>;
+
+/** Line icons on the bays (white SVG markup, tinted by the scene), one per container. */
+export type BayIcon =
+  | "globe"
+  | "code"
+  | "monitor"
+  | "cog"
+  | "database"
+  | "key"
+  | "container"
+  | "dashboard"
+  | "pickaxe";
 
 type Options = {
   colors: SceneColors;
   logos: SceneLogos;
+  icons: Record<BayIcon, string>;
   /** Font family for the labels (the site's mono font). */
   font: string;
   /** Current step, in the order of the homeserver views: 0 stack, 1 tunnel, 2 deploy, 3 backup. */
@@ -20,24 +30,60 @@ type Options = {
   still: boolean;
 };
 
-/** Containers of the stack, one per bay, top to bottom (homeserver text); a logo where one exists. */
-const CONTAINERS: { name: string; logo?: keyof SceneLogos }[] = [
-  { name: "portfolio", logo: "nextjs" },
-  { name: "recur", logo: "spring" },
-  { name: "recur-db", logo: "postgres" },
-  { name: "vaultwarden" },
-  { name: "minecraft" },
-  { name: "portainer" },
-  { name: "homepage" },
+/** The stack in the rack, grouped by project, top to bottom (homeserver text); every container gets a bay. */
+const STACK: { group: string; bays: { name: string; icon: BayIcon }[] }[] = [
+  {
+    group: "portfolio",
+    bays: [
+      { name: "www", icon: "globe" },
+      { name: "dev", icon: "code" },
+    ],
+  },
+  {
+    group: "recur",
+    bays: [
+      { name: "frontend", icon: "monitor" },
+      { name: "backend", icon: "cog" },
+      { name: "db", icon: "database" },
+    ],
+  },
+  {
+    group: "tools",
+    bays: [
+      { name: "vaultwarden", icon: "key" },
+      { name: "portainer", icon: "container" },
+      { name: "homepage", icon: "dashboard" },
+      { name: "minecraft", icon: "pickaxe" },
+    ],
+  },
 ];
-/** Bay of the database the backup starts from. */
-const DATABASE_BAY = 2;
-/** Server size: a tall rack standing on the floor at y = FLOOR_Y. */
-const [RACK_W, RACK_H, RACK_D] = [1.4, 3.1, 1.6];
 const FLOOR_Y = -1.1;
-/** Height of the first bay's center and the step between bays. */
-const [BAY_TOP, BAY_STEP] = [1.65, 0.38];
-const bayY = (i: number) => BAY_TOP - i * BAY_STEP;
+const [RACK_W, RACK_D] = [1.4, 1.6];
+/** Row heights in the rack: a group's header, a bay, the gap after a group, the padding at top and bottom. */
+const [HEADER, BAY, GAP, PAD] = [0.2, 0.27, 0.08, 0.16];
+/** Rows from the top of the rack (`y` is the row's center below the top), and the rack height they need. */
+const { rows: ROWS, height: RACK_H } = (() => {
+  const rows: {
+    y: number;
+    group: string;
+    bay?: { name: string; icon: BayIcon };
+  }[] = [];
+  let y = PAD;
+  for (const { group, bays } of STACK) {
+    rows.push({ y: y + HEADER / 2, group });
+    y += HEADER;
+    for (const bay of bays) {
+      rows.push({ y: y + BAY / 2, group, bay });
+      y += BAY;
+    }
+    y += GAP;
+  }
+  return { rows, height: y - GAP + PAD };
+})();
+const RACK_TOP = FLOOR_Y + RACK_H;
+/** Height of the database bay, where the backup starts. */
+const DATABASE_Y =
+  RACK_TOP - ROWS.find((r) => r.group === "recur" && r.bay?.name === "db")!.y;
 
 /** Camera angle and look-at point per step, turned towards the link that step is about. */
 const SHOTS = [
@@ -67,7 +113,7 @@ const v = (x: number, y: number, z: number) => new THREE.Vector3(x, y, z);
 export function buildServerScene(
   scene: THREE.Scene,
   camera: THREE.PerspectiveCamera,
-  { colors, logos, font, step, still }: Options,
+  { colors, logos, icons, font, step, still }: Options,
 ) {
   const accent = new THREE.Color(colors.accent);
   const muted = new THREE.Color(colors.muted);
@@ -322,7 +368,8 @@ export function buildServerScene(
     return group;
   }
 
-  // Server: a tall rack with hairline edges, Docker on top, one bay per container with logo, name and an LED.
+  // Server: a tall rack with hairline edges, Docker on top, the stack grouped by project. Each group has a header,
+  // each container a bay with its icon, name and an LED.
   const body = new THREE.BoxGeometry(RACK_W, RACK_H, RACK_D);
   const rack = new THREE.Mesh(
     body,
@@ -333,55 +380,62 @@ export function buildServerScene(
     new THREE.LineBasicMaterial({ color: colors.muted }),
   );
   rack.position.y = edges.position.y = FLOOR_Y + RACK_H / 2;
-  const top = FLOOR_Y + RACK_H;
   scene.add(
     rack,
     edges,
-    logo(logos.docker, v(0, top + 0.6, 0), 0.5),
-    label("docker compose", v(0, top + 0.25, 0), 0.15),
+    logo(logos.docker, v(0, RACK_TOP + 0.6, 0), 0.5),
+    label("docker compose", v(0, RACK_TOP + 0.25, 0), 0.15),
   );
   const front = RACK_D / 2;
-  const bayGeometry = new THREE.BoxGeometry(1.1, 0.28, 0.04);
-  const ledGeometry = new THREE.BoxGeometry(0.08, 0.08, 0.03);
+  const bayGeometry = new THREE.BoxGeometry(1.1, BAY - 0.06, 0.04);
+  const ledGeometry = new THREE.BoxGeometry(0.07, 0.07, 0.03);
   const bayMaterial = new THREE.MeshLambertMaterial({ color: colors.bg });
   const plane = new THREE.PlaneGeometry(1, 1);
-  const leds = CONTAINERS.map(({ name, logo: icon }, i) => {
-    const y = bayY(i);
-    const bay = new THREE.Mesh(bayGeometry, bayMaterial);
-    bay.position.set(0, y, front + 0.02);
-    const material = new THREE.MeshBasicMaterial({ color: colors.muted });
-    const led = new THREE.Mesh(ledGeometry, material);
-    led.position.set(0.42, y, front + 0.05);
-    scene.add(bay, led);
-    // Logo (if any) and name tag, left-aligned on the bay; the planes are 1 wide and scaled to their content.
-    let left = -0.47;
-    if (icon) {
-      const mark = new THREE.Mesh(
-        plane,
-        new THREE.MeshBasicMaterial({
-          map: svgTexture(logos[icon], (aspect) =>
-            mark.scale.set(0.16 * aspect, 0.16, 1),
-          ),
-          transparent: true,
-        }),
-      );
-      mark.scale.set(0.16, 0.16, 1);
-      mark.position.set(left + 0.08, y, front + 0.045);
-      scene.add(mark);
-      left += 0.2;
-    }
-    const { texture, aspect } = textTexture(name, colors.muted, 48);
-    const tag = new THREE.Mesh(
+
+  /** Text on the rack face, left-aligned at `x`; the plane is 1 wide and scaled to the text. */
+  function tag(
+    text: string,
+    x: number,
+    y: number,
+    height: number,
+    color: string,
+  ) {
+    const { texture, aspect } = textTexture(text, color, 48);
+    const mesh = new THREE.Mesh(
       plane,
       new THREE.MeshBasicMaterial({ map: texture, transparent: true }),
     );
-    const x = left;
-    tag.onBeforeRender = () => {
-      tag.scale.set(0.14 * aspect(), 0.14, 1);
-      tag.position.set(x + tag.scale.x / 2, y, front + 0.045);
+    mesh.onBeforeRender = () => {
+      mesh.scale.set(height * aspect(), height, 1);
+      mesh.position.set(x + mesh.scale.x / 2, y, front + 0.045);
     };
-    scene.add(tag);
-    return material;
+    return mesh;
+  }
+
+  const leds = ROWS.flatMap(({ y: below, group, bay }) => {
+    const y = RACK_TOP - below;
+    if (!bay) {
+      scene.add(tag(group, -0.55, y, 0.12, colors.accent));
+      return [];
+    }
+    const slot = new THREE.Mesh(bayGeometry, bayMaterial);
+    slot.position.set(0, y, front + 0.02);
+    const material = new THREE.MeshBasicMaterial({ color: colors.muted });
+    const led = new THREE.Mesh(ledGeometry, material);
+    led.position.set(0.44, y, front + 0.05);
+    // Icon: white line art, tinted to the muted color like the names.
+    const icon = new THREE.Mesh(
+      plane,
+      new THREE.MeshBasicMaterial({
+        map: svgTexture(icons[bay.icon], () => {}),
+        color: colors.muted,
+        transparent: true,
+      }),
+    );
+    icon.scale.set(0.14, 0.14, 1);
+    icon.position.set(-0.43, y, front + 0.045);
+    scene.add(slot, led, icon, tag(bay.name, -0.33, y, 0.12, colors.muted));
+    return [material];
   });
 
   /**
@@ -441,7 +495,7 @@ export function buildServerScene(
     };
   }
 
-  const db = bayY(DATABASE_BAY);
+  const db = DATABASE_Y;
   const links = [
     // Tunnel: internet → Cloudflare → server, no port open at home.
     link(
@@ -468,7 +522,7 @@ export function buildServerScene(
     link(
       [v(0.55, db, front + 0.06), v(1.9, 1.9, 0.4), v(2.7, 2, -0.5)],
       [
-        label("pg_dump + Volumes", v(1.3, db - 0.25, front), 0.12),
+        label("pg_dump + Volumes", v(1.35, db - 0.25, front), 0.12),
         label("rclone · nachts", v(1.9, 2.2, 0.4), 0.15, colors.accent),
         cloud(v(2.7, 2, -0.5)),
         label("Proton Drive", v(2.7, 1.5, -0.5)),
