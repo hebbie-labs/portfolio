@@ -16,6 +16,9 @@ export const metadata: Metadata = {
   description: SITE_DESCRIPTION,
   metadataBase: new URL(SITE_URL),
   alternates: { canonical: "./" },
+  // keep dev.leonhebeisen.com (runs `pnpm dev`) out of search results
+  robots:
+    process.env.NODE_ENV === "production" ? undefined : { index: false },
   openGraph: {
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
