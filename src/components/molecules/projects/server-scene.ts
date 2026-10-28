@@ -51,8 +51,6 @@ export function buildServerScene(
 ) {
   const accent = new THREE.Color(colors.accent);
   const muted = new THREE.Color(colors.muted);
-  // Idle color of the solid models: they can't fade, so they recede by color instead.
-  const dim = muted.clone().lerp(new THREE.Color(colors.line), 0.55);
 
   // Neutral white light: the tokens flip between themes, the shading shouldn't.
   const sun = new THREE.DirectionalLight(0xffffff, 1.2);
@@ -177,34 +175,42 @@ export function buildServerScene(
     return tilt;
   }
 
-  /** Cloud: overlapping shaded spheres on a flat base, the classic cloud silhouette in 3D. */
+  /** Cloud: a flat, extruded cloud outline like the globe, a shaded body with hairline contours that light up. */
   function cloud(at: THREE.Vector3) {
     const group = new THREE.Group();
     group.position.copy(at);
-    const material = tinted(new THREE.MeshLambertMaterial());
-    for (const [x, y, r] of [
-      [-0.45, -0.08, 0.24],
-      [-0.18, 0.1, 0.34],
-      [0.2, 0.16, 0.4],
-      [0.52, -0.04, 0.26],
-    ]) {
-      const puff = new THREE.Mesh(
-        new THREE.SphereGeometry(r, 32, 16),
-        material,
-      );
-      puff.position.set(x, y, 0);
-      puff.scale.z = 0.8;
-      group.add(puff);
-    }
-    // Flat underside: a squashed capsule joining the puffs.
-    const base = new THREE.Mesh(
-      new THREE.CapsuleGeometry(0.22, 0.95, 8, 24),
-      material,
+    group.rotation.y = -0.35; // turned towards the server
+    group.scale.setScalar(1.2);
+    const shape = new THREE.Shape()
+      .moveTo(-0.5, -0.18)
+      .lineTo(0.5, -0.18)
+      .absarc(0.5, 0, 0.18, -Math.PI / 2, Math.PI * 0.6, false)
+      .absarc(0.08, 0.06, 0.3, Math.PI * 0.12, Math.PI * 0.85, false)
+      .absarc(-0.42, 0, 0.2, Math.PI * 0.4, Math.PI * 1.5, false);
+    const body = new THREE.ExtrudeGeometry(shape, {
+      depth: 0.22,
+      bevelEnabled: false,
+      curveSegments: 24,
+    }).translate(0, 0, -0.11);
+    const lines = tinted(new THREE.LineBasicMaterial({ transparent: true }));
+    group.add(
+      new THREE.Mesh(
+        body,
+        new THREE.MeshLambertMaterial({ color: colors.line }),
+      ),
+      new THREE.LineSegments(new THREE.EdgesGeometry(body, 30), lines),
     );
-    base.rotation.z = Math.PI / 2;
-    base.position.y = -0.12;
-    base.scale.set(1, 1, 0.8);
-    group.add(base);
+    // Inner contours on the front, so it reads as line art rather than a flat slab.
+    const outline = shape.getPoints(32);
+    for (const scale of [0.72, 0.44]) {
+      const contour = new THREE.LineLoop(
+        new THREE.BufferGeometry().setFromPoints(outline),
+        lines,
+      );
+      contour.scale.setScalar(scale);
+      contour.position.set(0.02, 0.02, 0.112);
+      group.add(contour);
+    }
     return group;
   }
 
@@ -291,11 +297,7 @@ export function buildServerScene(
         if (m.transparent) m.opacity = Math.max(strength, FLOOR);
         // Only the tinted models take the accent; logos keep their colors.
         if (m.userData.tint && "color" in m)
-          (m.color as THREE.Color).lerpColors(
-            m.transparent ? muted : dim,
-            accent,
-            strength,
-          );
+          (m.color as THREE.Color).lerpColors(muted, accent, strength);
       }
       if (!still) for (const p of spinning) p.rotation.y += dt * 0.25;
       particles.forEach((p, i) =>
