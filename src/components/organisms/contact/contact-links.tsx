@@ -35,7 +35,7 @@ export function ContactLinks() {
             href={href}
             target="_blank"
             rel="noreferrer"
-            className="relative lnk after:absolute after:-inset-x-1 after:-inset-y-2 after:content-['']"
+            className="relative inline-block min-w-6 text-center lnk after:absolute after:-inset-x-1 after:-inset-y-2 after:content-['']"
           >
             {label}
           </a>

@@ -22,6 +22,7 @@ export const PROJECT_TEXT = {
   repoLabel: "GitHub",
   viewAlt: (title: string, view?: string) =>
     view ? `Screenshot von ${title}: ${view}` : `Screenshot von ${title}`,
+  carouselLabel: (title: string) => `Ansichten von ${title}`,
   slideLabel: (index: number, count: number, label: string) =>
     `Folie ${index} von ${count}: ${label}`,
   sceneAlt: (title: string, view?: string) =>

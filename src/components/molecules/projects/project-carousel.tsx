@@ -62,7 +62,12 @@ export function ProjectCarousel({ title, video, views, jump }: Props) {
 
   return (
     <div className="flex flex-col gap-2">
-      <div className="-mx-4 flex snap-x snap-mandatory scroll-px-4 [scrollbar-width:none] gap-4 overflow-x-auto overscroll-x-contain px-4 md:-mx-10 md:scroll-px-10 md:px-10">
+      <div
+        tabIndex={0}
+        role="region"
+        aria-label={PROJECT_TEXT.carouselLabel(title)}
+        className="-mx-4 flex snap-x snap-mandatory scroll-px-4 [scrollbar-width:none] gap-4 overflow-x-auto overscroll-x-contain px-4 md:-mx-10 md:scroll-px-10 md:px-10"
+      >
         {slides.map((slide, i) => (
           <figure
             key={slide.label}
