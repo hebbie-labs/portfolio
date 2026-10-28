@@ -8,15 +8,7 @@ export type SceneLogos = Record<"docker" | "cloudflare" | "github", string>;
 
 /** Line icons on the bays (white SVG markup, tinted by the scene), one per container. */
 export type BayIcon =
-  | "globe"
-  | "code"
-  | "monitor"
-  | "cog"
-  | "database"
-  | "key"
-  | "container"
-  | "dashboard"
-  | "pickaxe";
+  "globe" | "code" | "monitor" | "cog" | "database" | "pickaxe";
 
 type Options = {
   colors: SceneColors;
@@ -47,20 +39,12 @@ const STACK: { group: string; bays: { name: string; icon: BayIcon }[] }[] = [
       { name: "db", icon: "database" },
     ],
   },
-  {
-    group: "tools",
-    bays: [
-      { name: "vaultwarden", icon: "key" },
-      { name: "portainer", icon: "container" },
-      { name: "homepage", icon: "dashboard" },
-      { name: "minecraft", icon: "pickaxe" },
-    ],
-  },
+  { group: "minecraft", bays: [{ name: "server", icon: "pickaxe" }] },
 ];
 const FLOOR_Y = -1.1;
 const [RACK_W, RACK_D] = [1.4, 1.6];
 /** Row heights in the rack: a group's header, a bay, the gap after a group, the padding at top and bottom. */
-const [HEADER, BAY, GAP, PAD] = [0.2, 0.27, 0.08, 0.16];
+const [HEADER, BAY, GAP, PAD] = [0.17, 0.23, 0.06, 0.12];
 /** Rows from the top of the rack (`y` is the row's center below the top), and the rack height they need. */
 const { rows: ROWS, height: RACK_H } = (() => {
   const rows: {
@@ -87,10 +71,10 @@ const DATABASE_Y =
 
 /** Camera angle and look-at point per step, turned towards the link that step is about. */
 const SHOTS = [
-  { azimuth: 0.3, target: new THREE.Vector3(0, 0.7, 0) },
-  { azimuth: -0.12, target: new THREE.Vector3(-0.6, 1, 0) },
-  { azimuth: 0.05, target: new THREE.Vector3(-0.6, 0.7, 0) },
-  { azimuth: 0.25, target: new THREE.Vector3(0.3, 0.9, 0) },
+  { azimuth: 0.3, target: new THREE.Vector3(0, 0.35, 0) },
+  { azimuth: -0.12, target: new THREE.Vector3(-0.6, 0.7, 0) },
+  { azimuth: 0.05, target: new THREE.Vector3(-0.6, 0.35, 0) },
+  { azimuth: 0.25, target: new THREE.Vector3(0.3, 0.55, 0) },
 ];
 const DISTANCE = 8.4;
 /** Camera height: high enough to look down onto the floor, so it fills the canvas up to the top. */
@@ -387,7 +371,7 @@ export function buildServerScene(
     label("docker compose", v(0, RACK_TOP + 0.25, 0), 0.15),
   );
   const front = RACK_D / 2;
-  const bayGeometry = new THREE.BoxGeometry(1.1, BAY - 0.06, 0.04);
+  const bayGeometry = new THREE.BoxGeometry(1.1, BAY - 0.05, 0.04);
   const ledGeometry = new THREE.BoxGeometry(0.07, 0.07, 0.03);
   const bayMaterial = new THREE.MeshLambertMaterial({ color: colors.bg });
   const plane = new THREE.PlaneGeometry(1, 1);
@@ -415,7 +399,7 @@ export function buildServerScene(
   const leds = ROWS.flatMap(({ y: below, group, bay }) => {
     const y = RACK_TOP - below;
     if (!bay) {
-      scene.add(tag(group, -0.55, y, 0.12, colors.accent));
+      scene.add(tag(group, -0.55, y, 0.11, colors.accent));
       return [];
     }
     const slot = new THREE.Mesh(bayGeometry, bayMaterial);
@@ -432,9 +416,9 @@ export function buildServerScene(
         transparent: true,
       }),
     );
-    icon.scale.set(0.14, 0.14, 1);
+    icon.scale.set(0.12, 0.12, 1);
     icon.position.set(-0.43, y, front + 0.045);
-    scene.add(slot, led, icon, tag(bay.name, -0.33, y, 0.12, colors.muted));
+    scene.add(slot, led, icon, tag(bay.name, -0.35, y, 0.11, colors.muted));
     return [material];
   });
 
@@ -499,13 +483,13 @@ export function buildServerScene(
   const links = [
     // Tunnel: internet → Cloudflare → server, no port open at home.
     link(
-      [v(-2.7, 1.9, -0.5), v(-1.7, 2.4, -0.2), v(-0.7, 1.3, 0)],
+      [v(-2.7, 1.5, -0.5), v(-1.7, 2.0, -0.2), v(-0.7, 0.8, 0)],
       [
-        globe(v(-2.7, 1.9, -0.5)),
-        label("Internet", v(-2.7, 1.35, -0.5)),
-        logo(logos.cloudflare, v(-1.7, 2.4, -0.2), 0.3),
-        label("Cloudflare Tunnel", v(-1.7, 2.9, -0.2), 0.15, colors.accent),
-        label("keine offenen Ports", v(-1.7, 2.7, -0.2), 0.12),
+        globe(v(-2.7, 1.5, -0.5)),
+        label("Internet", v(-2.7, 0.95, -0.5)),
+        logo(logos.cloudflare, v(-1.7, 2.0, -0.2), 0.3),
+        label("Cloudflare Tunnel", v(-1.7, 2.5, -0.2), 0.15, colors.accent),
+        label("keine offenen Ports", v(-1.7, 2.3, -0.2), 0.12),
       ],
     ),
     // Deploy: git push → GitHub Actions → self-hosted runner on the server, which restarts the stack.
@@ -520,13 +504,13 @@ export function buildServerScene(
     ),
     // Backup: pg_dump of the database bay plus volumes, at night with rclone → Proton Drive, alerts via ntfy.
     link(
-      [v(0.55, db, front + 0.06), v(1.9, 1.9, 0.4), v(2.7, 2, -0.5)],
+      [v(0.55, db, front + 0.06), v(1.9, 1.5, 0.4), v(2.45, 1.6, -0.5)],
       [
         label("pg_dump + Volumes", v(1.35, db - 0.25, front), 0.12),
-        label("rclone · nachts", v(1.9, 2.2, 0.4), 0.15, colors.accent),
-        cloud(v(2.7, 2, -0.5)),
-        label("Proton Drive", v(2.7, 1.5, -0.5)),
-        label("Alarm via ntfy", v(2.7, 1.3, -0.5), 0.11),
+        label("rclone · nachts", v(1.9, 1.8, 0.4), 0.15, colors.accent),
+        cloud(v(2.45, 1.6, -0.5)),
+        label("Proton Drive", v(2.45, 1.1, -0.5)),
+        label("Alarm via ntfy", v(2.45, 0.9, -0.5), 0.11),
       ],
     ),
   ];

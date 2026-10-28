@@ -1,17 +1,7 @@
 "use client";
 
 import { Cloudflare, Docker, GitHubDark, GitHubLight } from "developer-icons";
-import {
-  Code,
-  Cog,
-  Container,
-  Database,
-  Globe,
-  KeyRound,
-  LayoutDashboard,
-  Monitor,
-  Pickaxe,
-} from "lucide-react";
+import { Code, Cog, Database, Globe, Monitor, Pickaxe } from "lucide-react";
 import { useCallback, useEffect, useRef } from "react";
 
 import { ThreeCanvas, type SceneSetup } from "@/components/atoms/three-canvas";
@@ -46,9 +36,6 @@ const ICONS = {
   monitor: Monitor,
   cog: Cog,
   database: Database,
-  key: KeyRound,
-  container: Container,
-  dashboard: LayoutDashboard,
   pickaxe: Pickaxe,
 } as const;
 
