@@ -71,14 +71,14 @@ const DATABASE_Y =
 
 /** Camera angle and look-at point per step, turned towards the link that step is about. */
 const SHOTS = [
-  { azimuth: 0.3, target: new THREE.Vector3(0, 0.35, 0) },
-  { azimuth: -0.12, target: new THREE.Vector3(-0.6, 0.7, 0) },
-  { azimuth: 0.05, target: new THREE.Vector3(-0.6, 0.35, 0) },
-  { azimuth: 0.25, target: new THREE.Vector3(0.3, 0.55, 0) },
+  { azimuth: 0.3, target: new THREE.Vector3(0, 1, 0) },
+  { azimuth: -0.12, target: new THREE.Vector3(-0.6, 1.3, 0) },
+  { azimuth: 0.05, target: new THREE.Vector3(-0.6, 1, 0) },
+  { azimuth: 0.25, target: new THREE.Vector3(0.3, 1.2, 0) },
 ];
-const DISTANCE = 8.4;
+const DISTANCE = 10;
 /** Camera height: high enough to look down onto the floor, so it fills the canvas up to the top. */
-const HEIGHT = 3.8;
+const HEIGHT = 4.5;
 /** Aspect the distance is set for; a narrower canvas moves the camera back, so the whole width still fits. */
 const ASPECT = 1.75;
 const PARTICLES = 4;
