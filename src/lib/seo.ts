@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { PROJECTS } from "@/constants/projects";
 import {
   EMPLOYER,
   JOB_TITLE,
@@ -10,6 +11,10 @@ import {
   THEME_COLOR,
 } from "@/constants/site";
 
+const SHARE_IMAGE = { url: "/opengraph-image", width: 1200, height: 630 };
+
+const OPEN_GRAPH = { siteName: SITE_NAME, locale: "de_CH", type: "website" };
+
 export const metadata: Metadata = {
   icons: { icon: "./logo.svg" },
   title: { default: SITE_TITLE, template: `%s | ${SITE_NAME}` },
@@ -17,12 +22,10 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   alternates: { canonical: "./" },
   openGraph: {
+    ...OPEN_GRAPH,
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
     url: SITE_URL,
-    siteName: SITE_NAME,
-    locale: "de_CH",
-    type: "website",
   },
   twitter: {
     card: "summary_large_image",
@@ -33,13 +36,44 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = { themeColor: THEME_COLOR };
 
-/** Person and WebSite structured data; `<` is escaped so the string is safe inside a `<script>` tag. */
-export const JSON_LD: string = JSON.stringify({
+/**
+ * Metadata of a subpage. Open Graph and Twitter don't inherit `title`/`description`,
+ * so without this every page would share the start page's. Setting them drops the
+ * `app/opengraph-image.tsx` image, so it is linked again.
+ */
+export function pageMetadata(
+  { title, description }: { title: string; description: string },
+  path: string,
+): Metadata {
+  const fullTitle = `${title} | ${SITE_NAME}`;
+  return {
+    title,
+    description,
+    openGraph: {
+      ...OPEN_GRAPH,
+      title: fullTitle,
+      description,
+      url: path,
+      images: SHARE_IMAGE,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: fullTitle,
+      description,
+      images: SHARE_IMAGE,
+    },
+  };
+}
+
+const PERSON = { "@id": `${SITE_URL}/#person` };
+
+/** Person and WebSite structured data, on every page (`app/layout.tsx`). */
+export const SITE_JSON_LD = {
   "@context": "https://schema.org",
   "@graph": [
     {
       "@type": "Person",
-      "@id": `${SITE_URL}/#person`,
+      ...PERSON,
       name: SITE_NAME,
       url: SITE_URL,
       image: `${SITE_URL}/about/portrait.jpg`,
@@ -58,7 +92,44 @@ export const JSON_LD: string = JSON.stringify({
       name: SITE_NAME,
       url: SITE_URL,
       inLanguage: "de-CH",
-      publisher: { "@id": `${SITE_URL}/#person` },
+      publisher: PERSON,
     },
   ],
-}).replace(/</g, "\\u003c");
+};
+
+/** Structured data of one page, pointing to the Person from `SITE_JSON_LD`. */
+function webPage(type: string, path: string, extra?: object) {
+  return {
+    "@context": "https://schema.org",
+    "@type": type,
+    url: `${SITE_URL}${path}`,
+    inLanguage: "de-CH",
+    ...extra,
+  };
+}
+
+export const ABOUT_JSON_LD = webPage("ProfilePage", "/about", {
+  mainEntity: PERSON,
+});
+
+export const CONTACT_JSON_LD = webPage("ContactPage", "/kontakt", {
+  about: PERSON,
+});
+
+export const PROJECTS_JSON_LD = webPage("CollectionPage", "/projekte", {
+  mainEntity: {
+    "@type": "ItemList",
+    itemListElement: PROJECTS.map((project, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      item: {
+        "@type": "CreativeWork",
+        name: project.title,
+        description: project.summary,
+        url: `${SITE_URL}/projekte#${project.slug}`,
+        author: PERSON,
+        ...(project.repo && { sameAs: project.repo }),
+      },
+    })),
+  },
+});
