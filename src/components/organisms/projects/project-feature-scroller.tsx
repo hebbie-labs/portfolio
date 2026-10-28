@@ -4,6 +4,7 @@ import dynamic from "next/dynamic";
 import { useCallback, useState } from "react";
 
 import { Button } from "@/components/atoms/button";
+import { MediaFrame } from "@/components/atoms/media-frame";
 import { Reveal } from "@/components/atoms/reveal";
 import { Body } from "@/components/atoms/typography";
 import { ProjectActions } from "@/components/molecules/projects/project-actions";
@@ -58,8 +59,8 @@ export function ProjectFeatureScroller({
   flip,
 }: Props) {
   const Scene = scene && SCENES[scene];
-  // Below `md` the frame is hidden (a carousel shows the views, a scene project only its text); the scene isn't
-  // even loaded there.
+  // Below `md` the frame is hidden (a carousel shows the views, a scene project its first view as a still); the
+  // scene isn't even loaded there.
   const wide = useMediaQuery("(min-width: 48rem)");
   const [view, setView] = useState(0);
   const [feature, setFeature] = useState(0);
@@ -149,38 +150,48 @@ export function ProjectFeatureScroller({
                   }}
                   className="md:flex md:min-h-[40vh] md:items-center"
                 >
-                  <Button
-                    variant="text"
-                    onClick={() => {
-                      select(i);
-                      const target = viewOf(i);
-                      if (!wide && target >= 0) setJump({ view: target });
-                    }}
-                    // Highlighted only from `md`, where the frame follows the rows.
-                    className={cn(
-                      "w-full py-3 text-left transition-colors duration-300 md:py-0 lg:text-2xl",
-                      i === feature
-                        ? "text-fg"
-                        : "md:text-muted md:hover:text-fg",
-                    )}
-                  >
-                    {text}
-                  </Button>
+                  {Scene && !wide ? (
+                    // Nothing to switch to on a phone: the still below shows the whole setup.
+                    <span className="block py-3">{text}</span>
+                  ) : (
+                    <Button
+                      variant="text"
+                      onClick={() => {
+                        select(i);
+                        const target = viewOf(i);
+                        if (!wide && target >= 0) setJump({ view: target });
+                      }}
+                      // Highlighted only from `md`, where the frame follows the rows.
+                      className={cn(
+                        "w-full py-3 text-left transition-colors duration-300 md:py-0 lg:text-2xl",
+                        i === feature
+                          ? "text-fg"
+                          : "md:text-muted md:hover:text-fg",
+                      )}
+                    >
+                      {text}
+                    </Button>
+                  )}
                 </li>
               ))}
             </ul>
           </Reveal>
         )}
-        {!Scene && (
-          <Reveal scroll className="md:hidden">
+        <Reveal scroll className="md:hidden">
+          {Scene ? (
+            <MediaFrame
+              diagram={views[0]?.diagram}
+              alt={PROJECT_TEXT.viewAlt(title, views[0]?.label)}
+            />
+          ) : (
             <ProjectCarousel
               title={title}
               video={video}
               views={views}
               jump={jump}
             />
-          </Reveal>
-        )}
+          )}
+        </Reveal>
         <Reveal scroll className="flex flex-col gap-6">
           <ProjectActions url={url} repo={repo} />
         </Reveal>
