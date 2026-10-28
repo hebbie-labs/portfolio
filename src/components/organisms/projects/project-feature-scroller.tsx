@@ -37,14 +37,14 @@ type Props = Pick<
   | "views"
   | "scene"
 > & {
-  /** From `lg` the screen sits on the right, for rhythm between projects. */
+  /** From `md` the screen sits on the right, for rhythm between projects. */
   flip?: boolean;
 };
 
 /**
- * MediaFrame on the left, text on the right. From `lg` the frames stay pinned while the text scrolls;
+ * MediaFrame on the left, text on the right. From `md` the frames stay pinned while the text scrolls;
  * the feature row in the middle of the viewport is highlighted and switches the screen to its view;
- * from `lg` each row fills 40vh, so the views change slowly.
+ * from `md` each row fills 40vh, so the views change slowly.
  */
 export function ProjectFeatureScroller({
   title,
@@ -58,9 +58,9 @@ export function ProjectFeatureScroller({
   flip,
 }: Props) {
   const Scene = scene && SCENES[scene];
-  // Below `lg` the frame is hidden (a carousel shows the views, a scene project only its text); the scene isn't
+  // Below `md` the frame is hidden (a carousel shows the views, a scene project only its text); the scene isn't
   // even loaded there.
-  const wide = useMediaQuery("(min-width: 64rem)");
+  const wide = useMediaQuery("(min-width: 48rem)");
   const [view, setView] = useState(0);
   const [feature, setFeature] = useState(0);
   // Mobile: a tapped feature jumps the carousel to its view (a new object each tap, so the same one jumps again).
@@ -92,17 +92,17 @@ export function ProjectFeatureScroller({
       className={cn(
         "grid gap-10 lg:gap-16",
         flip
-          ? "lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)]"
-          : "lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]",
+          ? "md:grid-cols-[minmax(0,2fr)_minmax(0,3fr)]"
+          : "md:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]",
       )}
     >
       <Reveal
         scroll
         variant="scale"
         className={cn(
-          "lg:sticky lg:top-32 lg:self-start",
-          flip && "lg:order-last",
-          "max-lg:hidden",
+          "md:sticky md:top-32 md:self-start",
+          flip && "md:order-last",
+          "max-md:hidden",
         )}
       >
         <ProjectViewer
@@ -113,14 +113,14 @@ export function ProjectFeatureScroller({
           scene={
             Scene &&
             wide && (
-              // Bleeds past the frame: up and down, a little to the outside and from `lg` into the text column, so
+              // Bleeds past the frame: up and down, a little to the outside and into the text column, so
               // the floor runs under the features.
               <div
                 className={cn(
                   "pointer-events-none absolute inset-x-0 -inset-y-[30%]",
                   flip
-                    ? "lg:-right-[12%] lg:-left-[45%]"
-                    : "lg:-right-[45%] lg:-left-[12%]",
+                    ? "-right-[12%] -left-[45%]"
+                    : "-right-[45%] -left-[12%]",
                 )}
               >
                 <Scene
@@ -132,7 +132,7 @@ export function ProjectFeatureScroller({
           }
         />
       </Reveal>
-      <div className="flex min-w-0 flex-col gap-6 md:gap-8 lg:self-center">
+      <div className="flex min-w-0 flex-col gap-6 md:gap-8 md:self-center">
         <Reveal scroll className="flex flex-col gap-4">
           {description.map((paragraph) => (
             <Body key={paragraph}>{paragraph}</Body>
@@ -147,7 +147,7 @@ export function ProjectFeatureScroller({
                   ref={(el) => {
                     rows.current[i] = el;
                   }}
-                  className="lg:flex lg:min-h-[40vh] lg:items-center"
+                  className="md:flex md:min-h-[40vh] md:items-center"
                 >
                   <Button
                     variant="text"
@@ -156,12 +156,12 @@ export function ProjectFeatureScroller({
                       const target = viewOf(i);
                       if (!wide && target >= 0) setJump({ view: target });
                     }}
-                    // Highlighted only from `lg`, where the frame follows the rows.
+                    // Highlighted only from `md`, where the frame follows the rows.
                     className={cn(
-                      "w-full py-3 text-left transition-colors duration-300 lg:py-0 lg:text-2xl",
+                      "w-full py-3 text-left transition-colors duration-300 md:py-0 lg:text-2xl",
                       i === feature
                         ? "text-fg"
-                        : "lg:text-muted lg:hover:text-fg",
+                        : "md:text-muted md:hover:text-fg",
                     )}
                   >
                     {text}
@@ -172,7 +172,7 @@ export function ProjectFeatureScroller({
           </Reveal>
         )}
         {!Scene && (
-          <Reveal scroll className="lg:hidden">
+          <Reveal scroll className="md:hidden">
             <ProjectCarousel
               title={title}
               video={video}

@@ -15,7 +15,7 @@ type Props = Pick<Project, "title" | "video" | "views"> & {
 
 /**
  * MediaFrame showing the active view (the first one plays the project's video, the poster only with
- * reduced motion); a portrait view sits in a phone frame without a surrounding frame. Desktop only: below `lg`
+ * reduced motion); a portrait view sits in a phone frame without a surrounding frame. From `md` only: below it
  * the frame can't stay in sight while the features scroll by, there `ProjectCarousel` shows the views instead.
  */
 export function ProjectViewer({ title, video, views, active, scene }: Props) {
