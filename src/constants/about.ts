@@ -112,6 +112,10 @@ export const ABOUT_TIMELINE = {
       details: [
         "Frontend mit Next.js, React und TypeScript nach Atomic Design",
       ],
+      image: {
+        src: "/about/timeline-lehrjahr-2.jpg",
+        alt: "Portrait von Leon im zweiten Lehrjahr bei Noser Young",
+      },
     },
   ],
 } as const satisfies { title: string; items: readonly TimelineItem[] };
