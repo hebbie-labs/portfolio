@@ -31,6 +31,8 @@ const SHOTS = [
   { azimuth: 0.5, target: new THREE.Vector3(0.8, 0.4, 0) },
 ];
 const DISTANCE = 7.6;
+/** Camera height: high enough to look down onto the floor. */
+const HEIGHT = 3.2;
 /** Aspect the distance is set for; a narrower canvas moves the camera back, so the whole width still fits. */
 const ASPECT = 1.75;
 const PARTICLES = 4;
@@ -62,25 +64,31 @@ export function buildServerScene(
   scene.add(floor());
 
   /**
-   * Floor grid in the accent that fades out towards its rim, so the scene has no edge and sits in the page.
+   * Floor grid in the accent, reaching far to the back (horizon) and under the front edge; it fades out towards
+   * the horizon and the canvas edges, so the scene has no edge and sits in the page.
    * The lines are cut into short segments, each vertex carrying its own alpha.
    */
   function floor() {
-    const SIZE = 3.6;
     const SEGMENT = 0.25;
+    const [X, BACK, FRONT] = [7, 16, 7];
     const positions: number[] = [];
     const alphas: number[] = [];
     const add = (x: number, z: number) => {
       positions.push(x, 0, z);
-      const r = Math.hypot(x, z) / SIZE;
-      alphas.push(0.35 * (1 - THREE.MathUtils.smootherstep(r, 0.15, 1)));
+      // Fades towards the horizon; the canvas edges are faded in the shader below.
+      alphas.push(
+        0.3 * (1 - THREE.MathUtils.smootherstep(Math.hypot(x, z), 6, 16)),
+      );
     };
-    for (let a = -SIZE; a <= SIZE; a += 0.5)
-      for (let b = -SIZE; b < SIZE; b += SEGMENT) {
-        add(a, b);
-        add(a, b + SEGMENT);
-        add(b, a);
-        add(b + SEGMENT, a);
+    for (let x = -X; x <= X; x += 0.5)
+      for (let z = -BACK; z < FRONT; z += SEGMENT) {
+        add(x, z);
+        add(x, z + SEGMENT);
+      }
+    for (let z = -BACK; z <= FRONT; z += 0.5)
+      for (let x = -X; x < X; x += SEGMENT) {
+        add(x, z);
+        add(x + SEGMENT, z);
       }
     const geometry = new THREE.BufferGeometry();
     geometry.setAttribute(
@@ -95,14 +103,28 @@ export function buildServerScene(
         4,
       ),
     );
-    const grid = new THREE.LineSegments(
-      geometry,
-      new THREE.LineBasicMaterial({
-        vertexColors: true,
-        transparent: true,
-        depthWrite: false,
-      }),
-    );
+    const material = new THREE.LineBasicMaterial({
+      vertexColors: true,
+      transparent: true,
+      depthWrite: false,
+    });
+    // Fades the floor out towards the canvas edges (in screen space), so it never ends in a hard line there.
+    const resolution = { value: new THREE.Vector2(1, 1) };
+    material.onBeforeCompile = (shader) => {
+      shader.uniforms.resolution = resolution;
+      shader.fragmentShader = shader.fragmentShader
+        .replace("void main() {", "uniform vec2 resolution;\nvoid main() {")
+        .replace(
+          "#include <color_fragment>",
+          `#include <color_fragment>
+          vec2 uv = gl_FragCoord.xy / resolution;
+          float edge = min(min(uv.x, 1.0 - uv.x), min(uv.y, 1.0 - uv.y));
+          diffuseColor.a *= smoothstep(0.0, 0.22, edge);`,
+        );
+    };
+    const grid = new THREE.LineSegments(geometry, material);
+    grid.onBeforeRender = (renderer) =>
+      renderer.getDrawingBufferSize(resolution.value);
     grid.position.y = -1.11; // just below the server, so its bottom edges don't flicker
     return grid;
   }
@@ -276,6 +298,30 @@ export function buildServerScene(
     return group;
   }
 
+  /** Database: a cylinder of three stacked disks standing on the floor, its rings light up with the link. */
+  function database(at: THREE.Vector3) {
+    const [R, H] = [0.32, 0.75];
+    const group = new THREE.Group();
+    group.position.copy(at);
+    const body = new THREE.Mesh(
+      new THREE.CylinderGeometry(R, R, H, 48),
+      new THREE.MeshLambertMaterial({ color: colors.line }),
+    );
+    body.position.y = H / 2;
+    group.add(body);
+    const rings = tinted(new THREE.LineBasicMaterial({ transparent: true }));
+    const circle = new THREE.BufferGeometry().setFromPoints(
+      new THREE.EllipseCurve(0, 0, R * 1.01, R * 1.01).getPoints(64),
+    );
+    for (let i = 0; i <= 3; i++) {
+      const ring = new THREE.LineLoop(circle, rings);
+      ring.rotation.x = Math.PI / 2;
+      ring.position.y = (i * H) / 3;
+      group.add(ring);
+    }
+    return group;
+  }
+
   // Server: body, hairline edges, Docker on top, one bay per container with its name and an LED.
   const body = new THREE.BoxGeometry(1.4, 2.2, 1.6);
   scene.add(
@@ -392,11 +438,23 @@ export function buildServerScene(
     ),
     // Backup: databases and config, at night, by script → off-site cloud.
     link(
-      [v(1.4, 0.3, 0.9), v(2.2, 1.6, 0), v(3, 1.3, -0.5)],
+      [v(1.75, -0.3, 0.9), v(2.4, 1.2, 0.2), v(3, 1.3, -0.5)],
       [
-        logo(logos.postgres, v(1.4, 0.3, 0.9), 0.3),
-        label("Datenbanken + Config", v(1.4, -0.02, 0.9), 0.12),
-        label("nachts · Skript", v(2.2, 1.88, 0), 0.15, colors.accent),
+        database(v(1.75, -1.11, 0.9)),
+        // Cable along the floor into the server.
+        new THREE.Line(
+          new THREE.BufferGeometry().setFromPoints(
+            new THREE.CatmullRomCurve3([
+              v(1.45, -1.1, 0.95),
+              v(1.05, -1.1, 0.75),
+              v(0.71, -0.9, 0.55),
+            ]).getPoints(24),
+          ),
+          tinted(new THREE.LineBasicMaterial({ transparent: true })),
+        ),
+        logo(logos.postgres, v(1.75, -0.72, 1.26), 0.26),
+        label("Datenbanken + Config", v(2.55, -0.75, 0.9), 0.12),
+        label("nachts · Skript", v(1.75, 1.3, 0.3), 0.15, colors.accent),
         cloud(v(3, 1.3, -0.5)),
         label("Off-Site-Kopie", v(3, 0.8, -0.5)),
       ],
@@ -433,7 +491,7 @@ export function buildServerScene(
     const distance = DISTANCE * Math.max(1, ASPECT / camera.aspect);
     camera.position.set(
       Math.sin(azimuth + sway) * distance,
-      2.2,
+      HEIGHT,
       Math.cos(azimuth + sway) * distance,
     );
     camera.lookAt(target);

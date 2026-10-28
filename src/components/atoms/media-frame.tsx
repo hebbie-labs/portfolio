@@ -35,7 +35,7 @@ export function MediaFrame({
     >
       {children ? (
         // Bleeds past the frame, so the scene gets more room; it has no edge to show.
-        <div className="pointer-events-none absolute -inset-x-[6%] -top-[14%] -bottom-[26%]">
+        <div className="pointer-events-none absolute -inset-x-[6%] -top-[24%] -bottom-[34%]">
           {children}
         </div>
       ) : (
