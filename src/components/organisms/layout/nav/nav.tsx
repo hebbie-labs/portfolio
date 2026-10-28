@@ -20,7 +20,7 @@ export function Nav() {
   );
 
   return (
-    <div className="pointer-events-none fixed inset-x-4 top-(--nav-top) z-50 flex justify-center">
+    <header className="pointer-events-none fixed inset-x-4 top-(--nav-top) z-50 flex justify-center">
       <div
         id="menu"
         ref={menu}
@@ -34,6 +34,6 @@ export function Nav() {
         <NavBar open={open} setOpen={setOpen} current={current} />
         <NavPanel open={open} setOpen={setOpen} current={current} />
       </div>
-    </div>
+    </header>
   );
 }

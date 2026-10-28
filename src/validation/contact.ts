@@ -6,7 +6,12 @@ const { errors, fields } = CONTACT_FORM;
 
 /** Shared by the form (Formik) and the server action, which must not trust the client. */
 export const contactSchema = object({
-  name: string().trim().max(fields.name.maxLength).required(errors.name),
+  name: string()
+    .trim()
+    .max(fields.name.maxLength)
+    // one line: the name goes into the mail subject
+    .matches(/^[^\r\n]*$/, errors.name)
+    .required(errors.name),
   email: string()
     .trim()
     .max(fields.email.maxLength)

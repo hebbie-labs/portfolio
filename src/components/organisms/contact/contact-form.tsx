@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { Form, Formik, useFormikContext } from "formik";
+import { Field, Form, Formik, useFormikContext } from "formik";
 
 import { Reveal } from "@/components/atoms/reveal";
 import { Body, Headline } from "@/components/atoms/typography";
@@ -15,7 +15,7 @@ import { contactSchema } from "@/validation/contact";
 
 const { fields, success } = CONTACT_FORM;
 
-const initialValues = { name: "", email: "", message: "" };
+const initialValues = { name: "", email: "", message: "", website: "" };
 
 /** Moves focus to the first invalid field after a submit attempt. */
 function FocusFirstError() {
@@ -70,6 +70,14 @@ export function ContactForm() {
       {({ isSubmitting, status }) => (
         <Form noValidate className="flex flex-col gap-6">
           <FocusFirstError />
+          {/* Honeypot: hidden from people, bots fill it and the server drops the message. */}
+          <Field
+            name="website"
+            tabIndex={-1}
+            autoComplete="off"
+            aria-hidden
+            className="sr-only"
+          />
           {Object.entries(fields).map(([name, props]) => (
             <FormField key={name} name={name} {...props} />
           ))}

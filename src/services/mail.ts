@@ -10,6 +10,7 @@ type Mail = {
 
 /** Sends a plain-text mail via Resend; throws if the API rejects it. */
 export async function sendMail({ replyTo, ...mail }: Mail) {
+  if (!process.env.RESEND_API_KEY) throw new Error("RESEND_API_KEY is not set");
   const res = await fetch(RESEND_URL, {
     method: "POST",
     headers: {

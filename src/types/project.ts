@@ -16,9 +16,9 @@ export type Project = {
   repo?: string;
   /** Video in `public/`, played muted and looped as the first view (the poster with reduced motion). */
   video?: string;
-  /** Views on the screen, desktop and mobile; the first one is also the start page preview and the poster of `video`. Reference each by a feature, below `md` tabs switch them. */
+  /** Views on the screen, desktop and mobile; the first one is also the start page preview and the poster of `video`. Reference each by a feature; below `md` a carousel shows them and a tapped feature jumps to its view. */
   views: readonly ProjectView[];
-  /** 3D scene in the frame on the projects page instead of the views; the views then only name its steps (features, tabs), the first still feeds the start page preview. */
+  /** 3D scene in the frame on the projects page (from `md`) instead of the views; the views then only name its steps for the features. Below `md` and on the start page the first view stands in for it, so it needs media (e.g. a diagram). */
   scene?: "homeserver";
 };
 
