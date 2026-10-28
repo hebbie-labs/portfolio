@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { NAV_TEXT } from "@/constants/nav";
 import { cn } from "@/lib/utils";
 
 type Props = {
@@ -10,8 +11,11 @@ export function Logo({ className }: Props) {
   return (
     <Link
       href="/"
-      aria-label="Zur Startseite"
-      className={cn("flex shrink-0 size-11 items-center justify-center", className)}
+      aria-label={NAV_TEXT.homeLabel}
+      className={cn(
+        "flex size-11 shrink-0 items-center justify-center",
+        className,
+      )}
     >
       <LogoIcon className="h-8" />
     </Link>

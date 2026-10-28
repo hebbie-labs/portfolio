@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* Dark is the default theme; light only via [data-theme="light"]. */
+@custom-variant dark (&:where(:root:not([data-theme="light"]) *));
+
 :root {
   --bg: #0a0d0b;
   --bg-2: #111612;
@@ -9,6 +12,7 @@
   --fg: #e6ede8;
   --accent: #4fd88a;
   --accent-ink: #06120b;
+  --danger: #ff7b6b;
   --glass: rgba(17, 22, 18, 0.78);
   color-scheme: dark;
 }
@@ -22,8 +26,16 @@
   --fg: #0b110d;
   --accent: #0e7a4b;
   --accent-ink: #f2f7f3;
+  --danger: #b42318;
   --glass: rgba(226, 232, 227, 0.82);
   color-scheme: light;
+}
+
+/* `static`: always emitted as :root custom properties so plain CSS (keyframes) can use var(--ease-*). */
+@theme static {
+  --ease-spring: cubic-bezier(0.32, 0.72, 0, 1);
+  --ease-out: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
 }
 
 @theme inline {
@@ -36,6 +48,7 @@
   --color-fg: var(--fg);
   --color-accent: var(--accent);
   --color-accent-ink: var(--accent-ink);
+  --color-danger: var(--danger);
   --color-glass: var(--glass);
   --color-transparent: transparent;
   --color-current: currentColor;
@@ -47,10 +60,19 @@
   --text-display: clamp(4.875rem, 16vw, 17.5rem);
   --text-display--line-height: 0.82;
   --text-display--letter-spacing: -0.03em;
+  /* Start page name: two stacked lines sized so name, lead and button fill one screen (30rem = nav, padding, gaps, lead, button; 1.8 = two lines of 0.82 plus some air). The width cap keeps "HEBEISEN." (about 3.4em) inside the page padding; 28rem keeps it inside the 100rem content. */
+  --text-display-hero: clamp(
+    5rem,
+    min(calc((100dvh - 30rem) / 1.8), calc((100vw - 10rem) / 3.5)),
+    28rem
+  );
+  --text-display-hero--line-height: 0.82;
+  --text-display-hero--letter-spacing: -0.03em;
   --text-display-lg: clamp(4rem, 12vw, 12.5rem);
   --text-display-lg--line-height: 0.82;
   --text-display-lg--letter-spacing: -0.03em;
-  --text-display-md: clamp(3rem, 7.5vw, 6.5rem);
+  /* cqw: fits long project names into the preview card (an @container); without one it equals 20svw, so 7.5vw wins. */
+  --text-display-md: clamp(3rem, min(7.5vw, 20cqw), 6.5rem);
   --text-display-md--line-height: 0.86;
   --text-display-md--letter-spacing: -0.03em;
   --text-headline: clamp(1.875rem, 4vw, 3.75rem);
@@ -60,22 +82,21 @@
   --text-headline-sm--line-height: 1.05;
   --text-headline-sm--letter-spacing: -0.025em;
 
-  --ease-spring: cubic-bezier(0.32, 0.72, 0, 1);
-  --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
-  --default-transition-duration: 240ms;
-  --default-transition-timing-function: cubic-bezier(0.2, 0.7, 0.2, 1);
-
-  @keyframes page-in {
-    from {
-      opacity: 0;
-      transform: translateY(12px);
-    }
-  }
+  --default-transition-duration: 160ms;
+  --default-transition-timing-function: var(--ease-out);
 }
 
 html {
   background-color: var(--bg);
   scrollbar-gutter: stable;
+  /* Anchors and focused elements stay clear of the fixed nav pill. */
+  scroll-padding-top: calc(var(--nav-top) + var(--nav-h) + 1rem);
+}
+
+a,
+button {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
 @utility font-condensed {
@@ -83,7 +104,7 @@ html {
 }
 
 @utility page-x {
-  @apply px-4 md:px-20;
+  @apply px-4 md:px-10 lg:px-20 2xl:px-[max(5rem,calc((100%-100rem)/2))];
 }
 
 /* Fixed nav pill: distance from the viewport top and its height (p-1 + 44px bar + border). */
@@ -102,6 +123,17 @@ html {
   padding-top: calc(var(--nav-top) + var(--nav-h) + 3rem);
 }
 
+/**
+ * Widest browser frame (aspect 1203:753, see ui/safari.tsx) whose full height fits on one screen below the nav,
+ * so scrolled into view its bottom edge stays visible.
+ */
+@utility max-w-first-screen {
+  max-width: max(
+    28rem,
+    calc((100dvh - var(--nav-top) - var(--nav-h) - 3rem) * 1.6)
+  );
+}
+
 @utility lnk {
   border-bottom: 1px solid var(--line);
   padding: 8px 0 2px;
@@ -110,6 +142,9 @@ html {
     color: var(--accent);
     border-color: var(--accent);
   }
+  &:active {
+    opacity: 0.7;
+  }
 }
 
 :focus-visible {
@@ -117,19 +152,9 @@ html {
   outline-offset: 3px;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  [data-reveal] {
-    animation: none;
-  }
-
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
+/* The nav pill clips its content (overflow-hidden, 4px padding): keep the ring inside it. */
+#menu :focus-visible {
+  outline-offset: 0;
 }
 
 ::view-transition-old(root),
@@ -163,10 +188,11 @@ html[data-intro="logo"] footer {
   visibility: hidden;
 }
 
-/* Plays on every page load; paused behind the startup screen until `data-intro` leaves "logo". */
-[data-reveal] {
-  animation: reveal 700ms cubic-bezier(0.32, 0.72, 0, 1) backwards;
-  animation-delay: calc(var(--i, 0) * 120ms + 300ms);
+/* Plays on every page load and route change; paused behind the startup screen until `data-intro` leaves "logo". */
+[data-reveal]:not([data-scroll]),
+[data-reveal][data-in] {
+  animation: var(--reveal, reveal) 450ms var(--ease-spring) backwards;
+  animation-delay: calc(var(--i, 0) * 60ms);
 }
 
 html[data-intro="logo"] [data-reveal] {
@@ -177,14 +203,69 @@ html[data-intro="logo"] [data-reveal] {
   from {
     opacity: 0;
     transform: var(--from, translateY(32px));
-    filter: blur(var(--blur, 0));
   }
 }
 
+@keyframes reveal-blur {
+  from {
+    opacity: 0;
+    transform: var(--from, translateY(32px));
+    filter: blur(12px);
+  }
+}
+
+@keyframes reveal-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+/* `scroll`: hidden until the Reveal component sets `data-in` (when it enters the viewport), then plays the same animation (rule above). */
+[data-reveal][data-scroll]:not([data-in]) {
+  opacity: 0;
+}
+
+/* Visible on page load: start after the header reveals. */
+[data-reveal][data-scroll][data-in][data-load] {
+  animation-delay: calc(var(--i, 0) * 60ms + 200ms);
+}
+
 /* Reveal variants: only the hidden start state differs (see Reveal `variant`). */
-[data-reveal="down"] { --from: translateY(-32px); }
-[data-reveal="left"] { --from: translateX(-32px); }
-[data-reveal="right"] { --from: translateX(32px); }
-[data-reveal="fade"] { --from: none; }
-[data-reveal="scale"] { --from: scale(0.92); }
-[data-reveal="blur"] { --from: translateY(16px); --blur: 12px; }
+[data-reveal="down"] {
+  --from: translateY(-32px);
+}
+[data-reveal="left"] {
+  --from: translateX(-32px);
+}
+[data-reveal="right"] {
+  --from: translateX(32px);
+}
+[data-reveal="fade"] {
+  --from: none;
+}
+[data-reveal="scale"] {
+  --from: scale(0.92);
+}
+[data-reveal="blur"] {
+  --from: translateY(16px);
+  --reveal: reveal-blur;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* Movement goes; fades and colour changes stay. */
+  *,
+  *::before,
+  *::after {
+    transition-property: color, background-color, border-color, fill, stroke,
+      opacity, box-shadow, filter !important;
+    scroll-behavior: auto !important;
+  }
+
+  [data-reveal]:not([data-scroll]),
+  [data-reveal][data-in],
+  [data-reveal][data-scroll][data-in][data-load] {
+    --reveal: reveal-fade;
+    animation-duration: 200ms;
+    animation-delay: 0ms;
+  }
+}

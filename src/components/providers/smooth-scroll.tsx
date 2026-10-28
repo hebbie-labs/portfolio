@@ -1,7 +1,7 @@
 "use client";
 
 import { ReactLenis } from "lenis/react";
-import { useMediaQuery } from "@/hooks/useMediaQuery";
+import { useMediaQuery } from "@/hooks/use-media-query";
 import "lenis/dist/lenis.css";
 
 export function SmoothScroll() {

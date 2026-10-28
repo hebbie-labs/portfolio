@@ -3,98 +3,100 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Ausgewählte Arbeiten – Horizontal-Scroll</title>
+<title>Projekt-Sektion – Horizontal-Scroll</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&amp;family=Instrument+Sans:wdth,wght@75..100,400..700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap">
-<style>body{margin:0}</style>
-<style>body{margin:0;background:#0A0D0B}</style>
+<style>
+body{margin:0;background:#0A0D0B}
+.t-dark{--bg:#0A0D0B;--bg-2:#111612;--ph:#141B16;--line:#1E2721;--muted:#8D9A92;--fg:#E6EDE8;--accent:#4FD88A;--accent-ink:#06120B;--danger:#FF7B6B;--glass:rgba(17,22,18,0.78)}
+.t-light{--bg:#EEF2EE;--bg-2:#E2E8E3;--ph:#DCE4DE;--line:#C9D3CC;--muted:#56635B;--fg:#0B110D;--accent:#0E7A4B;--accent-ink:#F2F7F3;--danger:#B42318;--glass:rgba(226,232,227,0.82)}
+body:has(.t-light){background:#EEF2EE}
+.page{position:relative;background:var(--bg);color:var(--fg);font-family:'Instrument Sans',system-ui,sans-serif;font-size:16px;line-height:1.5}
+*{box-sizing:border-box}
+a{color:inherit;text-decoration:none}
+p,h1,h2,h3,figure,ul{margin:0}
+ul{padding:0;list-style:none}
+.px{padding-left:80px;padding-right:80px}
+.m .px{padding-left:16px;padding-right:16px}
+.mono{font-family:'JetBrains Mono',monospace}
+.muted{color:var(--muted)}
+.accent{color:var(--accent)}
+/* Typography: atoms/typography.tsx, sizes from globals.css at 1440 x 900 (desktop) and 390 x 844 (mobile) */
+.display{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-stretch:75%;text-transform:uppercase;letter-spacing:-0.03em;text-wrap:balance;overflow-wrap:break-word;min-width:0}
+.d-hero{font-size:233px;line-height:.82}
+.m .d-hero{font-size:101px}
+.d-lg{font-size:173px;line-height:.82}
+.m .d-lg{font-size:64px}
+.d-md{font-size:104px;line-height:.86}
+.m .d-md{font-size:48px}
+.headline{font-family:'Bricolage Grotesque',sans-serif;font-weight:600;font-size:58px;line-height:1.05;letter-spacing:-0.025em;text-wrap:balance}
+.m .headline{font-size:30px}
+.lead{font-size:28px;line-height:1.3;letter-spacing:-0.01em;text-wrap:pretty}
+.m .lead{font-size:20px}
+.body{font-size:18px;line-height:1.5;text-wrap:pretty}
+.m .body{font-size:16px}
+.label{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--muted)}
+.m .label{font-size:12px}
+/* Buttons: ui/button.tsx via atoms/button.tsx */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:44px;padding:0 20px;border-radius:999px;white-space:nowrap;font-size:16px;align-self:flex-start;transition:transform 160ms cubic-bezier(.25,1,.5,1),border-color 160ms,background 160ms}
+.btn:active{transform:scale(.98)}
+.btn-default{background:var(--accent);color:var(--accent-ink)}
+.btn-default:hover{transform:translateY(-2px)}
+.btn-outline{border:1px solid color-mix(in srgb,var(--muted) 70%,transparent)}
+.btn-outline:hover{border-color:var(--fg)}
+.btn-ghost{background:transparent;border:0;color:var(--fg);font:inherit;cursor:pointer;padding:0 12px}
+.btn-ghost:hover{background:var(--line)}
+.btn-icon{width:44px;padding:0}
+.lnk{border-bottom:1px solid var(--line);padding:8px 0 2px;transition:color 160ms,border-color 160ms}
+.lnk:hover{color:var(--accent);border-color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+/* Interactive: ui/interactive-hover-button.tsx (Magic UI) via atoms/button.tsx variant="interactive" */
+.btn-interactive{position:relative;display:inline-flex;align-self:flex-start;overflow:hidden;border:1px solid color-mix(in srgb,var(--muted) 70%,transparent);border-radius:999px;background:var(--bg);padding:8px 24px;font-weight:600}
+.btn-interactive .front{display:flex;align-items:center;gap:8px}
+.btn-interactive .front i{width:8px;height:8px;border-radius:999px;background:var(--accent);transition:transform 300ms}
+.btn-interactive .front span{transition:transform 300ms,opacity 300ms}
+.btn-interactive .back{position:absolute;inset:0;z-index:1;display:flex;align-items:center;justify-content:center;gap:8px;color:var(--accent-ink);opacity:0;transform:translateX(48px);transition:transform 300ms,opacity 300ms}
+.btn-interactive:hover .front i,.btn-interactive.hover .front i{transform:scale(100.8)}
+.btn-interactive:hover .front span,.btn-interactive.hover .front span{transform:translateX(48px);opacity:0}
+.btn-interactive:hover .back,.btn-interactive.hover .back{transform:translateX(-20px);opacity:1}
+/* Frames: molecules/shared/media-frame.tsx, atoms/portrait.tsx */
+.screen{position:relative;aspect-ratio:12/7;border:1px solid var(--line);border-radius:12px;background:var(--bg-2);overflow:hidden;display:grid;place-items:center;padding:24px;text-align:center}
+.portrait{aspect-ratio:4/5;width:100%;border-radius:12px;background:var(--bg-2);display:grid;place-items:center}
+.phone{aspect-ratio:433/882;height:100%;border:6px solid var(--line);border-radius:44px;background:var(--bg-2);display:grid;place-items:center;padding:16px;text-align:center}
+/* Nav: organisms/layout/nav/*.tsx */
+.nav-wrap{position:absolute;top:20px;left:0;right:0;z-index:20;display:flex;justify-content:center}
+.m .nav-wrap{top:16px}
+.pill{width:320px;padding:4px;border:1px solid var(--line);border-radius:27px;background:var(--glass);backdrop-filter:blur(14px);box-shadow:0 4px 12px rgba(0,0,0,.15)}
+.pill.open{width:358px;border-radius:28px;background:var(--bg-2);box-shadow:0 24px 60px rgba(0,0,0,.35)}
+.bar{display:flex;align-items:center}
+.logo{display:flex;width:44px;height:44px;flex-shrink:0;align-items:center;justify-content:center;color:var(--fg)}
+.dot{display:inline-block;border-radius:999px;background:var(--accent);flex-shrink:0}
+.cur{display:flex;align-items:center;gap:8px;padding:0 12px 0 14px;font-size:12px;white-space:nowrap}
+.navlink{display:flex;align-items:baseline;gap:14px;padding:8px 14px;border-radius:16px}
+.navlink .n{width:20px;font-size:12px}
+.navlink .t{flex-grow:1;font-family:'Bricolage Grotesque',sans-serif;font-weight:600;font-size:36px;line-height:1.05;transition:color 200ms,translate 200ms}
+.navlink:hover .t{color:var(--accent);translate:8px 0}
+.panel-foot{display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--line);padding:6px 4px 2px;font-size:12px}
+.title-link{display:flex;align-items:flex-end;gap:16px}
+.title-link:hover .display{color:var(--accent)}
+.title-link svg{color:var(--accent);flex-shrink:0}
+.feature{display:flex;align-items:center;min-height:360px;font-size:24px;border-top:1px solid var(--line)}
+.m .feature{min-height:0;padding:12px 0;font-size:16px}
+.features{border-bottom:1px solid var(--line)}
+.note{position:absolute;right:16px;bottom:16px;font-size:11px}
+@media (prefers-reduced-motion: reduce){*{transition:none!important}}
+</style>
 </head>
 <body>
-<div style="width: 3680px; height: 820px; box-sizing: border-box; padding: 0 80px; display: flex; font-family: 'Instrument Sans', system-ui, sans-serif; color: var(--fg, #E6EDE8); background: var(--bg, #0A0D0B);">
-
-<div style="width: 560px; flex-shrink: 0; height: 820px; box-sizing: border-box; padding: 72px 48px 56px 0; display: flex; flex-direction: column; justify-content: space-between;">
-<span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--muted, #8D9A92);">(02) Projekte im Detail</span>
-<h2 style="margin: 0; font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-stretch: 75%; font-size: 104px; line-height: 0.86; letter-spacing: -0.03em; text-transform: uppercase; overflow-wrap: anywhere; min-width: 0;">Ausge­wählte Arbeiten</h2>
-<div style="display: flex; flex-direction: column; gap: 20px;">
-<p style="margin: 0; max-width: 380px; font-size: 18px; line-height: 1.5; color: var(--muted, #8D9A92);">Zwei Projekte ausführlich. Weitere findest du am Ende der Reihe.</p>
-<span style="display: flex; align-items: center; gap: 10px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--accent, #4FD88A);">Seitwärts scrollen<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg></span>
-</div>
-</div>
-
-<article style="width: 1160px; flex-shrink: 0; height: 820px; box-sizing: border-box; padding: 72px 48px 56px; border-left: 1px solid var(--line, #1E2721); display: flex; flex-direction: column; gap: 32px;">
-<div style="display: flex; justify-content: space-between; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--muted, #8D9A92);"><span>01</span><span>Web-App · In Entwicklung</span></div>
-<h3 style="margin: 0; font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-stretch: 75%; font-size: 200px; line-height: 0.82; letter-spacing: -0.03em; text-transform: uppercase;">Recur</h3>
-<div style="display: grid; grid-template-columns: 640px minmax(0, 1fr); column-gap: 40px;">
-<figure style="margin: 0; height: 400px; box-sizing: border-box; background: var(--ph, #141B16); border: 1px solid var(--line, #1E2721); border-radius: 16px; display: flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--muted, #8D9A92);">[Screenshot: RECUR Dashboard · 16:10]</figure>
-<div style="display: flex; flex-direction: column; justify-content: space-between; min-width: 0;">
-<p style="margin: 0; font-size: 20px; line-height: 1.45;">Habit- und Task-Tracker mit Google-Login. Läuft im Browser und bald als iOS- und Android-App.</p>
-<ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--muted, #8D9A92);">
-<li style="padding: 6px 12px; border: 1px solid var(--line, #1E2721); border-radius: 999px;">React 19</li>
-<li style="padding: 6px 12px; border: 1px solid var(--line, #1E2721); border-radius: 999px;">TypeScript</li>
-<li style="padding: 6px 12px; border: 1px solid var(--line, #1E2721); border-radius: 999px;">Tailwind</li>
-<li style="padding: 6px 12px; border: 1px solid var(--line, #1E2721); border-radius: 999px;">shadcn/ui</li>
-<li style="padding: 6px 12px; border: 1px solid var(--line, #1E2721); border-radius: 999px;">Spring Boot</li>
-<li style="padding: 6px 12px; border: 1px solid var(--line, #1E2721); border-radius: 999px;">PostgreSQL</li>
-<li style="padding: 6px 12px; border: 1px solid var(--line, #1E2721); border-radius: 999px;">OAuth2 / JWT</li>
-<li style="padding: 6px 12px; border: 1px solid var(--line, #1E2721); border-radius: 999px;">Capacitor</li>
-</ul>
-<a href="03-case-recur-desktop.html" class="pill-link" style="align-self: flex-start; height: 52px; padding: 0 22px; border: 1px solid var(--fg, #E6EDE8); border-radius: 999px; display: inline-flex; align-items: center; gap: 10px; color: var(--fg, #E6EDE8); text-decoration: none; font-weight: 500; font-size: 16px;">Case Study ansehen<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg></a>
-</div>
-</div>
-</article>
-
-<article style="width: 1160px; flex-shrink: 0; height: 820px; box-sizing: border-box; padding: 72px 48px 56px; border-left: 1px solid var(--line, #1E2721); display: flex; flex-direction: column; gap: 32px;">
-<div style="display: flex; justify-content: space-between; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--muted, #8D9A92);"><span>02</span><span>Self-Hosting · Läuft</span></div>
-<h3 style="margin: 0; font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-stretch: 75%; font-size: 180px; line-height: 0.82; letter-spacing: -0.03em; text-transform: uppercase; padding-top: 16px;">Homeserver</h3>
-<div style="display: grid; grid-template-columns: 640px minmax(0, 1fr); column-gap: 40px;">
-<figure aria-label="Schema des Homeservers" style="margin: 0; height: 400px; box-sizing: border-box; padding: 24px; background: var(--ph, #141B16); border: 1px solid var(--line, #1E2721); border-radius: 16px; display: flex; flex-direction: column; gap: 0;">
-<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 16px;">
-<div style="padding: 12px 14px; background: var(--bg, #0A0D0B); border: 1px solid var(--line, #1E2721); border-radius: 12px;"><div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--muted, #8D9A92);">Unterwegs</div><div style="font-size: 15px; margin-top: 4px;">Tailscale (VPN)</div></div>
-<div style="padding: 12px 14px; background: var(--bg, #0A0D0B); border: 1px solid var(--line, #1E2721); border-radius: 12px;"><div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--muted, #8D9A92);">Internet</div><div style="font-size: 15px; margin-top: 4px;">Cloudflare Tunnel</div></div>
-</div>
-<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 16px; height: 40px; color: var(--muted, #8D9A92);">
-<svg width="100%" height="40" viewBox="0 0 280 40" preserveAspectRatio="xMidYMid meet" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M140 4v30"></path><path d="M134 28l6 6 6-6"></path></svg>
-<svg width="100%" height="40" viewBox="0 0 280 40" preserveAspectRatio="xMidYMid meet" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M140 4v30"></path><path d="M134 28l6 6 6-6"></path></svg>
-</div>
-<div style="padding: 16px; background: var(--bg, #0A0D0B); border: 1px solid var(--accent, #4FD88A); border-radius: 14px; display: flex; flex-direction: column; gap: 12px;">
-<div style="display: flex; justify-content: space-between; align-items: baseline;"><span style="font-size: 17px; font-weight: 600;">ThinkPad T580</span><span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--muted, #8D9A92);">Debian · Umbrel OS · Docker</span></div>
-<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 12px;">
-<div style="padding: 10px; border: 1px solid var(--line, #1E2721); border-radius: 10px;">Pi-hole</div>
-<div style="padding: 10px; border: 1px solid var(--line, #1E2721); border-radius: 10px;">RECUR</div>
-<div style="padding: 10px; border: 1px solid var(--line, #1E2721); border-radius: 10px;">cloudflared</div>
-</div>
-</div>
-<div style="height: 36px; color: var(--muted, #8D9A92); display: flex; justify-content: center;"><svg width="24" height="36" viewBox="0 0 24 36" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 30V4"></path><path d="M6 10l6-6 6 6"></path></svg></div>
-<div style="padding: 12px 14px; border: 1px dashed var(--line, #1E2721); border-radius: 12px; display: flex; justify-content: space-between; font-size: 14px;"><span>Heimnetz</span><span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--muted, #8D9A92);">alle Geräte nutzen Pi-hole als DNS</span></div>
-</figure>
-<div style="display: flex; flex-direction: column; justify-content: space-between; min-width: 0;">
-<p style="margin: 0; font-size: 20px; line-height: 1.45;">Ein ThinkPad als Server: Pi-hole blockt Werbung im ganzen Netz, eigene Apps laufen in Containern, Zugriff von unterwegs nur über Tailscale.</p>
-<ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--muted, #8D9A92);">
-<li style="padding: 6px 12px; border: 1px solid var(--line, #1E2721); border-radius: 999px;">Debian</li>
-<li style="padding: 6px 12px; border: 1px solid var(--line, #1E2721); border-radius: 999px;">Umbrel OS</li>
-<li style="padding: 6px 12px; border: 1px solid var(--line, #1E2721); border-radius: 999px;">Docker</li>
-<li style="padding: 6px 12px; border: 1px solid var(--line, #1E2721); border-radius: 999px;">Pi-hole</li>
-<li style="padding: 6px 12px; border: 1px solid var(--line, #1E2721); border-radius: 999px;">Tailscale</li>
-<li style="padding: 6px 12px; border: 1px solid var(--line, #1E2721); border-radius: 999px;">Cloudflare Tunnel</li>
-</ul>
-<span style="align-self: flex-start; height: 52px; padding: 0 22px; border: 1px solid var(--line, #1E2721); border-radius: 999px; display: inline-flex; align-items: center; color: var(--muted, #8D9A92); font-size: 16px;">Case Study folgt</span>
-</div>
-</div>
-</article>
-
-<div style="width: 640px; flex-shrink: 0; height: 820px; box-sizing: border-box; padding: 72px 0 56px 48px; border-left: 1px solid var(--line, #1E2721); display: flex; flex-direction: column; justify-content: space-between;">
-<div style="display: flex; flex-direction: column; gap: 20px;">
-<span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--muted, #8D9A92);">Archiv</span>
-<ul style="margin: 0; padding: 0; list-style: none;">
-<li style="display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding: 16px 0; border-top: 1px solid var(--line, #1E2721);"><span style="font-family: 'Bricolage Grotesque', sans-serif; font-weight: 600; font-size: 28px; letter-spacing: -0.02em;">OSV Sportsapp</span><span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--muted, #8D9A92);">Spring Boot · Keycloak</span></li>
-<li style="display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding: 16px 0; border-top: 1px solid var(--line, #1E2721);"><span style="font-family: 'Bricolage Grotesque', sans-serif; font-weight: 600; font-size: 28px; letter-spacing: -0.02em;">Roulette</span><span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--muted, #8D9A92);">TypeScript · WebSockets</span></li>
-<li style="display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding: 16px 0; border-top: 1px solid var(--line, #1E2721);"><span style="font-family: 'Bricolage Grotesque', sans-serif; font-weight: 600; font-size: 28px; letter-spacing: -0.02em;">PyPass</span><span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--muted, #8D9A92);">Python · SQLite</span></li>
-<li style="display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding: 16px 0; border-top: 1px solid var(--line, #1E2721);"><span style="font-family: 'Bricolage Grotesque', sans-serif; font-weight: 600; font-size: 28px; letter-spacing: -0.02em;">Movie DB</span><span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--muted, #8D9A92);">React · TMDB API</span></li>
-<li style="display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding: 16px 0; border-top: 1px solid var(--line, #1E2721); border-bottom: 1px solid var(--line, #1E2721);"><span style="font-family: 'Bricolage Grotesque', sans-serif; font-weight: 600; font-size: 28px; letter-spacing: -0.02em;">Little Bambus</span><span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--muted, #8D9A92);">Spring Boot · PostgreSQL</span></li>
-</ul>
-</div>
-<a href="#" class="big-link" style="display: flex; align-items: flex-end; gap: 16px; font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-stretch: 75%; font-size: 88px; line-height: 0.88; letter-spacing: -0.03em; text-transform: uppercase; color: var(--fg, #E6EDE8); text-decoration: none;">Alle<br>Projekte<svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color: var(--accent, #4FD88A); flex-shrink: 0;"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg></a>
-</div>
-
+<div class="t-dark page" style="min-height:900px">
+<div class="px" style="display:flex;height:900px;width:max-content"><div style="width:576px;flex-shrink:0;padding-right:48px;align-self:center"><h2 class="display d-md">Ausge&shy;wählte Arbeiten</h2></div><div style="width:648px;flex-shrink:0;padding-right:48px;padding-top:122px"><article style="display:flex;flex-direction:column;gap:16px">
+<figure class="screen label">[Erste Ansicht des Projekts: Screenshot, bei Projekten ohne UI ein Ablauf-Diagramm]</figure>
+<a href="03-projekte-desktop.html#projekt-1"><h3 class="display d-md">[Projekt 1]</h3></a>
+<p class="body muted" style="display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">[Kurzbeschreibung des Projekts in einem Satz, höchstens zwei Zeilen]</p>
+</article></div><div style="width:648px;flex-shrink:0;padding-right:48px;padding-top:122px"><article style="display:flex;flex-direction:column;gap:16px">
+<figure class="screen label">[Erste Ansicht des Projekts: Screenshot, bei Projekten ohne UI ein Ablauf-Diagramm]</figure>
+<a href="03-projekte-desktop.html#projekt-2"><h3 class="display d-md">[Projekt 2]</h3></a>
+<p class="body muted" style="display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">[Kurzbeschreibung des Projekts in einem Satz, höchstens zwei Zeilen]</p>
+</article></div><div style="flex-shrink:0;align-self:center"><a href="03-projekte-desktop.html" class="title-link"><span class="display d-md">Alle<br>Projekte</span><svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="stroke-width:2"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a></div></div>
 </div>
 </body>
 </html>

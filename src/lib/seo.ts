@@ -11,10 +11,11 @@ import {
 } from "@/constants/site";
 
 export const metadata: Metadata = {
-  title: SITE_TITLE,
+  icons: { icon: "./logo.svg" },
+  title: { default: SITE_TITLE, template: `%s | ${SITE_NAME}` },
   description: SITE_DESCRIPTION,
   metadataBase: new URL(SITE_URL),
-  alternates: { canonical: "/" },
+  alternates: { canonical: "./" },
   openGraph: {
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
@@ -22,26 +23,18 @@ export const metadata: Metadata = {
     siteName: SITE_NAME,
     locale: "de_CH",
     type: "website",
-    images: [
-      {
-        url: "/og.png",
-        width: 1200,
-        height: 630,
-        alt: `${SITE_NAME} – Portfolio`,
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
-    images: ["/og.png"],
   },
 };
 
 export const viewport: Viewport = { themeColor: THEME_COLOR };
 
-export const JSON_LD = JSON.stringify({
+/** Person structured data; `<` is escaped so the string is safe inside a `<script>` tag. */
+export const JSON_LD: string = JSON.stringify({
   "@context": "https://schema.org",
   "@type": "Person",
   name: SITE_NAME,

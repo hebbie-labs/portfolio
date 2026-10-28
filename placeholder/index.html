@@ -1,145 +1,321 @@
 <!doctype html>
 <html lang="de">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Leon Hebeisen – Website im Aufbau</title>
-<meta name="description" content="Leon Hebeisen, Lernender Applikationsentwickler EFZ. Die Website ist im Aufbau.">
-<meta name="theme-color" content="#0a0d0b">
-<link rel="icon" href="/logo.svg" type="image/svg+xml">
-<script>try{const r=document.documentElement;r.dataset.intro=sessionStorage.intro||matchMedia("(prefers-reduced-motion: reduce)").matches?"done":"logo"}catch{document.documentElement.dataset.intro="done"}</script>
-<style>
-  :root { --bg:#0a0d0b; --bg-2:#111612; --fg:#e6ede8; --muted:#8d9a92; --accent:#4fd88a; --line:#1e2721; --glass:rgba(17,22,18,.78); }
-  * { box-sizing: border-box; margin: 0; }
-  html { background: var(--bg); }
-  body {
-    min-height: 100svh; display: grid; place-content: center; gap: 1.5rem;
-    padding: 1rem; text-align: center;
-    background: var(--bg); color: var(--fg);
-    font: 1rem/1.6 system-ui, -apple-system, "Segoe UI", sans-serif;
-  }
-  h1 { font-size: clamp(2.5rem, 9vw, 5rem); line-height: 1.05; letter-spacing: -0.03em; }
-  .role { color: var(--muted); }
-  .status {
-    justify-self: center; padding: .35rem .9rem; border: 1px solid var(--line);
-    border-radius: 999px; color: var(--accent); font-size: .875rem;
-  }
-  nav { display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; }
-  a { color: var(--fg); text-underline-offset: .25em; }
-  a:hover, a:focus-visible { color: var(--accent); }
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Leon Hebeisen – Website im Aufbau</title>
+    <meta
+      name="description"
+      content="Leon Hebeisen, Lernender Applikationsentwickler EFZ. Die Website ist im Aufbau."
+    />
+    <meta name="theme-color" content="#0a0d0b" />
+    <link rel="icon" href="/logo.svg" type="image/svg+xml" />
+    <script>
+      try {
+        const r = document.documentElement;
+        r.dataset.intro =
+          sessionStorage.intro ||
+          matchMedia("(prefers-reduced-motion: reduce)").matches
+            ? "done"
+            : "logo";
+      } catch {
+        document.documentElement.dataset.intro = "done";
+      }
+    </script>
+    <style>
+      :root {
+        --bg: #0a0d0b;
+        --bg-2: #111612;
+        --fg: #e6ede8;
+        --muted: #8d9a92;
+        --accent: #4fd88a;
+        --line: #1e2721;
+        --glass: rgba(17, 22, 18, 0.78);
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+      }
+      html {
+        background: var(--bg);
+      }
+      body {
+        min-height: 100svh;
+        display: grid;
+        place-content: center;
+        gap: 1.5rem;
+        padding: 1rem;
+        text-align: center;
+        background: var(--bg);
+        color: var(--fg);
+        font:
+          1rem/1.6 system-ui,
+          -apple-system,
+          "Segoe UI",
+          sans-serif;
+      }
+      h1 {
+        font-size: clamp(2.5rem, 9vw, 5rem);
+        line-height: 1.05;
+        letter-spacing: -0.03em;
+      }
+      .role {
+        color: var(--muted);
+      }
+      .status {
+        justify-self: center;
+        padding: 0.35rem 0.9rem;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        color: var(--accent);
+        font-size: 0.875rem;
+      }
+      nav {
+        display: flex;
+        gap: 1.5rem;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      a {
+        color: var(--fg);
+        text-underline-offset: 0.25em;
+      }
+      a:hover,
+      a:focus-visible {
+        color: var(--accent);
+      }
 
-  html[data-intro="logo"] { overflow: hidden; }
-  html[data-intro="logo"], html[data-intro="logo"] body { background: var(--bg-2); }
+      html[data-intro="logo"] {
+        overflow: hidden;
+      }
+      html[data-intro="logo"],
+      html[data-intro="logo"] body {
+        background: var(--bg-2);
+      }
 
-  /* Not fixed: Safari tints its bars from fixed elements at the edges; body color drives them instead. */
-  #intro { position: absolute; inset: 0 0 auto; height: 100lvh; z-index: 100; display: none; align-items: center; justify-content: center; }
-  html[data-intro="logo"] #intro { display: flex; }
-  .screen { position: absolute; inset: 0; background: var(--bg-2); }
-  .stage { position: relative; }
-  .box { position: relative; display: flex; align-items: center; justify-content: center; width: 10rem; height: 10rem; }
-  .ring { position: absolute; inset: 0; border: 1px solid var(--line); border-radius: 50%; background: var(--glass); opacity: 0; }
-  .logo { position: relative; display: flex; opacity: 0; }
-  .logo svg { height: 6rem; fill: var(--fg); }
-  .name {
-    position: absolute; top: 100%; left: 50%; margin-top: 1.5rem; transform: translateX(-50%);
-    color: var(--muted); font: .875rem/1 ui-monospace, "SF Mono", Menlo, monospace;
-    letter-spacing: .3em; white-space: nowrap; opacity: 0;
-  }
-  @media (min-width: 48rem) {
-    .box { width: 13.5rem; height: 13.5rem; }
-    .logo svg { height: 8rem; }
-  }
+      /* Not fixed: Safari tints its bars from fixed elements at the edges; body color drives them instead. */
+      #intro {
+        position: absolute;
+        inset: 0 0 auto;
+        height: 100lvh;
+        z-index: 100;
+        display: none;
+        align-items: center;
+        justify-content: center;
+      }
+      html[data-intro="logo"] #intro {
+        display: flex;
+      }
+      .screen {
+        position: absolute;
+        inset: 0;
+        background: var(--bg-2);
+      }
+      .stage {
+        position: relative;
+      }
+      .box {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 10rem;
+        height: 10rem;
+      }
+      .ring {
+        position: absolute;
+        inset: 0;
+        border: 1px solid var(--line);
+        border-radius: 50%;
+        background: var(--glass);
+        opacity: 0;
+      }
+      .logo {
+        position: relative;
+        display: flex;
+        opacity: 0;
+      }
+      .logo svg {
+        height: 6rem;
+        fill: var(--fg);
+      }
+      .name {
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        margin-top: 1.5rem;
+        transform: translateX(-50%);
+        color: var(--muted);
+        font:
+          0.875rem/1 ui-monospace,
+          "SF Mono",
+          Menlo,
+          monospace;
+        letter-spacing: 0.3em;
+        white-space: nowrap;
+        opacity: 0;
+      }
+      @media (min-width: 48rem) {
+        .box {
+          width: 13.5rem;
+          height: 13.5rem;
+        }
+        .logo svg {
+          height: 8rem;
+        }
+      }
 
-  [data-reveal] { animation: reveal 700ms cubic-bezier(.32,.72,0,1) backwards; animation-delay: calc(var(--i, 0) * 120ms + 300ms); }
-  html[data-intro="logo"] [data-reveal] { animation-play-state: paused; }
-  @keyframes reveal { from { opacity: 0; transform: translateY(32px); } }
+      [data-reveal] {
+        animation: reveal 700ms cubic-bezier(0.32, 0.72, 0, 1) backwards;
+        animation-delay: calc(var(--i, 0) * 120ms + 300ms);
+      }
+      html[data-intro="logo"] [data-reveal] {
+        animation-play-state: paused;
+      }
+      @keyframes reveal {
+        from {
+          opacity: 0;
+          transform: translateY(32px);
+        }
+      }
 
-  @media (prefers-reduced-motion: reduce) {
-    [data-reveal] { animation: none; }
-  }
-</style>
-</head>
-<body>
-<div id="intro" aria-hidden="true">
-  <div class="screen"></div>
-  <div class="stage">
-    <div class="box">
-      <span class="ring"></span>
-      <span class="logo">
-        <svg viewBox="382 318 490 619"><path d="M382 342A24 24 0 0 1 406 318L436 318A24 24 0 0 1 460 342L460 679A24 24 0 0 0 484 703L542 703A24 24 0 0 1 566 727L566 859A24 24 0 0 1 542 883L518 883A24 24 0 0 1 494 859L494 787A24 24 0 0 0 470 763L406 763A24 24 0 0 1 382 739ZM494 503A24 24 0 0 1 518 479L542 479A24 24 0 0 1 566 503L566 596A24 24 0 0 0 590 620L770 620A24 24 0 0 0 794 596L794 503A24 24 0 0 1 818 479L848 479A24 24 0 0 1 872 503L872 913A24 24 0 0 1 848 937L818 937A24 24 0 0 1 794 913L794 706A24 24 0 0 0 770 682L518 682A24 24 0 0 1 494 658Z"/></svg>
-      </span>
+      @media (prefers-reduced-motion: reduce) {
+        [data-reveal] {
+          animation: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="intro" aria-hidden="true">
+      <div class="screen"></div>
+      <div class="stage">
+        <div class="box">
+          <span class="ring"></span>
+          <span class="logo">
+            <svg viewBox="382 318 490 619">
+              <path
+                d="M382 342A24 24 0 0 1 406 318L436 318A24 24 0 0 1 460 342L460 679A24 24 0 0 0 484 703L542 703A24 24 0 0 1 566 727L566 859A24 24 0 0 1 542 883L518 883A24 24 0 0 1 494 859L494 787A24 24 0 0 0 470 763L406 763A24 24 0 0 1 382 739ZM494 503A24 24 0 0 1 518 479L542 479A24 24 0 0 1 566 503L566 596A24 24 0 0 0 590 620L770 620A24 24 0 0 0 794 596L794 503A24 24 0 0 1 818 479L848 479A24 24 0 0 1 872 503L872 913A24 24 0 0 1 848 937L818 937A24 24 0 0 1 794 913L794 706A24 24 0 0 0 770 682L518 682A24 24 0 0 1 494 658Z"
+              />
+            </svg>
+          </span>
+        </div>
+        <p class="name">LEON HEBEISEN</p>
+      </div>
     </div>
-    <p class="name">LEON HEBEISEN</p>
-  </div>
-</div>
-<main>
-  <h1 data-reveal style="--i:0">Leon Hebeisen</h1>
-  <p class="role" data-reveal style="--i:1">Lernender Applikationsentwickler EFZ</p>
-</main>
-<p class="status" data-reveal style="--i:2">Website im Aufbau – bald hier.</p>
-<nav data-reveal style="--i:3">
-  <a href="mailto:contact@leonhebeisen.com">E-Mail</a>
-  <a href="https://github.com/lelelon225">GitHub</a>
-  <a href="https://www.linkedin.com/in/leonhebeisen">LinkedIn</a>
-</nav>
-<script>
-(() => {
-  const root = document.documentElement;
-  if (root.dataset.intro !== "logo") return;
+    <main>
+      <h1 data-reveal style="--i: 0">Leon Hebeisen</h1>
+      <p class="role" data-reveal style="--i: 1">
+        Lernender Applikationsentwickler EFZ
+      </p>
+    </main>
+    <p class="status" data-reveal style="--i: 2">
+      Website im Aufbau – bald hier.
+    </p>
+    <nav data-reveal style="--i: 3">
+      <a href="mailto:contact@leonhebeisen.com">E-Mail</a>
+      <a href="https://github.com/lelelon225">GitHub</a>
+      <a href="https://www.linkedin.com/in/leonhebeisen">LinkedIn</a>
+    </nav>
+    <script>
+      (() => {
+        const root = document.documentElement;
+        if (root.dataset.intro !== "logo") return;
 
-  const BG = "#0a0d0b", BG_2 = "#111612", EASE = "cubic-bezier(.65,0,.35,1)";
-  const intro = document.getElementById("intro");
-  const $ = (s) => intro.querySelector(s);
-  const meta = document.querySelector('meta[name="theme-color"]');
-  const at = (el, keyframes, delay, duration, extra) =>
-    el.animate(keyframes, { delay, duration, easing: "ease", fill: "both", ...extra });
+        const BG = "#0a0d0b",
+          BG_2 = "#111612",
+          EASE = "cubic-bezier(.65,0,.35,1)";
+        const intro = document.getElementById("intro");
+        const $ = (s) => intro.querySelector(s);
+        const meta = document.querySelector('meta[name="theme-color"]');
+        const at = (el, keyframes, delay, duration, extra) =>
+          el.animate(keyframes, {
+            delay,
+            duration,
+            easing: "ease",
+            fill: "both",
+            ...extra,
+          });
 
-  meta.content = BG_2;
+        meta.content = BG_2;
 
-  const name = $(".name");
-  const text = name.textContent;
-  const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-  setTimeout(() => {
-    const start = performance.now();
-    const tick = (now) => {
-      const progress = Math.min((now - start) / 1000, 1);
-      name.textContent = [...text]
-        .map((c, i) => (c === " " || i <= progress * text.length ? c : letters[Math.floor(Math.random() * letters.length)]))
-        .join("");
-      if (progress < 1) requestAnimationFrame(tick);
-    };
-    requestAnimationFrame(tick);
-  }, 300);
+        const name = $(".name");
+        const text = name.textContent;
+        const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        setTimeout(() => {
+          const start = performance.now();
+          const tick = (now) => {
+            const progress = Math.min((now - start) / 1000, 1);
+            name.textContent = [...text]
+              .map((c, i) =>
+                c === " " || i <= progress * text.length
+                  ? c
+                  : letters[Math.floor(Math.random() * letters.length)],
+              )
+              .join("");
+            if (progress < 1) requestAnimationFrame(tick);
+          };
+          requestAnimationFrame(tick);
+        }, 300);
 
-  // Screen closes into the ring, then ring + logo shrink away and the page reveals.
-  const radius = $(".box").offsetWidth / 2;
-  const full = Math.hypot(innerWidth, innerHeight);
-  const bg = [document.documentElement, document.body].map((el) =>
-    at(el, { backgroundColor: [BG_2, BG] }, 1000, 800, { easing: EASE }),
-  );
-  const timeline = [
-    ...bg,
-    at($(".logo"), { opacity: [0, 1], transform: ["scale(.9)", "scale(1)"] }, 0, 800),
-    at(name, { opacity: [0, 1, 1, 0], offset: [0, 0.4, 0.73, 1] }, 200, 1500),
-    at($(".screen"), { clipPath: [`circle(${full}px at 50% 50%)`, `circle(${radius}px at 50% 50%)`] }, 1000, 800, { easing: EASE }),
-    at($(".ring"), { opacity: [0, 1] }, 1800, 100),
-    at($(".screen"), { opacity: [1, 0] }, 1900, 100),
-    at($(".box"), { opacity: [1, 0], transform: ["scale(1)", "scale(.6)"] }, 2000, 600, { easing: EASE }),
-  ];
-  setTimeout(() => (meta.content = BG), 1000);
+        // Screen closes into the ring, then ring + logo shrink away and the page reveals.
+        const radius = $(".box").offsetWidth / 2;
+        const full = Math.hypot(innerWidth, innerHeight);
+        const bg = [document.documentElement, document.body].map((el) =>
+          at(el, { backgroundColor: [BG_2, BG] }, 1000, 800, { easing: EASE }),
+        );
+        const timeline = [
+          ...bg,
+          at(
+            $(".logo"),
+            { opacity: [0, 1], transform: ["scale(.9)", "scale(1)"] },
+            0,
+            800,
+          ),
+          at(
+            name,
+            { opacity: [0, 1, 1, 0], offset: [0, 0.4, 0.73, 1] },
+            200,
+            1500,
+          ),
+          at(
+            $(".screen"),
+            {
+              clipPath: [
+                `circle(${full}px at 50% 50%)`,
+                `circle(${radius}px at 50% 50%)`,
+              ],
+            },
+            1000,
+            800,
+            { easing: EASE },
+          ),
+          at($(".ring"), { opacity: [0, 1] }, 1800, 100),
+          at($(".screen"), { opacity: [1, 0] }, 1900, 100),
+          at(
+            $(".box"),
+            { opacity: [1, 0], transform: ["scale(1)", "scale(.6)"] },
+            2000,
+            600,
+            { easing: EASE },
+          ),
+        ];
+        setTimeout(() => (meta.content = BG), 1000);
 
-  let ended = false;
-  const end = () => {
-    if (ended) return;
-    ended = true;
-    try { sessionStorage.intro = "1"; } catch {}
-    root.dataset.intro = "done";
-    meta.content = BG;
-    bg.forEach((a) => a.cancel());
-  };
-  Promise.all(timeline.map((a) => a.finished)).then(end, end);
-  setTimeout(end, 8000);
-})();
-</script>
-</body>
+        let ended = false;
+        const end = () => {
+          if (ended) return;
+          ended = true;
+          try {
+            sessionStorage.intro = "1";
+          } catch {}
+          root.dataset.intro = "done";
+          meta.content = BG;
+          bg.forEach((a) => a.cancel());
+        };
+        Promise.all(timeline.map((a) => a.finished)).then(end, end);
+        setTimeout(end, 8000);
+      })();
+    </script>
+  </body>
 </html>

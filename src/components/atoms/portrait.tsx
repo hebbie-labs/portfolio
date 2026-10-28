@@ -1,0 +1,35 @@
+import Image from "next/image";
+
+import { cn } from "@/lib/utils";
+
+/** Portrait (in `public/`), grey until hovered. */
+export function Portrait({
+  src,
+  alt,
+  className,
+  preload,
+}: {
+  src: string;
+  alt: string;
+  className?: string;
+  /** Load right away; for the portrait above the fold (LCP). */
+  preload?: boolean;
+}) {
+  return (
+    <div
+      className={cn(
+        "group relative aspect-[4/5] w-full overflow-hidden rounded-xl bg-bg-2",
+        className,
+      )}
+    >
+      <Image
+        src={src}
+        alt={alt}
+        fill
+        preload={preload}
+        sizes="(min-width: 768px) 20rem, 10rem"
+        className="object-cover grayscale transition-[filter] duration-200 group-hover:grayscale-0"
+      />
+    </div>
+  );
+}
