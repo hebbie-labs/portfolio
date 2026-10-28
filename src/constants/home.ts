@@ -1,4 +1,4 @@
-// Content of the start page below the projects. Texts in [brackets] are placeholders.
+// Content of the start page below the projects.
 import { ABOUT_PAGE } from "@/constants/about";
 
 export const HOME_HERO = {

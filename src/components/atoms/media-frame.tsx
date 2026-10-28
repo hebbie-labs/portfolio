@@ -14,7 +14,7 @@ type Props = {
   fadeKey?: React.Key;
 };
 
-/** Screenshot, muted looping video or diagram in a hairline frame; stays an empty surface until one is set. */
+/** Screenshot, muted looping video or diagram in a hairline frame. */
 export function MediaFrame({
   image,
   video,

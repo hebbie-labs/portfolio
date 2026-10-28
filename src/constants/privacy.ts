@@ -3,7 +3,11 @@
 
 export const PRIVACY_PAGE = {
   /** Tab title and search description (`metadata` in `app/datenschutz/page.tsx`). */
-  meta: { title: "Datenschutz" },
+  meta: {
+    title: "Datenschutz",
+    description:
+      "Welche Daten beim Besuch von leonhebeisen.com und beim Kontaktformular anfallen und was damit passiert.",
+  },
   title: "Datenschutz.",
   intro:
     "Hier steht, welche Daten beim Besuch dieser Website und beim Kontaktformular anfallen und was damit passiert.",
