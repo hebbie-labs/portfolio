@@ -10,6 +10,9 @@ import { MIDDLE_LINE, useActiveRow } from "@/hooks/use-active-row";
 import { cn } from "@/lib/utils";
 import type { TimelineItem } from "@/types/about";
 
+const atPageEnd = () =>
+  innerHeight + scrollY >= document.documentElement.scrollHeight - 2;
+
 /**
  * Ruled rows: the period as a large number left, station, text and optional detail lines right. The row in the
  * middle of the viewport lights up its period and, from `md`, puts its photo in the sticky portrait frame
@@ -28,6 +31,8 @@ export function Timeline({
   const rows = useActiveRow<HTMLLIElement>(
     useCallback(
       (index, row) => {
+        // At the page end the last row wins (see `onScroll`), even if an earlier one crosses the middle.
+        if (atPageEnd()) return;
         setActive(index);
         setPhoto(row.dataset.photo ?? null);
       },
@@ -41,11 +46,30 @@ export function Timeline({
       if (!entry.isIntersecting) setPhoto(null);
     }, MIDDLE_LINE);
     if (list.current) listObserver.observe(list.current);
+    // The last row sits too close to the page end to reach the middle line: the page end activates it instead.
+    // Leaving the end hands back to the row on the middle line, which the observer won't report again.
+    let atEnd = false;
+    const onScroll = () => {
+      if (atEnd === atPageEnd()) return;
+      atEnd = !atEnd;
+      const index = atEnd
+        ? rows.current.length - 1
+        : rows.current.findIndex((row) => {
+            const rect = row?.getBoundingClientRect();
+            return !!rect && rect.top <= innerHeight / 2 && rect.bottom > innerHeight / 2;
+          });
+      const row = rows.current[index];
+      if (!row) return;
+      setActive(index);
+      setPhoto(row.dataset.photo ?? null);
+    };
+    addEventListener("scroll", onScroll, { passive: true });
     return () => {
+      removeEventListener("scroll", onScroll);
       listObserver.disconnect();
       setPhoto(null);
     };
-  }, [setPhoto]);
+  }, [rows, setPhoto]);
 
   return (
     <Reveal scroll>
