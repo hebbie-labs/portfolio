@@ -12,7 +12,7 @@ type Props = {
   alt?: string;
   /** When it changes, the media fades in again while the frame stays. */
   fadeKey?: React.Key;
-  /** Drawn instead of the media, without the frame, and kept mounted across `fadeKey` changes (e.g. a 3D scene). */
+  /** Drawn instead of the media, without the frame (it may bleed past it), and kept mounted across `fadeKey` changes (e.g. a 3D scene). */
   children?: React.ReactNode;
 };
 
@@ -33,12 +33,7 @@ export function MediaFrame({
         !children && "overflow-hidden rounded-xl border border-line bg-bg-2",
       )}
     >
-      {children ? (
-        // Bleeds past the frame, so the scene gets more room; it has no edge to show.
-        <div className="pointer-events-none absolute -inset-x-[6%] -top-[24%] -bottom-[34%]">
-          {children}
-        </div>
-      ) : (
+      {children ?? (
         <div
           key={fadeKey}
           className={cn(

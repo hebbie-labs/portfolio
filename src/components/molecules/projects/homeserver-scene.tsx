@@ -5,7 +5,9 @@ import {
   Docker,
   GitHubDark,
   GitHubLight,
+  NextJs,
   PostgreSQL,
+  Spring,
 } from "developer-icons";
 import { useCallback, useEffect, useRef } from "react";
 
@@ -31,7 +33,14 @@ const readColors = (): SceneColors => {
 };
 
 /** Order of the hidden logos below. */
-const LOGOS = ["docker", "cloudflare", "github", "postgres"] as const;
+const LOGOS = [
+  "docker",
+  "cloudflare",
+  "github",
+  "postgres",
+  "nextjs",
+  "spring",
+] as const;
 
 /**
  * 3D homeserver in the project frame; `step` is the active view. Rebuilt in the new colors when the theme changes.
@@ -81,6 +90,8 @@ export function HomeserverScene({
         <Cloudflare size={256} />
         <GitHub size={256} />
         <PostgreSQL size={256} />
+        <NextJs size={256} />
+        <Spring size={256} />
       </div>
       {/* A theme change remounts the canvas, so the scene is rebuilt in the new tokens. */}
       <ThreeCanvas key={theme} setup={setup} label={label} />

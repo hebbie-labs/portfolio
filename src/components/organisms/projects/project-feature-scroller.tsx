@@ -102,10 +102,21 @@ export function ProjectFeatureScroller({
           onSelect={setView}
           scene={
             Scene && (
-              <Scene
-                step={view}
-                label={PROJECT_TEXT.sceneAlt(title, views[view]?.label)}
-              />
+              // Bleeds past the frame: up and down, a little to the outside and from `lg` into the text column, so
+              // the floor runs under the features.
+              <div
+                className={cn(
+                  "pointer-events-none absolute inset-x-0 -inset-y-[30%]",
+                  flip
+                    ? "lg:-right-[12%] lg:-left-[45%]"
+                    : "lg:-right-[45%] lg:-left-[12%]",
+                )}
+              >
+                <Scene
+                  step={view}
+                  label={PROJECT_TEXT.sceneAlt(title, views[view]?.label)}
+                />
+              </div>
             )
           }
         />

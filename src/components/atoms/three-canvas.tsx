@@ -11,6 +11,7 @@ export type SceneSetup = (
 
 /**
  * three.js canvas filling its (positioned) parent: renderer, resize and a render loop that pauses out of view.
+ * When the parent bleeds past the enclosing `<figure>`, the view is shifted so the scene stays centered on it.
  * Transparent, so the parent's surface shows. On unmount it disposes the renderer and every geometry and material
  * in the scene. Pass a stable `setup` (`useCallback`), or the scene is rebuilt on every render.
  */
@@ -42,7 +43,22 @@ export function ThreeCanvas({
       if (!width || !height) return;
       renderer.setSize(width, height, false);
       camera.aspect = width / height;
-      camera.updateProjectionMatrix();
+      // A canvas that bleeds out of its <figure> keeps the scene centered on the figure. Ratios of the rects, so
+      // a transform on an ancestor (e.g. a reveal scale) doesn't skew the offset.
+      const box = canvas.getBoundingClientRect();
+      const frame = canvas.closest("figure")?.getBoundingClientRect() ?? box;
+      const dx =
+        (frame.left + frame.width / 2 - box.left - box.width / 2) / box.width;
+      const dy =
+        (frame.top + frame.height / 2 - box.top - box.height / 2) / box.height;
+      camera.setViewOffset(
+        width,
+        height,
+        -dx * width,
+        -dy * height,
+        width,
+        height,
+      );
     };
     const resizeObserver = new ResizeObserver(resize);
     resizeObserver.observe(canvas);

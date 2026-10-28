@@ -5,7 +5,7 @@ export type SceneColors = Record<"bg" | "line" | "muted" | "accent", string>;
 
 /** SVG markup of the logos in the scene. */
 export type SceneLogos = Record<
-  "docker" | "cloudflare" | "github" | "postgres",
+  "docker" | "cloudflare" | "github" | "postgres" | "nextjs" | "spring",
   string
 >;
 
@@ -20,19 +20,35 @@ type Options = {
   still: boolean;
 };
 
-/** Containers of the stack, one per bay (homeserver text). */
-const CONTAINERS = ["portfolio", "recur", "portainer", "homepage"];
+/** Containers of the stack, one per bay, top to bottom (homeserver text); a logo where one exists. */
+const CONTAINERS: { name: string; logo?: keyof SceneLogos }[] = [
+  { name: "portfolio", logo: "nextjs" },
+  { name: "recur", logo: "spring" },
+  { name: "recur-db", logo: "postgres" },
+  { name: "vaultwarden" },
+  { name: "minecraft" },
+  { name: "portainer" },
+  { name: "homepage" },
+];
+/** Bay of the database the backup starts from. */
+const DATABASE_BAY = 2;
+/** Server size: a tall rack standing on the floor at y = FLOOR_Y. */
+const [RACK_W, RACK_H, RACK_D] = [1.4, 3.1, 1.6];
+const FLOOR_Y = -1.1;
+/** Height of the first bay's center and the step between bays. */
+const [BAY_TOP, BAY_STEP] = [1.65, 0.38];
+const bayY = (i: number) => BAY_TOP - i * BAY_STEP;
 
 /** Camera angle and look-at point per step, turned towards the link that step is about. */
 const SHOTS = [
-  { azimuth: 0.35, target: new THREE.Vector3(0, 0.2, 0) },
-  { azimuth: -0.3, target: new THREE.Vector3(-0.8, 0.5, 0) },
-  { azimuth: -0.1, target: new THREE.Vector3(-0.8, -0.1, 0) },
-  { azimuth: 0.5, target: new THREE.Vector3(0.8, 0.4, 0) },
+  { azimuth: 0.3, target: new THREE.Vector3(0, 0.7, 0) },
+  { azimuth: -0.12, target: new THREE.Vector3(-0.6, 1, 0) },
+  { azimuth: 0.05, target: new THREE.Vector3(-0.6, 0.7, 0) },
+  { azimuth: 0.25, target: new THREE.Vector3(0.3, 0.9, 0) },
 ];
-const DISTANCE = 7.6;
-/** Camera height: high enough to look down onto the floor. */
-const HEIGHT = 3.2;
+const DISTANCE = 8.4;
+/** Camera height: high enough to look down onto the floor, so it fills the canvas up to the top. */
+const HEIGHT = 3.8;
 /** Aspect the distance is set for; a narrower canvas moves the camera back, so the whole width still fits. */
 const ASPECT = 1.75;
 const PARTICLES = 4;
@@ -44,9 +60,9 @@ const FLOOR = 0.3;
 const v = (x: number, y: number, z: number) => new THREE.Vector3(x, y, z);
 
 /**
- * The homeserver from the project text: a server running the Docker Compose stack (one labelled bay per container),
+ * The homeserver from the project text: a rack running the Docker Compose stack (one labelled bay per container),
  * reached from the internet through a Cloudflare Tunnel, deployed from GitHub via a self-hosted runner and backed
- * up to an off-site cloud at night. Each step lights up its link and sends particles along it.
+ * up at night from the database bay to Proton Drive. Each step lights up its link and sends particles along it.
  */
 export function buildServerScene(
   scene: THREE.Scene,
@@ -64,20 +80,20 @@ export function buildServerScene(
   scene.add(floor());
 
   /**
-   * Floor grid in the accent, reaching far to the back (horizon) and under the front edge; it fades out towards
-   * the horizon and the canvas edges, so the scene has no edge and sits in the page.
+   * Floor grid in the accent, filling the canvas from top to bottom and running under the text at the side; it
+   * fades out towards the horizon and the canvas edges, so the scene has no edge and sits in the page.
    * The lines are cut into short segments, each vertex carrying its own alpha.
    */
   function floor() {
     const SEGMENT = 0.25;
-    const [X, BACK, FRONT] = [7, 16, 7];
+    const [X, BACK, FRONT] = [14, 30, 12];
     const positions: number[] = [];
     const alphas: number[] = [];
     const add = (x: number, z: number) => {
       positions.push(x, 0, z);
       // Fades towards the horizon; the canvas edges are faded in the shader below.
       alphas.push(
-        0.3 * (1 - THREE.MathUtils.smootherstep(Math.hypot(x, z), 6, 16)),
+        0.3 * (1 - THREE.MathUtils.smootherstep(Math.hypot(x, z), 10, 30)),
       );
     };
     for (let x = -X; x <= X; x += 0.5)
@@ -118,14 +134,15 @@ export function buildServerScene(
           "#include <color_fragment>",
           `#include <color_fragment>
           vec2 uv = gl_FragCoord.xy / resolution;
-          float edge = min(min(uv.x, 1.0 - uv.x), min(uv.y, 1.0 - uv.y));
-          diffuseColor.a *= smoothstep(0.0, 0.22, edge);`,
+          // Light at top and bottom; wider at the sides, where the floor runs under the text.
+          diffuseColor.a *= smoothstep(0.0, 0.12, min(uv.y, 1.0 - uv.y))
+            * smoothstep(0.0, 0.35, min(uv.x, 1.0 - uv.x));`,
         );
     };
     const grid = new THREE.LineSegments(geometry, material);
     grid.onBeforeRender = (renderer) =>
       renderer.getDrawingBufferSize(resolution.value);
-    grid.position.y = -1.11; // just below the server, so its bottom edges don't flicker
+    grid.position.y = FLOOR_Y - 0.01; // just below the server, so its bottom edges don't flicker
     return grid;
   }
 
@@ -173,26 +190,33 @@ export function buildServerScene(
     return sprite;
   }
 
-  /** Logo (SVG markup) that always faces the camera; `height` in world units. */
-  function logo(svg: string, at: THREE.Vector3, height: number) {
+  /** Texture from SVG markup; `onLoad` gets the image's aspect ratio. */
+  function svgTexture(svg: string, onLoad: (aspect: number) => void) {
     const texture = new THREE.Texture();
     texture.colorSpace = THREE.SRGBColorSpace;
+    const image = new Image();
+    image.onload = () => {
+      texture.image = image;
+      texture.needsUpdate = true;
+      onLoad(image.width / image.height);
+    };
+    image.src = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
+    return texture;
+  }
+
+  /** Logo (SVG markup) that always faces the camera; `height` in world units. */
+  function logo(svg: string, at: THREE.Vector3, height: number) {
     const sprite = new THREE.Sprite(
       new THREE.SpriteMaterial({
-        map: texture,
+        map: svgTexture(svg, (aspect) =>
+          sprite.scale.set(height * aspect, height, 1),
+        ),
         transparent: true,
         depthWrite: false,
       }),
     );
     sprite.position.copy(at);
     sprite.scale.set(height, height, 1);
-    const image = new Image();
-    image.onload = () => {
-      texture.image = image;
-      texture.needsUpdate = true;
-      sprite.scale.set((height * image.width) / image.height, height, 1);
-    };
-    image.src = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
     return sprite;
   }
 
@@ -298,62 +322,65 @@ export function buildServerScene(
     return group;
   }
 
-  /** Database: a cylinder of three stacked disks standing on the floor, its rings light up with the link. */
-  function database(at: THREE.Vector3) {
-    const [R, H] = [0.32, 0.75];
-    const group = new THREE.Group();
-    group.position.copy(at);
-    const body = new THREE.Mesh(
-      new THREE.CylinderGeometry(R, R, H, 48),
-      new THREE.MeshLambertMaterial({ color: colors.line }),
-    );
-    body.position.y = H / 2;
-    group.add(body);
-    const rings = tinted(new THREE.LineBasicMaterial({ transparent: true }));
-    const circle = new THREE.BufferGeometry().setFromPoints(
-      new THREE.EllipseCurve(0, 0, R * 1.01, R * 1.01).getPoints(64),
-    );
-    for (let i = 0; i <= 3; i++) {
-      const ring = new THREE.LineLoop(circle, rings);
-      ring.rotation.x = Math.PI / 2;
-      ring.position.y = (i * H) / 3;
-      group.add(ring);
-    }
-    return group;
-  }
-
-  // Server: body, hairline edges, Docker on top, one bay per container with its name and an LED.
-  const body = new THREE.BoxGeometry(1.4, 2.2, 1.6);
-  scene.add(
-    new THREE.Mesh(body, new THREE.MeshLambertMaterial({ color: colors.line })),
-    new THREE.LineSegments(
-      new THREE.EdgesGeometry(body),
-      new THREE.LineBasicMaterial({ color: colors.muted }),
-    ),
-    logo(logos.docker, v(0, 1.75, 0), 0.5),
-    label("docker compose", v(0, 1.38, 0), 0.15),
+  // Server: a tall rack with hairline edges, Docker on top, one bay per container with logo, name and an LED.
+  const body = new THREE.BoxGeometry(RACK_W, RACK_H, RACK_D);
+  const rack = new THREE.Mesh(
+    body,
+    new THREE.MeshLambertMaterial({ color: colors.line }),
   );
-  const bayGeometry = new THREE.BoxGeometry(1.1, 0.3, 0.04);
+  const edges = new THREE.LineSegments(
+    new THREE.EdgesGeometry(body),
+    new THREE.LineBasicMaterial({ color: colors.muted }),
+  );
+  rack.position.y = edges.position.y = FLOOR_Y + RACK_H / 2;
+  const top = FLOOR_Y + RACK_H;
+  scene.add(
+    rack,
+    edges,
+    logo(logos.docker, v(0, top + 0.6, 0), 0.5),
+    label("docker compose", v(0, top + 0.25, 0), 0.15),
+  );
+  const front = RACK_D / 2;
+  const bayGeometry = new THREE.BoxGeometry(1.1, 0.28, 0.04);
   const ledGeometry = new THREE.BoxGeometry(0.08, 0.08, 0.03);
   const bayMaterial = new THREE.MeshLambertMaterial({ color: colors.bg });
-  const leds = CONTAINERS.map((name, i) => {
-    const y = 0.65 - i * 0.42;
+  const plane = new THREE.PlaneGeometry(1, 1);
+  const leds = CONTAINERS.map(({ name, logo: icon }, i) => {
+    const y = bayY(i);
     const bay = new THREE.Mesh(bayGeometry, bayMaterial);
-    bay.position.set(0, y, 0.82);
+    bay.position.set(0, y, front + 0.02);
     const material = new THREE.MeshBasicMaterial({ color: colors.muted });
     const led = new THREE.Mesh(ledGeometry, material);
-    led.position.set(0.42, y, 0.85);
-    // Name tag, left-aligned on the bay; the plane is 1 wide and scaled to the text.
+    led.position.set(0.42, y, front + 0.05);
+    scene.add(bay, led);
+    // Logo (if any) and name tag, left-aligned on the bay; the planes are 1 wide and scaled to their content.
+    let left = -0.47;
+    if (icon) {
+      const mark = new THREE.Mesh(
+        plane,
+        new THREE.MeshBasicMaterial({
+          map: svgTexture(logos[icon], (aspect) =>
+            mark.scale.set(0.16 * aspect, 0.16, 1),
+          ),
+          transparent: true,
+        }),
+      );
+      mark.scale.set(0.16, 0.16, 1);
+      mark.position.set(left + 0.08, y, front + 0.045);
+      scene.add(mark);
+      left += 0.2;
+    }
     const { texture, aspect } = textTexture(name, colors.muted, 48);
     const tag = new THREE.Mesh(
-      new THREE.PlaneGeometry(1, 1),
+      plane,
       new THREE.MeshBasicMaterial({ map: texture, transparent: true }),
     );
+    const x = left;
     tag.onBeforeRender = () => {
-      tag.scale.set(0.15 * aspect(), 0.15, 1);
-      tag.position.set(-0.47 + tag.scale.x / 2, y, 0.845);
+      tag.scale.set(0.14 * aspect(), 0.14, 1);
+      tag.position.set(x + tag.scale.x / 2, y, front + 0.045);
     };
-    scene.add(bay, led, tag);
+    scene.add(tag);
     return material;
   });
 
@@ -414,49 +441,38 @@ export function buildServerScene(
     };
   }
 
+  const db = bayY(DATABASE_BAY);
   const links = [
     // Tunnel: internet → Cloudflare → server, no port open at home.
     link(
-      [v(-3, 1.3, -0.5), v(-1.7, 1.75, -0.2), v(-0.7, 0.8, 0)],
+      [v(-2.7, 1.9, -0.5), v(-1.7, 2.4, -0.2), v(-0.7, 1.3, 0)],
       [
-        globe(v(-3, 1.3, -0.5)),
-        label("Internet", v(-3, 0.75, -0.5)),
-        logo(logos.cloudflare, v(-1.7, 1.75, -0.2), 0.3),
-        label("Cloudflare Tunnel", v(-1.7, 2.25, -0.2), 0.15, colors.accent),
-        label("keine offenen Ports", v(-1.7, 2.05, -0.2), 0.12),
+        globe(v(-2.7, 1.9, -0.5)),
+        label("Internet", v(-2.7, 1.35, -0.5)),
+        logo(logos.cloudflare, v(-1.7, 2.4, -0.2), 0.3),
+        label("Cloudflare Tunnel", v(-1.7, 2.9, -0.2), 0.15, colors.accent),
+        label("keine offenen Ports", v(-1.7, 2.7, -0.2), 0.12),
       ],
     ),
-    // Deploy: git push → GitHub Action → self-hosted runner on the server, which restarts the stack.
+    // Deploy: git push → GitHub Actions → self-hosted runner on the server, which restarts the stack.
     link(
-      [v(-2.9, -0.5, 1), v(-1.7, -0.15, 0.9), v(-0.7, -0.4, 0.4)],
+      [v(-2.5, -0.3, 1), v(-1.5, 0.05, 0.9), v(-0.7, -0.2, 0.4)],
       [
-        logo(logos.github, v(-2.9, -0.5, 1), 0.45),
-        label("git push", v(-2.9, -0.95, 1)),
-        label("GitHub Action", v(-1.7, 0.12, 0.9), 0.15, colors.accent),
-        label("self-hosted Runner", v(-1.1, -0.85, 0.9), 0.13),
+        logo(logos.github, v(-2.5, -0.3, 1), 0.45),
+        label("git push", v(-2.5, -0.75, 1)),
+        label("GitHub Actions", v(-1.5, 0.32, 0.9), 0.15, colors.accent),
+        label("self-hosted Runner", v(-1.1, -0.7, 0.9), 0.13),
       ],
     ),
-    // Backup: databases and config, at night, by script → off-site cloud.
+    // Backup: pg_dump of the database bay plus volumes, at night with rclone → Proton Drive, alerts via ntfy.
     link(
-      [v(1.75, -0.3, 0.9), v(2.4, 1.2, 0.2), v(3, 1.3, -0.5)],
+      [v(0.55, db, front + 0.06), v(1.9, 1.9, 0.4), v(2.7, 2, -0.5)],
       [
-        database(v(1.75, -1.11, 0.9)),
-        // Cable along the floor into the server.
-        new THREE.Line(
-          new THREE.BufferGeometry().setFromPoints(
-            new THREE.CatmullRomCurve3([
-              v(1.45, -1.1, 0.95),
-              v(1.05, -1.1, 0.75),
-              v(0.71, -0.9, 0.55),
-            ]).getPoints(24),
-          ),
-          tinted(new THREE.LineBasicMaterial({ transparent: true })),
-        ),
-        logo(logos.postgres, v(1.75, -0.72, 1.26), 0.26),
-        label("Datenbanken + Config", v(2.55, -0.75, 0.9), 0.12),
-        label("nachts · Skript", v(1.75, 1.3, 0.3), 0.15, colors.accent),
-        cloud(v(3, 1.3, -0.5)),
-        label("Off-Site-Kopie", v(3, 0.8, -0.5)),
+        label("pg_dump + Volumes", v(1.3, db - 0.25, front), 0.12),
+        label("rclone · nachts", v(1.9, 2.2, 0.4), 0.15, colors.accent),
+        cloud(v(2.7, 2, -0.5)),
+        label("Proton Drive", v(2.7, 1.5, -0.5)),
+        label("Alarm via ntfy", v(2.7, 1.3, -0.5), 0.11),
       ],
     ),
   ];
