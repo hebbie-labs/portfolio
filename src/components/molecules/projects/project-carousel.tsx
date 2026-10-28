@@ -2,13 +2,12 @@
 
 import { useEffect, useRef, useState } from "react";
 
-import { Button } from "@/components/atoms/button";
 import { MediaFrame } from "@/components/atoms/media-frame";
+import { SlideDots } from "@/components/atoms/slide-dots";
 import { Iphone } from "@/components/ui/iphone";
 import { PROJECT_TEXT } from "@/constants/projects";
 import { useMediaQuery } from "@/hooks/use-media-query";
 import type { Project } from "@/types/project";
-import { cn } from "@/lib/utils";
 
 type Props = Pick<Project, "title" | "video" | "views"> & {
   /** Scrolls to this view (index into `views`) whenever a new object is passed, e.g. from a tapped feature. */
@@ -91,7 +90,6 @@ export function ProjectCarousel({ title, video, views, jump }: Props) {
                 video={
                   "video" in slide && !reducedMotion ? slide.video : undefined
                 }
-                diagram={"diagram" in slide ? slide.diagram : undefined}
                 alt={PROJECT_TEXT.viewAlt(title, slide.label)}
               />
             )}
@@ -101,29 +99,13 @@ export function ProjectCarousel({ title, video, views, jump }: Props) {
           </figure>
         ))}
       </div>
-      <div className="flex justify-center">
-        {slides.map((slide, i) => (
-          <Button
-            key={slide.label}
-            variant="text"
-            onClick={() => show(i)}
-            aria-label={PROJECT_TEXT.slideLabel(
-              i + 1,
-              slides.length,
-              slide.label,
-            )}
-            aria-current={i === current}
-            className="size-8 justify-center"
-          >
-            <span
-              className={cn(
-                "h-1.5 rounded-full transition-all duration-300 ease-out",
-                i === current ? "w-4 bg-fg" : "w-1.5 bg-muted",
-              )}
-            />
-          </Button>
-        ))}
-      </div>
+      <SlideDots
+        labels={slides.map(({ label }, i) =>
+          PROJECT_TEXT.slideLabel(i + 1, slides.length, label),
+        )}
+        current={current}
+        onSelect={show}
+      />
     </div>
   );
 }

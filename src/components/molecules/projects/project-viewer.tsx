@@ -41,7 +41,6 @@ export function ProjectViewer({ title, video, views, active, scene }: Props) {
       ) : (
         <MediaFrame
           image={view?.image}
-          diagram={view?.diagram}
           video={showVideo ? playable : undefined}
           alt={PROJECT_TEXT.viewAlt(title, view?.label)}
           fadeKey={showVideo ? "video" : active}

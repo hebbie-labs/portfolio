@@ -18,23 +18,18 @@ export type Project = {
   video?: string;
   /** Views on the screen, desktop and mobile; the first one is also the start page preview and the poster of `video`. Reference each by a feature; below `md` a carousel shows them and a tapped feature jumps to its view. */
   views: readonly ProjectView[];
-  /** 3D scene in the frame on the projects page (from `md`) instead of the views; the views then only name its steps for the features. Below `md` and on the start page the first view stands in for it, so it needs media (e.g. a diagram). */
+  /** 3D scene shown instead of the views, on the start page too; the views then only name its steps (features, dots). */
   scene?: "homeserver";
 };
 
-/** One view of a project: a screenshot or, for projects without a UI, a diagram. */
+/** One view of a project: a screenshot, or for a scene project just the name of a step. */
 export type ProjectView = {
   label: string;
   /** Screenshot in `public/`. */
   image?: string;
   /** Portrait (mobile) screenshot: shown in a phone frame instead of the screen. */
   portrait?: boolean;
-  /** Drawn in the frame instead of a screenshot, for projects without a UI. */
-  diagram?: readonly DiagramRow[];
 };
-
-/** One lane of a diagram: a label and the stations in flow order, joined by arrows. */
-export type DiagramRow = { label: string; flow: readonly string[] };
 
 export type ProjectFeature = {
   text: string;

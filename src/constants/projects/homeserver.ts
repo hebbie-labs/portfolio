@@ -29,20 +29,7 @@ export const HOMESERVER_PROJECT: Project = {
     },
   ],
   views: [
-    {
-      label: "Stack",
-      diagram: [
-        {
-          label: "Zugriff",
-          flow: ["Internet", "Cloudflare Tunnel", "Stack"],
-        },
-        {
-          label: "Deploy",
-          flow: ["git push", "GitHub Action", "Runner", "Stack"],
-        },
-        { label: "Backup", flow: ["Nachts", "Skript", "Cloud"] },
-      ],
-    },
+    { label: "Stack" },
     { label: "Tunnel" },
     { label: "Deploy" },
     { label: "Backup" },

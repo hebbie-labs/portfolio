@@ -1,31 +1,21 @@
 "use client";
 
-import dynamic from "next/dynamic";
-import { useCallback, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 
 import { Button } from "@/components/atoms/button";
 import { MediaFrame } from "@/components/atoms/media-frame";
 import { Reveal } from "@/components/atoms/reveal";
+import { SlideDots } from "@/components/atoms/slide-dots";
 import { Body } from "@/components/atoms/typography";
 import { ProjectActions } from "@/components/molecules/projects/project-actions";
 import { ProjectCarousel } from "@/components/molecules/projects/project-carousel";
+import { ProjectScene } from "@/components/molecules/projects/project-scene";
 import { ProjectViewer } from "@/components/molecules/projects/project-viewer";
 import { PROJECT_TEXT } from "@/constants/projects";
 import { useActiveRow } from "@/hooks/use-active-row";
 import { useMediaQuery } from "@/hooks/use-media-query";
 import type { Project } from "@/types/project";
 import { cn } from "@/lib/utils";
-
-// three.js is heavy: loaded only on the client and only with a project that has a scene.
-const SCENES = {
-  homeserver: dynamic(
-    () =>
-      import("@/components/molecules/projects/homeserver-scene").then(
-        (m) => m.HomeserverScene,
-      ),
-    { ssr: false },
-  ),
-};
 
 type Props = Pick<
   Project,
@@ -45,7 +35,8 @@ type Props = Pick<
 /**
  * MediaFrame on the left, text on the right. From `md` the frames stay pinned while the text scrolls;
  * the feature row in the middle of the viewport is highlighted and switches the screen to its view;
- * from `md` each row fills 40vh, so the views change slowly.
+ * from `md` each row fills 40vh, so the views change slowly. Below `md` the views sit in a carousel under the
+ * features; a scene project shows its scene there instead, stepped by the features, the dots or a swipe.
  */
 export function ProjectFeatureScroller({
   title,
@@ -58,9 +49,7 @@ export function ProjectFeatureScroller({
   scene,
   flip,
 }: Props) {
-  const Scene = scene && SCENES[scene];
-  // Below `md` the frame is hidden (a carousel shows the views, a scene project its first view as a still); the
-  // scene isn't even loaded there.
+  // Below `md` the frame is hidden; the scene renders in only one place, so there's never a second canvas.
   const wide = useMediaQuery("(min-width: 48rem)");
   const [view, setView] = useState(0);
   const [feature, setFeature] = useState(0);
@@ -86,7 +75,22 @@ export function ProjectFeatureScroller({
     setFeature(0);
   }, []);
 
-  const rows = useActiveRow<HTMLLIElement>(select, reset);
+  // The middle line drives the frame only from `md`; below it the features are tapped.
+  const rows = useActiveRow<HTMLLIElement>(
+    useCallback((index: number) => wide && select(index), [wide, select]),
+    useCallback(() => wide && reset(), [wide, reset]),
+  );
+
+  // Mobile scene: a dot or a swipe picks a step, and the feature naming it lights up.
+  const sceneBox = useRef<HTMLDivElement>(null);
+  const swipeStart = useRef(0);
+  const showStep = (index: number) => {
+    const step = Math.min(Math.max(index, 0), views.length - 1);
+    setView(step);
+    setFeature(
+      features?.findIndex(({ view }) => view === views[step].label) ?? -1,
+    );
+  };
 
   return (
     <div
@@ -112,7 +116,7 @@ export function ProjectFeatureScroller({
           views={views}
           active={view}
           scene={
-            Scene &&
+            scene &&
             wide && (
               // Bleeds past the frame: up and down, a little to the outside and into the text column, so
               // the floor runs under the features.
@@ -124,7 +128,8 @@ export function ProjectFeatureScroller({
                     : "-right-[45%] -left-[12%]",
                 )}
               >
-                <Scene
+                <ProjectScene
+                  scene={scene}
                   step={view}
                   label={PROJECT_TEXT.sceneAlt(title, views[view]?.label)}
                 />
@@ -150,39 +155,68 @@ export function ProjectFeatureScroller({
                   }}
                   className="md:flex md:min-h-[40vh] md:items-center"
                 >
-                  {Scene && !wide ? (
-                    // Nothing to switch to on a phone: the still below shows the whole setup.
-                    <span className="block py-3">{text}</span>
-                  ) : (
-                    <Button
-                      variant="text"
-                      onClick={() => {
-                        select(i);
-                        const target = viewOf(i);
-                        if (!wide && target >= 0) setJump({ view: target });
-                      }}
-                      // Highlighted only from `md`, where the frame follows the rows.
-                      className={cn(
-                        "w-full py-3 text-left transition-colors duration-300 md:py-0 lg:text-2xl",
-                        i === feature
-                          ? "text-fg"
+                  <Button
+                    variant="text"
+                    onClick={() => {
+                      select(i);
+                      const target = viewOf(i);
+                      if (wide || target < 0) return;
+                      if (scene)
+                        sceneBox.current?.scrollIntoView({
+                          behavior: "smooth",
+                          block: "nearest",
+                        });
+                      else setJump({ view: target });
+                    }}
+                    // Highlighted from `md`, where the frame follows the rows, and with a scene, which a row steps.
+                    className={cn(
+                      "w-full py-3 text-left transition-colors duration-300 md:py-0 lg:text-2xl",
+                      i === feature
+                        ? "text-fg"
+                        : scene
+                          ? "text-muted hover:text-fg"
                           : "md:text-muted md:hover:text-fg",
-                      )}
-                    >
-                      {text}
-                    </Button>
-                  )}
+                    )}
+                  >
+                    {text}
+                  </Button>
                 </li>
               ))}
             </ul>
           </Reveal>
         )}
         <Reveal scroll className="md:hidden">
-          {Scene ? (
-            <MediaFrame
-              diagram={views[0]?.diagram}
-              alt={PROJECT_TEXT.viewAlt(title, views[0]?.label)}
-            />
+          {scene ? (
+            !wide && (
+              <div
+                ref={sceneBox}
+                className="flex scroll-my-24 flex-col gap-2"
+                onTouchStart={(e) => {
+                  swipeStart.current = e.touches[0].clientX;
+                }}
+                onTouchEnd={(e) => {
+                  const dx = e.changedTouches[0].clientX - swipeStart.current;
+                  if (Math.abs(dx) > 40) showStep(view + (dx < 0 ? 1 : -1));
+                }}
+              >
+                <MediaFrame>
+                  <div className="pointer-events-none absolute inset-x-0 -inset-y-[15%]">
+                    <ProjectScene
+                      scene={scene}
+                      step={view}
+                      label={PROJECT_TEXT.sceneAlt(title, views[view]?.label)}
+                    />
+                  </div>
+                </MediaFrame>
+                <SlideDots
+                  labels={views.map(({ label }, i) =>
+                    PROJECT_TEXT.slideLabel(i + 1, views.length, label),
+                  )}
+                  current={view}
+                  onSelect={showStep}
+                />
+              </div>
+            )
           ) : (
             <ProjectCarousel
               title={title}
