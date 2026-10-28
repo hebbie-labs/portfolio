@@ -1,5 +1,6 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { useCallback, useState } from "react";
 
 import { Button } from "@/components/atoms/button";
@@ -7,13 +8,32 @@ import { Reveal } from "@/components/atoms/reveal";
 import { Body } from "@/components/atoms/typography";
 import { ProjectActions } from "@/components/molecules/projects/project-actions";
 import { ProjectViewer } from "@/components/molecules/projects/project-viewer";
+import { PROJECT_TEXT } from "@/constants/projects";
 import { useActiveRow } from "@/hooks/use-active-row";
 import type { Project } from "@/types/project";
 import { cn } from "@/lib/utils";
 
+// three.js is heavy: loaded only on the client and only with a project that has a scene.
+const SCENES = {
+  homeserver: dynamic(
+    () =>
+      import("@/components/molecules/projects/homeserver-scene").then(
+        (m) => m.HomeserverScene,
+      ),
+    { ssr: false },
+  ),
+};
+
 type Props = Pick<
   Project,
-  "title" | "description" | "features" | "url" | "repo" | "video" | "views"
+  | "title"
+  | "description"
+  | "features"
+  | "url"
+  | "repo"
+  | "video"
+  | "views"
+  | "scene"
 > & {
   /** From `lg` the screen sits on the right, for rhythm between projects. */
   flip?: boolean;
@@ -32,8 +52,10 @@ export function ProjectFeatureScroller({
   repo,
   video,
   views,
+  scene,
   flip,
 }: Props) {
+  const Scene = scene && SCENES[scene];
   const [view, setView] = useState(0);
   const [feature, setFeature] = useState(0);
   const select = useCallback(
@@ -78,6 +100,14 @@ export function ProjectFeatureScroller({
           views={views}
           active={view}
           onSelect={setView}
+          scene={
+            Scene && (
+              <Scene
+                step={view}
+                label={PROJECT_TEXT.sceneAlt(title, views[view]?.label)}
+              />
+            )
+          }
         />
       </Reveal>
       <div className="flex min-w-0 flex-col gap-6 md:gap-8 lg:self-center">

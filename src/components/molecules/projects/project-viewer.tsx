@@ -13,6 +13,8 @@ type Props = Pick<Project, "title" | "video" | "views"> & {
   /** Index into `views`. */
   active: number;
   onSelect: (index: number) => void;
+  /** Shown in the frame instead of the views (see `Project.scene`); the tabs still switch `active`. */
+  scene?: React.ReactNode;
 };
 
 /**
@@ -26,6 +28,7 @@ export function ProjectViewer({
   views,
   active,
   onSelect,
+  scene,
 }: Props) {
   const view = views[active] ?? views[0];
   const reducedMotion = useMediaQuery("(prefers-reduced-motion: reduce)");
@@ -55,7 +58,9 @@ export function ProjectViewer({
           video={showVideo ? playable : undefined}
           alt={PROJECT_TEXT.viewAlt(title, view?.label)}
           fadeKey={showVideo ? "video" : active}
-        />
+        >
+          {scene}
+        </MediaFrame>
       )}
       {views.length > 1 && (
         <Tabs

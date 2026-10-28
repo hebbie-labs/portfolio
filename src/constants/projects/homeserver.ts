@@ -11,11 +11,21 @@ export const HOMESERVER_PROJECT: Project = {
   ],
   featured: true,
   features: [
-    { text: "Alles in einem Docker-Compose-Stack, verwaltet mit Portainer" },
-    { text: "Öffentlich erreichbar über Cloudflare Tunnel, ohne offene Ports" },
-    { text: "Deployment per Push über einen self-hosted GitHub-Runner" },
+    {
+      text: "Alles in einem Docker-Compose-Stack, verwaltet mit Portainer",
+      view: "Stack",
+    },
+    {
+      text: "Öffentlich erreichbar über Cloudflare Tunnel, ohne offene Ports",
+      view: "Tunnel",
+    },
+    {
+      text: "Deployment per Push über einen self-hosted GitHub-Runner",
+      view: "Deploy",
+    },
     {
       text: "Tägliche Backups von Datenbanken und Konfiguration, inklusive Off-Site-Kopie",
+      view: "Backup",
     },
   ],
   views: [
@@ -33,5 +43,9 @@ export const HOMESERVER_PROJECT: Project = {
         { label: "Backup", flow: ["Nachts", "Skript", "Cloud"] },
       ],
     },
+    { label: "Tunnel" },
+    { label: "Deploy" },
+    { label: "Backup" },
   ],
+  scene: "homeserver",
 };

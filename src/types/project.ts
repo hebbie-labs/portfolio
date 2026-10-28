@@ -18,6 +18,8 @@ export type Project = {
   video?: string;
   /** Views on the screen, desktop and mobile; the first one is also the start page preview and the poster of `video`. Reference each by a feature, below `md` tabs switch them. */
   views: readonly ProjectView[];
+  /** 3D scene in the frame on the projects page instead of the views; the views then only name its steps (features, tabs), the first still feeds the start page preview. */
+  scene?: "homeserver";
 };
 
 /** One view of a project; the frame stays empty until `image` is set. */
