@@ -20,6 +20,8 @@ type Options = {
   step: () => number;
   /** Reduced motion: jumps to each step and holds still. */
   still: boolean;
+  /** Moves the camera closer (> 1) on small screens, so the rack stays legible; the edges may crop. */
+  zoom: number;
 };
 
 /** The stack in the rack, grouped by project, top to bottom (homeserver text); every container gets a bay. */
@@ -97,7 +99,7 @@ const v = (x: number, y: number, z: number) => new THREE.Vector3(x, y, z);
 export function buildServerScene(
   scene: THREE.Scene,
   camera: THREE.PerspectiveCamera,
-  { colors, logos, icons, font, step, still }: Options,
+  { colors, logos, icons, font, step, still, zoom }: Options,
 ) {
   const accent = new THREE.Color(colors.accent);
   const muted = new THREE.Color(colors.muted);
@@ -542,7 +544,7 @@ export function buildServerScene(
     azimuth += (shot.azimuth - azimuth) * k;
     target.lerp(shot.target, k);
     const sway = still ? 0 : Math.sin(t * 0.4) * 0.05;
-    const distance = DISTANCE * Math.max(1, ASPECT / camera.aspect);
+    const distance = (DISTANCE * Math.max(1, ASPECT / camera.aspect)) / zoom;
     camera.position.set(
       Math.sin(azimuth + sway) * distance,
       HEIGHT,

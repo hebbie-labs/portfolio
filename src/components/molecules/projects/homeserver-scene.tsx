@@ -26,6 +26,9 @@ const readColors = (): SceneColors => {
   };
 };
 
+/** Camera zoom below `lg`. */
+const ZOOM_SMALL = 1.5;
+
 /** Order of the hidden logos below. */
 const LOGOS = ["docker", "cloudflare", "github"] as const;
 
@@ -52,6 +55,8 @@ export function HomeserverScene({
 }) {
   const theme = useTheme();
   const still = useMediaQuery("(prefers-reduced-motion: reduce)");
+  // Phones and tablets: the canvas is small, so the camera moves in.
+  const small = useMediaQuery("(max-width: 63.99rem)");
   const logos = useRef<HTMLDivElement>(null);
   const icons = useRef<HTMLDivElement>(null);
   // Read every frame, so a step change doesn't rebuild the scene.
@@ -81,9 +86,10 @@ export function HomeserverScene({
           .trim(),
         step: () => current.current,
         still,
+        zoom: small ? ZOOM_SMALL : 1,
       });
     },
-    [still],
+    [still, small],
   );
 
   const GitHub = theme === "dark" ? GitHubLight : GitHubDark;
