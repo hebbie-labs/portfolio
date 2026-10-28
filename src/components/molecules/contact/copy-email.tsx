@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Check, Copy } from "lucide-react";
 
 import { Button } from "@/components/atoms/button";
@@ -13,6 +13,11 @@ const ICON_SWAP_IN =
 /** Copies the address; the label switches to "Kopiert" for two seconds. Does nothing if the clipboard is blocked. */
 export function CopyEmail() {
   const [copied, setCopied] = useState(false);
+  const resetTimer = useRef<ReturnType<typeof setTimeout> | undefined>(
+    undefined,
+  );
+
+  useEffect(() => () => clearTimeout(resetTimer.current), []);
 
   async function copy() {
     try {
@@ -21,7 +26,8 @@ export function CopyEmail() {
       return;
     }
     setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+    clearTimeout(resetTimer.current);
+    resetTimer.current = setTimeout(() => setCopied(false), 2000);
   }
 
   return (
