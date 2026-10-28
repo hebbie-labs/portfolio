@@ -1,4 +1,4 @@
-// Content of the about page, top to bottom. Texts in [brackets] are placeholders.
+// Content of the about page, top to bottom.
 // The skills for the icon cloud are in `skills.ts`.
 
 import type { TimelineItem } from "@/types/about";
@@ -56,17 +56,17 @@ export const ABOUT_BIO = [
   ", davor drückte ich die Bank an der ",
   {
     text: "Sekundarschule",
-    hint: "Grüsse an Märci und Jürg, für alle Hilfe.",
+    hint: "Grüsse an Märci und Jürg für alle Hilfe.",
   },
   ". Wenn ich nicht code, findet man mich meist bei ",
   {
     text: "Gitarre",
-    hint: "Spiele ich jetzt schon seit 2025, aber bin nicht so diszipliniert.",
+    hint: "Spiele ich jetzt schon seit 2025, bin aber nicht so diszipliniert.",
   },
   ", ",
   {
     text: "Fashion",
-    hint: "Meine Hauptausgabe, gefühlt jedes Monatslohns. (momentan)",
+    hint: "Meine Hauptausgabe, gefühlt jedes Monatslohns (momentan).",
   },
   " oder ",
   {
@@ -76,14 +76,14 @@ export const ABOUT_BIO = [
   ".",
 ] as const satisfies readonly RichPart[];
 
-/** Detailed timeline on the about page, oldest first. Stations with a [placeholder] text stay hidden. */
+/** Detailed timeline on the about page, oldest first. */
 export const ABOUT_TIMELINE = {
   title: "Werdegang",
   items: [
     {
       period: "bis 2023",
       title: "Sekundarschule",
-      text: "Der Zusammenhalt der Klasse fehlt mir sehr und die Sachen die mir geblieben sind:",
+      text: "Der Zusammenhalt der Klasse fehlt mir sehr, und das sind die Sachen, die mir geblieben sind:",
       details: [
         "Das Abschlusslager in Yverdon-les-Bains",
         "Die Freundschaften, welche bis heute bestehen",
@@ -97,11 +97,11 @@ export const ABOUT_TIMELINE = {
         "Einführung in C mit der geliebten Linked List",
         "üK 187, um die Basics in Filesystemen und OS zu lernen",
         "üK 106, um Datenbanken zu verstehen und SQL zu lernen",
-        "üK 210, mit Arduino und ESP32 zum Umgang mit der IoT und IoE",
+        "üK 216, mit Arduino und ESP32 zum Umgang mit dem IoT und IoE",
         "üK 294 und 295, um Backend und Frontend separat zu lernen.",
       ],
       image: {
-        src: "/timeline-lehrjahr-1.jpg",
+        src: "/about/timeline-lehrjahr-1.jpg",
         alt: "Leon im ersten Lehrjahr bei Noser Young",
       },
     },
@@ -112,6 +112,10 @@ export const ABOUT_TIMELINE = {
       details: [
         "Frontend mit Next.js, React und TypeScript nach Atomic Design",
       ],
+      image: {
+        src: "/about/timeline-lehrjahr-2.jpg",
+        alt: "Portrait von Leon im zweiten Lehrjahr bei Noser Young",
+      },
     },
   ],
 } as const satisfies { title: string; items: readonly TimelineItem[] };

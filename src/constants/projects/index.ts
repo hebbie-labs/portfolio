@@ -17,7 +17,7 @@ export const PROJECTS_PAGE = {
 } as const;
 
 export const PROJECT_TEXT = {
-  demoLabel: "Dev-Demo",
+  demoLabel: "Live-Demo",
   videoLabel: "Video",
   repoLabel: "GitHub",
   viewAlt: (title: string, view?: string) =>

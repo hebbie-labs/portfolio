@@ -4,6 +4,6 @@ export type TimelineItem = {
   title: string;
   text: string;
   details?: readonly string[];
-  /** Photo in `public/` for the portrait frame while this station is in view; the portrait stays until set. */
+  /** Photo in `public/` for the portrait frame while this station is in view. */
   image?: { src: string; alt: string };
 };

@@ -1,14 +1,17 @@
 // Content of the legal notice page (`/impressum`); the contact address is `EMAIL` in `site.ts`.
-// Texts in [brackets] are placeholders.
 
 export const LEGAL_PAGE = {
   /** Tab title and search description (`metadata` in `app/impressum/page.tsx`). */
-  meta: { title: "Impressum" },
+  meta: {
+    title: "Impressum",
+    description:
+      "Impressum der Website von Leon Hebeisen: Verantwortlicher, Kontakt und Haftungshinweise.",
+  },
   title: "Impressum.",
-  /** Name and address; each entry is one line. */
+  /** Name and place; each entry is one line. */
   owner: {
     heading: "Verantwortlich",
-    lines: ["Leon Hebeisen", "Brunismattweg 5", "3665 Wattenwil", "Schweiz"],
+    lines: ["Leon Hebeisen", "Wattenwil, Schweiz"],
   },
   contactHeading: "Kontakt",
   /** Plain paragraphs below the contact block. */

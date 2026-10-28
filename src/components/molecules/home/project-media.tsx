@@ -2,7 +2,7 @@ import { MediaFrame } from "@/components/atoms/media-frame";
 import { PROJECT_TEXT } from "@/constants/projects";
 import type { Project } from "@/types/project";
 
-/** Start page teaser: the first screenshot or diagram; an empty surface until it is set. */
+/** Start page teaser: the first screenshot or diagram. */
 export function ProjectMedia({
   views,
   title,

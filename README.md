@@ -1,36 +1,26 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# leonhebeisen.com
 
-## Getting Started
+Persönliches Portfolio von Leon Hebeisen, Lernender Applikationsentwickler EFZ: Projekte, Werdegang und Kontakt.
 
-First, run the development server:
+**Stack:** Next.js 16 (App Router), React 19, TypeScript, Tailwind CSS v4, shadcn/ui, Resend für das Kontaktformular.
+
+## Lokal starten
+
+Voraussetzungen: Node 22 (`.nvmrc`) und pnpm (über corepack).
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+corepack enable
+pnpm install
+cp .env.example .env   # RESEND_API_KEY eintragen, sonst schlägt nur das Kontaktformular fehl
+pnpm dev               # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Weitere Befehle: `pnpm build`, `pnpm start`, `pnpm lint`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Deployment
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Ein Push auf `dev` oder `main` startet die CI (ESLint und Docker-Build). Ist sie grün, baut die CD das Docker-Image, legt es in der GitHub Container Registry ab und deployt es per Docker Compose auf den eigenen Server: `dev` nach dev.leonhebeisen.com, `main` nach leonhebeisen.com.
 
-## Learn More
+## Für Mitwirkende
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Architektur und Konventionen (Atomic Design, Transitions, Inhalte in `src/constants/`) stehen in [`CLAUDE.md`](CLAUDE.md). Gearbeitet wird mit Git Flow: Feature-Branches von `dev`, Releases über `release/x.y.z` nach `main`.
