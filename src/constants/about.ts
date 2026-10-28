@@ -101,7 +101,7 @@ export const ABOUT_TIMELINE = {
         "üK 294 und 295, um Backend und Frontend separat zu lernen.",
       ],
       image: {
-        src: "/timeline-lehrjahr-1.jpg",
+        src: "/about/timeline-lehrjahr-1.jpg",
         alt: "Leon im ersten Lehrjahr bei Noser Young",
       },
     },
@@ -112,6 +112,10 @@ export const ABOUT_TIMELINE = {
       details: [
         "Frontend mit Next.js, React und TypeScript nach Atomic Design",
       ],
+      image: {
+        src: "/about/timeline-lehrjahr-2.jpg",
+        alt: "Portrait von Leon im zweiten Lehrjahr bei Noser Young",
+      },
     },
   ],
 } as const satisfies { title: string; items: readonly TimelineItem[] };

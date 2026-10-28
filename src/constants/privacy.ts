@@ -1,5 +1,5 @@
-// Content of the privacy page (`/datenschutz`). Facts come from the code (contact action, storage use);
-// texts in [brackets] are open decisions and must be filled or checked before launch, not guessed.
+// Content of the privacy page (`/datenschutz`). Facts come from the code (contact action, storage use),
+// the homelab stack (no access logs) and the providers (Resend: US storage, 30 days; Proton: Sieve expiry).
 
 export const PRIVACY_PAGE = {
   /** Tab title and search description (`metadata` in `app/datenschutz/page.tsx`). */
@@ -14,11 +14,11 @@ export const PRIVACY_PAGE = {
     },
     {
       heading: "Kontaktformular",
-      text: "Im Formular gibst du Name, E-Mail-Adresse und Nachricht an. Diese Angaben nutze ich nur, um dir zu antworten. Sie werden per Mail an mich gesendet; den Versand übernimmt der Dienst Resend als Auftragsbearbeiter. [Aufbewahrung: wie lange werden Anfragen aufbewahrt? Standort und Vertrag von Resend prüfen.]",
+      text: "Im Formular gibst du Name, E-Mail-Adresse und Nachricht an. Diese Angaben nutze ich nur, um dir zu antworten. Sie werden per Mail an mich gesendet; den Versand übernimmt der Dienst Resend als Auftragsbearbeiter. Resend speichert die Nachricht und das Versandprotokoll 30 Tage auf Servern in den USA; die Übermittlung ist durch Standardvertragsklauseln abgesichert. In meinem Postfach bei Proton Mail (Schweiz) werden Anfragen nach 12 Monaten automatisch gelöscht.",
     },
     {
       heading: "Hosting und Server-Logs",
-      text: "Die Website läuft auf meinem eigenen Server und ist über Cloudflare (Tunnel) erreichbar. Cloudflare sieht dabei technisch den Datenverkehr, etwa die IP-Adresse. [Welche Logs entstehen auf dem Server und wie lange werden sie aufbewahrt? Cloudflare-Angaben prüfen.]",
+      text: "Die Website läuft auf meinem eigenen Server und ist über Cloudflare (Tunnel) erreichbar. Cloudflare verarbeitet dabei technisch den Datenverkehr, etwa die IP-Adresse; dafür gilt die Datenschutzerklärung von Cloudflare. Auf meinem Server werden keine Zugriffsprotokolle mit IP-Adressen gespeichert.",
     },
     {
       heading: "Cookies und lokale Speicherung",
@@ -34,7 +34,7 @@ export const PRIVACY_PAGE = {
     },
     {
       heading: "Deine Rechte",
-      text: "Du kannst Auskunft über deine Daten verlangen sowie deren Berichtigung oder Löschung. Schreib mir dazu an die E-Mail-Adresse im Impressum. [Datum der letzten Aktualisierung ergänzen.]",
+      text: "Du kannst Auskunft über deine Daten verlangen sowie deren Berichtigung oder Löschung. Schreib mir dazu an die E-Mail-Adresse im Impressum. Stand: 30. Oktober 2026.",
     },
   ],
 } as const;
