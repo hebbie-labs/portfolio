@@ -76,9 +76,9 @@ const SHOTS = [
   { azimuth: 0.05, target: new THREE.Vector3(-0.6, 1, 0) },
   { azimuth: 0.25, target: new THREE.Vector3(0.3, 1.2, 0) },
 ];
-const DISTANCE = 10;
+const DISTANCE = 11.5;
 /** Camera height: high enough to look down onto the floor, so it fills the canvas up to the top. */
-const HEIGHT = 4.5;
+const HEIGHT = 3.8;
 /** Aspect the distance is set for; a narrower canvas moves the camera back, so the whole width still fits. */
 const ASPECT = 1.75;
 const PARTICLES = 4;
