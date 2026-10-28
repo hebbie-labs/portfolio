@@ -63,15 +63,20 @@ export function ProjectFeatureScroller({
   const wide = useMediaQuery("(min-width: 64rem)");
   const [view, setView] = useState(0);
   const [feature, setFeature] = useState(0);
+  // Mobile: a tapped feature jumps the carousel to its view (a new object each tap, so the same one jumps again).
+  const [jump, setJump] = useState<{ view: number }>();
+  const viewOf = useCallback(
+    (index: number) =>
+      views.findIndex(({ label }) => label === features?.[index].view),
+    [features, views],
+  );
   const select = useCallback(
     (index: number) => {
       setFeature(index);
-      const target = views.findIndex(
-        ({ label }) => label === features?.[index].view,
-      );
+      const target = viewOf(index);
       if (target >= 0) setView(target);
     },
-    [features, views],
+    [viewOf],
   );
 
   // scrolled back above the list: first view and first row again
@@ -146,7 +151,11 @@ export function ProjectFeatureScroller({
                 >
                   <Button
                     variant="text"
-                    onClick={() => select(i)}
+                    onClick={() => {
+                      select(i);
+                      const target = viewOf(i);
+                      if (!wide && target >= 0) setJump({ view: target });
+                    }}
                     // Highlighted only from `lg`, where the frame follows the rows.
                     className={cn(
                       "w-full py-3 text-left transition-colors duration-300 lg:py-0 lg:text-2xl",
@@ -164,7 +173,12 @@ export function ProjectFeatureScroller({
         )}
         {!Scene && (
           <Reveal scroll className="lg:hidden">
-            <ProjectCarousel title={title} video={video} views={views} />
+            <ProjectCarousel
+              title={title}
+              video={video}
+              views={views}
+              jump={jump}
+            />
           </Reveal>
         )}
         <Reveal scroll className="flex flex-col gap-6">
