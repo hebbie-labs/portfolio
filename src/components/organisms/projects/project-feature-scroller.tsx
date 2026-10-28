@@ -10,6 +10,7 @@ import { ProjectActions } from "@/components/molecules/projects/project-actions"
 import { ProjectViewer } from "@/components/molecules/projects/project-viewer";
 import { PROJECT_TEXT } from "@/constants/projects";
 import { useActiveRow } from "@/hooks/use-active-row";
+import { useMediaQuery } from "@/hooks/use-media-query";
 import type { Project } from "@/types/project";
 import { cn } from "@/lib/utils";
 
@@ -56,6 +57,8 @@ export function ProjectFeatureScroller({
   flip,
 }: Props) {
   const Scene = scene && SCENES[scene];
+  // Below `lg` a scene project shows only its text; the scene isn't even loaded there.
+  const wide = useMediaQuery("(min-width: 64rem)");
   const [view, setView] = useState(0);
   const [feature, setFeature] = useState(0);
   const select = useCallback(
@@ -92,6 +95,7 @@ export function ProjectFeatureScroller({
         className={cn(
           "lg:sticky lg:top-32 lg:self-start",
           flip && "lg:order-last",
+          Scene && "max-lg:hidden",
         )}
       >
         <ProjectViewer
@@ -101,7 +105,8 @@ export function ProjectFeatureScroller({
           active={view}
           onSelect={setView}
           scene={
-            Scene && (
+            Scene &&
+            wide && (
               // Bleeds past the frame: up and down, a little to the outside and from `lg` into the text column, so
               // the floor runs under the features.
               <div
