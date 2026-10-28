@@ -21,7 +21,8 @@ export function MainTemplate({ children }: Props) {
       <SmoothScroll />
       <StartupIntro />
       <Nav />
-      <main id="main" className="flex-1">
+      {/* Clips scenes that bleed past the page edge, without breaking sticky (unlike overflow hidden). */}
+      <main id="main" className="flex-1 overflow-x-clip">
         {children}
       </main>
       <Reveal variant="fade" index={3}>
