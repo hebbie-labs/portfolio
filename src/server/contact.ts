@@ -11,6 +11,10 @@ import { validate } from "@/validation/validate";
 export async function sendContact(
   payload: ContactPayload,
 ): Promise<ContactResult> {
+  if (payload?.website) {
+    console.warn("contact honeypot hit");
+    return { status: "success" };
+  }
   const result = validate(contactSchema, payload);
   if ("errors" in result) return { status: "error", errors: result.errors };
 
