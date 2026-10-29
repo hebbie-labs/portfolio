@@ -29,6 +29,9 @@ export const PROJECT_TEXT = {
   carouselLabel: (title: string) => `Ansichten von ${title}`,
   slideLabel: (index: number, count: number, label: string) =>
     `Folie ${index} von ${count}: ${label}`,
+  stackCaption: (title: string) => `Tech-Stack von ${title}`,
+  stackArea: "Bereich",
+  stackTech: "Technologie",
   sceneAlt: (title: string, view?: string) =>
     view ? `3D-Modell von ${title}: ${view}` : `3D-Modell von ${title}`,
 };

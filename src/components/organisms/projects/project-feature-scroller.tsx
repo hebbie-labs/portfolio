@@ -10,6 +10,7 @@ import { Body } from "@/components/atoms/typography";
 import { ProjectActions } from "@/components/molecules/projects/project-actions";
 import { ProjectCarousel } from "@/components/molecules/projects/project-carousel";
 import { ProjectScene } from "@/components/molecules/projects/project-scene";
+import { ProjectStack } from "@/components/molecules/projects/project-stack";
 import { ProjectViewer } from "@/components/molecules/projects/project-viewer";
 import { PROJECT_TEXT } from "@/constants/projects";
 import { useActiveRow } from "@/hooks/use-active-row";
@@ -22,6 +23,7 @@ type Props = Pick<
   | "title"
   | "description"
   | "features"
+  | "stack"
   | "url"
   | "repo"
   | "video"
@@ -42,6 +44,7 @@ export function ProjectFeatureScroller({
   title,
   description,
   features,
+  stack,
   url,
   repo,
   video,
@@ -226,6 +229,11 @@ export function ProjectFeatureScroller({
             />
           )}
         </Reveal>
+        {stack && (
+          <Reveal scroll>
+            <ProjectStack title={title} stack={stack} />
+          </Reveal>
+        )}
         <Reveal scroll className="flex flex-col gap-6">
           <ProjectActions url={url} repo={repo} />
         </Reveal>
