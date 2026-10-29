@@ -7,7 +7,7 @@ export function ProjectStack({
   stack,
 }: Pick<Project, "title"> & Required<Pick<Project, "stack">>) {
   return (
-    <table className="w-full border-y border-line text-left">
+    <table className="w-full border-b border-line text-left">
       <caption className="sr-only">{PROJECT_TEXT.stackCaption(title)}</caption>
       <thead className="font-mono text-xs text-muted md:text-[13px]">
         <tr>
