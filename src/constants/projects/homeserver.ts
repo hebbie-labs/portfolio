@@ -28,6 +28,13 @@ export const HOMESERVER_PROJECT: Project = {
       view: "Backup",
     },
   ],
+  stack: [
+    { area: "Container", tech: "Docker Compose, Portainer" },
+    { area: "Zugang", tech: "Cloudflare Tunnel" },
+    { area: "Deployment", tech: "GitHub Actions, self-hosted Runner" },
+    { area: "Backup", tech: "pg_dump, rclone, Proton Drive" },
+    { area: "Meldungen", tech: "ntfy" },
+  ],
   views: [
     { label: "Stack" },
     { label: "Tunnel" },

@@ -25,6 +25,13 @@ export const RECUR: Project = {
     { text: "Anmeldung per E-Mail oder mit Google" },
     { text: "Als PWA installierbar, mit Offline-Seite", view: "Mobil" },
   ],
+  stack: [
+    { area: "Frontend", tech: "Next.js, React, TypeScript" },
+    { area: "Backend", tech: "Spring Boot 4, Java 25" },
+    { area: "Datenbank", tech: "PostgreSQL" },
+    { area: "Anmeldung", tech: "JWT, Google OAuth2/OIDC" },
+    { area: "App", tech: "PWA" },
+  ],
   featured: true,
   url: "https://dev.recur.dpdns.org",
   repo: "https://github.com/hebbie-labs/recur",
