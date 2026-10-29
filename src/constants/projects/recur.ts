@@ -27,9 +27,9 @@ export const RECUR: Project = {
   ],
   stack: [
     { area: "Frontend", tech: "Next.js, React, TypeScript" },
-    { area: "Backend", tech: "Spring Boot 4, Java 25" },
+    { area: "Backend", tech: "Spring Boot, Java" },
     { area: "Datenbank", tech: "PostgreSQL" },
-    { area: "Anmeldung", tech: "JWT, Google OAuth2/OIDC" },
+    { area: "Anmeldung", tech: "JWT, Google OAuth" },
     { area: "App", tech: "PWA" },
   ],
   featured: true,
