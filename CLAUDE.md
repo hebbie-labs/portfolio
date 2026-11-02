@@ -28,7 +28,7 @@ German-language personal portfolio (Next.js 16, React 19, Tailwind v4, TypeScrip
 
 **Transitions**: CSS first. Hover, press and state changes are Tailwind transitions on the `--ease-*` tokens; enter/exit of elements that stay mounted toggles `inert` and styles the hidden state with `inert:` (e.g. the nav panel), elements that mount use `starting:`. `motion` only where JS has to drive the value: scroll-linked transforms (`use-horizontal-scroll`), the intro sequence (`startup-intro`) and the vendored `ui/` components that ship with it. Reduced motion comes from `motion-safe:`/`motion-reduce:` or `useMediaQuery("(prefers-reduced-motion: reduce)")`. No other animation libraries, except GSAP, which only the vendored React Bits `ui/text-type.tsx` (the hero's typewriter, via `atoms/typed-text.tsx`) uses; its lint rules are switched off for that file in `eslint.config.mjs`, not in the file.
 
-**Server side**: `src/server/` (`"use server"` entries the client calls, e.g. `sendContact`; export only those functions, each is a public POST endpoint), `src/validation/` (Yup schemas shared by form and server, plus the generic `validate` helper), `src/services/` (external APIs, e.g. Resend in `mail.ts`), `src/types/` (shared types). `src/lib/` holds only generic helpers (`utils`, `content`, theme, fonts, seo).
+**Server side**: `src/server/` (`"use server"` entries the client calls, e.g. `sendContact`; export only those functions, each is a public POST endpoint), `src/validation/` (Yup schemas shared by form and server, plus the generic `validate` helper), `src/services/` (external APIs, e.g. Resend in `mail.ts`), `src/types/` (shared types). `src/lib/` holds only generic helpers (`utils`, theme, fonts, seo).
 
 **Single sources of truth**
 

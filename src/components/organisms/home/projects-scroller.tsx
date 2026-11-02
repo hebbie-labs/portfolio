@@ -16,12 +16,12 @@ import { cn } from "@/lib/utils";
 const trackClasses = cn(
   "flex flex-col gap-12 page-x py-16",
   // track: one row, translated by the scroll progress
-  "lg:motion-safe:h-full lg:motion-safe:w-max lg:motion-safe:flex-row lg:motion-safe:items-start lg:motion-safe:gap-0 lg:motion-safe:py-0",
+  "lg:motion-safe:h-full lg:motion-safe:w-max lg:motion-safe:flex-row lg:motion-safe:items-center lg:motion-safe:gap-0 lg:motion-safe:py-0",
   "lg:motion-safe:will-change-transform",
-  // panels: fixed widths, spacing after each, title and end card centered, projects hang from the nav
+  // panels: fixed widths, spacing after each, all centered in the screen; projects as wide as the height allows
+  // (media 12:7 plus title and summary stay clear of the nav)
   "lg:motion-safe:[&>*]:shrink-0 lg:motion-safe:[&>*:not(:last-child)]:pr-12",
-  "lg:motion-safe:[&>*:first-child]:w-[40vw] lg:motion-safe:[&>article]:w-[45vw]",
-  "lg:motion-safe:[&>:is(:first-child,:last-child)]:self-center lg:motion-safe:[&>:not(:is(:first-child,:last-child))]:pt-nav",
+  "lg:motion-safe:[&>*:first-child]:w-[40vw] lg:motion-safe:[&>article]:w-[min(52vw,calc((100svh-22rem)*1.7))]",
 );
 
 /** Sticky section: the track of project previews moves sideways while scrolling. */

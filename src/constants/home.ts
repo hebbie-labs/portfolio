@@ -22,11 +22,10 @@ export const HOME_HERO = {
     "Codefenster leon.ts: Rolle Applikationsentwickler, Stack Java, Spring, React und TypeScript, Wohnort Bern",
 } as const;
 
-/** About teaser: the about intro cut to `maxLength` characters, and a link to the about page. */
+/** About teaser: the about intro in full, and a link to the about page. */
 export const HOME_ABOUT = {
-  title: ABOUT_PAGE.title,
+  title: ABOUT_PAGE.meta.title,
   text: ABOUT_PAGE.intro,
-  maxLength: 100,
   linkLabel: "Mehr über mich",
   linkHref: "/about",
 } as const;
