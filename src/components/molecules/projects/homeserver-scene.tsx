@@ -22,7 +22,7 @@ const readColors = (): SceneColors => {
     bg: token("bg"),
     line: token("line"),
     muted: token("muted"),
-    accent: token("accent"),
+    accent: token("accent-text"),
   };
 };
 

@@ -29,6 +29,7 @@ export function FormField({ name, label, multiline, ...props }: Props) {
       </FieldLabel>
       <Control
         id={name}
+        className="focus-visible:border-accent-text"
         rows={multiline ? 6 : undefined}
         aria-required
         aria-invalid={!!shownError}

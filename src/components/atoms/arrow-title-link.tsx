@@ -19,14 +19,14 @@ export function ArrowTitleLink({
         as="span"
         size="md"
         className={cn(
-          "transition-colors duration-150 group-hover:text-accent",
+          "transition-colors duration-150 group-hover:text-accent-text",
           narrow && "w-min",
         )}
       >
         {children}
       </Display>
       <ArrowRight
-        className="size-10 shrink-0 text-accent transition-transform group-hover:translate-x-1 md:size-16"
+        className="size-10 shrink-0 text-accent-text transition-transform group-hover:translate-x-1 md:size-16"
         aria-hidden
       />
     </Link>

@@ -17,7 +17,7 @@ export function FuzzyText({
     <span
       aria-hidden
       className={cn(
-        "flex min-h-[1lh] items-center justify-center font-display text-display text-accent",
+        "flex min-h-[1lh] items-center justify-center font-display text-display text-accent-text",
         className,
       )}
     >

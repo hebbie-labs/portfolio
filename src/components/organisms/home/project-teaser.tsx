@@ -25,12 +25,12 @@ export function ProjectTeaser({ slug, title, summary, views, scene }: Project) {
       </div>
       <Link
         href={`/projekte#${slug}`}
-        className="rounded-2xl after:absolute after:inset-0 after:rounded-2xl focus-visible:after:outline-2 focus-visible:after:outline-offset-4 focus-visible:after:outline-accent"
+        className="rounded-2xl after:absolute after:inset-0 after:rounded-2xl focus-visible:after:outline-2 focus-visible:after:outline-offset-4 focus-visible:after:outline-accent-text"
       >
         <Display
           as="h3"
           size="md"
-          className="text-balance transition-colors duration-150 group-hover:text-accent"
+          className="text-balance transition-colors duration-150 group-hover:text-accent-text"
         >
           {title}
         </Display>

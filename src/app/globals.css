@@ -11,6 +11,7 @@
   --muted: #8d9a92;
   --fg: #e6ede8;
   --accent: #4fd88a;
+  --accent-text: var(--accent);
   --accent-ink: #06120b;
   --danger: #ff7b6b;
   --glass: rgba(17, 22, 18, 0.78);
@@ -18,16 +19,18 @@
 }
 
 [data-theme="light"] {
-  --bg: #eef2ee;
-  --bg-2: #e2e8e3;
-  --ph: #dce4de;
-  --line: #c9d3cc;
-  --muted: #56635b;
-  --fg: #0b110d;
-  --accent: #0e7a4b;
-  --accent-ink: #f2f7f3;
+  --bg: #fdfdfd;
+  --bg-2: #eef1ec;
+  --ph: #e5e9e3;
+  --line: #d5dbd2;
+  --muted: #5b6357;
+  --fg: #0d110b;
+  /* Lime is a fill (1.4:1 on white); text, links, icons and focus rings use the darker --accent-text (5.1:1). */
+  --accent: #89f336;
+  --accent-text: #3e7b05;
+  --accent-ink: #0d110b;
   --danger: #b42318;
-  --glass: rgba(226, 232, 227, 0.82);
+  --glass: rgba(238, 241, 236, 0.82);
   color-scheme: light;
 }
 
@@ -47,6 +50,7 @@
   --color-muted: var(--muted);
   --color-fg: var(--fg);
   --color-accent: var(--accent);
+  --color-accent-text: var(--accent-text);
   --color-accent-ink: var(--accent-ink);
   --color-danger: var(--danger);
   --color-glass: var(--glass);
@@ -135,8 +139,8 @@ button {
   padding: 8px 0 2px;
   transition: color, border-color;
   &:hover {
-    color: var(--accent);
-    border-color: var(--accent);
+    color: var(--accent-text);
+    border-color: var(--accent-text);
   }
   &:active {
     opacity: 0.7;
@@ -144,7 +148,7 @@ button {
 }
 
 :focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--accent-text);
   outline-offset: 3px;
 }
 
@@ -252,8 +256,9 @@ html[data-intro="logo"] [data-reveal] {
   *,
   *::before,
   *::after {
-    transition-property: color, background-color, border-color, fill, stroke,
-      opacity, box-shadow, filter !important;
+    transition-property:
+      color, background-color, border-color, fill, stroke, opacity, box-shadow,
+      filter !important;
     scroll-behavior: auto !important;
   }
 

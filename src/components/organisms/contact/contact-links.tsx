@@ -17,7 +17,7 @@ export function ContactLinks() {
               href={href}
               target="_blank"
               rel="noreferrer"
-              className="group flex items-center justify-between py-3 text-xl font-semibold transition-colors hover:text-accent"
+              className="group flex items-center justify-between py-3 text-xl font-semibold transition-colors hover:text-accent-text"
             >
               {label}
               <ArrowUpRight
@@ -35,7 +35,7 @@ export function ContactLinks() {
             href={href}
             target="_blank"
             rel="noreferrer"
-            className="relative inline-block min-w-6 text-center lnk after:absolute after:-inset-x-1 after:-inset-y-2 after:content-['']"
+            className="relative inline-block min-w-6 lnk text-center after:absolute after:-inset-x-1 after:-inset-y-2 after:content-['']"
           >
             {label}
           </a>
