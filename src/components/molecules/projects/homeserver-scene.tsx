@@ -1,6 +1,6 @@
 "use client";
 
-import { Cloudflare, Docker, GitHubLight } from "developer-icons";
+import { Cloudflare, Docker, GitHubDark, GitHubLight } from "developer-icons";
 import { Code, Cog, Database, Globe, Monitor, Pickaxe } from "lucide-react";
 import { useCallback, useEffect, useRef } from "react";
 
@@ -92,12 +92,13 @@ export function HomeserverScene({
     [still, small],
   );
 
+  const GitHub = theme === "dark" ? GitHubLight : GitHubDark;
   return (
     <>
       <div ref={logos} hidden>
         <Docker size={256} />
         <Cloudflare size={256} />
-        <GitHubLight size={256} />
+        <GitHub size={256} />
       </div>
       <div ref={icons} hidden>
         {Object.values(ICONS).map((Icon, i) => (

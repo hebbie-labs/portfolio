@@ -18,18 +18,17 @@
 }
 
 [data-theme="light"] {
-  /* "Light" is a dim slate blue: the lime accent (#89f336) is nearly as bright as white, so it only reads as text on a mid-tone (4.6:1 here). */
-  --bg: #4b5f7a;
-  --bg-2: #445873;
-  --ph: #40546e;
-  --line: #627389;
-  --muted: #dfe5ed;
-  --fg: #ffffff;
-  --accent: #89f336;
-  --accent-ink: #0f0f0f;
-  --danger: #ffd0c8;
-  --glass: rgba(68, 88, 115, 0.82);
-  color-scheme: dark;
+  --bg: #f1f5f9;
+  --bg-2: #e2e8f0;
+  --ph: #e2e8f0;
+  --line: #cbd5e1;
+  --muted: #475569;
+  --fg: #0f172a;
+  --accent: #1d4ed8;
+  --accent-ink: #ffffff;
+  --danger: #b42318;
+  --glass: rgba(226, 232, 240, 0.82);
+  color-scheme: light;
 }
 
 /* `static`: always emitted as :root custom properties so plain CSS (keyframes) can use var(--ease-*). */
