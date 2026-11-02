@@ -17,7 +17,7 @@ export function ContactLinks() {
               href={href}
               target="_blank"
               rel="noreferrer"
-              className="group flex items-center justify-between py-3 font-display text-xl font-semibold transition-colors hover:text-accent"
+              className="group flex items-center justify-between py-3 font-display text-xl font-normal transition-colors hover:text-accent"
             >
               {label}
               <ArrowUpRight

@@ -93,7 +93,7 @@ export function ProjectCarousel({ title, video, views, jump }: Props) {
                 alt={PROJECT_TEXT.viewAlt(title, slide.label)}
               />
             )}
-            <figcaption className="font-mono text-sm text-muted">
+            <figcaption className="font-mono text-base text-muted">
               {slide.label}
             </figcaption>
           </figure>

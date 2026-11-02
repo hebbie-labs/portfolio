@@ -14,7 +14,7 @@ export function NavBar({ open, setOpen, current }: NavMenuProps) {
       <Logo className="in-data-[intro=logo]:invisible" />
       <span
         inert={open}
-        className="flex items-center gap-2 self-center pr-3 pl-3.5 font-mono text-xs whitespace-nowrap text-muted transition-opacity duration-200 inert:opacity-0"
+        className="flex items-center gap-2 self-center pr-3 pl-3.5 font-mono text-base whitespace-nowrap text-muted transition-opacity duration-200 inert:opacity-0"
       >
         <StatusDot className="size-1.5" />
         {/* HyperText scrambles its letters; screen readers get the plain label. */}
@@ -24,7 +24,7 @@ export function NavBar({ open, setOpen, current }: NavMenuProps) {
             key={current.label}
             as="span"
             animateOnHover={false}
-            className="py-0 text-xs font-normal"
+            className="py-0 text-base font-normal"
           >
             {current.label}
           </HyperText>

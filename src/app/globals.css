@@ -53,18 +53,18 @@
   --color-transparent: transparent;
   --color-current: currentColor;
 
-  --font-display: var(--font-bricolage), sans-serif;
-  --font-sans: var(--font-instrument), system-ui, sans-serif;
-  --font-mono: var(--font-jetbrains), monospace;
+  --font-display: var(--font-redaction), serif;
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-mono: var(--font-tiny5), monospace;
 
   --text-display: clamp(4.875rem, 16vw, 17.5rem);
   --text-display--line-height: 0.82;
   --text-display--letter-spacing: -0.03em;
-  /* Start page name: two stacked lines sized so name, lead and button fill one screen (30rem = nav, padding, gaps, lead, button; 1.8 = two lines of 0.82 plus some air). The width cap keeps "HEBEISEN." (about 3.4em) inside the page padding; 28rem keeps it inside the 100rem content. */
+  /* Start page name: two stacked lines sized so name, lead and button fill one screen (30rem = nav, padding, gaps, lead, button; 1.8 = two lines of 0.82 plus some air). The width cap keeps "Hebeisen." (about 4.33em) inside the page padding; 22rem keeps it inside the 100rem content. */
   --text-display-hero: clamp(
     5rem,
-    min(calc((100dvh - 30rem) / 1.8), calc((100vw - 10rem) / 3.5)),
-    28rem
+    min(calc((100dvh - 30rem) / 1.8), calc((100vw - 10rem) / 4.4)),
+    22rem
   );
   --text-display-hero--line-height: 0.82;
   --text-display-hero--letter-spacing: -0.03em;
@@ -97,10 +97,6 @@ a,
 button {
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
-}
-
-@utility font-condensed {
-  font-stretch: 75%;
 }
 
 @utility page-x {

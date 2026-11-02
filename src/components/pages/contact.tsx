@@ -24,7 +24,7 @@ export function ContactPage() {
         <Reveal index={2} className="flex min-w-0 flex-col items-start gap-6">
           <a
             href={`mailto:${EMAIL}`}
-            className="min-w-0 font-display text-2xl font-semibold wrap-anywhere transition-colors hover:text-accent lg:text-3xl"
+            className="min-w-0 font-display text-2xl font-normal wrap-anywhere transition-colors hover:text-accent lg:text-3xl"
           >
             {EMAIL}
           </a>
