@@ -1,4 +1,3 @@
-import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 
 import { Button } from "@/components/atoms/button";
@@ -9,35 +8,23 @@ import { HeroScene } from "@/components/molecules/home/hero-scene";
 import { HOME_HERO } from "@/constants/home";
 
 /**
- * Staggered name (first left, last right) over a faint watermark; below it the 3D code window overlapping the name, flanked by
- * the lead with the contact link (left) and the typed focus areas (right). Stacked on mobile: name, window, text, focus.
+ * First name across the full width; below it the 3D code window overlapping the name, flanked by the lead with the
+ * contact button (left) and the typed focus areas (right). Stacked on mobile: name, window, text, focus.
  * `@container`, so the name and the overlap are sized by the content width (`cqw`).
  */
 export function Hero() {
-  const [first, last] = HOME_HERO.title.split(" ");
   return (
-    <div className="@container relative isolate flex flex-col gap-8 page-x pt-nav pb-12 md:gap-0 md:pb-16">
-      <span
-        aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-0 -z-10 hidden overflow-hidden text-center font-display text-[24vw] leading-[0.8] font-bold whitespace-nowrap text-fg/4 select-none md:block"
-      >
-        Hebeisen
-      </span>
+    <div className="@container relative flex flex-col gap-8 page-x pt-nav pb-12 md:gap-0 md:pb-16">
       <Reveal>
-        {/* Staggered: first name left, last name a line lower on the right; the space keeps the accessible name "Leon Hebeisen.". */}
-        <Display as="h1" size="hero" translate="no" className="flex flex-col">
-          <span>{`${first} `}</span>
-          <span className="self-end">
-            {last}
-            <span className="text-accent">.</span>
-          </span>
+        <Display as="h1" size="hero" translate="no">
+          {`${HOME_HERO.title}.`}
         </Display>
       </Reveal>
       <div className="flex flex-col gap-8 md:grid md:flex-1 md:grid-cols-[1fr_1.9fr_1fr] md:gap-6">
         <Reveal
           variant="fade"
           index={2}
-          className="relative z-10 aspect-[7/5] w-full md:col-start-2 md:row-start-1 md:-mt-[6cqw] md:self-start"
+          className="relative z-10 aspect-[7/5] w-full md:col-start-2 md:row-start-1 md:-mt-[10cqw] md:self-start"
         >
           <HeroScene label={HOME_HERO.codeLabel} />
         </Reveal>
@@ -48,17 +35,11 @@ export function Hero() {
         >
           <Lead className="max-w-md">{HOME_HERO.lead}</Lead>
           <Button
-            variant="text"
+            variant="interactive"
             render={<Link href={HOME_HERO.contactHref} />}
-            nativeButton={false}
-            role="link"
-            className="gap-2 self-start text-base font-semibold"
+            className="self-start"
           >
-            <span aria-hidden className="text-accent">
-              {"//"}
-            </span>
             {HOME_HERO.contactLabel}
-            <ArrowRight aria-hidden />
           </Button>
         </Reveal>
         <Reveal

@@ -2,7 +2,7 @@
 import { ABOUT_PAGE } from "@/constants/about";
 
 export const HOME_HERO = {
-  title: "Leon Hebeisen",
+  title: "Leon",
   lead: "Lernender Applikationsentwickler. Frontend zuerst, Spring Boot dahinter.",
   contactLabel: "Schreib mir",
   contactHref: "/kontakt",

@@ -29,9 +29,8 @@ const displayVariants = cva(
     variants: {
       size: {
         xl: "text-display",
-        // Start page name, one line per word (the hero staggers them); sized by the hero's `@container` from `md`
-        // so "Hebeisen." (about 4.3em) stays well inside it.
-        hero: "text-display whitespace-nowrap max-md:text-[20vw] md:text-[16cqw]",
+        // Start page name ("Leon.", about 2.5em) across the full width of the hero's `@container`.
+        hero: "text-display text-[37cqw] leading-[0.82] whitespace-nowrap",
         lg: "text-display-lg",
         md: "text-display-md",
       },
