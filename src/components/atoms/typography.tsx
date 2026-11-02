@@ -29,8 +29,9 @@ const displayVariants = cva(
     variants: {
       size: {
         xl: "text-display",
-        // Start page name: words stacked (`w-min`), sized by width on mobile and by `--text-display-hero` from `md`.
-        hero: "w-min text-display max-md:text-[20vw] md:text-display-hero",
+        // Start page name: words stacked (`w-min`) on mobile, one line across the hero's `@container` from `md`
+        // ("Leon Hebeisen." is about 6.9em wide).
+        hero: "text-display max-md:w-min max-md:text-[20vw] md:text-[14.2cqw] md:whitespace-nowrap",
         lg: "text-display-lg",
         md: "text-display-md",
       },

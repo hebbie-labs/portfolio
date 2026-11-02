@@ -6,6 +6,20 @@ export const HOME_HERO = {
   lead: "Lernender Applikationsentwickler. Frontend zuerst, Spring Boot dahinter.",
   contactLabel: "Schreib mir",
   contactHref: "/kontakt",
+  /** Typed one after another in the hero. */
+  focus: ["Frontend", "React & TypeScript", "Spring Boot", "UI-Design"],
+  /** The 3D code window: file name, lines and its text alternative. */
+  codeFile: "leon.ts",
+  code: [
+    "const leon = {",
+    '  role: "Applikationsentwickler",',
+    '  stack: ["Java", "Spring",',
+    '          "React", "TS"],',
+    '  location: "Bern",',
+    "};",
+  ],
+  codeLabel:
+    "Codefenster leon.ts: Rolle Applikationsentwickler, Stack Java, Spring, React und TypeScript, Wohnort Bern",
 } as const;
 
 /** About teaser: the about intro cut to `maxLength` characters, and a link to the about page. */
