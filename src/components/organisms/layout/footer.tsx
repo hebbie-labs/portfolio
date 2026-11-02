@@ -1,25 +1,74 @@
-import { Label } from "@/components/atoms/typography";
 import Link from "next/link";
-import { CONTACT_LINK, OUTSIDE_NAV_LINKS } from "@/constants/nav";
-import { LOCATION, SITE_NAME } from "@/constants/site";
 
+import { GitHubIcon, LinkedInIcon } from "@/components/atoms/brand-icons";
+import { Logo } from "@/components/atoms/logo";
+import { CONTACT_LINK, OUTSIDE_NAV_LINKS } from "@/constants/nav";
+import {
+  EMAIL,
+  EMPLOYER,
+  EMPLOYER_URL,
+  GITHUB_URL,
+  LINKEDIN_URL,
+  ROLE,
+  SITE_NAME,
+} from "@/constants/site";
+
+const SOCIALS = [
+  { label: "GitHub", href: GITHUB_URL, Icon: GitHubIcon },
+  { label: "LinkedIn", href: LINKEDIN_URL, Icon: LinkedInIcon },
+];
+
+// Accent links with an accent underline (`lnk` sets the hover).
+const LINK = "lnk border-accent/40 text-accent";
+
+/** Contact | logo | profiles, then copyright and legal links; stacked logo-first on mobile. */
 export function Footer() {
   return (
-    <footer className="flex w-full flex-col gap-2.5 border-t border-line page-x py-4 text-xs text-muted md:grid md:grid-cols-3 md:items-center md:py-10 md:text-[13px]">
-      <Label>
-        © {new Date().getFullYear()} {SITE_NAME}, {LOCATION}
-      </Label>
-      <div className="flex gap-6 md:justify-self-center">
-        <Link href={CONTACT_LINK.href} className="lnk">
-          {CONTACT_LINK.label}
-        </Link>
-      </div>
-      <div className="flex gap-6 md:justify-self-end">
-        {OUTSIDE_NAV_LINKS.map(({ href, label }) => (
-          <Link key={href} href={href} className="lnk">
-            {label}
+    <footer className="w-full border-t border-line text-sm">
+      <div className="flex flex-col items-center gap-8 page-x py-16 md:grid md:grid-cols-3 md:justify-items-center md:py-24">
+        <div className="order-2 flex flex-col items-center md:order-none">
+          <a href={`mailto:${EMAIL}`} className={LINK}>
+            {EMAIL}
+          </a>
+          <Link href={CONTACT_LINK.href} className={LINK}>
+            {CONTACT_LINK.label}
           </Link>
-        ))}
+        </div>
+        <Logo className="order-1 size-auto *:h-12 md:order-none" />
+        <div className="order-3 flex gap-5 md:order-none">
+          {SOCIALS.map(({ label, href, Icon }) => (
+            <a
+              key={label}
+              href={href}
+              target="_blank"
+              rel="noreferrer"
+              aria-label={label}
+              className="text-accent transition-colors hover:text-fg"
+            >
+              <Icon className="size-5" />
+            </a>
+          ))}
+        </div>
+      </div>
+      <div className="flex flex-col items-center gap-2 border-t border-line page-x py-8 text-center text-xs text-muted md:text-[13px]">
+        <p>
+          © {new Date().getFullYear()} {SITE_NAME}. {ROLE} bei{" "}
+          <a
+            href={EMPLOYER_URL}
+            target="_blank"
+            rel="noreferrer"
+            className={LINK}
+          >
+            {EMPLOYER}
+          </a>
+        </p>
+        <div className="flex gap-4">
+          {OUTSIDE_NAV_LINKS.map(({ href, label }) => (
+            <Link key={href} href={href} className={LINK}>
+              {label}
+            </Link>
+          ))}
+        </div>
       </div>
     </footer>
   );
