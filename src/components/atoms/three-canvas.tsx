@@ -37,6 +37,12 @@ export function ThreeCanvas({
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(35, 1, 0.1, 100);
     const update = setup(scene, camera);
+    // Compiles the shaders and uploads the buffers now, not on the first visible frame (would stutter while
+    // scrolling into view).
+    renderer
+      .compileAsync(scene, camera)
+      .then(() => renderer.render(scene, camera))
+      .catch(() => {});
 
     const resize = () => {
       const { clientWidth: width, clientHeight: height } = canvas;
