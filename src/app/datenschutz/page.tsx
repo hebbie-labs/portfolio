@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { PrivacyPage } from "@/components/pages/privacy";
+import { PrivacyPage } from "@/components/pages/PrivacyPage";
 import { PRIVACY_PAGE } from "@/constants/privacy";
 import { pageMetadata } from "@/lib/seo";
 

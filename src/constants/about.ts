@@ -2,7 +2,7 @@
 // The skills for the icon cloud are in `skills.ts`.
 
 import type { TimelineItem } from "@/types/about";
-import type { RichPart } from "@/types/rich-text";
+import type { RichPart } from "@/types/richText";
 
 /** Header: portrait, headline, role and the first (large) paragraph. */
 export const ABOUT_PAGE = {
