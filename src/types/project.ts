@@ -8,8 +8,6 @@ export type Project = {
   description: readonly string[];
   /** Ruled rows below the description; scrolling one into the middle switches the screen to its `view`. */
   features?: readonly ProjectFeature[];
-  /** Tech-stack table below the features: one row per area. */
-  stack?: readonly ProjectStackRow[];
   /** Shown as preview on the start page. */
   featured?: boolean;
   /** Live demo. */
@@ -32,8 +30,6 @@ export type ProjectView = {
   /** Portrait (mobile) screenshot: shown in a phone frame instead of the screen. */
   portrait?: boolean;
 };
-
-export type ProjectStackRow = { area: string; tech: string };
 
 export type ProjectFeature = {
   text: string;
