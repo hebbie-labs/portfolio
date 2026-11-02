@@ -35,6 +35,7 @@ export function IconCloud({
   const [iconPositions, setIconPositions] = useState<Icon[]>([]);
   const [isDragging, setIsDragging] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
+  const [isInView, setIsInView] = useState(true);
   const [targetRotation, setTargetRotation] = useState<{
     x: number;
     y: number;
@@ -65,6 +66,15 @@ export function IconCloud({
 
     mediaQuery.addEventListener("change", handleChange);
     return () => mediaQuery.removeEventListener("change", handleChange);
+  }, []);
+
+  // Stop the render loop while the canvas is offscreen
+  useEffect(() => {
+    const observer = new IntersectionObserver(([entry]) =>
+      setIsInView(entry.isIntersecting),
+    );
+    observer.observe(canvasRef.current!);
+    return () => observer.disconnect();
   }, []);
 
   // Create icon canvases once when icons/images change
@@ -324,10 +334,11 @@ export function IconCloud({
           Boolean(icons || images) &&
           !imagesLoadedRef.current.every((loaded) => loaded);
         const shouldContinue =
-          !isPaused ||
-          isDragging ||
-          targetRotation !== null ||
-          hasPendingAssets;
+          isInView &&
+          (!isPaused ||
+            isDragging ||
+            targetRotation !== null ||
+            hasPendingAssets);
 
         if (shouldContinue) {
           animationFrameRef.current = requestAnimationFrame(animate);
@@ -342,7 +353,15 @@ export function IconCloud({
         cancelAnimationFrame(animationFrameRef.current);
       }
     };
-  }, [icons, images, iconPositions, isDragging, isPaused, targetRotation]);
+  }, [
+    icons,
+    images,
+    iconPositions,
+    isDragging,
+    isPaused,
+    isInView,
+    targetRotation,
+  ]);
 
   return (
     <div className="relative inline-block">
