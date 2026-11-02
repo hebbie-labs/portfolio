@@ -18,16 +18,16 @@
 }
 
 [data-theme="light"] {
-  --bg: #eef2ee;
-  --bg-2: #e2e8e3;
-  --ph: #dce4de;
-  --line: #c9d3cc;
-  --muted: #56635b;
-  --fg: #0b110d;
-  --accent: #0e7a4b;
-  --accent-ink: #f2f7f3;
-  --danger: #b42318;
-  --glass: rgba(226, 232, 227, 0.82);
+  --bg: #fdfdfd;
+  --bg-2: #f4f4f4;
+  --ph: #ebebeb;
+  --line: #e0e0e0;
+  --muted: #555555;
+  --fg: #111111;
+  --accent: #a30000;
+  --accent-ink: #ffffff;
+  --danger: #dc2626;
+  --glass: rgba(244, 244, 244, 0.82);
   color-scheme: light;
 }
 
@@ -53,21 +53,16 @@
   --color-transparent: transparent;
   --color-current: currentColor;
 
-  --font-display: var(--font-bricolage), sans-serif;
-  --font-sans: var(--font-instrument), system-ui, sans-serif;
-  --font-mono: var(--font-jetbrains), monospace;
+  /* Corners: buttons/inputs rounded-md (6px), frames rounded-panel (= nav: 6px inside + 4px padding). */
+  --radius-panel: 10px;
+
+  --font-display: var(--font-redaction), serif;
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-mono: var(--font-tiny5), monospace;
 
   --text-display: clamp(4.875rem, 16vw, 17.5rem);
   --text-display--line-height: 0.82;
   --text-display--letter-spacing: -0.03em;
-  /* Start page name: two stacked lines sized so name, lead and button fill one screen (30rem = nav, padding, gaps, lead, button; 1.8 = two lines of 0.82 plus some air). The width cap keeps "HEBEISEN." (about 3.4em) inside the page padding; 28rem keeps it inside the 100rem content. */
-  --text-display-hero: clamp(
-    5rem,
-    min(calc((100dvh - 30rem) / 1.8), calc((100vw - 10rem) / 3.5)),
-    28rem
-  );
-  --text-display-hero--line-height: 0.82;
-  --text-display-hero--letter-spacing: -0.03em;
   --text-display-lg: clamp(4rem, 12vw, 12.5rem);
   --text-display-lg--line-height: 0.82;
   --text-display-lg--letter-spacing: -0.03em;
@@ -97,10 +92,6 @@ a,
 button {
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
-}
-
-@utility font-condensed {
-  font-stretch: 75%;
 }
 
 @utility page-x {
@@ -256,8 +247,9 @@ html[data-intro="logo"] [data-reveal] {
   *,
   *::before,
   *::after {
-    transition-property: color, background-color, border-color, fill, stroke,
-      opacity, box-shadow, filter !important;
+    transition-property:
+      color, background-color, border-color, fill, stroke, opacity, box-shadow,
+      filter !important;
     scroll-behavior: auto !important;
   }
 

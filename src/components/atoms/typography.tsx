@@ -24,13 +24,13 @@ function accentPunct(children: Props["children"]) {
 }
 
 const displayVariants = cva(
-  "-my-[0.15em] overflow-clip py-[0.15em] font-display font-extrabold text-balance uppercase font-condensed",
+  "-my-[0.15em] overflow-clip py-[0.15em] font-display font-bold text-balance",
   {
     variants: {
       size: {
         xl: "text-display",
-        // Start page name: words stacked (`w-min`), sized by width on mobile and by `--text-display-hero` from `md`.
-        hero: "w-min text-display max-md:text-[26vw] md:text-display-hero",
+        // Start page name ("Leon.", about 2.5em) across the full width of the hero's `@container`.
+        hero: "text-display text-[37cqw] leading-[0.82] whitespace-nowrap",
         lg: "text-display-lg",
         md: "text-display-md",
       },
@@ -39,7 +39,7 @@ const displayVariants = cva(
   },
 );
 
-const headlineVariants = cva("font-display font-semibold text-balance", {
+const headlineVariants = cva("font-display font-normal text-balance", {
   variants: { size: { lg: "text-headline", sm: "text-headline-sm" } },
   defaultVariants: { size: "lg" },
 });
@@ -110,7 +110,7 @@ export function Body({
 export function Label({ as: Tag = "span", className, ...props }: Props) {
   return (
     <Tag
-      className={cn("font-mono text-xs text-muted md:text-[13px]", className)}
+      className={cn("text-xs text-muted md:text-[13px]", className)}
       {...props}
     />
   );

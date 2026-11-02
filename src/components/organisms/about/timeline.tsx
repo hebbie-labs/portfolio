@@ -71,7 +71,7 @@ export function Timeline({
               {period}
             </Display>
             <div className="flex flex-col gap-2 md:pt-2">
-              <span className="font-display text-2xl font-semibold md:text-3xl">
+              <span className="text-2xl font-semibold md:text-3xl">
                 {title}
               </span>
               <Body muted>{text}</Body>
@@ -89,7 +89,7 @@ export function Timeline({
                 </ul>
               )}
               {image && (
-                <div className="relative mt-3 aspect-[4/5] w-full max-w-xs overflow-hidden rounded-xl bg-bg-2 md:hidden">
+                <div className="relative mt-3 aspect-[4/5] w-full max-w-xs overflow-hidden rounded-panel bg-bg-2 md:hidden">
                   <Image
                     src={image.src}
                     alt={image.alt}

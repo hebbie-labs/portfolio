@@ -9,7 +9,7 @@ export function ProjectStack({
   return (
     <table className="w-full border-b border-line text-left">
       <caption className="sr-only">{PROJECT_TEXT.stackCaption(title)}</caption>
-      <thead className="font-mono text-xs text-muted md:text-[13px]">
+      <thead className="text-xs text-muted md:text-[13px]">
         <tr>
           <th scope="col" className="py-3 pr-6 font-normal">
             {PROJECT_TEXT.stackArea}

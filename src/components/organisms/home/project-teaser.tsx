@@ -25,7 +25,7 @@ export function ProjectTeaser({ slug, title, summary, views, scene }: Project) {
       </div>
       <Link
         href={`/projekte#${slug}`}
-        className="rounded-2xl after:absolute after:inset-0 after:rounded-2xl focus-visible:after:outline-2 focus-visible:after:outline-offset-4 focus-visible:after:outline-accent"
+        className="rounded-panel after:absolute after:inset-0 after:rounded-panel focus-visible:after:outline-2 focus-visible:after:outline-offset-4 focus-visible:after:outline-accent"
       >
         <Display
           as="h3"

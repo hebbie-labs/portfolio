@@ -21,9 +21,7 @@ export function FuzzyText({
         className,
       )}
     >
-      {/* The canvas builds its font as `${fontWeight} ${size} ${family}`, so the
-          width (font-condensed, like Display) rides along in the weight. */}
-      <FuzzyTextBase fontSize="var(--text-display)" fontWeight="800 condensed">
+      <FuzzyTextBase fontSize="var(--text-display)" fontWeight={700}>
         {children}
       </FuzzyTextBase>
     </span>

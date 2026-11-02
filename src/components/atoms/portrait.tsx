@@ -18,7 +18,7 @@ export function Portrait({
   return (
     <div
       className={cn(
-        "group relative aspect-[4/5] w-full overflow-hidden rounded-xl bg-bg-2",
+        "group relative aspect-[4/5] w-full overflow-hidden rounded-panel bg-bg-2",
         className,
       )}
     >
@@ -27,7 +27,7 @@ export function Portrait({
         alt={alt}
         fill
         preload={preload}
-        sizes="(min-width: 768px) 20rem, 10rem"
+        sizes="(min-width: 768px) 24rem, 16rem"
         className="object-cover grayscale transition-[filter] duration-200 group-hover:grayscale-0"
       />
     </div>

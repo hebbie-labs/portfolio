@@ -22,8 +22,8 @@ const font = (file: string) =>
 
 export default async function Image() {
   const [display, sans] = await Promise.all([
-    font("bricolage-grotesque-extrabold-condensed.ttf"),
-    font("instrument-sans-regular.ttf"),
+    font("redaction-50-bold-og.ttf"),
+    font("inter-regular.ttf"),
   ]);
 
   return new ImageResponse(
@@ -37,7 +37,7 @@ export default async function Image() {
         padding: 72,
         background: BG,
         color: FG,
-        fontFamily: "Instrument Sans",
+        fontFamily: "Inter",
       }}
     >
       <div
@@ -59,10 +59,9 @@ export default async function Image() {
           style={{
             display: "flex",
             flexDirection: "column",
-            fontFamily: "Bricolage Grotesque",
+            fontFamily: "Redaction 50",
             fontSize: 168,
             lineHeight: 0.86,
-            textTransform: "uppercase",
           }}
         >
           {HOME_HERO.title.split(" ").map((word, i, words) => (
@@ -89,8 +88,8 @@ export default async function Image() {
     {
       ...size,
       fonts: [
-        { name: "Bricolage Grotesque", data: display, weight: 800 },
-        { name: "Instrument Sans", data: sans, weight: 400 },
+        { name: "Redaction 50", data: display, weight: 700 },
+        { name: "Inter", data: sans, weight: 400 },
       ],
     },
   );

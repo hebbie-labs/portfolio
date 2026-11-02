@@ -12,10 +12,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="de"
-      className={`${FONT_VARIABLES} h-full antialiased`}
+      className={`${FONT_VARIABLES} antialiased`}
       suppressHydrationWarning
     >
-      <body className="flex min-h-full flex-col bg-bg font-sans text-fg antialiased">
+      <body className="flex min-h-dvh flex-col bg-bg font-sans text-fg antialiased">
         <Script id="theme-init" strategy="beforeInteractive">
           {THEME_INIT_SCRIPT}
         </Script>

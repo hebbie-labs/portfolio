@@ -22,7 +22,10 @@ export function Button({ variant, size, className, ...props }: ButtonProps) {
     return (
       <InteractiveHoverButton
         {...(props as React.ComponentProps<"button">)}
-        className={typeof className === "string" ? className : undefined}
+        className={cn(
+          "rounded-md",
+          typeof className === "string" ? className : undefined,
+        )}
       />
     );
   }
@@ -39,7 +42,7 @@ export function Button({ variant, size, className, ...props }: ButtonProps) {
     <ShadcnButton
       variant={variant}
       size={size === "lg" ? undefined : size}
-      className={cn(size === "lg" && LG, className)}
+      className={cn("rounded-md", size === "lg" && LG, className)}
       {...props}
     />
   );
