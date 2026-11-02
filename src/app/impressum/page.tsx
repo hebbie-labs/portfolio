@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { LegalInformationPage } from "@/components/pages/legal-information";
+import { LegalInformationPage } from "@/components/pages/LegalInformationPage";
 import { LEGAL_PAGE } from "@/constants/legal";
 import { pageMetadata } from "@/lib/seo";
 

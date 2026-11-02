@@ -1,8 +1,8 @@
 import Script from "next/script";
-import { JsonLd } from "@/components/atoms/json-ld";
-import { MainTemplate } from "@/components/templates/main-template";
+import { JsonLd } from "@/components/atoms/JsonLd";
+import { MainTemplate } from "@/components/templates/MainTemplate";
 import { FONT_VARIABLES } from "@/lib/fonts";
-import { INTRO_INIT_SCRIPT, THEME_INIT_SCRIPT } from "@/lib/init-scripts";
+import { INTRO_INIT_SCRIPT, THEME_INIT_SCRIPT } from "@/lib/initScripts";
 import { SITE_JSON_LD } from "@/lib/seo";
 import "./globals.css";
 

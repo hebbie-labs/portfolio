@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
-import { JsonLd } from "@/components/atoms/json-ld";
-import { AboutPage } from "@/components/pages/about";
+import { JsonLd } from "@/components/atoms/JsonLd";
+import { AboutPage } from "@/components/pages/AboutPage";
 import { ABOUT_PAGE } from "@/constants/about";
 import { ABOUT_JSON_LD, pageMetadata } from "@/lib/seo";
 
