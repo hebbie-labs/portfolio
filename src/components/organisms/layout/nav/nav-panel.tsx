@@ -33,7 +33,7 @@ export function NavPanel({ open, setOpen, current }: NavMenuProps) {
         </nav>
         <div className="flex items-center justify-between border-t border-line px-1 pt-1.5 pb-0.5 text-xs">
           <AnimatedThemeToggler
-            className={cn(buttonVariants(), "gap-2.5 px-3.5")}
+            className={cn(buttonVariants(), "gap-2.5 rounded-md px-3.5")}
           >
             <span className="in-data-[theme=light]:hidden">
               {NAV_TEXT.themeLight}

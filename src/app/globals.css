@@ -53,6 +53,9 @@
   --color-transparent: transparent;
   --color-current: currentColor;
 
+  /* Corners: buttons/inputs rounded-md (6px), frames rounded-panel (= nav: 6px inside + 4px padding). */
+  --radius-panel: 10px;
+
   --font-display: var(--font-redaction), serif;
   --font-sans: var(--font-inter), system-ui, sans-serif;
   --font-mono: var(--font-tiny5), monospace;

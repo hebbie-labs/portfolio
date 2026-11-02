@@ -26,7 +26,7 @@ export function MediaFrame({
       className={cn(
         "@container relative aspect-[12/7]",
         // A scene has no frame: it sits right on the page.
-        !children && "overflow-hidden rounded-xl border border-line bg-bg-2",
+        !children && "overflow-hidden rounded-panel border border-line bg-bg-2",
       )}
     >
       {children ?? (

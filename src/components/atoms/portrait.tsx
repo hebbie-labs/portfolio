@@ -18,7 +18,7 @@ export function Portrait({
   return (
     <div
       className={cn(
-        "group relative aspect-[4/5] w-full overflow-hidden rounded-xl bg-bg-2",
+        "group relative aspect-[4/5] w-full overflow-hidden rounded-panel bg-bg-2",
         className,
       )}
     >

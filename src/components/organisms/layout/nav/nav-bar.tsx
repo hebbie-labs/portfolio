@@ -5,6 +5,7 @@ import { Logo } from "@/components/atoms/logo";
 import { StatusDot } from "@/components/atoms/status-dot";
 import { MenuButton } from "@/components/molecules/layout/menu-button";
 import { NAV_TEXT } from "@/constants/nav";
+import { cn } from "@/lib/utils";
 import type { NavMenuProps } from "@/types/nav";
 
 export function NavBar({ open, setOpen, current }: NavMenuProps) {
@@ -41,7 +42,7 @@ export function NavBar({ open, setOpen, current }: NavMenuProps) {
       >
         <AnimatedThemeToggler
           aria-label={NAV_TEXT.themeToggle}
-          className={buttonVariants({ size: "icon" })}
+          className={cn(buttonVariants({ size: "icon" }), "rounded-md")}
         />
       </div>
     </div>

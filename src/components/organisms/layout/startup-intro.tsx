@@ -137,11 +137,11 @@ export function StartupIntro() {
           data-box
           className="relative flex size-40 items-center justify-center md:size-54"
         >
-          {/* Ring = the future nav pill (logo is ~0.6 of its size in both). */}
+          {/* Ring = the future nav (logo is ~0.6 of its size in both); its corner is the nav's 10px of 54px in %, so it scales along. */}
           <span
             data-ring
             style={{ opacity: 0 }}
-            className="absolute inset-0 rounded-full border border-line bg-glass"
+            className="absolute inset-0 rounded-[18.5%] border border-line bg-glass"
           />
           <span
             data-logo
