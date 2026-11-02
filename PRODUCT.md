@@ -20,25 +20,24 @@ Leon macht Dinge gerne selbst und organisiert und betreibt sie auf dem eigenen H
 
 ## Operating Context
 
-Deutschsprachig (Schweizer Rechtschreibung: «ss» statt «ß»). Deployt über GitHub Actions (CI → CD) als Docker-Image nach GHCR, redeployt per docker compose auf dem selbst gehosteten Homeserver hinter Cloudflare Tunnel. `dev.leonhebeisen.com` ist die Dev-Umgebung; `main` zeigt bis zum Launch einen Platzhalter.
+Deutschsprachig (Schweizer Rechtschreibung: «ss» statt «ß»). Deployt über GitHub Actions (CI → CD) als Docker-Image nach GHCR, redeployt per docker compose auf dem selbst gehosteten Homeserver hinter Cloudflare Tunnel. `dev.leonhebeisen.com` ist die Dev-Umgebung, `leonhebeisen.com` (`main`) die Produktion.
 
 ## Capabilities and Constraints
 
-- Routen: `/` (Start), `/projekte`, `/about`, `/kontakt`, `/impressum`, 404; Skills laufen als Skill-Cloud auf `/about`.
+- Routen: `/` (Start), `/projekte`, `/about`, `/kontakt`, `/impressum`, `/datenschutz`, 404; Skills laufen als Skill-Cloud auf `/about`.
 - Kontaktformular, E-Mail (`contact@leonhebeisen.com`) mit Copy-Button, Social-Profile (GitHub, LinkedIn, Noser Young, Instagram, X, Bluesky).
 - Hell/Dunkel-Theme (Dunkel Standard), Intro, Seitenübergänge, Smooth Scroll.
 - Projekte tragen Screenshots/Showreel und werden mit Features-Zeilen erklärt.
-- Noch offen: viele Texte auf About/Timeline sind `[Platzhalter]` (Intro, Story, Hobbys, Sekundarschule, 1. Lehrjahr); Homeserver hat noch keinen Screenshot.
 
 ## Brand Commitments
 
-Name «Leon Hebeisen», Logo `public/logo.svg`, Portrait `public/portrait.jpg`, OG-Bild `public/og.png`. Ton: persönlich, direkt, mit leichtem Augenzwinkern («Hi, ich bin Leon.»). Hero-Lead: «Lernender Applikationsentwickler. Frontend zuerst, Spring Boot dahinter.»
+Name «Leon Hebeisen», Logo `public/logo.svg`, Portrait `public/about/portrait.jpg`, OG-Bild generiert von `src/app/opengraph-image.tsx`. Ton: persönlich, direkt, mit leichtem Augenzwinkern («Hi, ich bin Leon.»). Hero-Lead: «Lernender Applikationsentwickler. Frontend zuerst, Spring Boot dahinter.»
 
 ## Evidence on Hand
 
 - Recur: Habit- und Task-Tracker als PWA (Spring Boot 4 / Java 25, Postgres, JWT + Google OAuth2/OIDC, Next.js/React/TypeScript nach Atomic Design); Screenshots desktop/mobile und Showreel in `public/`.
-- Homeserver: Docker-Compose-Stack, Portainer, Cloudflare Tunnel, Deployment per self-hosted Runner, tägliche Backups mit Off-Site-Kopie (nur Text, kein Screenshot).
-- Nicht vorhanden und nicht zu erfinden: Testimonials, Kundenreferenzen, Zertifikate, Zahlen/Benchmarks, weitere Case Studies, echte Texte für alle `[Platzhalter]`.
+- Homeserver: Docker-Compose-Stack, Portainer, Cloudflare Tunnel, Deployment per self-hosted Runner, tägliche Backups mit Off-Site-Kopie (3D-Szene statt Screenshot).
+- Nicht vorhanden und nicht zu erfinden: Testimonials, Kundenreferenzen, Zertifikate, Zahlen/Benchmarks, weitere Case Studies.
 
 ## Product Principles
 
@@ -51,3 +50,13 @@ Name «Leon Hebeisen», Logo `public/logo.svg`, Portrait `public/portrait.jpg`, 
 ## Accessibility & Inclusion
 
 Ziel ist WCAG 2.1 AA (Kontrast mindestens 4.5:1, volle Tastaturbedienung mit sichtbarem Fokus, Labels und Fehlermeldungen in Formularen, Alternativtexte). Reduced-Motion wird bereits respektiert (Showreel-Poster).
+
+Lighthouse, jeweils mobil und desktop, auf jeder Seite:
+
+| Kategorie     | Ziel |
+| ------------- | ---- |
+| Accessibility | ≥ 95 |
+| Performance   | ≥ 95 |
+| SEO           | ≥ 95 |
+
+Eine Änderung, die einen dieser Werte unter 95 drückt, ist ein Bug und wird vor dem Release nach `main` behoben.
