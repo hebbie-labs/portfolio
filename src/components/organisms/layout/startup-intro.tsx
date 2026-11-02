@@ -162,7 +162,7 @@ export function StartupIntro() {
             animateOnHover={false}
             delay={300}
             duration={1000}
-            className="py-0 text-base font-normal tracking-[0.3em] whitespace-nowrap"
+            className="py-0 text-sm font-normal tracking-[0.3em] whitespace-nowrap *:font-sans"
           >
             {SITE_NAME}
           </HyperText>

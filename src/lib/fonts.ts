@@ -15,7 +15,7 @@ const inter = Inter({
   subsets: ["latin"],
 });
 
-// Pixel font on a 1/8 em grid: sharp only at multiples of 8px (used at 16px).
+// Pixel font for highlights only (e.g. the server scene's canvas labels via `--font-mono`), not for small UI text.
 const tiny5 = localFont({
   variable: "--font-tiny5",
   src: "../assets/fonts/tiny5-duo-regular.woff2",

@@ -71,7 +71,7 @@ export function Timeline({
               {period}
             </Display>
             <div className="flex flex-col gap-2 md:pt-2">
-              <span className="font-display text-2xl font-normal md:text-3xl">
+              <span className="text-2xl font-semibold md:text-3xl">
                 {title}
               </span>
               <Body muted>{text}</Body>

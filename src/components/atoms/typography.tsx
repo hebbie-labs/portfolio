@@ -110,7 +110,7 @@ export function Body({
 export function Label({ as: Tag = "span", className, ...props }: Props) {
   return (
     <Tag
-      className={cn("font-mono text-base text-muted", className)}
+      className={cn("text-xs text-muted md:text-[13px]", className)}
       {...props}
     />
   );
