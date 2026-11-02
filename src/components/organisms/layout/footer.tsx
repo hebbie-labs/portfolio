@@ -19,7 +19,7 @@ const SOCIALS = [
 ];
 
 // Accent links with an accent underline (`lnk` sets the hover).
-const LINK = "lnk border-accent-text/40 text-accent-text";
+const LINK = "lnk border-accent/40 text-accent";
 
 /** Contact | logo | profiles, then copyright and legal links; stacked logo-first on mobile. */
 export function Footer() {
@@ -43,7 +43,7 @@ export function Footer() {
               target="_blank"
               rel="noreferrer"
               aria-label={label}
-              className="text-accent-text transition-colors hover:text-fg"
+              className="text-accent transition-colors hover:text-fg"
             >
               <Icon className="size-5" />
             </a>

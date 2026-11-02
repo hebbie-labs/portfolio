@@ -11,7 +11,6 @@
   --muted: #8d9a92;
   --fg: #e6ede8;
   --accent: #4fd88a;
-  --accent-text: var(--accent);
   --accent-ink: #06120b;
   --danger: #ff7b6b;
   --glass: rgba(17, 22, 18, 0.78);
@@ -19,19 +18,18 @@
 }
 
 [data-theme="light"] {
-  --bg: #fcfcfc;
-  --bg-2: #f2f2f2;
-  --ph: #e9e9e9;
-  --line: #dbdbdb;
-  --muted: #606060;
-  --fg: #0f0f0f;
-  /* Lime is a fill (1.4:1 on white); text, links, icons and focus rings use the darker --accent-text (5.1:1). */
+  /* "Light" is a dim grey: the lime accent (#89f336) is nearly as bright as white, so it only reads as text on a mid-grey (4.6:1 here). */
+  --bg: #5e5e5e;
+  --bg-2: #565656;
+  --ph: #525252;
+  --line: #727272;
+  --muted: #e0e0e0;
+  --fg: #ffffff;
   --accent: #89f336;
-  --accent-text: #3e7b05;
   --accent-ink: #0f0f0f;
-  --danger: #b42318;
-  --glass: rgba(242, 242, 242, 0.82);
-  color-scheme: light;
+  --danger: #ffd0c8;
+  --glass: rgba(86, 86, 86, 0.82);
+  color-scheme: dark;
 }
 
 /* `static`: always emitted as :root custom properties so plain CSS (keyframes) can use var(--ease-*). */
@@ -50,7 +48,6 @@
   --color-muted: var(--muted);
   --color-fg: var(--fg);
   --color-accent: var(--accent);
-  --color-accent-text: var(--accent-text);
   --color-accent-ink: var(--accent-ink);
   --color-danger: var(--danger);
   --color-glass: var(--glass);
@@ -139,8 +136,8 @@ button {
   padding: 8px 0 2px;
   transition: color, border-color;
   &:hover {
-    color: var(--accent-text);
-    border-color: var(--accent-text);
+    color: var(--accent);
+    border-color: var(--accent);
   }
   &:active {
     opacity: 0.7;
@@ -148,7 +145,7 @@ button {
 }
 
 :focus-visible {
-  outline: 2px solid var(--accent-text);
+  outline: 2px solid var(--accent);
   outline-offset: 3px;
 }
 

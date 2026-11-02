@@ -14,7 +14,7 @@ function accentPunct(children: Props["children"]) {
   if (typeof children !== "string") return children;
   return children.split(PUNCT).map((part, i) =>
     i % 2 ? (
-      <span key={i} className="text-accent-text">
+      <span key={i} className="text-accent">
         {part}
       </span>
     ) : (

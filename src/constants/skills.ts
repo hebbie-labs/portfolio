@@ -1,11 +1,9 @@
 import type { ComponentType } from "react";
 import {
-  AppleDark,
   AppleLight,
   ClaudeAI,
   Docker,
   Git,
-  GitHubDark,
   GitHubLight,
   Java,
   NextJs,
@@ -20,18 +18,15 @@ import {
 
 type Icon = ComponentType<{ size?: number }>;
 
-/** One icon, or one per theme for logos that disappear on one of the backgrounds. */
-type SkillIcon = Icon | { light: Icon; dark: Icon };
-
 /**
  * Icons for the cloud on the about page. To add one, import it from `developer-icons` above and add it here.
- * `{ light, dark }` picks an icon per theme (GitHub, Apple).
+ * Both themes have a dark background, so GitHub and Apple use their light variants.
  */
 /** Text alternative for the whole cloud (it shows icons only). */
 export const SKILLS_LABEL =
   "Icon-Wolke mit den Technologien, mit denen ich arbeite";
 
-export const SKILLS: readonly SkillIcon[] = [
+export const SKILLS: readonly Icon[] = [
   Java,
   Spring,
   React,
@@ -42,8 +37,8 @@ export const SKILLS: readonly SkillIcon[] = [
   PostgreSQL,
   Docker,
   Git,
-  { light: GitHubDark, dark: GitHubLight },
+  GitHubLight,
   VisualStudioCode,
   ClaudeAI,
-  { light: AppleDark, dark: AppleLight },
+  AppleLight,
 ];

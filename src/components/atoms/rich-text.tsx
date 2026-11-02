@@ -24,7 +24,7 @@ export function RichText({ parts }: { parts: readonly RichPart[] }) {
       const text = (
         <Highlighter
           action="underline"
-          color="var(--accent-text)"
+          color="var(--accent)"
           iterations={1}
           padding={1}
         >

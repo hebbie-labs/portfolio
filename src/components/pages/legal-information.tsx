@@ -27,7 +27,7 @@ export function LegalInformationPage() {
           <Body>
             <a
               href={`mailto:${EMAIL}`}
-              className="transition-colors hover:text-accent-text"
+              className="transition-colors hover:text-accent"
             >
               {EMAIL}
             </a>

@@ -4,7 +4,6 @@ import { useMemo } from "react";
 import { Reveal } from "@/components/atoms/reveal";
 import { IconCloud } from "@/components/ui/icon-cloud";
 import { SKILLS, SKILLS_LABEL } from "@/constants/skills";
-import { useTheme } from "@/hooks/use-theme";
 
 /**
  * Skills as a draggable 3D icon cloud (icons only, so it carries a single text alternative).
@@ -12,14 +11,9 @@ import { useTheme } from "@/hooks/use-theme";
  * The canvas has a fixed 400px, so on mobile it is centered and the edges are cropped.
  */
 export function SkillCloud() {
-  const theme = useTheme();
   const icons = useMemo(
-    () =>
-      SKILLS.map((skill, i) => {
-        const Icon = "light" in skill ? skill[theme] : skill;
-        return <Icon key={i} size={100} />;
-      }),
-    [theme],
+    () => SKILLS.map((Icon, i) => <Icon key={i} size={100} />),
+    [],
   );
 
   return (
