@@ -72,7 +72,7 @@ export function PunktMenu() {
 
       <span
         aria-hidden="true"
-        className="fixed z-10 -mt-1 -ml-1 size-2 bg-accent [transition:transform_.6s_steps(14)] motion-reduce:transition-none"
+        className="fixed z-10 -mt-1 -ml-1 size-2 bg-accent transition-transform duration-600 ease-in-out motion-reduce:transition-none"
         style={{
           left: origin.x,
           top: origin.y,

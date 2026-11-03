@@ -1,1 +1,0 @@
-export { Portrait } from "./Portrait";

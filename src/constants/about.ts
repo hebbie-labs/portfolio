@@ -2,13 +2,12 @@
 // The skills for the icon cloud are in `skills.ts`.
 
 import type { Apprenticeship, TimelineItem } from "@/types/about";
-import portrait from "../../public/about/portrait.jpg";
 import portraitSticker from "../../public/about/portrait-sticker.png";
 import lehrjahr1 from "../../public/about/timeline-lehrjahr-1.jpg";
 import lehrjahr2 from "../../public/about/timeline-lehrjahr-2.jpg";
 import type { RichPart } from "@/types/richText";
 
-/** Header: portrait (`sticker`, cut out, on the about page; `portrait` in the home teaser), headline, role and the first (large) paragraph. */
+/** Header: portrait (`sticker`, cut out; also in the home teaser), headline, role and the first (large) paragraph. */
 export const ABOUT_PAGE = {
   /** Tab title and search description (`metadata` in `app/about/page.tsx`). */
   meta: {
@@ -20,7 +19,6 @@ export const ABOUT_PAGE = {
   role: "Applikationsentwickler in Ausbildung",
   intro:
     "Ich lerne gern neue Technologien, tausche mich mit anderen Menschen aus und baue Software, am liebsten im Frontend :)",
-  portrait,
   sticker: portraitSticker,
   /** Right edge of the sticker's silhouette (from its alpha channel), for the text wrapping around it; redo when the image changes. */
   stickerShape:

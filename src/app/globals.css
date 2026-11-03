@@ -299,7 +299,7 @@ html::-webkit-scrollbar {
   animation: punkt-nudge 1s steps(4) 0.8s 3;
 }
 .punkt-rise {
-  animation: punkt-rise 0.5s both;
+  animation: punkt-rise 0.5s var(--ease-out) both;
 }
 
 @media (prefers-reduced-motion: reduce) {
