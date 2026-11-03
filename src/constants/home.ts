@@ -1,4 +1,4 @@
-// Content of the start page below the projects.
+// Content of the start page.
 import { ABOUT_PAGE } from "@/constants/about";
 
 export const HOME_HERO = {

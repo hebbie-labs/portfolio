@@ -24,7 +24,7 @@ Deutschsprachig (Schweizer Rechtschreibung: «ss» statt «ß»). Deployt über 
 
 ## Capabilities and Constraints
 
-- Routen: `/` (Start), `/projekte`, `/about`, `/kontakt`, `/impressum`, `/datenschutz`, 404; Skills laufen als Skill-Cloud auf `/about`.
+- Routen: `/` (Start), `/about`, `/kontakt`, `/impressum`, `/datenschutz`, 404; Skills laufen als Skill-Cloud auf `/about`.
 - Kontaktformular, E-Mail (`contact@leonhebeisen.com`) mit Copy-Button, Social-Profile (GitHub, LinkedIn, Noser Young, Instagram, X, Bluesky).
 - Hell/Dunkel-Theme (Dunkel Standard), Intro, Seitenübergänge, Smooth Scroll.
 - Projekte tragen Screenshots/Showreel und werden mit Features-Zeilen erklärt.
@@ -36,7 +36,7 @@ Name «Leon Hebeisen», Logo `public/logo.svg`, Portrait `public/about/portrait.
 ## Evidence on Hand
 
 - Recur: Habit- und Task-Tracker als PWA (Spring Boot 4 / Java 25, Postgres, JWT + Google OAuth2/OIDC, Next.js/React/TypeScript nach Atomic Design); Screenshots desktop/mobile und Showreel in `public/`.
-- Homeserver: Docker-Compose-Stack, Portainer, Cloudflare Tunnel, Deployment per self-hosted Runner, tägliche Backups mit Off-Site-Kopie (3D-Szene statt Screenshot).
+- Homeserver: Docker-Compose-Stack, Portainer, Cloudflare Tunnel, Deployment per self-hosted Runner, tägliche Backups mit Off-Site-Kopie.
 - Nicht vorhanden und nicht zu erfinden: Testimonials, Kundenreferenzen, Zertifikate, Zahlen/Benchmarks, weitere Case Studies.
 
 ## Product Principles

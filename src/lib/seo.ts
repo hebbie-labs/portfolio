@@ -1,5 +1,4 @@
 import type { Metadata, Viewport } from "next";
-import { PROJECTS } from "@/constants/projects";
 import {
   EMPLOYER,
   JOB_TITLE,
@@ -117,22 +116,4 @@ export const ABOUT_JSON_LD = webPage("ProfilePage", "/about", {
 
 export const CONTACT_JSON_LD = webPage("ContactPage", "/kontakt", {
   about: PERSON,
-});
-
-export const PROJECTS_JSON_LD = webPage("CollectionPage", "/projekte", {
-  mainEntity: {
-    "@type": "ItemList",
-    itemListElement: PROJECTS.map((project, i) => ({
-      "@type": "ListItem",
-      position: i + 1,
-      item: {
-        "@type": "CreativeWork",
-        name: project.title,
-        description: project.summary,
-        url: `${SITE_URL}/projekte#${project.slug}`,
-        author: PERSON,
-        ...(project.repo && { sameAs: project.repo }),
-      },
-    })),
-  },
 });

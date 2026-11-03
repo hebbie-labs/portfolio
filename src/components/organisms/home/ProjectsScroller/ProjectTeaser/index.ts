@@ -1,1 +1,0 @@
-export { ProjectTeaser } from "./ProjectTeaser";

@@ -1,1 +1,0 @@
-export { ProjectCarousel } from "./ProjectCarousel";
