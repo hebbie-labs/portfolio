@@ -80,9 +80,9 @@
 
 html {
   background-color: var(--bg);
-  /* Replaced by atoms/ScrollRuler, which gets its own strip (--ruler-w) on mouse devices. */
+  /* Replaced by atoms/ScrollCan, which gets its own strip (--scrollbar-w) on mouse devices. */
   scrollbar-width: none;
-  padding-right: var(--ruler-w);
+  padding-right: var(--scrollbar-w);
   /* Anchors and focused elements stay clear of the sticky nav (p-5 + 44px bar + 1rem). */
   scroll-padding-top: calc(1.25rem + 2.75rem + 1rem);
 }
@@ -104,54 +104,16 @@ button {
 }
 
 :root {
-  --ruler-w: 0px;
+  --scrollbar-w: 0px;
 }
 @media (pointer: fine) {
   :root {
-    --ruler-w: 24px;
+    --scrollbar-w: 32px;
   }
 }
 
 html::-webkit-scrollbar {
   display: none;
-}
-
-/**
- * Scroll ruler (atoms/ScrollRuler): each tick (--i) magnifies by its distance to the scroll position (--pos)
- * and the cursor (--hover), all in tick indexes. Calmer at rest, full while scrolling or hovered.
- */
-[data-ruler] {
-  --amp: 0.5;
-  --hover: -99;
-  &:hover,
-  &[data-active] {
-    --amp: 1;
-  }
-  & > span {
-    --base: 0.3;
-    --d: min(
-      max(var(--i) - var(--pos), var(--pos) - var(--i)),
-      max(var(--i) - var(--hover), var(--hover) - var(--i))
-    );
-    --f: max(0, 1 - var(--d) / 6);
-    height: 1px;
-    transform-origin: right;
-    scale: max(var(--base), 0.3 + 0.7 * var(--amp) * var(--f) * var(--f)) 1;
-    background-color: color-mix(
-      in oklab,
-      var(--accent) calc(var(--amp) * var(--f) * 100%),
-      var(--line)
-    );
-    transition:
-      scale 150ms var(--ease-out),
-      background-color 150ms var(--ease-out);
-    @media (prefers-reduced-motion: reduce) {
-      transition: none;
-    }
-  }
-  & > span[data-major] {
-    --base: 0.5;
-  }
 }
 
 @utility lnk {

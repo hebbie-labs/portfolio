@@ -1,4 +1,5 @@
 import type { SocialProfile } from "@/types/site";
+import mateCan from "../../public/mate-can.png";
 
 export const SITE_URL = "https://leonhebeisen.com";
 export const SITE_NAME = "Leon Hebeisen";
@@ -13,6 +14,8 @@ export const GITHUB_URL = "https://github.com/lelelon225";
 export const LINKEDIN_URL = "https://www.linkedin.com/in/leonhebeisen";
 export const EMPLOYER_URL = "https://noseryoung.ch/team-members/leon-hebeisen/";
 export const THEME_COLOR = "#0a0d0b";
+/** The can that serves as the page scrollbar (`atoms/ScrollCan`). */
+export const SCROLLBAR_IMAGE = mateCan;
 
 export const SOCIAL_PROFILES: SocialProfile[] = [
   { label: "GitHub", href: GITHUB_URL, featured: true },

@@ -1,9 +1,10 @@
 import { Reveal } from "@/components/atoms/Reveal";
-import { ScrollRuler } from "@/components/atoms/ScrollRuler";
+import { ScrollCan } from "@/components/atoms/ScrollCan";
 import { Footer } from "@/components/organisms/layout/Footer";
 import { Nav } from "@/components/organisms/layout/Nav";
 import { SmoothScroll } from "@/components/providers/SmoothScroll";
 import { NAV_TEXT } from "@/constants/nav";
+import { SCROLLBAR_IMAGE } from "@/constants/site";
 
 type Props = {
   children: React.ReactNode;
@@ -19,7 +20,7 @@ export function MainTemplate({ children }: Props) {
         {NAV_TEXT.skipToContent}
       </a>
       <SmoothScroll />
-      <ScrollRuler />
+      <ScrollCan src={SCROLLBAR_IMAGE} />
       <Nav />
       <main id="main" className="flex-1 overflow-x-clip">
         {children}

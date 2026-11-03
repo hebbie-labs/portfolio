@@ -28,7 +28,7 @@ German-language personal portfolio (Next.js 16, React 19, Tailwind v4, TypeScrip
 
 **Buttons**: use `atoms/Button` for every button-like action (variants: shadcn `default`/`outline`/`ghost`, plus `text` and `interactive`; links go through `render={<Link href />}` with `nativeButton={false}`). Don't use `ui/button` or `buttonVariants` directly, except to style `ui/` components that own their own element (e.g. `AnimatedThemeToggler`).
 
-**Hooks**: every custom hook lives in `src/hooks/`, even with a single user. Components hold no listeners or observers of their own (`addEventListener`, `IntersectionObserver`, `ResizeObserver`, …); that logic always goes into a hook (`ui/` excepted). Before adding a hook, check whether an existing one covers the same theme and generalize it instead of adding a second: viewport → `useInView`, window events → `useWindowEvent`. Specific ones (`useThreeScene`, `useScrollRuler`) build on these where they can.
+**Hooks**: every custom hook lives in `src/hooks/`, even with a single user. Components hold no listeners or observers of their own (`addEventListener`, `IntersectionObserver`, `ResizeObserver`, …); that logic always goes into a hook (`ui/` excepted). Before adding a hook, check whether an existing one covers the same theme and generalize it instead of adding a second: viewport → `useInView`, window events → `useWindowEvent`. Specific ones (`useThreeScene`, `useScrollProgress`) build on these where they can.
 
 **Shell**: `app/layout.tsx` → `MainTemplate` (`SmoothScroll` (Lenis), `Nav`, `Footer`). Page transitions come from `Reveal` (`atoms/Reveal`, CSS in `globals.css`), which replays on every route change.
 

@@ -45,16 +45,14 @@ export function PunktMenu() {
   return (
     <>
       <Button
-        variant="outline"
+        variant="ghost"
         data-menu-open={open || undefined}
         aria-expanded={open}
         aria-label={open ? NAV_TEXT.menuClose : NAV_TEXT.menuOpen}
         onClick={toggle}
         className={cn(
           "group relative z-20 gap-2.5 self-center text-xs uppercase",
-          open
-            ? "border-accent-ink text-accent-ink hover:border-accent-ink"
-            : "border-muted text-muted",
+          open ? "text-accent-ink" : "text-muted",
         )}
       >
         <span
@@ -65,8 +63,27 @@ export function PunktMenu() {
           )}
         />
         {current.label} /{" "}
-        <strong className={cn("font-semibold", !open && "text-fg")}>
-          {open ? NAV_TEXT.close : NAV_TEXT.menu}
+        {/* Both words stay rendered: the shown one's grid column opens from 0fr to 1fr while the other closes, so
+            the button's width follows smoothly and the words cross-fade. */}
+        <strong
+          className={cn(
+            "flex font-semibold transition-colors",
+            !open && "text-fg",
+          )}
+        >
+          {[NAV_TEXT.menu, NAV_TEXT.close].map((word, i) => (
+            <span
+              key={word}
+              className={cn(
+                "grid transition-[grid-template-columns,opacity] duration-300 ease-in-out",
+                (i === 1) === open
+                  ? "grid-cols-[1fr] opacity-100"
+                  : "grid-cols-[0fr] opacity-0",
+              )}
+            >
+              <span className="overflow-hidden whitespace-nowrap">{word}</span>
+            </span>
+          ))}
         </strong>
       </Button>
 
