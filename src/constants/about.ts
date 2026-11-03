@@ -92,10 +92,11 @@ export const ABOUT_TIMELINE = {
     start: "2025-08-01",
     end: "2029-07-31",
     years: ["1. Lehrjahr", "2. Lehrjahr", "3. Lehrjahr", "4. Lehrjahr"],
+    today: "heute",
   },
   items: [
     {
-      period: "bis 2023",
+      period: "2023 - 2025",
       title: "Sekundarschule",
       text: "Der Zusammenhalt der Klasse fehlt mir sehr, und das sind die Sachen, die mir geblieben sind:",
       details: [

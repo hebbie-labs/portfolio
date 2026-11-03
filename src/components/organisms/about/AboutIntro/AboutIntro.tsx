@@ -15,13 +15,13 @@ export function AboutIntro() {
     <header>
       <Reveal
         variant="scale"
-        className="mx-auto mb-10 w-56 md:float-left md:mb-0 md:w-[36%] md:[shape-margin:1.5rem]"
+        className="mx-auto mb-10 w-45 md:float-left md:mb-0 md:w-[28.8%] md:[shape-margin:1.5rem]"
         style={{ shapeOutside: ABOUT_PAGE.stickerShape }}
       >
         <Sticker
           src={ABOUT_PAGE.sticker}
           alt={ABOUT_PAGE.portraitAlt}
-          sizes="(min-width: 1280px) 26rem, (min-width: 768px) 36vw, 14rem"
+          sizes="(min-width: 1280px) 21rem, (min-width: 768px) 29vw, 11.25rem"
           preload
           className="w-full"
         />

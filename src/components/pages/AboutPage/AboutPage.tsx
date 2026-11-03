@@ -4,7 +4,7 @@ import { Timeline } from "@/components/organisms/about/Timeline";
 import { PageTemplate } from "@/components/templates/PageTemplate";
 import { ABOUT_TIMELINE } from "@/constants/about";
 
-/** Centered: intro and story wrapped around the large portrait, then the narrower timeline. */
+/** Centered: intro and story wrapped around the large portrait, then the timeline at the same width. */
 export function AboutPage() {
   return (
     <PageTemplate>
@@ -14,9 +14,7 @@ export function AboutPage() {
           <AboutIntro />
           <AboutStory />
         </div>
-        <div className="mx-auto w-full max-w-3xl">
-          <Timeline {...ABOUT_TIMELINE} />
-        </div>
+        <Timeline {...ABOUT_TIMELINE} />
       </div>
     </PageTemplate>
   );

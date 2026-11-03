@@ -1,6 +1,6 @@
 import { Polaroid } from "@/components/atoms/Polaroid";
 import { Reveal } from "@/components/atoms/Reveal";
-import { Body } from "@/components/atoms/Typography";
+import { Body, Headline, Label } from "@/components/atoms/Typography";
 import { EfzProgress } from "@/components/molecules/about/EfzProgress";
 import { cn } from "@/lib/utils";
 import type { Apprenticeship, TimelineItem } from "@/types/about";
@@ -31,13 +31,11 @@ export function Timeline({
               i % 2 ? "sm:flex-row" : "sm:flex-row-reverse",
             )}
           >
-            <div className="flex flex-col gap-2">
-              <span className="text-sm text-accent tabular-nums">
-                {period}
-              </span>
-              <span className="text-2xl font-semibold md:text-3xl">
+            <div className="flex min-w-0 flex-1 flex-col gap-2">
+              <Label className="text-accent tabular-nums">{period}</Label>
+              <Headline as="h3" size="sm">
                 {title}
-              </span>
+              </Headline>
               <Body muted>{text}</Body>
               {details && (
                 <ul className="mt-1 flex flex-col gap-1 text-muted">

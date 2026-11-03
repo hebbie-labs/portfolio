@@ -10,10 +10,11 @@ export type TimelineItem = {
   image?: { src: StaticImageData; alt: string };
 };
 
-/** The Lehre for the progress bar above the timeline; `start`/`end` as ISO dates, one label per year. */
+/** The Lehre for the progress bar above the timeline; `start`/`end` as ISO dates, one label per year, `today` marks the fill end. */
 export type Apprenticeship = {
   title: string;
   start: string;
   end: string;
   years: readonly string[];
+  today: string;
 };
