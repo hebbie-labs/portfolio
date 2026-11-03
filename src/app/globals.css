@@ -31,6 +31,20 @@
   color-scheme: light;
 }
 
+/* Neutral black for a subtree in either theme (the project tour): no tint, white as accent. */
+[data-theme="scene"] {
+  --bg: #000000;
+  --bg-2: #0a0a0a;
+  --ph: #141414;
+  --line: #262626;
+  --muted: #a3a3a3;
+  --fg: #fafafa;
+  --accent: #fafafa;
+  --accent-ink: #000000;
+  --glass: rgba(10, 10, 10, 0.78);
+  color-scheme: dark;
+}
+
 /* `static`: always emitted as :root custom properties so plain CSS (keyframes) can use var(--ease-*). */
 @theme static {
   --ease-spring: cubic-bezier(0.32, 0.72, 0, 1);
@@ -152,6 +166,31 @@ button {
 ::view-transition-new(root) {
   animation: none;
   mix-blend-mode: normal;
+}
+/* The project tour's arrow draws itself from the text to the spot, then its head appears (ProjectTour). */
+@keyframes arrow-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes arrow-head {
+  from {
+    opacity: 0;
+  }
+}
+
+/* A project preview morphing into its tour (ProjectRow ↔ ProjectTour); with reduced motion it only crossfades. */
+::view-transition-group(.project-morph) {
+  animation-duration: 600ms;
+  animation-timing-function: var(--ease-spring);
+}
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(.project-morph) {
+    animation: none;
+  }
 }
 [data-magicui-theme-vt="active"]::view-transition-new(root) {
   clip-path: var(--magicui-theme-vt-clip-from);

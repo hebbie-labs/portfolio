@@ -7,6 +7,7 @@ import { useCallback, useEffect, useRef } from "react";
 import { ThreeCanvas, type SceneSetup } from "@/components/atoms/ThreeCanvas";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { useTheme } from "@/hooks/useTheme";
+import type { Theme } from "@/lib/theme";
 
 import {
   buildServerScene,
@@ -15,8 +16,9 @@ import {
   type SceneLogos,
 } from "./serverScene";
 
-const readColors = (): SceneColors => {
-  const style = getComputedStyle(document.documentElement);
+/** Tokens as they apply at `el`, so a `data-theme` subtree counts. */
+const readColors = (el: Element): SceneColors => {
+  const style = getComputedStyle(el);
   const token = (name: string) => style.getPropertyValue(`--${name}`).trim();
   return {
     bg: token("bg"),
@@ -49,11 +51,14 @@ const ICONS = {
 export function HomeserverScene({
   step,
   label,
+  theme: forced,
 }: {
   step: number;
   label: string;
+  theme?: Theme;
 }) {
-  const theme = useTheme();
+  const page = useTheme();
+  const theme = forced ?? page;
   const still = useMediaQuery("(prefers-reduced-motion: reduce)");
   // Phones and tablets: the canvas is small, so the camera moves in.
   const small = useMediaQuery("(max-width: 63.99rem)");
@@ -74,7 +79,7 @@ export function HomeserverScene({
       const svgs = markup(logos.current);
       const lines = markup(icons.current);
       return buildServerScene(scene, camera, {
-        colors: readColors(),
+        colors: readColors(logos.current ?? document.documentElement),
         logos: Object.fromEntries(
           LOGOS.map((name, i) => [name, svgs[i] ?? ""]),
         ) as SceneLogos,

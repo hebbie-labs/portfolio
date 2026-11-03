@@ -1,40 +1,13 @@
-import { Fragment } from "react";
+import { ProjectsTrack } from "@/components/organisms/projects/ProjectsTrack";
+import { PROJECTS_PAGE } from "@/constants/projects";
 
-import { Reveal } from "@/components/atoms/Reveal";
-import { Display } from "@/components/atoms/Typography";
-import { ProjectFeatureScroller } from "@/components/organisms/projects/ProjectFeatureScroller";
-import { PageTemplate } from "@/components/templates/PageTemplate";
-import { Separator } from "@/components/ui/separator";
-import { PROJECTS, PROJECTS_PAGE } from "@/constants/projects";
-
-/** All projects stacked, separated by hairlines: each title is the hero, below it the showcase (screen and text). */
+/** Index of all projects on a sideways track; each panel links to its detail page. */
 export function ProjectsPage() {
   return (
-    <PageTemplate>
-      {/* The nav pill already names the page, and each project title is its heading. */}
+    <>
+      {/* The nav pill already names the page, and each project title is its panel's heading. */}
       <h1 className="sr-only">{PROJECTS_PAGE.title}</h1>
-      <div className="flex flex-col gap-16 md:gap-24">
-        {PROJECTS.map(({ slug, ...project }, i) => (
-          <Fragment key={slug}>
-            {i > 0 && (
-              <Reveal scroll variant="fade">
-                <Separator />
-              </Reveal>
-            )}
-            <article
-              id={slug}
-              className="flex scroll-mt-24 flex-col gap-8 md:gap-12"
-            >
-              <Reveal scroll variant="blur">
-                <Display as="h2" size="lg" className="min-w-0 break-words">
-                  {project.title}
-                </Display>
-              </Reveal>
-              <ProjectFeatureScroller {...project} flip={i % 2 === 1} />
-            </article>
-          </Fragment>
-        ))}
-      </div>
-    </PageTemplate>
+      <ProjectsTrack />
+    </>
   );
 }

@@ -24,10 +24,10 @@ Deutschsprachig (Schweizer Rechtschreibung: «ss» statt «ß»). Deployt über 
 
 ## Capabilities and Constraints
 
-- Routen: `/` (Start), `/projekte`, `/about`, `/kontakt`, `/impressum`, `/datenschutz`, 404; Skills laufen als Skill-Cloud auf `/about`.
+- Routen: `/` (Start), `/projekte` (Übersicht), `/projekte/<slug>` (Detail), `/about`, `/kontakt`, `/impressum`, `/datenschutz`, 404; Skills laufen als Skill-Cloud auf `/about`.
 - Kontaktformular, E-Mail (`contact@leonhebeisen.com`) mit Copy-Button, Social-Profile (GitHub, LinkedIn, Noser Young, Instagram, X, Bluesky).
 - Hell/Dunkel-Theme (Dunkel Standard), Intro, Seitenübergänge, Smooth Scroll.
-- Projekte tragen Screenshots/Showreel und werden mit Features-Zeilen erklärt.
+- Projekte: Übersicht als horizontaler Track mit Loop-Vorschau pro Projekt; die Detailseite führt per Scroll in einer schwarzen Szene durch die Features (Screenshots mit Text und Pfeil bzw. 3D-Szene).
 
 ## Brand Commitments
 

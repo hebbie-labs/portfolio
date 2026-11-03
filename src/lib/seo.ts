@@ -16,7 +16,7 @@ const SHARE_IMAGE = { url: "/opengraph-image", width: 1200, height: 630 };
 const OPEN_GRAPH = { siteName: SITE_NAME, locale: "de_CH", type: "website" };
 
 export const metadata: Metadata = {
-  icons: { icon: "./logo.svg" },
+  icons: { icon: "/logo.svg" },
   title: { default: SITE_TITLE, template: `%s | ${SITE_NAME}` },
   description: SITE_DESCRIPTION,
   metadataBase: new URL(SITE_URL),
@@ -129,7 +129,7 @@ export const PROJECTS_JSON_LD = webPage("CollectionPage", "/projekte", {
         "@type": "CreativeWork",
         name: project.title,
         description: project.summary,
-        url: `${SITE_URL}/projekte#${project.slug}`,
+        url: `${SITE_URL}/projekte/${project.slug}`,
         author: PERSON,
         ...(project.repo && { sameAs: project.repo }),
       },

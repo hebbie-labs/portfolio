@@ -22,13 +22,11 @@ export const PROJECTS_PAGE = {
 
 export const PROJECT_TEXT = {
   demoLabel: "Live-Demo",
-  videoLabel: "Video",
   repoLabel: "GitHub",
+  backLabel: "Projekte",
+  tourLabel: (title: string) => `Funktionen von ${title}`,
   viewAlt: (title: string, view?: string) =>
     view ? `Screenshot von ${title}: ${view}` : `Screenshot von ${title}`,
-  carouselLabel: (title: string) => `Ansichten von ${title}`,
-  slideLabel: (index: number, count: number, label: string) =>
-    `Folie ${index} von ${count}: ${label}`,
   sceneAlt: (title: string, view?: string) =>
     view ? `3D-Modell von ${title}: ${view}` : `3D-Modell von ${title}`,
 };
@@ -36,3 +34,6 @@ export const PROJECT_TEXT = {
 export const PROJECTS: Project[] = [RECUR, HOMESERVER_PROJECT];
 
 export const FEATURED_PROJECTS = PROJECTS.filter((p) => p.featured);
+
+export const getProject = (slug: string) =>
+  PROJECTS.find((p) => p.slug === slug);

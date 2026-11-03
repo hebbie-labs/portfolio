@@ -6,7 +6,7 @@ import { ProjectScene } from "@/components/molecules/projects/ProjectScene";
 import { PROJECT_TEXT } from "@/constants/projects";
 import type { Project } from "@/types/project";
 
-/** Start page teaser: media, title, one-liner; the whole card links to its entry on the projects page. */
+/** Start page teaser: media, title, one-liner; the whole card links to its detail page. */
 export function ProjectTeaser({ slug, title, summary, views, scene }: Project) {
   return (
     <article className="group @container relative flex flex-col gap-3 md:gap-4">
@@ -24,7 +24,7 @@ export function ProjectTeaser({ slug, title, summary, views, scene }: Project) {
         </ProjectMedia>
       </div>
       <Link
-        href={`/projekte#${slug}`}
+        href={`/projekte/${slug}`}
         className="rounded-panel after:absolute after:inset-0 after:rounded-panel focus-visible:after:outline-2 focus-visible:after:outline-offset-4 focus-visible:after:outline-accent"
       >
         <Display
