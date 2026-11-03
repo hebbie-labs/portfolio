@@ -13,7 +13,6 @@
   --accent: #4fd88a;
   --accent-ink: #06120b;
   --danger: #ff7b6b;
-  --glass: rgba(17, 22, 18, 0.78);
   color-scheme: dark;
 }
 
@@ -27,7 +26,6 @@
   --accent: #a30000;
   --accent-ink: #ffffff;
   --danger: #dc2626;
-  --glass: rgba(244, 244, 244, 0.82);
   color-scheme: light;
 }
 
@@ -49,11 +47,10 @@
   --color-accent: var(--accent);
   --color-accent-ink: var(--accent-ink);
   --color-danger: var(--danger);
-  --color-glass: var(--glass);
   --color-transparent: transparent;
   --color-current: currentColor;
 
-  /* Corners: buttons/inputs rounded-md (6px), frames rounded-panel (= nav: 6px inside + 4px padding). */
+  /* Corners: buttons/inputs rounded-md (6px), frames rounded-panel. */
   --radius-panel: 10px;
 
   --font-display: var(--font-redaction), serif;
@@ -83,9 +80,11 @@
 
 html {
   background-color: var(--bg);
-  scrollbar-gutter: stable;
-  /* Anchors and focused elements stay clear of the fixed nav pill. */
-  scroll-padding-top: calc(var(--nav-top) + var(--nav-h) + 1rem);
+  /* Replaced by atoms/ScrollRuler, which gets its own strip (--ruler-w) on mouse devices. */
+  scrollbar-width: none;
+  padding-right: var(--ruler-w);
+  /* Anchors and focused elements stay clear of the sticky nav (p-5 + 44px bar + 1rem). */
+  scroll-padding-top: calc(1.25rem + 2.75rem + 1rem);
 }
 
 a,
@@ -98,31 +97,61 @@ button {
   @apply px-4 md:px-10 lg:px-20 2xl:px-[max(5rem,calc((100%-100rem)/2))];
 }
 
-/* Fixed nav pill: distance from the viewport top and its height (p-1 + 44px bar + border). */
-:root {
-  --nav-top: 1rem;
-  --nav-h: 54px;
+/* Outline around a cut-out image (atoms/Sticker): each drop-shadow grows the result of the one before. */
+@utility sticker-outline {
+  filter: drop-shadow(4px 0 0 var(--fg)) drop-shadow(-4px 0 0 var(--fg))
+    drop-shadow(0 4px 0 var(--fg)) drop-shadow(0 -4px 0 var(--fg));
 }
-@media (min-width: 48rem) {
+
+:root {
+  --ruler-w: 0px;
+}
+@media (pointer: fine) {
   :root {
-    --nav-top: 1.25rem;
+    --ruler-w: 24px;
   }
 }
 
-/* Top padding that always leaves the same gap below the nav pill. */
-@utility pt-nav {
-  padding-top: calc(var(--nav-top) + var(--nav-h) + 3rem);
+html::-webkit-scrollbar {
+  display: none;
 }
 
 /**
- * Widest browser frame (aspect 1203:753, see ui/safari.tsx) whose full height fits on one screen below the nav,
- * so scrolled into view its bottom edge stays visible.
+ * Scroll ruler (atoms/ScrollRuler): each tick (--i) magnifies by its distance to the scroll position (--pos)
+ * and the cursor (--hover), all in tick indexes. Calmer at rest, full while scrolling or hovered.
  */
-@utility max-w-first-screen {
-  max-width: max(
-    28rem,
-    calc((100dvh - var(--nav-top) - var(--nav-h) - 3rem) * 1.6)
-  );
+[data-ruler] {
+  --amp: 0.5;
+  --hover: -99;
+  &:hover,
+  &[data-active] {
+    --amp: 1;
+  }
+  & > span {
+    --base: 0.3;
+    --d: min(
+      max(var(--i) - var(--pos), var(--pos) - var(--i)),
+      max(var(--i) - var(--hover), var(--hover) - var(--i))
+    );
+    --f: max(0, 1 - var(--d) / 6);
+    height: 1px;
+    transform-origin: right;
+    scale: max(var(--base), 0.3 + 0.7 * var(--amp) * var(--f) * var(--f)) 1;
+    background-color: color-mix(
+      in oklab,
+      var(--accent) calc(var(--amp) * var(--f) * 100%),
+      var(--line)
+    );
+    transition:
+      scale 150ms var(--ease-out),
+      background-color 150ms var(--ease-out);
+    @media (prefers-reduced-motion: reduce) {
+      transition: none;
+    }
+  }
+  & > span[data-major] {
+    --base: 0.5;
+  }
 }
 
 @utility lnk {
@@ -162,32 +191,11 @@ button {
   color: var(--accent-ink);
 }
 
-/* Startup screen: `data-intro` on <html> is "logo" → "done" (see Intro, INTRO_INIT_SCRIPT). */
-html[data-intro="logo"] {
-  overflow: hidden;
-}
-
-/* Matches the startup screen so browser chrome/overscroll blend in; Intro fades it back to --bg. */
-html[data-intro="logo"],
-html[data-intro="logo"] body {
-  background-color: var(--bg-2);
-}
-
-/* Safari draws the page under its floating toolbar, past any overlay; keep that area plain body color. */
-html[data-intro="logo"] main,
-html[data-intro="logo"] footer {
-  visibility: hidden;
-}
-
-/* Plays on every page load and route change; paused behind the startup screen until `data-intro` leaves "logo". */
+/* Plays on every page load and route change. */
 [data-reveal]:not([data-scroll]),
 [data-reveal][data-in] {
   animation: var(--reveal, reveal) 450ms var(--ease-spring) backwards;
   animation-delay: calc(var(--i, 0) * 60ms);
-}
-
-html[data-intro="logo"] [data-reveal] {
-  animation-play-state: paused;
 }
 
 @keyframes reveal {
@@ -260,4 +268,54 @@ html[data-intro="logo"] [data-reveal] {
     animation-duration: 200ms;
     animation-delay: 0ms;
   }
+}
+@keyframes punkt-ping {
+  50% {
+    transform: scale(1.8);
+  }
+}
+
+@keyframes punkt-nudge {
+  50% {
+    transform: scale(1.15);
+  }
+}
+
+@keyframes punkt-rise {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.punkt-ping {
+  animation: punkt-ping 1s steps(4) 0.8s 3;
+}
+.punkt-nudge {
+  animation: punkt-nudge 1s steps(4) 0.8s 3;
+}
+.punkt-rise {
+  animation: punkt-rise 0.5s both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .punkt-ping,
+  .punkt-nudge,
+  .punkt-rise {
+    animation: none;
+  }
+}
+
+header:has([data-menu-open]) > div:first-child {
+  position: relative;
+  z-index: 20;
+  color: var(--accent-ink);
+}
+
+header:has([data-menu-open]) > div:first-child svg {
+  color: var(--accent-ink);
 }

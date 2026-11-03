@@ -1,38 +1,25 @@
-"use client";
-
-import { useCallback, useRef, useState } from "react";
-import { usePathname } from "next/navigation";
-import { NavBar } from "@/components/organisms/layout/Nav/NavBar";
-import { NavPanel } from "@/components/organisms/layout/Nav/NavPanel";
-import { useDismiss } from "@/hooks/useDismiss";
-import { getNavLink } from "@/lib/nav";
+import { Logo } from "@/components/atoms/Logo";
+import { PunktMenu } from "@/components/organisms/layout/Nav/PunktMenu";
+import { AnimatedThemeToggler } from "@/components/ui/animated-theme-toggler";
+import { buttonVariants } from "@/components/ui/button";
+import { NAV_TEXT } from "@/constants/nav";
 import { cn } from "@/lib/utils";
 
 export function Nav() {
-  const [open, setOpen] = useState(false);
-  const current = getNavLink(usePathname());
-  const menu = useRef<HTMLDivElement>(null);
-
-  useDismiss(
-    menu,
-    open,
-    useCallback(() => setOpen(false), []),
-  );
-
   return (
-    <header className="pointer-events-none fixed inset-x-4 top-(--nav-top) z-50 flex justify-center">
-      <div
-        id="menu"
-        ref={menu}
-        className={cn(
-          "pointer-events-auto isolate flex transform-gpu flex-col overflow-hidden border border-line p-1 backdrop-blur-[14px] transition-[width,min-width,background-color,box-shadow] duration-400 ease-out [interpolate-size:allow-keywords] in-data-[intro=logo]:w-(--nav-h) in-data-[intro=logo]:min-w-0 in-data-[intro=logo]:opacity-0 in-data-[intro=logo]:transition-none",
-          open
-            ? "w-[min(358px,calc(100vw-2rem))] rounded-panel bg-bg-2 shadow-[0_24px_60px_rgba(0,0,0,0.35)]"
-            : "w-fit min-w-[min(15.5rem,calc(100vw-2rem))] rounded-panel bg-glass shadow-[0_4px_12px_rgba(0,0,0,0.15)]",
-        )}
-      >
-        <NavBar open={open} setOpen={setOpen} current={current} />
-        <NavPanel open={open} setOpen={setOpen} current={current} />
+    <header className="pointer-events-none sticky top-0 z-50 p-5">
+      {/* First child on purpose: globals.css lifts it above the open menu (`header:has([data-menu-open]) > div`). */}
+      <div className="pointer-events-auto flex flex-row justify-between">
+        {/* `relative z-20` on each item: the menu overlay (z-10) sits inside this bar and would cover them. */}
+        <Logo className="relative z-20" />
+        <PunktMenu />
+        <AnimatedThemeToggler
+          aria-label={NAV_TEXT.themeToggle}
+          className={cn(
+            buttonVariants({ size: "icon" }),
+            "relative z-20 rounded-md",
+          )}
+        />
       </div>
     </header>
   );

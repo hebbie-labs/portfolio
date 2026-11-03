@@ -8,11 +8,11 @@ web
 
 ## Users
 
-Primär: Lehrstellen- und Arbeitgeber-Seite (Recruiter, Tech-Leads, die einen Junior einstellen oder nach der Lehre abholen wollen) sowie Peers und die Developer-Community, die Projekte und Code anschauen. Sie prüfen in wenigen Minuten, ob Leon handwerklich überzeugt, und nehmen danach Kontakt auf oder gehen auf GitHub/die Live-Demos.
+Primär: Lehrstellen- und Arbeitgeber-Seite (Recruiter, Tech-Leads, die einen Junior einstellen oder nach der Lehre abholen wollen) sowie Peers und die Developer-Community, die Projekte und Code anschauen. Sie prüfen in wenigen Minuten, ob Leon handwerklich überzeugt, und nehmen danach Kontakt auf oder gehen auf GitHub.
 
 ## Product Purpose
 
-Persönliches Portfolio von Leon Hebeisen (Bern, CH), Lernender Applikationsentwickler EFZ bei Noser Young, aktuell im 2. Lehrjahr. Es zeigt ausgewählte Projekte (Recur, Homeserver), erzählt den Werdegang und macht Kontaktaufnahme einfach. Erfolg: Besucher:innen melden sich oder öffnen Repos und Live-Demos.
+Persönliches Portfolio von Leon Hebeisen (Bern, CH), Lernender Applikationsentwickler EFZ bei Noser Young, aktuell im 2. Lehrjahr. Es erzählt den Werdegang und macht Kontaktaufnahme einfach. Erfolg: Besucher:innen melden sich oder öffnen GitHub.
 
 ## Positioning
 
@@ -26,8 +26,7 @@ Deutschsprachig (Schweizer Rechtschreibung: «ss» statt «ß»). Deployt über 
 
 - Routen: `/` (Start), `/about`, `/kontakt`, `/impressum`, `/datenschutz`, 404; Skills laufen als Skill-Cloud auf `/about`.
 - Kontaktformular, E-Mail (`contact@leonhebeisen.com`) mit Copy-Button, Social-Profile (GitHub, LinkedIn, Noser Young, Instagram, X, Bluesky).
-- Hell/Dunkel-Theme (Dunkel Standard), Intro, Seitenübergänge, Smooth Scroll.
-- Projekte tragen Screenshots/Showreel und werden mit Features-Zeilen erklärt.
+- Hell/Dunkel-Theme (Dunkel Standard), Punkt-Menü (Vollbild-Navigation, öffnet sich auch über den Punkt im Hero-Titel), Seitenübergänge, Smooth Scroll.
 
 ## Brand Commitments
 
@@ -49,7 +48,7 @@ Name «Leon Hebeisen», Logo `public/logo.svg`, Portrait `public/about/portrait.
 
 ## Accessibility & Inclusion
 
-Ziel ist WCAG 2.1 AA (Kontrast mindestens 4.5:1, volle Tastaturbedienung mit sichtbarem Fokus, Labels und Fehlermeldungen in Formularen, Alternativtexte). Reduced-Motion wird bereits respektiert (Showreel-Poster).
+Ziel ist WCAG 2.1 AA (Kontrast mindestens 4.5:1, volle Tastaturbedienung mit sichtbarem Fokus, Labels und Fehlermeldungen in Formularen, Alternativtexte). Reduced-Motion wird bereits respektiert.
 
 Lighthouse, jeweils mobil und desktop, auf jeder Seite:
 

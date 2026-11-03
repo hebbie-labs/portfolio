@@ -7,13 +7,13 @@ import { ABOUT_STORY } from "@/constants/about";
 
 /**
  * Second paragraph with the skill cloud in the middle, then the bio paragraph. From `md` the cloud floats right
- * and the text after it, including the bio, wraps around it (`flow-root` keeps the float inside, so the links
- * below start after the cloud); on mobile everything stacks. The story is two paragraphs with the cloud between them.
+ * and the text after it, including the bio, wraps around it; it stays a plain block there, so the portrait
+ * floating left in the intro wraps it too (`AboutPage` contains both floats). On mobile everything stacks.
  */
 export function AboutStory() {
   const { before, after } = ABOUT_STORY;
   return (
-    <div className="flex flex-col gap-6 md:flow-root">
+    <div className="flex flex-col gap-6 md:block">
       <Reveal scroll>
         <Body>
           <RichText parts={before} />

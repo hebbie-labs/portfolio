@@ -13,13 +13,13 @@ export const OUTSIDE_NAV_LINKS = [
 
 export const PRIVACY_LINK = OUTSIDE_NAV_LINKS[1];
 
-/** Texts of the nav bar, menu panel and its buttons. */
+/** Texts of the nav bar, the punkt menu and its buttons. */
 export const NAV_TEXT = {
   ariaLabel: "Hauptnavigation",
-  menuOpen: "Menü",
-  menuClose: "Schliessen",
-  themeLight: "Hell",
-  themeDark: "Dunkel",
+  menu: "Menü",
+  close: "Schliessen",
+  menuOpen: "Menü öffnen",
+  menuClose: "Menü schliessen",
   github: "GitHub",
   themeToggle: "Farbschema wechseln",
   homeLabel: "Zur Startseite",
@@ -27,3 +27,6 @@ export const NAV_TEXT = {
 } as const;
 
 export const NOT_FOUND_LINK = { href: "", label: "404" } as const;
+
+/** Window event `atoms/MenuPunkt` dispatches to open the punkt menu from its position (`detail: { x, y }`). */
+export const MENU_OPEN_EVENT = "punkt-menu:open";

@@ -1,10 +1,14 @@
 // Content of the about page, top to bottom.
 // The skills for the icon cloud are in `skills.ts`.
 
-import type { TimelineItem } from "@/types/about";
+import type { Apprenticeship, TimelineItem } from "@/types/about";
+import portrait from "../../public/about/portrait.jpg";
+import portraitSticker from "../../public/about/portrait-sticker.png";
+import lehrjahr1 from "../../public/about/timeline-lehrjahr-1.jpg";
+import lehrjahr2 from "../../public/about/timeline-lehrjahr-2.jpg";
 import type { RichPart } from "@/types/richText";
 
-/** Header: portrait, headline, role and the first (large) paragraph. */
+/** Header: portrait (`sticker`, cut out, on the about page; `portrait` in the home teaser), headline, role and the first (large) paragraph. */
 export const ABOUT_PAGE = {
   /** Tab title and search description (`metadata` in `app/about/page.tsx`). */
   meta: {
@@ -16,7 +20,11 @@ export const ABOUT_PAGE = {
   role: "Applikationsentwickler in Ausbildung",
   intro:
     "Ich lerne gern neue Technologien, tausche mich mit anderen Menschen aus und baue Software, am liebsten im Frontend :)",
-  portrait: "/about/portrait.jpg",
+  portrait,
+  sticker: portraitSticker,
+  /** Right edge of the sticker's silhouette (from its alpha channel), for the text wrapping around it; redo when the image changes. */
+  stickerShape:
+    "polygon(0% 0%, 63.3% 0%, 70.7% 4.2%, 75.6% 8.3%, 78.3% 12.5%, 78.3% 16.7%, 76.1% 20.9%, 71.9% 25%, 70.9% 29.2%, 87.4% 33.4%, 94.6% 37.5%, 96.9% 41.7%, 97.6% 45.9%, 97.6% 50%, 96.9% 54.2%, 96.9% 58.4%, 97.6% 62.6%, 99.8% 66.7%, 99.8% 70.9%, 95.6% 75.1%, 82% 79.2%, 82.8% 83.4%, 82.8% 87.6%, 85.6% 91.8%, 88% 95.9%, 89.3% 100%, 0% 100%)",
   portraitAlt: "Portrait von Leon Hebeisen",
 } as const;
 
@@ -79,6 +87,12 @@ export const ABOUT_BIO = [
 /** Detailed timeline on the about page, oldest first. */
 export const ABOUT_TIMELINE = {
   title: "Werdegang",
+  lehre: {
+    title: "Lehre Applikationsentwickler EFZ",
+    start: "2025-08-01",
+    end: "2029-07-31",
+    years: ["1. Lehrjahr", "2. Lehrjahr", "3. Lehrjahr", "4. Lehrjahr"],
+  },
   items: [
     {
       period: "bis 2023",
@@ -101,7 +115,7 @@ export const ABOUT_TIMELINE = {
         "üK 294 und 295, um Backend und Frontend separat zu lernen.",
       ],
       image: {
-        src: "/about/timeline-lehrjahr-1.jpg",
+        src: lehrjahr1,
         alt: "Leon im ersten Lehrjahr bei Noser Young",
       },
     },
@@ -113,9 +127,13 @@ export const ABOUT_TIMELINE = {
         "Frontend mit Next.js, React und TypeScript nach Atomic Design",
       ],
       image: {
-        src: "/about/timeline-lehrjahr-2.jpg",
+        src: lehrjahr2,
         alt: "Portrait von Leon im zweiten Lehrjahr bei Noser Young",
       },
     },
   ],
-} as const satisfies { title: string; items: readonly TimelineItem[] };
+} as const satisfies {
+  title: string;
+  lehre: Apprenticeship;
+  items: readonly TimelineItem[];
+};

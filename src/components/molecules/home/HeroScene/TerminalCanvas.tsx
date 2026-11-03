@@ -1,12 +1,13 @@
 "use client";
 
 import { JetBrains_Mono } from "next/font/google";
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useRef } from "react";
 
 import { ThreeCanvas, type SceneSetup } from "@/components/atoms/ThreeCanvas";
 import { HOME_HERO } from "@/constants/home";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { useTheme } from "@/hooks/useTheme";
+import { useWindowEvent } from "@/hooks/useWindowEvent";
 
 import { buildTerminalScene, type TerminalColors } from "./terminalScene";
 
@@ -31,15 +32,14 @@ export function TerminalCanvas({ label }: { label: string }) {
   const still = useMediaQuery("(prefers-reduced-motion: reduce)");
   const pointer = useRef({ x: 0, y: 0 });
 
-  useEffect(() => {
-    if (still) return;
-    const move = (e: PointerEvent) => {
+  useWindowEvent(
+    "pointermove",
+    (e) => {
       pointer.current.x = (e.clientX / innerWidth) * 2 - 1;
       pointer.current.y = 1 - (e.clientY / innerHeight) * 2;
-    };
-    addEventListener("pointermove", move, { passive: true });
-    return () => removeEventListener("pointermove", move);
-  }, [still]);
+    },
+    !still,
+  );
 
   const setup = useCallback<SceneSetup>(
     (scene, camera) =>

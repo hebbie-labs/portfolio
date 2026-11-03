@@ -1,33 +1,23 @@
-import { Reveal } from "@/components/atoms/Reveal";
 import { AboutIntro } from "@/components/organisms/about/AboutIntro";
-import { PortraitStack } from "@/components/organisms/about/PortraitStack";
 import { AboutStory } from "@/components/organisms/about/AboutStory";
 import { Timeline } from "@/components/organisms/about/Timeline";
-import { TimelinePhotoProvider } from "@/components/providers/TimelinePhoto";
 import { PageTemplate } from "@/components/templates/PageTemplate";
 import { ABOUT_TIMELINE } from "@/constants/about";
 
-/** Portrait sticks on the left while the text column scrolls (the timeline swaps its photo); stacked on mobile. */
+/** Centered: intro and story wrapped around the large portrait, then the narrower timeline. */
 export function AboutPage() {
   return (
     <PageTemplate>
-      <TimelinePhotoProvider>
-        <div className="grid gap-10 md:grid-cols-[1fr_2fr] md:gap-12 lg:gap-20">
-          <Reveal
-            variant="scale"
-            className="max-w-xs md:sticky md:top-32 md:self-start"
-          >
-            <PortraitStack />
-          </Reveal>
-          <div className="flex max-w-3xl min-w-0 flex-col gap-16 md:gap-24">
-            <div className="flex flex-col gap-8">
-              <AboutIntro />
-              <AboutStory />
-            </div>
-            <Timeline {...ABOUT_TIMELINE} />
-          </div>
+      <div className="mx-auto flex w-full max-w-6xl flex-col gap-16 md:gap-24">
+        {/* Block, not flex: the portrait floating in the intro wraps the story too; flow-root contains the floats. */}
+        <div className="space-y-8 md:flow-root">
+          <AboutIntro />
+          <AboutStory />
         </div>
-      </TimelinePhotoProvider>
+        <div className="mx-auto w-full max-w-3xl">
+          <Timeline {...ABOUT_TIMELINE} />
+        </div>
+      </div>
     </PageTemplate>
   );
 }

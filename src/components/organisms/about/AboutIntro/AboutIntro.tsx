@@ -1,17 +1,35 @@
 import { Fragment } from "react";
 
 import { Reveal } from "@/components/atoms/Reveal";
+import { Sticker } from "@/components/atoms/Sticker";
 import { Display, Lead } from "@/components/atoms/Typography";
 import { ABOUT_PAGE } from "@/constants/about";
 
-/** Headline, then the intro sentence fading in word by word (CSS `reveal`, see globals.css). */
+/**
+ * The cut-out portrait, from `md` large and floating left: the headline, the intro and the story after it (same
+ * block flow, see `AboutPage`) wrap around its silhouette (`shape-outside`). Then the headline and the intro
+ * sentence fading in word by word (CSS `reveal`, see globals.css).
+ */
 export function AboutIntro() {
   return (
-    <header className="space-y-6">
+    <header>
+      <Reveal
+        variant="scale"
+        className="mx-auto mb-10 w-56 md:float-left md:mb-0 md:w-[36%] md:[shape-margin:1.5rem]"
+        style={{ shapeOutside: ABOUT_PAGE.stickerShape }}
+      >
+        <Sticker
+          src={ABOUT_PAGE.sticker}
+          alt={ABOUT_PAGE.portraitAlt}
+          sizes="(min-width: 1280px) 26rem, (min-width: 768px) 36vw, 14rem"
+          preload
+          className="w-full"
+        />
+      </Reveal>
       <Reveal>
         <Display size="md">{ABOUT_PAGE.title}</Display>
       </Reveal>
-      <Lead className="max-w-2xl text-3xl md:text-4xl">
+      <Lead className="mt-6 text-3xl md:text-4xl">
         {ABOUT_PAGE.intro.split(" ").map((word, i) => (
           <Fragment key={i}>
             {i > 0 && " "}

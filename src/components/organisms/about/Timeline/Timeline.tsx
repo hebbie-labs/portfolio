@@ -1,76 +1,40 @@
-"use client";
-
-import Image from "next/image";
-import { useCallback, useEffect, useRef, useState } from "react";
-
+import { Polaroid } from "@/components/atoms/Polaroid";
 import { Reveal } from "@/components/atoms/Reveal";
-import { Body, Display } from "@/components/atoms/Typography";
-import { useTimelinePhoto } from "@/components/providers/TimelinePhoto";
-import { MIDDLE_LINE, useActiveRow } from "@/hooks/useActiveRow";
+import { Body } from "@/components/atoms/Typography";
+import { EfzProgress } from "@/components/molecules/about/EfzProgress";
 import { cn } from "@/lib/utils";
-import type { TimelineItem } from "@/types/about";
+import type { Apprenticeship, TimelineItem } from "@/types/about";
 
 /**
- * Ruled rows: the period as a large number left, station, text and optional detail lines right. The row in the
- * middle of the viewport lights up its period and, from `md`, puts its photo in the sticky portrait frame
- * (`PortraitStack`); below `md` the photo sits in the row instead.
+ * The Lehre's progress bar on top, then ruled rows: period, station, text and optional detail lines, with the
+ * station's photo as a polaroid beside them, alternately right and left and tilted (below on mobile).
  */
 export function Timeline({
   title,
+  lehre,
   items,
 }: {
   title: string;
+  lehre: Apprenticeship;
   items: readonly TimelineItem[];
 }) {
-  const [active, setActive] = useState(0);
-  const { setPhoto } = useTimelinePhoto();
-  const list = useRef<HTMLOListElement>(null);
-  const rows = useActiveRow<HTMLLIElement>(
-    useCallback(
-      (index, row) => {
-        setActive(index);
-        setPhoto(row.dataset.photo ?? null);
-      },
-      [setPhoto],
-    ),
-  );
-
-  useEffect(() => {
-    // Back to the portrait once the list no longer crosses the middle line.
-    const listObserver = new IntersectionObserver(([entry]) => {
-      if (!entry.isIntersecting) setPhoto(null);
-    }, MIDDLE_LINE);
-    if (list.current) listObserver.observe(list.current);
-    return () => {
-      listObserver.disconnect();
-      setPhoto(null);
-    };
-  }, [setPhoto]);
-
   return (
-    <Reveal scroll>
+    <Reveal scroll className="group flex flex-col gap-10">
       <h2 className="sr-only">{title}</h2>
-      <ol ref={list} className="divide-y divide-line border-y border-line">
+      <EfzProgress {...lehre} />
+      <ol className="divide-y divide-line border-y border-line">
         {items.map(({ period, title, text, details, image }, i) => (
           <li
             key={title}
-            ref={(el) => {
-              rows.current[i] = el;
-            }}
-            data-photo={image?.src}
-            className="grid gap-3 py-8 md:grid-cols-[minmax(0,14rem)_1fr] md:gap-8 md:py-10"
+            className={cn(
+              "flex flex-col gap-6 py-8 sm:items-start sm:justify-between sm:gap-10 md:py-10",
+              i % 2 ? "sm:flex-row" : "sm:flex-row-reverse",
+            )}
           >
-            <Display
-              as="p"
-              size="md"
-              className={cn(
-                "transition-colors duration-300",
-                i === active ? "text-accent" : "text-muted",
-              )}
-            >
-              {period}
-            </Display>
-            <div className="flex flex-col gap-2 md:pt-2">
+            <div className="flex flex-col gap-2">
+              <span className="text-sm text-accent tabular-nums">
+                {period}
+              </span>
               <span className="text-2xl font-semibold md:text-3xl">
                 {title}
               </span>
@@ -88,18 +52,18 @@ export function Timeline({
                   ))}
                 </ul>
               )}
-              {image && (
-                <div className="relative mt-3 aspect-[4/5] w-full max-w-xs overflow-hidden rounded-panel bg-bg-2 md:hidden">
-                  <Image
-                    src={image.src}
-                    alt={image.alt}
-                    fill
-                    sizes="20rem"
-                    className="object-cover"
-                  />
-                </div>
-              )}
             </div>
+            {image && (
+              <Polaroid
+                src={image.src}
+                alt={image.alt}
+                caption={period}
+                className={cn(
+                  "ml-2 w-40 shrink-0 sm:mt-2 sm:ml-0 sm:w-44",
+                  i % 2 ? "rotate-2" : "-rotate-3",
+                )}
+              />
+            )}
           </li>
         ))}
       </ol>

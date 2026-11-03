@@ -1,6 +1,6 @@
 import { Reveal } from "@/components/atoms/Reveal";
+import { ScrollRuler } from "@/components/atoms/ScrollRuler";
 import { Footer } from "@/components/organisms/layout/Footer";
-import { StartupIntro } from "@/components/organisms/layout/StartupIntro";
 import { Nav } from "@/components/organisms/layout/Nav";
 import { SmoothScroll } from "@/components/providers/SmoothScroll";
 import { NAV_TEXT } from "@/constants/nav";
@@ -19,9 +19,8 @@ export function MainTemplate({ children }: Props) {
         {NAV_TEXT.skipToContent}
       </a>
       <SmoothScroll />
-      <StartupIntro />
+      <ScrollRuler />
       <Nav />
-      {/* Clips scenes that bleed past the page edge, without breaking sticky (unlike overflow hidden). */}
       <main id="main" className="flex-1 overflow-x-clip">
         {children}
       </main>
