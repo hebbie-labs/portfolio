@@ -8,8 +8,8 @@ import { useTheme } from "@/hooks/useTheme";
 
 /**
  * Skills as a draggable 3D icon cloud (icons only, so it carries a single text alternative).
- * From `md` it floats right and the text after it wraps around the sphere; it must come before that text in the markup.
- * The canvas has a fixed 400px, so on mobile it is centered and the edges are cropped.
+ * A block of its own (`overflow-hidden` makes it a BFC): next to a float in the text, e.g. the about portrait, it sits
+ * beside it while the 400px canvas fits, below it otherwise. On mobile it is centered and the edges are cropped.
  */
 export function SkillCloud() {
   const theme = useTheme();
@@ -25,7 +25,7 @@ export function SkillCloud() {
   return (
     <Reveal
       scroll
-      className="my-6 flex justify-center overflow-hidden md:float-right md:my-0 md:ml-8 md:size-[400px] md:[shape-outside:circle(30%)]"
+      className="my-6 flex justify-center overflow-hidden"
     >
       <div role="img" aria-label={SKILLS_LABEL}>
         <IconCloud icons={icons} showControl={false} />
