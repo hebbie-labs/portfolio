@@ -37,7 +37,7 @@ export const ABOUT_STORY = {
   ],
   after: [
     "Ich baue momentan an ",
-    { text: "Recur", href: "/projekte/#recur" },
+    { text: "Recur", href: "https://github.com/hebbie-labs/recur" },
     ", einer Habit-Tracking-App, zusammen mit meinen Kollegen. Das beste Beispiel für meine Vorliebe fürs Frontend. Solche Apps baue ich am liebsten mit React und TypeScript, dazu noch mit ",
     { text: "Tailwind", href: "https://tailwindcss.com/" },
     " und ",
