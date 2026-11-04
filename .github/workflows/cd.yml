@@ -29,7 +29,7 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      # main -> :latest (www), dev -> :dev, see /srv/homelab/compose.yml
+      # main -> :latest (www), dev -> :dev, see compose.yml
       - uses: docker/build-push-action@v6
         with:
           context: .
@@ -47,8 +47,9 @@ jobs:
     runs-on: self-hosted
     concurrency: deploy-www
     steps:
-      - run: docker compose -f /srv/homelab/compose.yml pull portfolio
-      - run: docker compose -f /srv/homelab/compose.yml up -d portfolio
+      - run: git -C /srv/portfolio pull --ff-only
+      - run: docker compose -f /srv/portfolio/compose.yml pull portfolio
+      - run: docker compose -f /srv/portfolio/compose.yml up -d portfolio
       # IndexNow (Bing, Yandex, …): announce every sitemap URL; the key file is public/ef2c3e7c632c589fd2ef863297a1e555.txt
       - run: |
           urls=$(curl -fsS --retry 10 --retry-all-errors --retry-delay 3 https://leonhebeisen.com/sitemap.xml | grep -o '<loc>[^<]*' | sed 's/<loc>\(.*\)/"\1"/' | paste -sd, -)
@@ -61,5 +62,6 @@ jobs:
     runs-on: self-hosted
     concurrency: deploy-dev
     steps:
-      - run: docker compose -f /srv/homelab/compose.yml pull portfolio-dev
-      - run: docker compose -f /srv/homelab/compose.yml up -d portfolio-dev
+      - run: git -C /srv/portfolio pull --ff-only
+      - run: docker compose -f /srv/portfolio/compose.yml pull portfolio-dev
+      - run: docker compose -f /srv/portfolio/compose.yml up -d portfolio-dev
