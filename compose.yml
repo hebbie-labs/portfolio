@@ -1,0 +1,24 @@
+# Deployment auf dem Homeserver (/srv/portfolio, RESEND_API_KEY in /srv/portfolio/.env).
+# cloudflared läuft im homelab-Stack und erreicht die Container per Name über das externe Netz "tunnel".
+services:
+  portfolio:
+    image: ghcr.io/hebbie-labs/portfolio:latest
+    container_name: portfolio-www
+    restart: unless-stopped
+    environment:
+      - RESEND_API_KEY=${RESEND_API_KEY:-}
+    networks:
+      - tunnel
+
+  portfolio-dev:
+    image: ghcr.io/hebbie-labs/portfolio:dev
+    container_name: portfolio-dev
+    restart: unless-stopped
+    environment:
+      - RESEND_API_KEY=${RESEND_API_KEY:-}
+    networks:
+      - tunnel
+
+networks:
+  tunnel:
+    external: true

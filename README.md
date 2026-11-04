@@ -19,7 +19,7 @@ Weitere Befehle: `pnpm build`, `pnpm start`, `pnpm lint`.
 
 ## Deployment
 
-Ein Push auf `dev` oder `main` startet die CI (ESLint und Docker-Build). Ist sie grün, baut die CD das Docker-Image, legt es in der GitHub Container Registry ab und deployt es per Docker Compose auf den eigenen Server: `dev` nach dev.leonhebeisen.com, `main` nach leonhebeisen.com.
+Ein Push auf `dev` oder `main` startet die CI (ESLint und Docker-Build). Ist sie grün, baut die CD das Docker-Image, legt es in der GitHub Container Registry ab und deployt es per Docker Compose (`compose.yml`, auf dem Server unter `/srv/portfolio`) auf den eigenen Server: `dev` nach dev.leonhebeisen.com, `main` nach leonhebeisen.com.
 
 ## Für Mitwirkende
 
