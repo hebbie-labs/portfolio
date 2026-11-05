@@ -2,24 +2,14 @@
 import { ABOUT_PAGE } from "@/constants/about";
 
 export const HOME_HERO = {
-  title: "Leon",
-  lead: "Lernender Applikationsentwickler. Frontend zuerst, Spring Boot dahinter.",
+  name: "Leon",
+  fullName: "Leon Hebeisen",
+  position: "Lernender Applikationsentwickler.",
+  lead: "Wenn du fragen an einen Design enthusiasten hast.",
   contactLabel: "Schreib mir",
   contactHref: "/kontakt",
   /** Typed one after another in the hero. */
   focus: ["Frontend", "React & TypeScript", "Spring Boot", "UI-Design"],
-  /** The 3D code window: file name, lines and its text alternative. */
-  codeFile: "leon.ts",
-  code: [
-    "const leon = {",
-    '  role: "Applikationsentwickler",',
-    '  stack: ["Java", "Spring",',
-    '          "React", "TS"],',
-    '  location: "Bern",',
-    "};",
-  ],
-  codeLabel:
-    "Codefenster leon.ts: Rolle Applikationsentwickler, Stack Java, Spring, React und TypeScript, Wohnort Bern",
 } as const;
 
 /** About teaser: the about intro in full, and a link to the about page. */

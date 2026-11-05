@@ -68,7 +68,7 @@ export default async function Image() {
             lineHeight: 0.86,
           }}
         >
-          {HOME_HERO.title.split(" ").map((word, i, words) => (
+          {HOME_HERO.name.split(" ").map((word, i, words) => (
             <div key={word} style={{ display: "flex" }}>
               {word}
               {i === words.length - 1 && (
