@@ -10,12 +10,6 @@ export const CONTACT_PAGE = {
   title: "Schreib mir.",
 } as const;
 
-/** Labels of the address link's copy button. */
-export const EMAIL_TEXT = {
-  copyLabel: "Adresse kopieren",
-  copiedLabel: "Kopiert",
-} as const;
-
 /** Field props for `FormField`; `maxLength` is also the limit in `contactSchema`. */
 export const CONTACT_FORM = {
   fields: {
