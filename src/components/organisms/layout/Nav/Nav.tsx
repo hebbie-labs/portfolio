@@ -17,7 +17,7 @@ export function Nav() {
           aria-label={NAV_TEXT.themeToggle}
           className={cn(
             buttonVariants({ size: "icon" }),
-            "relative z-20 rounded-md",
+            "relative z-20 rounded-control",
           )}
         />
       </div>

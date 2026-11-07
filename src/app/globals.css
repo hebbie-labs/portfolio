@@ -50,7 +50,8 @@
   --color-transparent: transparent;
   --color-current: currentColor;
 
-  /* Corners: buttons/inputs rounded-md (6px), frames rounded-panel. */
+  /* Corners: buttons/inputs/cards rounded-control, frames rounded-panel. */
+  --radius-control: 0.125rem;
   --radius-panel: 10px;
 
   --font-display: var(--font-redaction), serif;

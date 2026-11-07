@@ -1,9 +1,9 @@
 import { useField } from "formik";
 import { CircleAlert } from "lucide-react";
 
+import { Input } from "@/components/atoms/Input";
+import { Textarea } from "@/components/atoms/Textarea";
 import { Field, FieldError, FieldLabel } from "@/components/ui/field";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 
 type Props = {
   name: string;
@@ -29,7 +29,6 @@ export function FormField({ name, label, multiline, ...props }: Props) {
       </FieldLabel>
       <Control
         id={name}
-        className="rounded-md"
         rows={multiline ? 6 : undefined}
         aria-required
         aria-invalid={!!shownError}
