@@ -97,12 +97,12 @@ export function PunktMenu() {
         }}
       />
 
-      {/* iOS Safari tints its bottom bar from a fixed element at the edge and keeps the last colour without one; the
-          header's counterpart: bg-bg/1 (invisible), accent once the square covers the screen (600ms), back on close. */}
+      {/* iOS Safari tints its bottom bar from a fixed element at the edge (ignored below ~8px) and keeps the last
+          colour without one: bg-bg/1 (invisible), accent once the square covers the screen (600ms), back on close. */}
       <span
         aria-hidden="true"
         className={cn(
-          "fixed inset-x-0 bottom-0 z-20 h-px transition-[background-color] duration-0",
+          "pointer-events-none fixed inset-x-0 bottom-0 z-20 h-2 transition-[background-color] duration-0",
           open ? "bg-accent delay-600 motion-reduce:delay-0" : "bg-bg/1",
         )}
       />
