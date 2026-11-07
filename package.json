@@ -25,6 +25,7 @@
     "react": "19.2.8",
     "react-dom": "19.2.8",
     "rough-notation": "^0.5.1",
+    "skinview3d": "^3.4.2",
     "tailwind-merge": "^3.7.0",
     "three": "^0.186.1",
     "yup": "^1.7.1"

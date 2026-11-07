@@ -10,6 +10,10 @@ export const HOME_HERO = {
   contactHref: "/kontakt",
   /** Typed one after another in the hero. */
   focus: ["Frontend", "React & TypeScript", "Spring Boot", "UI-Design"],
+  /** Minecraft skin (64×64, slim) in the middle slot; also usable in the game. */
+  skin: "/home/skin.png",
+  skinLabel:
+    "Leon als Minecraft-Figur: braune Locken, schwarzes Tanktop mit Kreuzkette, Jeans und Timberlands.",
 } as const;
 
 /** About teaser: the about intro in full, and a link to the about page. */
