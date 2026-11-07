@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 export function Nav() {
   return (
     // bg-bg/1 (invisible): iOS Safari tints its top bar from this sticky header; without a colour it keeps the last one.
-    // It ignores later colour changes here, so the top bar stays on --bg while the menu is open.
+    // Later colour changes here it ignores; the open menu's accent comes from `html:has([data-menu-tint])` in globals.css.
     <header className="pointer-events-none sticky top-0 z-50 bg-bg/1 p-5">
       {/* First child on purpose: globals.css lifts it above the open menu (`header:has([data-menu-open]) > div`). */}
       <div className="pointer-events-auto flex flex-row justify-between">

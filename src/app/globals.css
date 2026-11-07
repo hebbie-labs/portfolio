@@ -282,3 +282,10 @@ header:has([data-menu-open]) > div:first-child {
 header:has([data-menu-open]) > div:first-child svg {
   color: var(--accent-ink);
 }
+
+/* iOS Safari tints its top bar from the page background and only re-reads it when that changes (a colour change on
+   the sticky header it ignores): accent while the open menu's square covers the screen (PunktMenu's strip, which
+   tints the bottom bar). !important: beats the theme toggler pinning the old colour inline during its reveal. */
+html:has([data-menu-tint]) {
+  background-color: var(--accent) !important;
+}
