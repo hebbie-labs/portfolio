@@ -7,7 +7,8 @@ import { cn } from "@/lib/utils";
 
 export function Nav() {
   return (
-    <header className="pointer-events-none sticky top-0 z-50 p-5">
+    // bg-bg/1 (invisible): iOS Safari tints its bars from this sticky header; without a colour it keeps the open menu's accent.
+    <header className="pointer-events-none sticky top-0 z-50 bg-bg/1 p-5">
       {/* First child on purpose: globals.css lifts it above the open menu (`header:has([data-menu-open]) > div`). */}
       <div className="pointer-events-auto flex flex-row justify-between">
         {/* `relative z-20` on each item: the menu overlay (z-10) sits inside this bar and would cover them. */}

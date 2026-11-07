@@ -97,12 +97,15 @@ export function PunktMenu() {
         }}
       />
 
+      {/* bg-accent (hidden under the square) gives iOS Safari a colour to tint its bars with while the menu is open. */}
       <nav
         aria-label={NAV_TEXT.ariaLabel}
         inert={!open}
         className={cn(
           "fixed inset-0 z-10 flex flex-col justify-center gap-4 px-6 pt-24 pb-6 text-accent-ink transition-[opacity,visibility] duration-200 md:px-20",
-          open ? "visible opacity-100 delay-300" : "invisible opacity-0",
+          open
+            ? "visible bg-accent opacity-100 delay-300"
+            : "invisible opacity-0",
         )}
       >
         {NAV_LINKS.map(({ href, label }, i) => {
