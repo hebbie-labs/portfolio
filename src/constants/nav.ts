@@ -1,10 +1,12 @@
+/** Not in the menu, only the toggle's label on the start page. */
+export const HOME_LINK = { href: "/", label: "Start" } as const;
+
 export const NAV_LINKS = [
-  { href: "/", label: "Start" },
   { href: "/about", label: "About" },
   { href: "/kontakt", label: "Kontakt" },
 ] as const;
 
-export const CONTACT_LINK = NAV_LINKS[2];
+export const CONTACT_LINK = NAV_LINKS[1];
 
 export const OUTSIDE_NAV_LINKS = [
   { href: "/impressum", label: "Impressum" },
