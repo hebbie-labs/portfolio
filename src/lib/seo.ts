@@ -21,8 +21,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   alternates: { canonical: "./" },
   // keep dev.leonhebeisen.com (runs `pnpm dev`) out of search results
-  robots:
-    process.env.NODE_ENV === "production" ? undefined : { index: false },
+  robots: process.env.NODE_ENV === "production" ? undefined : { index: false },
   openGraph: {
     ...OPEN_GRAPH,
     title: SITE_TITLE,
@@ -34,6 +33,8 @@ export const metadata: Metadata = {
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
   },
+  // the site has its own dark theme; stops Dark Reader from rewriting the DOM (hydration mismatch)
+  other: { "darkreader-lock": "" },
 };
 
 export const viewport: Viewport = { themeColor: THEME_COLOR };
