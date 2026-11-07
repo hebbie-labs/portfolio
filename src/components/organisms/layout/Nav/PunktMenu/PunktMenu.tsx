@@ -6,6 +6,7 @@ import { useRef, useState } from "react";
 import { Button } from "@/components/atoms/Button";
 import { MENU_OPEN_EVENT, NAV_LINKS, NAV_TEXT } from "@/constants/nav";
 import { GITHUB_URL } from "@/constants/site";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { useWindowEvent } from "@/hooks/useWindowEvent";
 import { getNavLink } from "@/lib/nav";
 import { cn } from "@/lib/utils";
@@ -18,11 +19,16 @@ export function PunktMenu() {
   const [open, setOpen] = useState(false);
   const [origin, setOrigin] = useState<Origin>({ x: 0, y: 0 });
   const [size, setSize] = useState(0);
+  // The square has finished growing; reduced motion has no transition (and no transitionend) to wait for.
+  const [covered, setCovered] = useState(false);
+  const reduced = useMediaQuery("(prefers-reduced-motion: reduce)");
+  const tinted = open && (covered || reduced);
   const dotRef = useRef<HTMLSpanElement>(null);
 
   const show = ({ x, y }: Origin) => {
     setOrigin({ x, y });
     setSize(Math.ceil(Math.hypot(window.innerWidth, window.innerHeight) / 4));
+    setCovered(false);
     setOpen(true);
   };
 
@@ -95,17 +101,27 @@ export function PunktMenu() {
           top: origin.y,
           transform: `scale(${open ? size : 0})`,
         }}
+        onTransitionEnd={() => setCovered(open)}
       />
 
-      {/* bg-accent (hidden under the square) gives iOS Safari a colour to tint its bars with while the menu is open. */}
+      {/* iOS Safari tints its bottom bar from a fixed element at the edge and keeps the last colour without one. 8px
+          is enough to turn accent but not to switch back, 40px does both: bg-bg/1 (invisible), accent once the square
+          covers the screen, back on close. `data-menu-tint` also tints the top bar (`html:has(...)` in globals.css). */}
+      <span
+        aria-hidden="true"
+        data-menu-tint={tinted || undefined}
+        className={cn(
+          "pointer-events-none fixed inset-x-0 bottom-0 z-20 h-10",
+          tinted ? "bg-accent" : "bg-bg/1",
+        )}
+      />
+
       <nav
         aria-label={NAV_TEXT.ariaLabel}
         inert={!open}
         className={cn(
           "fixed inset-0 z-10 flex flex-col justify-center gap-4 px-6 pt-24 pb-6 text-accent-ink transition-[opacity,visibility] duration-200 md:px-20",
-          open
-            ? "visible bg-accent opacity-100 delay-300"
-            : "invisible opacity-0",
+          open ? "visible opacity-100 delay-300" : "invisible opacity-0",
         )}
       >
         {NAV_LINKS.map(({ href, label }, i) => {
