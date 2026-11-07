@@ -5,9 +5,9 @@ import { Moon, Sun } from "lucide-react";
 import { flushSync } from "react-dom";
 
 import { NAV_TEXT } from "@/constants/nav";
-import { useTheme } from "@/hooks/use-theme";
+import { useTheme } from "@/hooks/useTheme";
 import { setTheme } from "@/lib/theme";
-import { getCssColor, setThemeColor } from "@/lib/theme-color";
+import { getCssColor, setThemeColor } from "@/lib/themeColor";
 
 interface AnimatedThemeTogglerProps extends React.ComponentPropsWithoutRef<"button"> {
   duration?: number;

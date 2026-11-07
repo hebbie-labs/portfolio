@@ -1,25 +1,24 @@
-import {
-  Bricolage_Grotesque,
-  Instrument_Sans,
-  JetBrains_Mono,
-} from "next/font/google";
+import { Inter } from "next/font/google";
+import localFont from "next/font/local";
 
-const bricolage = Bricolage_Grotesque({
-  variable: "--font-bricolage",
-  subsets: ["latin"],
-  axes: ["opsz", "wdth"],
+// Redaction 50 and Tiny5 Duo aren't in next/font/google's list yet: local woff2, subset to Latin (OFL, licences next to the files).
+const redaction = localFont({
+  variable: "--font-redaction",
+  src: [
+    { path: "../assets/fonts/redaction-50-regular.woff2", weight: "400" },
+    { path: "../assets/fonts/redaction-50-bold.woff2", weight: "700" },
+  ],
 });
 
-const instrument = Instrument_Sans({
-  variable: "--font-instrument",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
-  axes: ["wdth"],
 });
 
-const jetbrains = JetBrains_Mono({
-  variable: "--font-jetbrains",
-  subsets: ["latin"],
-  weight: ["400", "500"],
+// Pixel font for highlights only (e.g. the server scene's canvas labels via `--font-mono`), not for small UI text.
+const tiny5 = localFont({
+  variable: "--font-tiny5",
+  src: "../assets/fonts/tiny5-duo-regular.woff2",
 });
 
-export const FONT_VARIABLES = `${bricolage.variable} ${instrument.variable} ${jetbrains.variable}`;
+export const FONT_VARIABLES = `${redaction.variable} ${inter.variable} ${tiny5.variable}`;

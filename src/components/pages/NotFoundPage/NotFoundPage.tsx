@@ -1,0 +1,40 @@
+"use client";
+
+import { ArrowLeft } from "lucide-react";
+import { Reveal } from "@/components/atoms/Reveal";
+import { Body, Headline } from "@/components/atoms/Typography";
+import { Button } from "@/components/atoms/Button";
+import { FuzzyText } from "@/components/atoms/FuzzyText";
+import { NOT_FOUND_PAGE } from "@/constants/notFound";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+
+export function NotFoundPage() {
+  const pathname = usePathname();
+
+  return (
+    <Reveal className="flex min-h-[calc(100dvh-7rem)] flex-col items-center justify-center gap-4 px-4 text-center">
+      <FuzzyText>404</FuzzyText>
+      <Headline as="h1" size="sm">
+        {NOT_FOUND_PAGE.title}
+      </Headline>
+      <Body muted>
+        <code className="rounded bg-bg-2 px-2 py-1 text-sm break-all">
+          {pathname}
+        </code>{" "}
+        {NOT_FOUND_PAGE.missing}
+      </Body>
+      <Button
+        variant="default"
+        render={<Link href="/" />}
+        nativeButton={false}
+        role="link"
+        size="lg"
+        className="mt-4"
+      >
+        <ArrowLeft aria-hidden />
+        {NOT_FOUND_PAGE.backLabel}
+      </Button>
+    </Reveal>
+  );
+}

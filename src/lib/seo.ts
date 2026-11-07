@@ -1,5 +1,4 @@
 import type { Metadata, Viewport } from "next";
-import { PROJECTS } from "@/constants/projects";
 import {
   EMPLOYER,
   JOB_TITLE,
@@ -22,8 +21,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   alternates: { canonical: "./" },
   // keep dev.leonhebeisen.com (runs `pnpm dev`) out of search results
-  robots:
-    process.env.NODE_ENV === "production" ? undefined : { index: false },
+  robots: process.env.NODE_ENV === "production" ? undefined : { index: false },
   openGraph: {
     ...OPEN_GRAPH,
     title: SITE_TITLE,
@@ -35,6 +33,8 @@ export const metadata: Metadata = {
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
   },
+  // the site has its own dark theme; stops Dark Reader from rewriting the DOM (hydration mismatch)
+  other: { "darkreader-lock": "" },
 };
 
 export const viewport: Viewport = { themeColor: THEME_COLOR };
@@ -117,22 +117,4 @@ export const ABOUT_JSON_LD = webPage("ProfilePage", "/about", {
 
 export const CONTACT_JSON_LD = webPage("ContactPage", "/kontakt", {
   about: PERSON,
-});
-
-export const PROJECTS_JSON_LD = webPage("CollectionPage", "/projekte", {
-  mainEntity: {
-    "@type": "ItemList",
-    itemListElement: PROJECTS.map((project, i) => ({
-      "@type": "ListItem",
-      position: i + 1,
-      item: {
-        "@type": "CreativeWork",
-        name: project.title,
-        description: project.summary,
-        url: `${SITE_URL}/projekte#${project.slug}`,
-        author: PERSON,
-        ...(project.repo && { sameAs: project.repo }),
-      },
-    })),
-  },
 });

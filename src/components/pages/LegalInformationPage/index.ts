@@ -1,0 +1,1 @@
+export { LegalInformationPage } from "./LegalInformationPage";

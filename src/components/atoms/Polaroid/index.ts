@@ -1,0 +1,1 @@
+export { Polaroid } from "./Polaroid";

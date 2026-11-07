@@ -1,11 +1,12 @@
+/** Not in the menu, only the toggle's label on the start page. */
+export const HOME_LINK = { href: "/", label: "Start" } as const;
+
 export const NAV_LINKS = [
-  { href: "/", label: "Start" },
-  { href: "/projekte", label: "Projekte" },
   { href: "/about", label: "About" },
   { href: "/kontakt", label: "Kontakt" },
 ] as const;
 
-export const CONTACT_LINK = NAV_LINKS[3];
+export const CONTACT_LINK = NAV_LINKS[1];
 
 export const OUTSIDE_NAV_LINKS = [
   { href: "/impressum", label: "Impressum" },
@@ -14,13 +15,13 @@ export const OUTSIDE_NAV_LINKS = [
 
 export const PRIVACY_LINK = OUTSIDE_NAV_LINKS[1];
 
-/** Texts of the nav bar, menu panel and its buttons. */
+/** Texts of the nav bar, the punkt menu and its buttons. */
 export const NAV_TEXT = {
   ariaLabel: "Hauptnavigation",
-  menuOpen: "Menü",
-  menuClose: "Schliessen",
-  themeLight: "Hell",
-  themeDark: "Dunkel",
+  menu: "Menü",
+  close: "Schliessen",
+  menuOpen: "Menü öffnen",
+  menuClose: "Menü schliessen",
   github: "GitHub",
   themeToggle: "Farbschema wechseln",
   homeLabel: "Zur Startseite",
@@ -28,3 +29,6 @@ export const NAV_TEXT = {
 } as const;
 
 export const NOT_FOUND_LINK = { href: "", label: "404" } as const;
+
+/** Window event `atoms/MenuPunkt` dispatches to open the punkt menu from its position (`detail: { x, y }`). */
+export const MENU_OPEN_EVENT = "punkt-menu:open";

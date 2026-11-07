@@ -13,21 +13,19 @@
   --accent: #4fd88a;
   --accent-ink: #06120b;
   --danger: #ff7b6b;
-  --glass: rgba(17, 22, 18, 0.78);
   color-scheme: dark;
 }
 
 [data-theme="light"] {
-  --bg: #eef2ee;
-  --bg-2: #e2e8e3;
-  --ph: #dce4de;
-  --line: #c9d3cc;
-  --muted: #56635b;
-  --fg: #0b110d;
-  --accent: #0e7a4b;
-  --accent-ink: #f2f7f3;
-  --danger: #b42318;
-  --glass: rgba(226, 232, 227, 0.82);
+  --bg: #fdfdfd;
+  --bg-2: #f4f4f4;
+  --ph: #ebebeb;
+  --line: #e0e0e0;
+  --muted: #555555;
+  --fg: #111111;
+  --accent: #a30000;
+  --accent-ink: #ffffff;
+  --danger: #dc2626;
   color-scheme: light;
 }
 
@@ -49,29 +47,24 @@
   --color-accent: var(--accent);
   --color-accent-ink: var(--accent-ink);
   --color-danger: var(--danger);
-  --color-glass: var(--glass);
   --color-transparent: transparent;
   --color-current: currentColor;
 
-  --font-display: var(--font-bricolage), sans-serif;
-  --font-sans: var(--font-instrument), system-ui, sans-serif;
-  --font-mono: var(--font-jetbrains), monospace;
+  /* Corners: buttons/inputs/cards rounded-control, frames rounded-panel. */
+  --radius-control: 0.125rem;
+  --radius-panel: 10px;
+
+  --font-display: var(--font-redaction), serif;
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-mono: var(--font-tiny5), monospace;
 
   --text-display: clamp(4.875rem, 16vw, 17.5rem);
   --text-display--line-height: 0.82;
   --text-display--letter-spacing: -0.03em;
-  /* Start page name: two stacked lines sized so name, lead and button fill one screen (30rem = nav, padding, gaps, lead, button; 1.8 = two lines of 0.82 plus some air). The width cap keeps "HEBEISEN." (about 3.4em) inside the page padding; 28rem keeps it inside the 100rem content. */
-  --text-display-hero: clamp(
-    5rem,
-    min(calc((100dvh - 30rem) / 1.8), calc((100vw - 10rem) / 3.5)),
-    28rem
-  );
-  --text-display-hero--line-height: 0.82;
-  --text-display-hero--letter-spacing: -0.03em;
   --text-display-lg: clamp(4rem, 12vw, 12.5rem);
   --text-display-lg--line-height: 0.82;
   --text-display-lg--letter-spacing: -0.03em;
-  /* cqw: fits long project names into the preview card (an @container); without one it equals 20svw, so 7.5vw wins. */
+  /* cqw: fits long names into an @container; without one it equals 20svw, so 7.5vw wins. */
   --text-display-md: clamp(3rem, min(7.5vw, 20cqw), 6.5rem);
   --text-display-md--line-height: 0.86;
   --text-display-md--letter-spacing: -0.03em;
@@ -88,9 +81,11 @@
 
 html {
   background-color: var(--bg);
-  scrollbar-gutter: stable;
-  /* Anchors and focused elements stay clear of the fixed nav pill. */
-  scroll-padding-top: calc(var(--nav-top) + var(--nav-h) + 1rem);
+  /* Replaced by atoms/ScrollCan, which gets its own strip (--scrollbar-w) on mouse devices. */
+  scrollbar-width: none;
+  padding-right: var(--scrollbar-w);
+  /* Anchors and focused elements stay clear of the sticky nav (p-5 + 44px bar + 1rem). */
+  scroll-padding-top: calc(1.25rem + 2.75rem + 1rem);
 }
 
 a,
@@ -99,39 +94,27 @@ button {
   -webkit-tap-highlight-color: transparent;
 }
 
-@utility font-condensed {
-  font-stretch: 75%;
-}
-
 @utility page-x {
   @apply px-4 md:px-10 lg:px-20 2xl:px-[max(5rem,calc((100%-100rem)/2))];
 }
 
-/* Fixed nav pill: distance from the viewport top and its height (p-1 + 44px bar + border). */
-:root {
-  --nav-top: 1rem;
-  --nav-h: 54px;
+/* Outline around a cut-out image (atoms/Sticker): each drop-shadow grows the result of the one before. */
+@utility sticker-outline {
+  filter: drop-shadow(4px 0 0 var(--fg)) drop-shadow(-4px 0 0 var(--fg))
+    drop-shadow(0 4px 0 var(--fg)) drop-shadow(0 -4px 0 var(--fg));
 }
-@media (min-width: 48rem) {
+
+:root {
+  --scrollbar-w: 0px;
+}
+@media (pointer: fine) {
   :root {
-    --nav-top: 1.25rem;
+    --scrollbar-w: 32px;
   }
 }
 
-/* Top padding that always leaves the same gap below the nav pill. */
-@utility pt-nav {
-  padding-top: calc(var(--nav-top) + var(--nav-h) + 3rem);
-}
-
-/**
- * Widest browser frame (aspect 1203:753, see ui/safari.tsx) whose full height fits on one screen below the nav,
- * so scrolled into view its bottom edge stays visible.
- */
-@utility max-w-first-screen {
-  max-width: max(
-    28rem,
-    calc((100dvh - var(--nav-top) - var(--nav-h) - 3rem) * 1.6)
-  );
+html::-webkit-scrollbar {
+  display: none;
 }
 
 @utility lnk {
@@ -171,32 +154,11 @@ button {
   color: var(--accent-ink);
 }
 
-/* Startup screen: `data-intro` on <html> is "logo" → "done" (see Intro, INTRO_INIT_SCRIPT). */
-html[data-intro="logo"] {
-  overflow: hidden;
-}
-
-/* Matches the startup screen so browser chrome/overscroll blend in; Intro fades it back to --bg. */
-html[data-intro="logo"],
-html[data-intro="logo"] body {
-  background-color: var(--bg-2);
-}
-
-/* Safari draws the page under its floating toolbar, past any overlay; keep that area plain body color. */
-html[data-intro="logo"] main,
-html[data-intro="logo"] footer {
-  visibility: hidden;
-}
-
-/* Plays on every page load and route change; paused behind the startup screen until `data-intro` leaves "logo". */
+/* Plays on every page load and route change. */
 [data-reveal]:not([data-scroll]),
 [data-reveal][data-in] {
   animation: var(--reveal, reveal) 450ms var(--ease-spring) backwards;
   animation-delay: calc(var(--i, 0) * 60ms);
-}
-
-html[data-intro="logo"] [data-reveal] {
-  animation-play-state: paused;
 }
 
 @keyframes reveal {
@@ -256,8 +218,9 @@ html[data-intro="logo"] [data-reveal] {
   *,
   *::before,
   *::after {
-    transition-property: color, background-color, border-color, fill, stroke,
-      opacity, box-shadow, filter !important;
+    transition-property:
+      color, background-color, border-color, fill, stroke, opacity, box-shadow,
+      filter !important;
     scroll-behavior: auto !important;
   }
 
@@ -268,4 +231,54 @@ html[data-intro="logo"] [data-reveal] {
     animation-duration: 200ms;
     animation-delay: 0ms;
   }
+}
+@keyframes punkt-ping {
+  50% {
+    transform: scale(1.8);
+  }
+}
+
+@keyframes punkt-nudge {
+  50% {
+    transform: scale(1.15);
+  }
+}
+
+@keyframes punkt-rise {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.punkt-ping {
+  animation: punkt-ping 1s steps(4) 0.8s 3;
+}
+.punkt-nudge {
+  animation: punkt-nudge 1s steps(4) 0.8s 3;
+}
+.punkt-rise {
+  animation: punkt-rise 0.5s var(--ease-out) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .punkt-ping,
+  .punkt-nudge,
+  .punkt-rise {
+    animation: none;
+  }
+}
+
+header:has([data-menu-open]) > div:first-child {
+  position: relative;
+  z-index: 20;
+  color: var(--accent-ink);
+}
+
+header:has([data-menu-open]) > div:first-child svg {
+  color: var(--accent-ink);
 }
