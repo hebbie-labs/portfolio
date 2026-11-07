@@ -98,24 +98,16 @@ export const AnimatedThemeToggler = ({
     // theme unclipped between snapshot and the ready.then() JS animation.
     root.style.setProperty("--magicui-theme-vt-clip-from", clipPath[0]);
     // Keep the canvas (visible under Safari's bars, outside the snapshot) on the old color until
-    // the reveal finishes. Body paints the live (already switched) theme under the snapshot,
-    // which Safari also samples for its bars, so pin it to the old color as well.
+    // the reveal finishes. Not body: the new snapshot is live, so a pinned body would show the
+    // new theme on the old background inside the circle.
     root.style.backgroundColor = oldColor;
-    document.body.style.backgroundColor = oldColor;
-    // Release the pins slightly before the reveal ends and fade them, so the
-    // area outside the snapshot (bars, footer safe-area) blends instead of snapping.
-    const FADE_MS = 250;
+    // Release the pin in one step once the reveal is done: a fade (or an early
+    // release) shows up in Safari's bars as a grey in-between step and a stutter.
     const release = () => {
-      for (const el of [root, document.body]) {
-        el.style.transition = `background-color ${FADE_MS}ms ease-out`;
-        el.style.removeProperty("background-color");
-        setTimeout(() => el.style.removeProperty("transition"), FADE_MS);
-      }
+      root.style.removeProperty("background-color");
       setThemeColor();
     };
-    const releaseTimer = setTimeout(release, duration * 0.65);
     const cleanup = () => {
-      clearTimeout(releaseTimer);
       release();
       delete root.dataset.magicuiThemeVt;
       root.style.removeProperty("--magicui-theme-toggle-vt-duration");
