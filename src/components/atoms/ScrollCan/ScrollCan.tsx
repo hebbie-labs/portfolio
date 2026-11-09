@@ -26,7 +26,7 @@ export function ScrollCan({ src }: { src: StaticImageData }) {
     <div
       ref={ref}
       aria-hidden
-      className="group fixed inset-y-0 right-0 z-40 w-(--scrollbar-w) cursor-pointer touch-none select-none [--p:0] pointer-coarse:w-3"
+      className="group fixed inset-y-0 right-0 z-40 w-(--scrollbar-w) cursor-pointer touch-none select-none [--p:0] pointer-coarse:hidden"
       onPointerDown={(e) => {
         e.preventDefault();
         e.currentTarget.setPointerCapture(e.pointerId);
